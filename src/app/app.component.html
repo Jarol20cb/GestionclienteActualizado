@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión</title>
+</head>
+<body>
+  <div class="toolbar" *ngIf="verificar()">
+    <div class="toolbar-title">CrediApp</div>
+    <div class="toolbar-buttons">
+      <button class="toolbar-button" routerLink="/components/home">
+        <mat-icon class="toolbar-icon">home</mat-icon>
+      </button>
+      <div class="dropdown">
+        <button class="toolbar-button">
+          <mat-icon class="toolbar-icon">account_circle</mat-icon>
+        </button>
+        <div class="dropdown-content">
+          <a routerLink="/components/credentials">Ver perfil</a>
+          <a (click)="cerrar()">Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</body>
+</html>

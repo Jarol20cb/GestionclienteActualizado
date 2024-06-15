@@ -1,0 +1,29 @@
+<div class="container">
+  <h2 style="text-align: center;">Visualización de Pagos</h2>
+  <div class="chart-container">
+    <div class="bar-container">
+      <div class="bar deudores" [style.height]="getBarHeight(deudores)">
+        <span class="label">Deudores: {{ deudores }}</span>
+      </div>
+    </div>
+    <div class="bar-container">
+      <div class="bar aldia" [style.height]="getBarHeight(alDia)">
+        <span class="label">Al Día: {{ alDia }}</span>
+      </div>
+    </div>
+  </div>
+  <table class="payment-table">
+    <tr>
+      <th>Estado</th>
+      <th>Cantidad</th>
+    </tr>
+    <tr>
+      <td>Deudores</td>
+      <td>{{ deudores }}</td>
+    </tr>
+    <tr>
+      <td>Al Día</td>
+      <td>{{ alDia }}</td>
+    </tr>
+  </table>
+</div>

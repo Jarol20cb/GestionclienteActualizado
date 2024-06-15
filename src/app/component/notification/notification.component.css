@@ -1,0 +1,40 @@
+.notification {
+  color: #ffffff;
+  background-color: #333333; /* Fondo oscuro */
+  padding: 16px;
+  text-align: center;
+  border-radius: 12px; /* Bordes redondeados */
+  font-size: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease-out, fadeOut 0.5s 2.5s ease-out; /* Ajuste de animación */
+}
+
+.notification-icon {
+  margin-right: 12px;
+  font-size: 24px; /* Tamaño del icono */
+}
+
+.notification-message {
+  flex: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

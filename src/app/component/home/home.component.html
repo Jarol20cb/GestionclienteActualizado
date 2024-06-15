@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenida - CrediApp</title>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="left-column">
+      <img src="../../../assets/icono-usuario.png" alt="Avatar">
+      <div class="welcome-text">Bienvenido, {{ username }}!</div>
+      <div class="button-container">
+        <button class="button" routerLink="/components/servicios">Plataformas</button>
+        <button class="button" routerLink="/components/custser">Ver mis Registros</button>
+      </div>
+    </div>
+    <div class="right-column">
+      <div class="accordion-container">
+        <h3>Clientes con Estado Pendiente</h3>
+        <mat-accordion *ngIf="paginatedClientes.length > 0">
+          <mat-expansion-panel *ngFor="let cliente of paginatedClientes">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ cliente.name }} - Deudor
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+              <p><strong>Fecha de Inicio:</strong> {{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</p>
+              <p><strong>Fecha de Pago:</strong> {{ cliente.fechafin | date: 'dd/MM/yyyy' }}</p>
+              <p><strong>Tipo de Servicio:</strong> {{ cliente.services.service }}</p>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div *ngIf="clientesPendientes.length > itemsPerPage" class="pagination-controls">
+          <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+          <span>Página {{ currentPage }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length">Siguiente</button>
+        </div>
+        <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <script>
+    // Lógica de los botones para navegación con Angular
+    document.querySelectorAll('.button').forEach(button => {
+      button.addEventListener('click', function() {
+        window.location.href = this.getAttribute('routerLink');
+      });
+    });
+  </script>
+</body>
+</html>

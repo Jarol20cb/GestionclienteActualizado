@@ -1,0 +1,75 @@
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 20px 0;
+  height: 300px; /* Ajusta según tu necesidad */
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.bar-container {
+  width: 100px;
+  margin: 0 15px;
+  position: relative;
+}
+
+.bar {
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: height 0.3s ease;
+  position: relative;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+}
+
+.bar.deudores {
+  background-color: #B22222; /* Dark Red */
+}
+
+.bar.aldia {
+  background-color: #1E90FF; /* Dodger Blue */
+}
+
+.bar .label {
+  position: absolute;
+  bottom: 5px;
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+}
+
+.payment-table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 18px;
+  text-align: left;
+}
+
+.payment-table th, .payment-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.payment-table th {
+  background-color: #f4f4f4;
+}
+
+.payment-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.payment-table tr:nth-child(odd) {
+  background-color: #ffffff;
+}

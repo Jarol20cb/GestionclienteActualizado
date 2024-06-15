@@ -1,0 +1,10 @@
+/* Estilos globales para sobrescribir el fondo del snack bar */
+.mat-snack-bar-container {
+    background: none !important; /* Elimina el fondo negro */
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

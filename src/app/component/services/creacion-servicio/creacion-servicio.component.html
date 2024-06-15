@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Servicios</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registro de Servicios</h2>
+    <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+      <div *ngIf="edicion" class="form-group">
+        <label for="serviceId">Nr</label>
+        <input id="serviceId" type="text" formControlName="serviceId" readonly />
+      </div>
+      <div class="form-group">
+        <label for="service">Nombre del servicio</label>
+        <input id="service" type="text" formControlName="service" />
+        <div *ngIf="obtenerControlCampo('service')?.touched && obtenerControlCampo('service')?.errors?.['required']" class="error">
+          El nombre del servicio es obligatorio.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <input id="description" type="text" formControlName="description" />
+        <div *ngIf="obtenerControlCampo('description')?.touched && obtenerControlCampo('description')?.errors?.['required']" class="error">
+          La descripción es obligatoria.
+        </div>
+      </div>
+      <p>{{ mensaje }}</p>
+      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="button" class="custom-button-cancel" routerLink="/components/servicios">Cancelar</button>
+    </form>
+  </div>
+</body>
+</html>

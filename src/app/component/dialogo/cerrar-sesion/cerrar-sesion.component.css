@@ -1,0 +1,42 @@
+/* Aplica bordes redondos al cuadro de diálogo */
+.mat-dialog-container {
+  border-radius: 10px; /* Cambié de 50% a 10px para mantener la coherencia con el diseño */
+}
+
+.text-center {
+  text-align: center;
+}
+
+.custom-dialog-title {
+  font-size: 24px;
+  color: #34495E; /* Color del texto */
+}
+
+.custom-dialog-content {
+  font-size: 16px;
+  color: #666; /* Puedes ajustar este color si prefieres un tono específico de la paleta */
+}
+
+.custom-dialog-actions {
+  justify-content: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button {
+  background-color: #2980B9; /* Azul principal */
+  color: #fff;
+  border: none;
+  border-radius: 8px; /* Ajusté el borde para que coincida con los otros botones */
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-button:hover {
+  background-color: #1A5276; /* Azul oscuro para hover */
+}

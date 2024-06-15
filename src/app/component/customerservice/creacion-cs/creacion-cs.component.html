@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registro de clientes y tipo de servicio</h2>
+    <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form" enctype="multipart/form-data">
+      <div *ngIf="edicion" class="form-group">
+        <label for="idcs">Nr</label>
+        <input id="idcs" type="text" formControlName="idcs" readonly />
+      </div>      
+      <div class="form-group">
+        <label for="name">Nombre del cliente</label>
+        <input id="name" type="text" formControlName="name" />
+        <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['required']" class="error">
+          El nombre del cliente es obligatorio.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="services">Tipo de servicio</label>
+        <select id="services" formControlName="services">
+          <option *ngFor="let c of listservices" [value]="c.serviceId">
+            {{c.service}}
+          </option>
+        </select>
+        <div *ngIf="form.get('services')?.touched && form.get('services')?.errors?.['required']" class="error">
+          El campo es obligatorio.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechainicio">Fecha de inicio</label>
+        <input id="fechainicio" type="date" formControlName="fechainicio" [max]="maxFecha" />
+        <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['required']" class="error">
+          La fecha es obligatoria.
+        </div>
+        <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['invalidDate']" class="error">
+          No puede seleccionar una fecha futura.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechafin">Fecha de pago</label>
+        <input id="fechafin" type="date" formControlName="fechafin" />
+        <div *ngIf="form.get('fechafin')?.touched && form.get('fechafin')?.errors?.['required']" class="error">
+          La fecha es obligatoria.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <input id="estado" type="text" formControlName="estado" readonly />
+      </div>
+      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="button" class="custom-button-cancel" routerLink="/components/custser">Cancelar</button>
+      <p>{{ mensaje }}</p>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  background: linear-gradient(135deg, #FF5733, #FFC300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.containerxd {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  display: flex;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+}
+
+.image-container {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  background: #fff;
+}
+
+img {
+  max-width: 100%;
+}
+
+h2 {
+  font-size: 2.5em;
+  margin-top: 0;
+  font-weight: 700;
+  color: #34495E;
+}
+
+.form-field {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-field label {
+  display: block;
+  font-weight: bold;
+  color: #34495E;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  background: rgba(236, 240, 241, 0.5);
+}
+
+.custom-button {
+  background-color: #2980B9;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-right: 10px;
+}
+
+.custom-button:hover {
+  background-color: #1A5276;
+  transform: scale(1.05);
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.columnaderegistro-e-imagen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.colum1 {
+  flex: 1;
+}
+
+.colum2 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colum2 img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.toggle-password-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 16px;
+  color: #2980B9;
+  margin-left: 5px;
+}
