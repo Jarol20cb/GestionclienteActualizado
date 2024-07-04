@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/service/login.service';
-import { CerrarSesionComponent } from '../dialogo/cerrar-sesion/cerrar-sesion.component';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
 
@@ -12,7 +11,9 @@ import { CustomersServices } from 'src/app/model/CustomerService';
 })
 export class HomeComponent implements OnInit {
   role: string = "";
-  username: string = "";
+  name: string = ""; // Nombre del usuario
+  username: string = ""; // Nombre de usuario
+  companyName: string = ""; // Nombre de la empresa
   clientesPendientes: CustomersServices[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -26,7 +27,9 @@ export class HomeComponent implements OnInit {
 
   verificar() {
     this.role = this.loginService.showRole();
+    this.name = this.loginService.showName();
     this.username = this.loginService.showUser();
+    this.companyName = this.loginService.showCompanyName();
     return this.loginService.verificar();
   }
 

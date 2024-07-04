@@ -13,8 +13,22 @@
           <div class="colum1">
             <h2>Registro</h2>
             <div class="form-field">
-              <label for="username">Nombre de usuario</label>
+              <label for="username">Correo Electrónico</label>
               <input type="text" id="username" name="username" formControlName="username" />
+              <div *ngIf="form.get('username')?.hasError('email')" class="error-message">
+                Por favor, introduce un correo electrónico válido.
+              </div>
+              <div *ngIf="form.get('username')?.hasError('required')" class="error-message">
+                El correo electrónico es obligatorio.
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="name">Nombre</label>
+              <input type="text" id="name" name="name" formControlName="name" />
+            </div>
+            <div class="form-field">
+              <label for="companyName">Nombre de la empresa</label>
+              <input type="text" id="companyName" name="companyName" formControlName="companyName" />
             </div>
             <div class="form-field">
               <label for="password">Contraseña</label>

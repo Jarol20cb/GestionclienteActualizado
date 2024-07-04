@@ -21,7 +21,7 @@ export class LoginService {
     return token != null;
   }
 
-  showRole(){
+  showRole() {
     let token = sessionStorage.getItem("token");
     if (!token) {
       return null;
@@ -31,7 +31,7 @@ export class LoginService {
     return decodedToken?.role;
   }
 
-  showUser(){
+  showUser() {
     let token = sessionStorage.getItem("token");
     if (!token) {
       return null;
@@ -39,5 +39,25 @@ export class LoginService {
     const helper = new JwtHelperService();
     const decodedToken = helper.decodeToken(token);
     return decodedToken?.sub;
+  }
+
+  showName() {
+    let token = sessionStorage.getItem("token");
+    if (!token) {
+      return null;
+    }
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(token);
+    return decodedToken?.name; // Assuming name is the name of the user
+  }
+
+  showCompanyName() {
+    let token = sessionStorage.getItem("token");
+    if (!token) {
+      return null;
+    }
+    const helper = new JwtHelperService();
+    const decodedToken = helper.decodeToken(token);
+    return decodedToken?.companyName; // Assuming companyName is the name of the company
   }
 }

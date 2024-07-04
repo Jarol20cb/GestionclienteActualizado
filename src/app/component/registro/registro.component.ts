@@ -32,12 +32,15 @@ export class RegistroComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.email]], // Validación de correo electrónico
       password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', Validators.required],
       roles: ['', Validators.required],
+      name: ['', Validators.required],
+      companyName: ['', Validators.required],
     });
   }
+
   registrar() {
     if (this.form.valid) {
       const registro: Registro = {
@@ -45,6 +48,8 @@ export class RegistroComponent implements OnInit {
         username: this.form.value.username,
         password: this.form.value.password,
         roles: [this.form.value.roles],
+        name: this.form.value.name,
+        companyName: this.form.value.companyName,
       };
   
       this.cS.insert(registro).subscribe(
@@ -62,7 +67,6 @@ export class RegistroComponent implements OnInit {
       this.openDialog('Formulario no válido', 'Por favor, completa todos los campos.');
     }
   }
-  
 
   openDialog(title: string, message: string): void {
     const dialogRef = this.dialog.open(DialogComponent, {
