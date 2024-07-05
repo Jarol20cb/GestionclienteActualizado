@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from './service/login.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CerrarSesionComponent } from './component/dialogo/cerrar-sesion/cerrar-sesion.component';
@@ -9,7 +9,7 @@ import { Registro } from './model/registro';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'GestionCliente';
   user: Registro = new Registro();
   error: string = "";
@@ -17,9 +17,11 @@ export class AppComponent {
   role: string = "";
   username: string = "";
 
-  constructor(private loginService: LoginService, private dialog: MatDialog) {
-    // Ejemplo: Llamar getUserDetails() después de verificar el usuario
+  constructor(private loginService: LoginService, private dialog: MatDialog) { }
+
+  ngOnInit() {
     this.verificar();
+    this.loginService.user$.subscribe(user => this.user = user);
     this.getUserDetails();
   }
 

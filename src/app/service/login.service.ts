@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { JwtRequest } from '../model/jwtRequest';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
-import { Observable, from } from 'rxjs';
+import { Observable, from, BehaviorSubject, tap } from 'rxjs';
 import { Registro } from '../model/registro';
 
 @Injectable({
@@ -11,6 +11,8 @@ import { Registro } from '../model/registro';
 })
 export class LoginService {
   private baseUrl = environment.base;
+  private userSubject: BehaviorSubject<Registro> = new BehaviorSubject<Registro>(new Registro());
+  public user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -56,11 +58,11 @@ export class LoginService {
   getUserDetails(): Observable<Registro> {
     let token = sessionStorage.getItem("token");
     if (token) {
-      return this.http.get<Registro>(`${this.baseUrl}/user/details`, {
+      return this.http.get<Registro>(`${this.baseUrl}/users/details`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      });
+      }).pipe(tap(user => this.userSubject.next(user)));
     } else {
       return from(Promise.reject('No token found'));
     }
