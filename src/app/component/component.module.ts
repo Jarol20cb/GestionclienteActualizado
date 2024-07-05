@@ -38,6 +38,7 @@ import { VisualizarPagosComponent } from './visualizar-pagos/visualizar-pagos.co
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NotificationComponent } from './notification/notification.component';
 import { ConfirmarRenovacionDialogComponent } from './confirmar-renovacion-dialog/confirmar-renovacion-dialog.component';
+import { WarningDialogComponent } from './dialogo/warning-dialog/warning-dialog.component';
 
 
 
@@ -58,7 +59,8 @@ import { ConfirmarRenovacionDialogComponent } from './confirmar-renovacion-dialo
     CreacionCsComponent,
     VisualizarPagosComponent,
     NotificationComponent,
-    ConfirmarRenovacionDialogComponent
+    ConfirmarRenovacionDialogComponent,
+    WarningDialogComponent
   ],
   imports: [
     CommonModule,

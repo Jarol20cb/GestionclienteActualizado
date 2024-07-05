@@ -6,16 +6,18 @@ import { Services } from 'src/app/model/Services';
 import { LoginService } from 'src/app/service/login.service';
 import { ServicesService } from 'src/app/service/services.service';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
+import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dialog.component';
 
 @Component({
   selector: 'app-listar-servicio',
   templateUrl: './listar-servicio.component.html',
   styleUrls: ['./listar-servicio.component.css']
 })
-export class ListarServicioComponent implements OnInit{
+export class ListarServicioComponent implements OnInit {
   dataSource: MatTableDataSource<Services> = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'servicio', 'descripcion', 'editar', 'eliminar'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  role: string = "";
 
   constructor(private cS: ServicesService, public dialog: MatDialog, private loginService: LoginService) {}
 
@@ -36,10 +38,20 @@ export class ListarServicioComponent implements OnInit{
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.cS.delete(id).subscribe((data) => {
-          this.cS.list().subscribe((data) => {
-            this.cS.setList(data);
-          });
+        this.cS.delete(id).subscribe({
+          next: () => {
+            this.cS.list().subscribe((data) => {
+              this.cS.setList(data);
+            });
+          },
+          error: (errorMessage) => {
+            console.log('Error message:', errorMessage); // Agrega un log para verificar el mensaje
+            this.dialog.open(WarningDialogComponent, {
+              data: {
+                message: errorMessage
+              }
+            });
+          }
         });
       }
     });
@@ -49,13 +61,12 @@ export class ListarServicioComponent implements OnInit{
     this.dataSource.filter = en.target.value.trim();
   }
 
-  role: string = "";
-
   verificar() {
     this.role = this.loginService.showRole();
     this.actualizarColumnas();
     return this.loginService.verificar();
   }
+
   private actualizarColumnas() {
     if (this.role === 'ADMIN' || this.role === 'USER') {
       this.displayedColumns = ['id', 'servicio', 'descripcion', 'editar', 'eliminar'];
