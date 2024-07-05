@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/service/login.service';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
+import { Registro } from 'src/app/model/registro';
 
 @Component({
   selector: 'app-home',
@@ -11,25 +12,26 @@ import { CustomersServices } from 'src/app/model/CustomerService';
 })
 export class HomeComponent implements OnInit {
   role: string = "";
-  name: string = ""; // Nombre del usuario
   username: string = ""; // Nombre de usuario
-  companyName: string = ""; // Nombre de la empresa
+  name: String = "";
   clientesPendientes: CustomersServices[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
+  user: Registro = new Registro();
+  error: string = "";
 
   constructor(private loginService: LoginService, private dialog: MatDialog, private cS: CustomerserviceService) {}
 
   ngOnInit(): void {
     this.verificar();
     this.cargarClientesPendientes();
+    this.getUserDetails();
   }
 
   verificar() {
     this.role = this.loginService.showRole();
-    this.name = this.loginService.showName();
     this.username = this.loginService.showUser();
-    this.companyName = this.loginService.showCompanyName();
+    this.name = this.loginService.showName();
     return this.loginService.verificar();
   }
 
@@ -51,5 +53,18 @@ export class HomeComponent implements OnInit {
 
   previousPage() {
     this.currentPage--;
+  }
+
+
+  getUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+      },
+      error => {
+        this.error = error;
+        console.error('Error al obtener los detalles del usuario', error);
+      }
+    );
   }
 }

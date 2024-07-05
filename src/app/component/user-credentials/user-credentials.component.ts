@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/service/login.service';
 import { CerrarSesionComponent } from '../dialogo/cerrar-sesion/cerrar-sesion.component';
+import { Registro } from 'src/app/model/registro';
 
 @Component({
   selector: 'app-user-credentials',
@@ -9,20 +10,27 @@ import { CerrarSesionComponent } from '../dialogo/cerrar-sesion/cerrar-sesion.co
   styleUrls: ['./user-credentials.component.css']
 })
 export class UserCredentialsComponent implements OnInit {
-  role:string="";
-  username:string=""
+  user: Registro = new Registro();
+  error: string;
+
   constructor(private loginService: LoginService, private dialog: MatDialog) {
+    this.error = ''; // Inicialización de la propiedad error
   }
 
   ngOnInit(): void {
-    this.verificar();
+    this.getUserDetails();
   }
 
-
-  verificar() {
-    this.role=this.loginService.showRole();
-    this.username=this.loginService.showUser();
-    return this.loginService.verificar();
+  getUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+      },
+      error => {
+        this.error = error;
+        console.error('Error al obtener los detalles del usuario', error);
+      }
+    );
   }
 
   cerrar() {
@@ -38,5 +46,4 @@ export class UserCredentialsComponent implements OnInit {
       }
     });
   }
-
 }

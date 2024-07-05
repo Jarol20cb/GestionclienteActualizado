@@ -4,20 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenida - CrediApp</title>
+
 </head>
 <body>
 
   <div class="container">
     <div class="left-column">
       <img src="../../../assets/icono-usuario.png" alt="Avatar">
-      <div class="welcome-text">Bienvenido, {{ name }}!</div>
-      <div class="user-info">
-        <p>Usuario: {{ username }}</p>
-        <p>Empresa: {{ companyName }}</p>
-      </div>
+      <div class="welcome-text">Bienvenido, {{ user.name }}!</div>
       <div class="button-container">
-        <button class="button" routerLink="/components/servicios">Plataformas</button>
-        <button class="button" routerLink="/components/custser">Ver mis Registros</button>
+        <button class="button" routerLink="/components/servicios">Agregar plataformas</button>
+        <button class="button" routerLink="/components/custser">Ver mis clientes</button>
       </div>
     </div>
     <div class="right-column">
@@ -46,6 +43,9 @@
       </div>
     </div>
   </div>
+  
+  
+  
   
   <script>
     // Lógica de los botones para navegación con Angular
