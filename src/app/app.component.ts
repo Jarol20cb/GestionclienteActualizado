@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from './service/login.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CerrarSesionComponent } from './component/dialogo/cerrar-sesion/cerrar-sesion.component';
+import { Registro } from './model/registro';
 
 @Component({
   selector: 'app-root',
@@ -10,22 +11,26 @@ import { CerrarSesionComponent } from './component/dialogo/cerrar-sesion/cerrar-
 })
 export class AppComponent {
   title = 'GestionCliente';
+  user: Registro = new Registro();
+  error: string = "";
 
-  role:string="";
-  username:string=""
+  role: string = "";
+  username: string = "";
+
   constructor(private loginService: LoginService, private dialog: MatDialog) {
+    // Ejemplo: Llamar getUserDetails() después de verificar el usuario
+    this.verificar();
+    this.getUserDetails();
   }
+
   verificar() {
-    this.role=this.loginService.showRole();
-    this.username=this.loginService.showUser();
+    this.role = this.loginService.showRole();
+    this.username = this.loginService.showUser();
     return this.loginService.verificar();
   }
-  validarRol(){
-    if(this.role=='ADMIN' || this.role=='USER'){
-      return true;
-    }else{
-      return false;
-    }
+
+  validarRol() {
+    return this.role === 'ADMIN' || this.role === 'USER';
   }
 
   cerrar() {
@@ -40,5 +45,17 @@ export class AppComponent {
         window.location.href = '/login';
       }
     });
+  }
+
+  getUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+      },
+      error => {
+        this.error = error;
+        console.error('Error al obtener los detalles del usuario', error);
+      }
+    );
   }
 }
