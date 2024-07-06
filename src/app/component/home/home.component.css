@@ -1,116 +1,142 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    height: 100vh;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    color: #333;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-  }
-  
-  .left-column, .right-column {
-    flex: 1;
-    margin: 20px;
-  }
-  
-  .left-column {
-    text-align: center;
-    margin-top: 100px; /* Ajuste del margen superior para mover la columna hacia abajo */
-  }
-  
-  .left-column img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-  }
-  
-  .welcome-text {
-    font-size: 36px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .button {
-    background-color: #4CA1AF;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    cursor: pointer;
-    border-radius: 25px;
-    font-size: 16px;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .button:hover {
-    background-color: #3b8a8e;
-    transform: translateY(-2px);
-  }
-  
-  .accordion-container {
-    margin-top: 20px;
-    width: 100%;
-    text-align: center; /* Centrar el contenido dentro del contenedor */
-  }
-  
-  .accordion-container h3 {
-    font-size: 24px; /* Aumentar el tamaño de la fuente */
-    margin-bottom: 20px;
-  }
-  
-  mat-expansion-panel-header {
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  mat-panel-title {
-    font-weight: bold;
-  }
-  
-  .pagination-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .pagination-controls button {
-    background-color: #4CA1AF;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 0 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .pagination-controls button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .pagination-controls button:hover:not(:disabled) {
-    background-color: #3b8a8e;
-  }
-  
-  .pagination-controls span {
-    line-height: 40px;
-    font-size: 18px;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  margin: 20px;
+}
+
+.left-column {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.left-column img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.welcome-text {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.button {
+  background-color: #4CA1AF;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.button:hover {
+  background-color: #3b8a8e;
+  transform: translateY(-2px);
+}
+
+.accordion-container {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.accordion-container h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+mat-expansion-panel-header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+mat-panel-title {
+  font-weight: bold;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  background-color: #4CA1AF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #3b8a8e;
+}
+
+.pagination-controls span {
+  line-height: 40px;
+  font-size: 18px;
+}
+
+.statistics-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 150px;
+}
+
+.stat-card h2 {
+  font-size: 48px;
+  margin: 0;
+  color: #4CA1AF;
+}
+
+.stat-card p {
+  margin: 10px 0 0;
+  font-size: 18px;
+  color: #333;
+}

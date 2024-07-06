@@ -20,12 +20,16 @@ export class HomeComponent implements OnInit {
   user: Registro = new Registro();
   error: string = "";
 
+  totalUsuarios: number = 0;
+  totalDeudores: number = 0;
+
   constructor(private loginService: LoginService, private dialog: MatDialog, private cS: CustomerserviceService) {}
 
   ngOnInit(): void {
     this.verificar();
     this.cargarClientesPendientes();
     this.getUserDetails();
+    this.cargarEstadisticas();
   }
 
   verificar() {
@@ -55,7 +59,6 @@ export class HomeComponent implements OnInit {
     this.currentPage--;
   }
 
-
   getUserDetails() {
     this.loginService.getUserDetails().subscribe(
       data => {
@@ -66,5 +69,12 @@ export class HomeComponent implements OnInit {
         console.error('Error al obtener los detalles del usuario', error);
       }
     );
+  }
+
+  cargarEstadisticas() {
+    this.cS.list().subscribe((data) => {
+      this.totalUsuarios = data.length;
+      this.totalDeudores = data.filter(cliente => cliente.estado === 'pendiente').length;
+    });
   }
 }
