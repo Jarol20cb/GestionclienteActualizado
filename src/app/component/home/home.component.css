@@ -11,6 +11,7 @@ body {
 
 .container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   width: 90%;
@@ -43,6 +44,7 @@ body {
 
 .button-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
 }
@@ -56,6 +58,11 @@ body {
   border-radius: 25px;
   font-size: 16px;
   transition: background-color 0.3s, transform 0.3s;
+  width: 180px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .button:hover {
@@ -116,6 +123,7 @@ mat-panel-title {
 
 .statistics-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin-top: 20px;
 }
@@ -125,32 +133,82 @@ mat-panel-title {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
-  text-align: center;
-  width: 150px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+  margin-bottom: 20px;
 }
 
 .stat-icon {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 24px;
-  height: 24px;
+  font-size: 24px;
+  color: #4CA1AF;
+  margin-left: 15px;
 }
 
-.stat-card h2 {
+.stat-text h2 {
   font-size: 48px;
   margin: 0;
   color: #4CA1AF;
 }
 
-.stat-card p {
+.stat-text p {
   margin: 10px 0 0;
   font-size: 18px;
   color: #333;
 }
 
-.stat-icon i {
-  font-size: 24px;
-  color: #4CA1AF;
+/* Media Queries para responsive design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-column, .right-column {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .statistics-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pagination-controls span {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-text {
+    font-size: 28px;
+  }
+
+  .stat-text h2 {
+    font-size: 36px;
+  }
+
+  .stat-text p {
+    font-size: 16px;
+  }
 }
