@@ -1,6 +1,8 @@
 /* Estilos generales */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
-  background: linear-gradient(135deg, #ff6f61, #ff9068);
+  background: linear-gradient(135deg, #2C3E50, #4CA1AF);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +29,7 @@ h2 {
   font-size: 2em;
   margin-bottom: 20px;
   font-weight: 700;
-  color: #333;
+  color: #34495E;
   text-align: center;
 }
 
@@ -52,8 +54,9 @@ h2 {
 .form-field label {
   display: block;
   font-weight: bold;
-  color: #555;
+  color: #34495E;
   margin-bottom: 5px;
+  text-align: center; /* Centrar el texto del correo electrónico */
 }
 
 .form-field input,
@@ -71,12 +74,13 @@ h2 {
 
 .form-field input:focus,
 .form-field select:focus {
-  border-color: #ff6f61;
+  border-color: #2980B9;
   outline: none;
 }
 
 .radio-group {
   display: flex;
+  justify-content: center; /* Centrar las opciones de los roles */
   gap: 10px;
 }
 
@@ -90,7 +94,7 @@ h2 {
 }
 
 .custom-button {
-  background-color: #ff6f61;
+  background-color: #2980B9;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -103,16 +107,16 @@ h2 {
 }
 
 .custom-button.secondary {
-  background-color: #d9534f;
+  background-color: #1A5276;
 }
 
 .custom-button:hover {
-  background-color: #e8503a;
+  background-color: #1A5276;
   transform: scale(1.05);
 }
 
 .custom-button.secondary:hover {
-  background-color: #c9302c;
+  background-color: #34495E;
 }
 
 .error-message {
@@ -125,6 +129,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  gap: 10px; /* Añadir espacio entre los botones */
 }
 
 .toggle-password-button {
@@ -133,8 +138,44 @@ h2 {
   cursor: pointer;
   font-weight: bold;
   font-size: 0.9em;
-  color: #ff6f61;
+  color: #2980B9;
   margin-top: 5px;
   display: block;
   text-align: right;
+}
+
+/* Media Queries para responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .custom-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  .form-field input,
+  .form-field select {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .custom-button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
 }
