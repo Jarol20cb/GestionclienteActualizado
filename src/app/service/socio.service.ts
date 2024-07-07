@@ -3,6 +3,7 @@ import { Socio } from '../model/socio';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SocioCustomerService } from '../model/SocioCustomerService';
 
 const base_url = environment.base;
 
@@ -62,6 +63,15 @@ export class SocioService {
   delete(id: number) {
     let token = sessionStorage.getItem('token');
     return this.http.delete(`${this.url}/${id}`, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-Type', 'application/json'),
+    });
+  }
+
+  getCustomerServicesBySocioId(socioId: number) {
+    let token = sessionStorage.getItem('token');
+    return this.http.get<SocioCustomerService>(`${this.url}/${socioId}/customerservices`, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),

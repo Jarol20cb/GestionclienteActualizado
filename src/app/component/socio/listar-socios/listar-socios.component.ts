@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Socio } from 'src/app/model/socio';
 import { LoginService } from 'src/app/service/login.service';
 import { SocioService } from 'src/app/service/socio.service';
+import { Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dialog.component';
 
@@ -13,13 +14,13 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
   templateUrl: './listar-socios.component.html',
   styleUrls: ['./listar-socios.component.css']
 })
-export class ListarSociosComponent implements OnInit{
+export class ListarSociosComponent implements OnInit {
   dataSource: MatTableDataSource<Socio> = new MatTableDataSource();
-  displayedColumns: string[] = ['id', 'nombre', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id', 'nombre', 'verClientes', 'editar', 'eliminar'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   role: string = "";
 
-  constructor(private cS: SocioService, public dialog: MatDialog, private loginService: LoginService) {}
+  constructor(private cS: SocioService, public dialog: MatDialog, private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     this.role = this.loginService.showRole();
@@ -45,7 +46,7 @@ export class ListarSociosComponent implements OnInit{
             });
           },
           error: (errorMessage) => {
-            console.log('Error message:', errorMessage); // Agrega un log para verificar el mensaje
+            console.log('Error message:', errorMessage);
             this.dialog.open(WarningDialogComponent, {
               data: {
                 message: errorMessage
@@ -67,10 +68,13 @@ export class ListarSociosComponent implements OnInit{
     return this.loginService.verificar();
   }
 
-  private actualizarColumnas() {
-    if (this.role === 'ADMIN' || this.role === 'USER') {
-      this.displayedColumns = ['id', 'nombre', 'editar', 'eliminar'];
-    }
+  verClientes(socioId: number) {
+    this.router.navigate([`/components/socios/${socioId}/clientes`]);
   }
 
+  private actualizarColumnas() {
+    if (this.role === 'ADMIN' || this.role === 'USER') {
+      this.displayedColumns = ['id', 'nombre', 'verClientes', 'editar', 'eliminar'];
+    }
+  }
 }

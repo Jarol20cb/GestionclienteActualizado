@@ -1,32 +1,63 @@
-<div class="container">
-  <h2>Clientes del Socio</h2>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="idcs">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.idcs}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="fechainicio">
-      <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechainicio | date}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="fechafin">
-      <th mat-header-cell *matHeaderCellDef> Fecha Fin </th>
-      <td mat-cell *matCellDef="let element"> {{element.fechafin | date}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="estado">
-      <th mat-header-cell *matHeaderCellDef> Estado </th>
-      <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+<div *ngIf="socioCustomerService" class="container">
+  <h2 class="header">Clientes del socio: {{ socioCustomerService.name }}</h2>
+  <button class="custom-button back-button" (click)="goBack()">Volver a Socios</button>
+  <div class="filter-container">
+    <select class="filter-type" [(ngModel)]="selectedFilterType" (change)="updateFilter()">
+      <option value="">Buscar</option>
+      <option value="name">Nombre</option>
+      <option value="service">Servicio</option>
+      <option value="fechainicio">Fecha Inicio</option>
+      <option value="fechafin">Fecha Fin</option>
+      <option value="estado">Estado</option>
+    </select>
+    <div *ngIf="selectedFilterType === 'name'">
+      <input type="text" placeholder="Buscar por Nombre" [(ngModel)]="filters.name" (input)="applyFilters()">
+    </div>
+    <div *ngIf="selectedFilterType === 'service'">
+      <input type="text" placeholder="Buscar por Servicio" [(ngModel)]="filters.service" (input)="applyFilters()">
+    </div>
+    <div *ngIf="selectedFilterType === 'fechainicio'">
+      <input type="date" placeholder="Fecha Inicio" [(ngModel)]="filters.fechainicio" (input)="applyFilters()">
+    </div>
+    <div *ngIf="selectedFilterType === 'fechafin'">
+      <input type="date" placeholder="Fecha Fin" [(ngModel)]="filters.fechafin" (input)="applyFilters()">
+    </div>
+    <div *ngIf="selectedFilterType === 'estado'">
+      <input type="text" placeholder="Buscar por Estado" [(ngModel)]="filters.estado" (input)="applyFilters()">
+    </div>
+  </div>
+  <div *ngIf="socioCustomerService.customerServices.length > 0; else noRecords" class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Servicio</th>
+          <th>Descripción</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customerService of paginatedCustomerServices">
+          <td>{{ customerService.idcs }}</td>
+          <td>{{ customerService.name }}</td>
+          <td>{{ customerService.services.service }}</td>
+          <td>{{ customerService.services.description }}</td>
+          <td>{{ customerService.fechainicio | date: 'MMM d, y' }}</td>
+          <td>{{ customerService.fechafin | date: 'MMM d, y' }}</td>
+          <td>{{ customerService.estado }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="paginator">
+      <button class="custom-button" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button class="custom-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
+  </div>
+  <ng-template #noRecords>
+    <p class="no-records">Aún no hay registros</p>
+  </ng-template>
 </div>

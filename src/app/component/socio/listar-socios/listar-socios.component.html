@@ -24,6 +24,14 @@
         <th mat-header-cell *matHeaderCellDef>Nombre</th>
         <td mat-cell *matCellDef="let element">{{ element.name }}</td>
       </ng-container>
+      <ng-container matColumnDef="verClientes">
+        <th mat-header-cell *matHeaderCellDef>Ver Clientes</th>
+        <td mat-cell *matCellDef="let element">
+          <button (click)="verClientes(element.socioId)" matRipple="false" class="custom-button">
+            <mat-icon class="custom-icon">visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>      
       <ng-container matColumnDef="editar">
         <th mat-header-cell *matHeaderCellDef>Editar</th>
         <td mat-cell *matCellDef="let element">
