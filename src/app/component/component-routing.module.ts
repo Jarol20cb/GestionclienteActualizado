@@ -7,7 +7,9 @@ import { ServicesComponent } from './services/services.component';
 import { CreacionCsComponent } from './customerservice/creacion-cs/creacion-cs.component';
 import { CustomerserviceComponent } from './customerservice/customerservice.component';
 import { VisualizarPagosComponent } from './visualizar-pagos/visualizar-pagos.component';
-
+import { SocioComponent } from './socio/socio.component';
+import { CreacionSocioComponent } from './socio/creacion-socio/creacion-socio.component';
+import { ListarClientesSocioComponent } from './socio/listar-clientes-socio/listar-clientes-socio.component';
 
 const routes: Routes = [
   {
@@ -36,7 +38,14 @@ const routes: Routes = [
       { path: 'ediciones/:id', component: CreacionCsComponent },
     ]
   },
-
+  {
+    path: 'socios',
+    component: SocioComponent, children:[
+      { path: 'nuevo', component: CreacionSocioComponent },
+      { path: 'ediciones/:id', component: CreacionSocioComponent },
+      { path: ':socioId/clientes', component: ListarClientesSocioComponent },
+    ]
+  },
 ];
 
 @NgModule({

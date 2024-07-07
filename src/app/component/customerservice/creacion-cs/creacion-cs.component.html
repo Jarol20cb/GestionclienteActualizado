@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Registro de clientes y tipo de servicio</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -14,7 +14,7 @@
       <div *ngIf="edicion" class="form-group">
         <label for="idcs">Nr</label>
         <input id="idcs" type="text" formControlName="idcs" readonly />
-      </div>      
+      </div>
       <div class="form-group">
         <label for="name">Nombre del cliente</label>
         <input id="name" type="text" formControlName="name" />
@@ -53,6 +53,17 @@
       <div class="form-group">
         <label for="estado">Estado</label>
         <input id="estado" type="text" formControlName="estado" readonly />
+      </div>
+      <div class="form-group">
+        <label for="socio">Socio</label>
+        <select id="socio" formControlName="socio">
+          <option *ngFor="let s of listsocios" [value]="s.socioId">
+            {{s.name}}
+          </option>
+        </select>
+        <div *ngIf="form.get('socio')?.touched && form.get('socio')?.errors?.['required']" class="error">
+          El campo es obligatorio.
+        </div>
       </div>
       <button type="submit" class="custom-button">Aceptar</button>
       <button type="button" class="custom-button-cancel" routerLink="/components/custser">Cancelar</button>

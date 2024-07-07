@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { LoginService } from 'src/app/service/login.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
-import * as moment from 'moment';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { ConfirmarRenovacionDialogComponent } from '../../confirmar-renovacion-dialog/confirmar-renovacion-dialog.component';
+import * as moment from 'moment';
+import { CustomerserviceService } from 'src/app/service/customerservice.service';
 
 @Component({
   selector: 'app-listar-cs',
@@ -16,7 +16,7 @@ import { ConfirmarRenovacionDialogComponent } from '../../confirmar-renovacion-d
 })
 export class ListarCsComponent implements OnInit {
   dataSource: MatTableDataSource<CustomersServices> = new MatTableDataSource();
-  displayedColumns: string[] = ['clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'cambiarEstado', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id', 'clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   role: string = '';
 
@@ -26,13 +26,13 @@ export class ListarCsComponent implements OnInit {
     this.role = this.loginService.showRole();
     this.actualizarColumnas();
     this.cS.list().subscribe((data) => {
-      data.forEach(this.checkAndUpdateEstado.bind(this)); // Verificar y actualizar el estado
+      data.forEach(this.checkAndUpdateEstado.bind(this));
       data.sort((a, b) => this.ordenarPendientes(a, b));
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
     });
     this.cS.getList().subscribe((data) => {
-      data.forEach(this.checkAndUpdateEstado.bind(this)); // Verificar y actualizar el estado
+      data.forEach(this.checkAndUpdateEstado.bind(this));
       data.sort((a, b) => this.ordenarPendientes(a, b));
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
@@ -73,7 +73,7 @@ export class ListarCsComponent implements OnInit {
 
           this.cS.update(element).subscribe(() => {
             this.cS.list().subscribe((data) => {
-              data.forEach(this.checkAndUpdateEstado.bind(this)); // Verificar y actualizar el estado
+              data.forEach(this.checkAndUpdateEstado.bind(this));
               data.sort((a, b) => this.ordenarPendientes(a, b));
               this.dataSource = new MatTableDataSource(data);
               this.dataSource.paginator = this.paginator;
@@ -108,10 +108,10 @@ export class ListarCsComponent implements OnInit {
 
   actualizarColumnas() {
     if (this.role === 'ADMIN') {
-      this.displayedColumns = ['id', 'clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'cambiarEstado', 'editar', 'eliminar'];
+      this.displayedColumns = ['id', 'clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
     }
     if(this.role === 'USER'){
-      this.displayedColumns = ['clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'cambiarEstado', 'editar', 'eliminar'];
+      this.displayedColumns = ['clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
     }
   }
 

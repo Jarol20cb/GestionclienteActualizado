@@ -39,6 +39,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NotificationComponent } from './notification/notification.component';
 import { ConfirmarRenovacionDialogComponent } from './confirmar-renovacion-dialog/confirmar-renovacion-dialog.component';
 import { WarningDialogComponent } from './dialogo/warning-dialog/warning-dialog.component';
+import { SocioComponent } from './socio/socio.component';
+import { CreacionSocioComponent } from './socio/creacion-socio/creacion-socio.component';
+import { ListarClientesSocioComponent } from './socio/listar-clientes-socio/listar-clientes-socio.component';
+import { ListarSociosComponent } from './socio/listar-socios/listar-socios.component';
 
 
 
@@ -60,7 +64,11 @@ import { WarningDialogComponent } from './dialogo/warning-dialog/warning-dialog.
     VisualizarPagosComponent,
     NotificationComponent,
     ConfirmarRenovacionDialogComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    SocioComponent,
+    CreacionSocioComponent,
+    ListarClientesSocioComponent,
+    ListarSociosComponent
   ],
   imports: [
     CommonModule,

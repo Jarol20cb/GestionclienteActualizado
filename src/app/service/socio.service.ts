@@ -1,40 +1,39 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Socio } from '../model/socio';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CustomersServices } from '../model/CustomerService';
-import { SocioCustomerService } from '../model/SocioCustomerService';
 
 const base_url = environment.base;
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerserviceService {
-  private url = `${base_url}/customerservices`;
-  private listaCambio = new Subject<CustomersServices[]>();
+export class SocioService {
+  private url = `${base_url}/socios`;
+  private listaCambio = new Subject<Socio[]>();
 
   constructor(private http: HttpClient) {}
 
   list() {
     let token = sessionStorage.getItem('token');
-    return this.http.get<CustomersServices[]>(this.url, {
+    return this.http.get<Socio[]>(this.url, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),
     });
   }
 
-  insert(cl: CustomersServices) {
+  insert(socio: Socio) {
     let token = sessionStorage.getItem('token');
-    return this.http.post(this.url, cl, {
+    return this.http.post(this.url, socio, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),
     });
   }
 
-  setList(listaNueva: CustomersServices[]) {
+  setList(listaNueva: Socio[]) {
     this.listaCambio.next(listaNueva);
   }
 
@@ -44,16 +43,16 @@ export class CustomerserviceService {
 
   listId(id: number) {
     let token = sessionStorage.getItem('token');
-    return this.http.get<CustomersServices>(`${this.url}/${id}`, {
+    return this.http.get<Socio>(`${this.url}/${id}`, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),
     });
   }
 
-  update(c: CustomersServices) {
+  update(socio: Socio) {
     let token = sessionStorage.getItem('token');
-    return this.http.put(this.url, c, {
+    return this.http.put(this.url, socio, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),
@@ -68,5 +67,4 @@ export class CustomerserviceService {
         .set('Content-Type', 'application/json'),
     });
   }
-
 }

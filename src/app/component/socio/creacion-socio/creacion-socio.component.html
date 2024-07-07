@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Socio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registro de Socio</h2>
+    <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+      <div *ngIf="edicion" class="form-group">
+        <label for="socioId">Nr</label>
+        <input id="socioId" type="text" formControlName="socioId" readonly />
+      </div>
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name" />
+        <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['required']" class="error">
+          El nombre es obligatorio.
+        </div>
+      </div>
+      <p>{{ mensaje }}</p>
+      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="button" class="custom-button-cancel" routerLink="/components/socios">Cancelar</button>
+    </form>
+  </div>
+</body>
+</html>

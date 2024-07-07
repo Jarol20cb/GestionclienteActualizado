@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CustomersServices } from 'src/app/model/CustomerService';
 import { Services } from 'src/app/model/Services';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { ServicesService } from 'src/app/service/services.service';
 import * as moment from 'moment';
 import { NotificationComponent } from '../../notification/notification.component';
+import { Socio } from 'src/app/model/socio';
+import { SocioService } from 'src/app/service/socio.service';
+import { CustomersServices } from 'src/app/model/CustomerService';
 
 @Component({
   selector: 'app-creacion-cs',
@@ -21,6 +23,7 @@ export class CreacionCsComponent implements OnInit {
   id: number = 0;
   edicion: boolean = false;
   listservices: Services[] = [];
+  listsocios: Socio[] = [];
   maxFecha: string = new Date().toISOString().split('T')[0];  // Set max date to today
 
   constructor(
@@ -29,8 +32,9 @@ export class CreacionCsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private Ds: ServicesService,
-    private snackBar: MatSnackBar  // Añadido MatSnackBar
-  ) { }
+    private socioService: SocioService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((data: Params) => {
@@ -45,7 +49,8 @@ export class CreacionCsComponent implements OnInit {
       services: ['', Validators.required],
       fechainicio: ['', [Validators.required, this.dateValidator.bind(this)]],
       fechafin: [{ value: '', disabled: true }, Validators.required],
-      estado: [{ value: 'cancelado', disabled: true }]
+      estado: [{ value: 'cancelado', disabled: true }],
+      socio: ['', Validators.required]
     });
 
     this.form.get('fechainicio')?.valueChanges.subscribe(value => {
@@ -56,6 +61,10 @@ export class CreacionCsComponent implements OnInit {
 
     this.Ds.list().subscribe(data => {
       this.listservices = data;
+    });
+
+    this.socioService.list().subscribe(data => {
+      this.listsocios = data;
     });
   }
 
@@ -77,8 +86,11 @@ export class CreacionCsComponent implements OnInit {
       const fechainicio = moment(this.form.value.fechainicio).toDate();
       this.customerservice.fechainicio = fechainicio;
       this.customerservice.fechafin = moment(this.form.get('fechafin')?.value).toDate();
-      this.customerservice.estado = 'cancelado';  // Estado inicial como 'cancelado'
+      this.customerservice.estado = 'cancelado';
+      this.customerservice.socio.socioId = this.form.value.socio;
+
       this.updateEstadoAutomatico();
+
       if (this.edicion) {
         this.cS.update(this.customerservice).subscribe(() => {
           this.cS.list().subscribe(data => {
@@ -104,7 +116,7 @@ export class CreacionCsComponent implements OnInit {
     const startDate = moment(fechainicio).startOf('day');
     const endDate = startDate.clone().add(1, 'month').endOf('day');
     this.form.get('fechafin')?.setValue(endDate.format('YYYY-MM-DD'));
-    this.form.get('fechafin')?.disable();  // Ensure it stays disabled
+    this.form.get('fechafin')?.disable();
   }
 
   updateEstadoAutomatico() {
@@ -113,14 +125,6 @@ export class CreacionCsComponent implements OnInit {
     if (endDate.isBefore(today) && this.customerservice.estado !== 'cancelado') {
       this.customerservice.estado = 'pendiente';
     }
-  }
-
-  obtenerControlCampo(nombreCampo: string): AbstractControl {
-    const control = this.form.get(nombreCampo);
-    if (!control) {
-      throw new Error(`Control no encontrado para el campo ${nombreCampo}`);
-    }
-    return control;
   }
 
   init() {
@@ -133,17 +137,16 @@ export class CreacionCsComponent implements OnInit {
           services: [data.services.serviceId, Validators.required],
           fechainicio: [this.formatDate(data.fechainicio), [Validators.required, this.dateValidator.bind(this)]],
           fechafin: [{ value: this.formatDate(data.fechafin), disabled: true }, Validators.required],
-          estado: [{ value: data.estado, disabled: true }]
+          estado: [{ value: data.estado, disabled: true }],
+          socio: [data.socio ? data.socio.socioId : '', Validators.required]
         });
 
-        // Update the fechaFin based on the fechainicio when in edit mode
         this.form.get('fechainicio')?.valueChanges.subscribe(value => {
           if (value) {
             this.updateFechafin(value);
           }
         });
 
-        // Update the fechaFin initially based on the fechainicio when in edit mode
         this.updateFechafin(this.form.value.fechainicio);
         this.updateEstadoAutomatico();
       });
@@ -157,10 +160,17 @@ export class CreacionCsComponent implements OnInit {
   showNotification(message: string) {
     this.snackBar.openFromComponent(NotificationComponent, {
       data: { message },
-      duration: 50000,  // Duración cambiada a 3 segundos (3000 milisegundos)
-      horizontalPosition: 'center',  // Posición horizontal
-      verticalPosition: 'top',  // Posición vertical
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
-  
+
+  obtenerControlCampo(nombreCampo: string): AbstractControl {
+    const control = this.form.get(nombreCampo);
+    if (!control) {
+      throw new Error(`Control no encontrado para el campo ${nombreCampo}`);
+    }
+    return control;
+  }
 }
