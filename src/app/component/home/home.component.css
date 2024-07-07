@@ -127,6 +127,15 @@ mat-panel-title {
   padding: 20px;
   text-align: center;
   width: 150px;
+  position: relative;
+}
+
+.stat-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 24px;
+  height: 24px;
 }
 
 .stat-card h2 {
@@ -139,4 +148,9 @@ mat-panel-title {
   margin: 10px 0 0;
   font-size: 18px;
   color: #333;
+}
+
+.stat-icon i {
+  font-size: 24px;
+  color: #4CA1AF;
 }
