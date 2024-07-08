@@ -35,13 +35,11 @@
       </div>
       <div class="form-group">
         <label for="perfil">Perfil</label>
-        <div class="select-wrapper">
-          <select id="perfil" formControlName="perfil">
-            <option *ngFor="let p of listperfil" [value]="p.perfilId">
-              {{p.correo}} (Total: {{p.limiteUsuarios}}, Ocupados: {{p.usuariosActuales}})
-            </option>
-          </select>
-        </div>
+        <select id="perfil" formControlName="perfil" class="custom-select">
+          <option *ngFor="let p of listperfil" [value]="p.perfilId">
+            {{p.correo}} <span>(Total: {{p.limiteUsuarios}}, Ocupados: {{p.usuariosActuales}})</span>
+          </option>
+        </select>
         <div *ngIf="form.get('perfil')?.touched && form.get('perfil')?.errors?.['required']" class="error">
           El campo es obligatorio.
         </div>
