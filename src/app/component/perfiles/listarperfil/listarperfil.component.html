@@ -32,6 +32,7 @@
       <thead>
         <tr>
           <th>No.</th>
+          <th>tipo de servicio</th>
           <th>Correo</th>
           <th>Contraseña</th>
           <th>Fecha de Inicio</th>
@@ -47,6 +48,7 @@
       <tbody>
         <tr *ngFor="let element of paginatedData">
           <td>{{ element.perfilId }}</td>
+          <td>{{ element.service.service }}</td>
           <td>{{ element.correo }}</td>
           <td>{{ element.contrasena }}</td>
           <td>{{ element.fechainicio | date : "dd/MM/yyyy" }}</td>

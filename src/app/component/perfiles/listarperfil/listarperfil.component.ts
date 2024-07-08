@@ -12,7 +12,7 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
 })
 export class ListarperfilComponent implements OnInit{
   dataSource: Perfil[] = [];
-  displayedColumns: string[] = ['id', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id','servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
   itemsPerPage: number = 5;

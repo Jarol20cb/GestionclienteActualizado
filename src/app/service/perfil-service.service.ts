@@ -69,4 +69,13 @@ export class PerfilService {
         .set('Content-Type', 'application/json'),
     });
   }
+
+  findAvailableByService(serviceId: number) {
+    let token = sessionStorage.getItem('token');
+    return this.http.get<Perfil[]>(`${this.url}/available/${serviceId}`, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-Type', 'application/json'),
+    });
+  }
 }

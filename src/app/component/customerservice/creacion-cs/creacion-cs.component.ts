@@ -59,6 +59,10 @@ export class CreacionCsComponent implements OnInit {
       socio: ['', Validators.required]
     });
 
+    this.form.get('services')?.valueChanges.subscribe(serviceId => {
+      this.loadAvailablePerfiles(serviceId);
+    });
+
     this.form.get('fechainicio')?.valueChanges.subscribe(value => {
       if (value && this.form.get('paymentPeriod')?.value) {
         this.updateFechafin(value, this.form.get('paymentPeriod')?.value);
@@ -79,7 +83,13 @@ export class CreacionCsComponent implements OnInit {
       this.listsocios = data;
     });
 
-    this.perfilService.list().subscribe(data => {
+    if (this.edicion) {
+      this.init();
+    }
+  }
+
+  loadAvailablePerfiles(serviceId: number) {
+    this.perfilService.findAvailableByService(serviceId).subscribe(data => {
       this.listperfil = data;
     });
   }

@@ -1,6 +1,6 @@
 .container {
   text-align: center;
-  max-width: 350px;
+  max-width: 400px;
   margin: auto;
   padding: 20px;
   border-radius: 15px;
@@ -31,6 +31,19 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+}
+
+.form-group select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>') no-repeat right 10px center;
+  background-size: 18px 18px;
+  padding-right: 30px;
+}
+
+.form-group select option {
+  padding: 10px;
 }
 
 .form-group input:focus, .form-group select:focus {
@@ -69,7 +82,6 @@ h2 {
   transform: translateY(0);
 }
 
-/* Estilos para los botones incrementables */
 .increment-buttons {
   display: flex;
   align-items: center;
