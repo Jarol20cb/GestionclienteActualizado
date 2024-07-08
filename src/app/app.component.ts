@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
     this.verificar();
     this.loginService.user$.subscribe(user => this.user = user);
     this.getUserDetails();
+
+    document.addEventListener('click', this.closeAllDropdowns.bind(this));
   }
 
   verificar() {
@@ -59,5 +61,30 @@ export class AppComponent implements OnInit {
         console.error('Error al obtener los detalles del usuario', error);
       }
     );
+  }
+
+  toggleDropdown(event: MouseEvent) {
+    event.stopPropagation();
+    const dropdown = (event.currentTarget as HTMLElement).nextElementSibling as HTMLElement;
+    const isOpen = dropdown.style.display === 'block';
+    this.closeAllDropdowns();
+    if (!isOpen) {
+      dropdown.style.display = 'block';
+    }
+  }
+
+  closeDropdown() {
+    this.closeAllDropdowns();
+  }
+
+  closeAllDropdowns() {
+    const dropdowns = document.querySelectorAll('.dropdown-content');
+    dropdowns.forEach(dropdown => {
+      (dropdown as HTMLElement).style.display = 'none';
+    });
+  }
+
+  preventClose(event: MouseEvent) {
+    event.stopPropagation();
   }
 }

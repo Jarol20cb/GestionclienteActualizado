@@ -36,20 +36,20 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px; 
-  height: 40px; 
-  border-radius: 50%; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .toolbar-button:hover {
-  transform: scale(1.1); 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .toolbar-icon {
-  font-size: 25px; 
+  font-size: 25px;
   color: #ffffff;
   transition: color 0.3s;
 }
@@ -67,12 +67,12 @@ body {
   display: none;
   position: absolute;
   right: 0;
-  top: 50px; /* Ajustar esta propiedad para mover el contenido del dropdown */
+  top: 50px;
   background-color: rgba(255, 255, 255, 0.9);
-  min-width: 160px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  z-index: 10; 
+  z-index: 10;
   padding: 10px 0;
 }
 
@@ -80,23 +80,95 @@ body {
   content: '';
   position: absolute;
   top: -10px;
-  right: 20px; /* Ajustar para alinear la colita */
+  right: 20px;
   border-width: 0 10px 10px 10px;
   border-style: solid;
   border-color: transparent transparent rgba(255, 255, 255, 0.9) transparent;
 }
 
-.dropdown-content a {
-  color: #34495E; 
+.dropdown-content a, .submenu > a {
+  color: #34495E;
   padding: 12px 16px;
   text-decoration: none;
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
-.dropdown-content a:hover {
-  background-color: rgba(236, 240, 241, 0.5); 
+.dropdown-content a mat-icon, .submenu > a mat-icon {
+  margin-right: 10px;
+}
+
+.dropdown-content a:hover, .submenu > a:hover {
+  background-color: rgba(236, 240, 241, 0.5);
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.dropdown-icon {
+  color: #34495E;
+}
+
+/* Submenu styles */
+.submenu {
+  position: relative;
+}
+
+.submenu-content {
+  display: none;
+  position: absolute;
+  left: -52%; /* Posicionar al lado del elemento padre */
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 10;
+  padding: 10px 0;
+  width: auto; /* Ajuste para que el submenu ocupe el espacio adecuado */
+  white-space: nowrap; /* Para que el texto no se envuelva */
+}
+
+.submenu-content a {
+  padding: 10px 20px;
+}
+
+.submenu:hover .submenu-content {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .toolbar-title {
+    font-size: 1.2em;
+  }
+  
+  .toolbar-button {
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .toolbar-icon {
+    font-size: 20px;
+  }
+
+  .dropdown-content {
+    right: 0;
+    left: auto;
+    top: 50px;
+    width: calc(100% - 20px); /* Ajuste para que el dropdown ocupe casi todo el ancho de la pantalla */
+  }
+
+  .submenu-content {
+    left: -52%; /* Ajuste para que el submenu aparezca al lado izquierdo */
+    right: auto;
+    top: 0;
+    width: auto; /* Ajuste para que el submenu ocupe el espacio adecuado */
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 10;
+    padding: 10px 0;
+    white-space: nowrap; /* Para que el texto no se envuelva */
+  }
 }
