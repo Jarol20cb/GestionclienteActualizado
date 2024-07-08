@@ -68,7 +68,33 @@ h2 {
   background-color: #0E3C5F;
   transform: translateY(0);
 }
-/* styles.css o el archivo CSS global */
-.mat-snack-bar-container {
+
+/* Estilos para los botones incrementables */
+.increment-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.increment-buttons button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #2980B9;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.increment-buttons button:hover {
+  background-color: #145A86;
+}
+
+.increment-buttons span {
   font-size: 16px;
+  padding: 0 10px;
 }

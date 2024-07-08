@@ -48,14 +48,21 @@ export class CreacionCsComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(15)]],
       services: ['', Validators.required],
       fechainicio: ['', [Validators.required, this.dateValidator.bind(this)]],
+      paymentPeriod: [1, [Validators.required, Validators.min(1)]],
       fechafin: [{ value: '', disabled: true }, Validators.required],
       estado: [{ value: 'cancelado', disabled: true }],
       socio: ['', Validators.required]
     });
 
     this.form.get('fechainicio')?.valueChanges.subscribe(value => {
-      if (value) {
-        this.updateFechafin(value);
+      if (value && this.form.get('paymentPeriod')?.value) {
+        this.updateFechafin(value, this.form.get('paymentPeriod')?.value);
+      }
+    });
+
+    this.form.get('paymentPeriod')?.valueChanges.subscribe(value => {
+      if (this.form.get('fechainicio')?.value && value) {
+        this.updateFechafin(this.form.get('fechainicio')?.value, value);
       }
     });
 
@@ -112,9 +119,9 @@ export class CreacionCsComponent implements OnInit {
     }
   }
 
-  updateFechafin(fechainicio: string) {
+  updateFechafin(fechainicio: string, paymentPeriod: number) {
     const startDate = moment(fechainicio).startOf('day');
-    const endDate = startDate.clone().add(1, 'month').endOf('day');
+    const endDate = startDate.clone().add(paymentPeriod, 'months').endOf('day');
     this.form.get('fechafin')?.setValue(endDate.format('YYYY-MM-DD'));
     this.form.get('fechafin')?.disable();
   }
@@ -136,18 +143,25 @@ export class CreacionCsComponent implements OnInit {
           name: [data.name, Validators.required],
           services: [data.services.serviceId, Validators.required],
           fechainicio: [this.formatDate(data.fechainicio), [Validators.required, this.dateValidator.bind(this)]],
+          paymentPeriod: [1, [Validators.required, Validators.min(1)]],
           fechafin: [{ value: this.formatDate(data.fechafin), disabled: true }, Validators.required],
           estado: [{ value: data.estado, disabled: true }],
           socio: [data.socio ? data.socio.socioId : '', Validators.required]
         });
 
         this.form.get('fechainicio')?.valueChanges.subscribe(value => {
-          if (value) {
-            this.updateFechafin(value);
+          if (value && this.form.get('paymentPeriod')?.value) {
+            this.updateFechafin(value, this.form.get('paymentPeriod')?.value);
           }
         });
 
-        this.updateFechafin(this.form.value.fechainicio);
+        this.form.get('paymentPeriod')?.valueChanges.subscribe(value => {
+          if (this.form.get('fechainicio')?.value && value) {
+            this.updateFechafin(this.form.get('fechainicio')?.value, value);
+          }
+        });
+
+        this.updateFechafin(this.form.value.fechainicio, this.form.value.paymentPeriod);
         this.updateEstadoAutomatico();
       });
     }
@@ -172,5 +186,19 @@ export class CreacionCsComponent implements OnInit {
       throw new Error(`Control no encontrado para el campo ${nombreCampo}`);
     }
     return control;
+  }
+
+  incrementMonths() {
+    const currentValue = this.form.get('paymentPeriod')?.value;
+    this.form.get('paymentPeriod')?.setValue(currentValue + 1);
+    this.updateFechafin(this.form.get('fechainicio')?.value, currentValue + 1);
+  }
+
+  decrementMonths() {
+    const currentValue = this.form.get('paymentPeriod')?.value;
+    if (currentValue > 1) {
+      this.form.get('paymentPeriod')?.setValue(currentValue - 1);
+      this.updateFechafin(this.form.get('fechainicio')?.value, currentValue - 1);
+    }
   }
 }
