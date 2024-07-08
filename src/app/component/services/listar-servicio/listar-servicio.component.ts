@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Services } from 'src/app/model/Services';
 import { LoginService } from 'src/app/service/login.service';
 import { ServicesService } from 'src/app/service/services.service';
@@ -14,10 +12,13 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
   styleUrls: ['./listar-servicio.component.css']
 })
 export class ListarServicioComponent implements OnInit {
-  dataSource: MatTableDataSource<Services> = new MatTableDataSource();
+  dataSource: Services[] = [];
   displayedColumns: string[] = ['id', 'servicio', 'descripcion', 'editar', 'eliminar'];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   role: string = "";
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+  paginatedData: Services[] = [];
 
   constructor(private cS: ServicesService, public dialog: MatDialog, private loginService: LoginService) {}
 
@@ -25,12 +26,14 @@ export class ListarServicioComponent implements OnInit {
     this.role = this.loginService.showRole();
     this.actualizarColumnas();
     this.cS.list().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource = data;
+      this.totalItems = data.length;
+      this.paginarDatos();
     });
     this.cS.getList().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource = data;
+      this.totalItems = data.length;
+      this.paginarDatos();
     });
   }
 
@@ -41,7 +44,9 @@ export class ListarServicioComponent implements OnInit {
         this.cS.delete(id).subscribe({
           next: () => {
             this.cS.list().subscribe((data) => {
-              this.cS.setList(data);
+              this.dataSource = data;
+              this.totalItems = data.length;
+              this.paginarDatos();
             });
           },
           error: (errorMessage) => {
@@ -57,8 +62,40 @@ export class ListarServicioComponent implements OnInit {
     });
   }
 
-  filter(en: any) {
-    this.dataSource.filter = en.target.value.trim();
+  filter(event: any) {
+    const filterValue = event.target.value.trim().toLowerCase();
+    this.paginatedData = this.dataSource.filter(service =>
+      service.service.toLowerCase().includes(filterValue) ||
+      service.description.toLowerCase().includes(filterValue)
+    );
+    this.totalItems = this.paginatedData.length;
+    this.paginarDatos();
+  }
+
+  changePageSize(event: any) {
+    this.itemsPerPage = event.target.value;
+    this.currentPage = 1;
+    this.paginarDatos();
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.paginarDatos();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.totalItems) {
+      this.currentPage++;
+      this.paginarDatos();
+    }
+  }
+
+  paginarDatos() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedData = this.dataSource.slice(start, end);
   }
 
   verificar() {

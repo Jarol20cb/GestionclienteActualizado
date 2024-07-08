@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Socio } from 'src/app/model/socio';
 import { LoginService } from 'src/app/service/login.service';
 import { SocioService } from 'src/app/service/socio.service';
@@ -15,10 +13,13 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
   styleUrls: ['./listar-socios.component.css']
 })
 export class ListarSociosComponent implements OnInit {
-  dataSource: MatTableDataSource<Socio> = new MatTableDataSource();
+  dataSource: Socio[] = [];
   displayedColumns: string[] = ['id', 'nombre', 'verClientes', 'editar', 'eliminar'];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   role: string = "";
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+  paginatedData: Socio[] = [];
 
   constructor(private cS: SocioService, public dialog: MatDialog, private loginService: LoginService, private router: Router) {}
 
@@ -26,12 +27,14 @@ export class ListarSociosComponent implements OnInit {
     this.role = this.loginService.showRole();
     this.actualizarColumnas();
     this.cS.list().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource = data;
+      this.totalItems = data.length;
+      this.paginarDatos();
     });
     this.cS.getList().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource = data;
+      this.totalItems = data.length;
+      this.paginarDatos();
     });
   }
 
@@ -43,6 +46,9 @@ export class ListarSociosComponent implements OnInit {
           next: () => {
             this.cS.list().subscribe((data) => {
               this.cS.setList(data);
+              this.dataSource = data;
+              this.totalItems = data.length;
+              this.paginarDatos();
             });
           },
           error: (errorMessage) => {
@@ -58,8 +64,15 @@ export class ListarSociosComponent implements OnInit {
     });
   }
 
-  filter(en: any) {
-    this.dataSource.filter = en.target.value.trim();
+  filter(event: any) {
+    const filterValue = event.target.value.trim().toLowerCase();
+    this.dataSource = this.dataSource.filter(socio => 
+      socio.name.toLowerCase().includes(filterValue) || 
+      socio.socioId.toString().includes(filterValue)
+    );
+    this.totalItems = this.dataSource.length;
+    this.currentPage = 1;
+    this.paginarDatos();
   }
 
   verificar() {
@@ -75,6 +88,32 @@ export class ListarSociosComponent implements OnInit {
   private actualizarColumnas() {
     if (this.role === 'ADMIN' || this.role === 'USER') {
       this.displayedColumns = ['id', 'nombre', 'verClientes', 'editar', 'eliminar'];
+    }
+  }
+
+  changePageSize(event: any) {
+    this.itemsPerPage = parseInt(event.target.value, 10);
+    this.currentPage = 1;
+    this.paginarDatos();
+  }
+
+  paginarDatos() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedData = this.dataSource.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.totalItems) {
+      this.currentPage++;
+      this.paginarDatos();
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.paginarDatos();
     }
   }
 }
