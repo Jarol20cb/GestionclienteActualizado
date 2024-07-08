@@ -5,33 +5,41 @@ import { PerfilService } from 'src/app/service/perfil-service.service';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dialog.component';
 
+interface PerfilExtendido extends Perfil {
+  showPassword?: boolean;
+}
+
 @Component({
   selector: 'app-listarperfil',
   templateUrl: './listarperfil.component.html',
   styleUrls: ['./listarperfil.component.css']
 })
-export class ListarperfilComponent implements OnInit{
-  dataSource: Perfil[] = [];
-  displayedColumns: string[] = ['id','servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
+export class ListarperfilComponent implements OnInit {
+  dataSource: PerfilExtendido[] = [];
+  displayedColumns: string[] = ['id', 'servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
-  paginatedData: Perfil[] = [];
+  paginatedData: PerfilExtendido[] = [];
 
   constructor(private perfilService: PerfilService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.perfilService.list().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource = data.map(item => ({ ...item, showPassword: false }));
       this.totalItems = data.length;
       this.paginarDatos();
     });
     this.perfilService.getList().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource = data.map(item => ({ ...item, showPassword: false }));
       this.totalItems = data.length;
       this.paginarDatos();
     });
+  }
+
+  togglePasswordVisibility(element: PerfilExtendido) {
+    element.showPassword = !element.showPassword;
   }
 
   eliminar(id: number) {
@@ -41,7 +49,7 @@ export class ListarperfilComponent implements OnInit{
         this.perfilService.delete(id).subscribe({
           next: () => {
             this.perfilService.list().subscribe((data) => {
-              this.dataSource = data;
+              this.dataSource = data.map(item => ({ ...item, showPassword: false }));
               this.totalItems = data.length;
               this.paginarDatos();
             });
