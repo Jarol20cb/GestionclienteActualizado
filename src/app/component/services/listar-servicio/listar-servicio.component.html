@@ -42,8 +42,8 @@
           <td>{{ element.service }}</td>
           <td>{{ element.description }}</td>
           <td *ngIf="role === 'ADMIN' || role === 'USER'">
-            <button [routerLink]="['/components/servicios/editar', element.serviceId]" class="custom-button">
-              <i class="fas fa-edit"></i>
+            <button [routerLink]="['ediciones', element.serviceId]" class="custom-button">
+              <mat-icon>create</mat-icon>
             </button>
           </td>
           <td *ngIf="role === 'ADMIN' || role === 'USER'">
