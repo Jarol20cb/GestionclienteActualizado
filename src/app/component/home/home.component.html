@@ -3,10 +3,17 @@
     <img src="../../../assets/icono-usuario.png" alt="Avatar">
     <div class="welcome-text">Bienvenido, {{ user.name }}!</div>
     <div class="button-container">
-      <button class="button" routerLink="/components/servicios">Agregar plataformas</button>
-      <button class="button" routerLink="/components/custser">Ver mis clientes</button>
-      <button class="button" routerLink="/components/socios">Ver mis socios</button>
+      <button class="button" routerLink="/components/servicios">
+        <mat-icon>add</mat-icon> Agregar plataformas
+      </button>
+      <button class="button" routerLink="/components/custser">
+        <mat-icon>group</mat-icon> Ver mis clientes
+      </button>
+      <button class="button" routerLink="/components/socios">
+        <mat-icon>people_outline</mat-icon> Ver mis socios
+      </button>
     </div>
+    
   </div>
   <div class="right-column">
     <div class="statistics-container">
