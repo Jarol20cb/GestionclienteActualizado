@@ -6,6 +6,10 @@ import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/c
 import { ConfirmarRenovacionDialogComponent } from '../../confirmar-renovacion-dialog/confirmar-renovacion-dialog.component';
 import * as moment from 'moment';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 @Component({
   selector: 'app-listar-cs',
@@ -194,4 +198,28 @@ export class ListarCsComponent implements OnInit {
       return '';
     }
   }
+
+  exportToExcel() {
+    // Aplana los datos de dataSource
+    const flattenedData = this.dataSource.map(item => ({
+      idcs: item.idcs,
+      name: item.name,
+      service: item.services?.service,
+      socio: item.socio?.name,
+      fechainicio: item.fechainicio,
+      fechafin: item.fechafin,
+      estado: item.estado
+    }));
+  
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(flattenedData);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'CustomerServices');
+  }
+  
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
+    saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
+  }
+  
 }

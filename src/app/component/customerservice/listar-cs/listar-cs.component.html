@@ -22,6 +22,9 @@
         <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" routerLink="/components/custser/nuevo">
           <mat-icon>add</mat-icon> Añadir
         </button>
+        <button (click)="exportToExcel()" class="mi-boton">
+          <mat-icon>file_download</mat-icon> Exportar a Excel
+        </button>
       </div>
     </div>
     <br>
