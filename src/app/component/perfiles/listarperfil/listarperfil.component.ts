@@ -16,6 +16,7 @@ interface PerfilExtendido extends Perfil {
 })
 export class ListarperfilComponent implements OnInit {
   dataSource: PerfilExtendido[] = [];
+  originalDataSource: PerfilExtendido[] = []; // Nueva variable para mantener los datos originales
   displayedColumns: string[] = ['id', 'servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
@@ -27,12 +28,14 @@ export class ListarperfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.perfilService.list().subscribe((data) => {
-      this.dataSource = data.map(item => ({ ...item, showPassword: false }));
+      this.originalDataSource = data.map(item => ({ ...item, showPassword: false })); // Guardar los datos originales
+      this.dataSource = [...this.originalDataSource];
       this.totalItems = data.length;
       this.paginarDatos();
     });
     this.perfilService.getList().subscribe((data) => {
-      this.dataSource = data.map(item => ({ ...item, showPassword: false }));
+      this.originalDataSource = data.map(item => ({ ...item, showPassword: false })); // Guardar los datos originales
+      this.dataSource = [...this.originalDataSource];
       this.totalItems = data.length;
       this.paginarDatos();
     });
@@ -49,7 +52,8 @@ export class ListarperfilComponent implements OnInit {
         this.perfilService.delete(id).subscribe({
           next: () => {
             this.perfilService.list().subscribe((data) => {
-              this.dataSource = data.map(item => ({ ...item, showPassword: false }));
+              this.originalDataSource = data.map(item => ({ ...item, showPassword: false })); // Guardar los datos originales
+              this.dataSource = [...this.originalDataSource];
               this.totalItems = data.length;
               this.paginarDatos();
             });
@@ -68,10 +72,13 @@ export class ListarperfilComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.paginatedData = this.dataSource.filter(perfil =>
-      perfil.correo.toLowerCase().includes(filterValue)
+    this.dataSource = this.originalDataSource.filter(perfil => // Usar originalDataSource para filtrar
+      perfil.correo.toLowerCase().includes(filterValue) ||
+      perfil.service.service.toLowerCase().includes(filterValue) ||
+      perfil.proveedor.nombre.toLowerCase().includes(filterValue)
     );
-    this.totalItems = this.paginatedData.length;
+    this.totalItems = this.dataSource.length;
+    this.currentPage = 1;
     this.paginarDatos();
   }
 

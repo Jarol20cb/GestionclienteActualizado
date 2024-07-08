@@ -13,6 +13,7 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
 })
 export class ListarServicioComponent implements OnInit {
   dataSource: Services[] = [];
+  originalDataSource: Services[] = []; // Nueva variable para mantener los datos originales
   displayedColumns: string[] = ['id', 'servicio', 'descripcion', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
@@ -26,11 +27,13 @@ export class ListarServicioComponent implements OnInit {
     this.role = this.loginService.showRole();
     this.actualizarColumnas();
     this.cS.list().subscribe((data) => {
+      this.originalDataSource = data; // Guardar los datos originales
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
     });
     this.cS.getList().subscribe((data) => {
+      this.originalDataSource = data; // Guardar los datos originales
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
@@ -44,13 +47,14 @@ export class ListarServicioComponent implements OnInit {
         this.cS.delete(id).subscribe({
           next: () => {
             this.cS.list().subscribe((data) => {
+              this.originalDataSource = data; // Guardar los datos originales
               this.dataSource = data;
               this.totalItems = data.length;
               this.paginarDatos();
             });
           },
           error: (errorMessage) => {
-            console.log('Error message:', errorMessage); // Agrega un log para verificar el mensaje
+            console.log('Error message:', errorMessage);
             this.dialog.open(WarningDialogComponent, {
               data: {
                 message: errorMessage
@@ -64,11 +68,12 @@ export class ListarServicioComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.paginatedData = this.dataSource.filter(service =>
+    this.dataSource = this.originalDataSource.filter(service => // Usar originalDataSource para filtrar
       service.service.toLowerCase().includes(filterValue) ||
       service.description.toLowerCase().includes(filterValue)
     );
-    this.totalItems = this.paginatedData.length;
+    this.totalItems = this.dataSource.length;
+    this.currentPage = 1;
     this.paginarDatos();
   }
 

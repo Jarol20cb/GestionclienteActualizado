@@ -29,6 +29,7 @@ const centeredStyle = {
 })
 export class ListarCsComponent implements OnInit {
   dataSource: CustomersServices[] = [];
+  originalDataSource: CustomersServices[] = []; // Nueva variable para mantener los datos originales
   displayedColumns: string[] = ['id', 'clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
   role: string = '';
   currentPage: number = 1;
@@ -44,6 +45,7 @@ export class ListarCsComponent implements OnInit {
     this.cS.list().subscribe((data) => {
       data.forEach(this.checkAndUpdateEstado.bind(this));
       data.sort((a, b) => this.ordenarPendientes(a, b));
+      this.originalDataSource = data; // Guardar los datos originales
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
@@ -51,6 +53,7 @@ export class ListarCsComponent implements OnInit {
     this.cS.getList().subscribe((data) => {
       data.forEach(this.checkAndUpdateEstado.bind(this));
       data.sort((a, b) => this.ordenarPendientes(a, b));
+      this.originalDataSource = data; // Guardar los datos originales
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
@@ -68,6 +71,7 @@ export class ListarCsComponent implements OnInit {
         this.cS.delete(id).subscribe(() => {
           this.cS.list().subscribe((data) => {
             this.cS.setList(data);
+            this.originalDataSource = data; // Guardar los datos originales
             this.dataSource = data;
             this.totalItems = data.length;
             this.paginarDatos();
@@ -96,6 +100,7 @@ export class ListarCsComponent implements OnInit {
             this.cS.list().subscribe((data) => {
               data.forEach(this.checkAndUpdateEstado.bind(this));
               data.sort((a, b) => this.ordenarPendientes(a, b));
+              this.originalDataSource = data; // Guardar los datos originales
               this.dataSource = data;
               this.totalItems = data.length;
               this.paginarDatos();
@@ -110,13 +115,14 @@ export class ListarCsComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.paginatedData = this.dataSource.filter(cs => 
+    this.dataSource = this.originalDataSource.filter(cs => // Usar originalDataSource para filtrar
       cs.name.toLowerCase().includes(filterValue) || 
       cs.services.service.toLowerCase().includes(filterValue) ||
       cs.perfil.correo.toLowerCase().includes(filterValue) || 
       cs.socio.name.toLowerCase().includes(filterValue)
     );
-    this.totalItems = this.paginatedData.length;
+    this.totalItems = this.dataSource.length;
+    this.currentPage = 1;
     this.paginarDatos();
   }
 
@@ -182,6 +188,7 @@ export class ListarCsComponent implements OnInit {
       this.cS.update(element).subscribe(() => {
         this.cS.list().subscribe((data) => {
           data.sort((a, b) => this.ordenarPendientes(a, b));
+          this.originalDataSource = data; // Guardar los datos originales
           this.dataSource = data;
           this.totalItems = data.length;
           this.paginarDatos();
@@ -227,7 +234,7 @@ export class ListarCsComponent implements OnInit {
     // Aplicar estilos de centrado y bordes
     const range = XLSX.utils.decode_range(worksheet['!ref']!);
     for (let R = range.s.r; R <= range.e.r; ++R) {
-      for (let C = range.s.c; C <= range.e.c; ++C) {
+      for (let C = range.s.c; R <= range.e.c; ++C) {
         const cell_address = { c: C, r: R };
         const cell_ref = XLSX.utils.encode_cell(cell_address);
         if (!worksheet[cell_ref]) continue;

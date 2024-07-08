@@ -86,6 +86,10 @@ h2 {
   font-size: 16px;
 }
 
+.table-container {
+  overflow-x: auto;
+}
+
 .custom-table {
   width: 100%;
   border-collapse: collapse;
@@ -123,7 +127,7 @@ h2 {
   align-items: center;
   justify-content: center;
   margin: auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Añade sombra */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 .custom-delete-button {
@@ -132,7 +136,7 @@ h2 {
 
 .custom-button:hover, .custom-delete-button:hover {
   background-color: #1A5276;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el cursor */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .custom-delete-button:hover {
@@ -140,7 +144,7 @@ h2 {
 }
 
 .custom-button mat-icon, .custom-delete-button mat-icon {
-  font-size: 20px; /* Ajusta el tamaño del icono */
+  font-size: 20px;
   color: white;
 }
 

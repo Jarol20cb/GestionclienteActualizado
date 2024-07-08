@@ -1,4 +1,3 @@
-// listar-proveedor.component.ts
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Proveedor } from 'src/app/model/Proveedor';
@@ -13,6 +12,7 @@ import { ProveedorService } from 'src/app/service/proveedor-service.service';
 })
 export class ListarProveedorComponent implements OnInit {
   dataSource: Proveedor[] = [];
+  originalDataSource: Proveedor[] = []; // Nueva variable para mantener los datos originales
   displayedColumns: string[] = ['id', 'nombre', 'editar', 'eliminar'];
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -23,12 +23,14 @@ export class ListarProveedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.proveedorService.list().subscribe((data) => {
-      this.dataSource = data;
+      this.originalDataSource = data; // Guardar los datos originales
+      this.dataSource = [...this.originalDataSource];
       this.totalItems = data.length;
       this.paginarDatos();
     });
     this.proveedorService.getList().subscribe((data) => {
-      this.dataSource = data;
+      this.originalDataSource = data; // Guardar los datos originales
+      this.dataSource = [...this.originalDataSource];
       this.totalItems = data.length;
       this.paginarDatos();
     });
@@ -41,7 +43,8 @@ export class ListarProveedorComponent implements OnInit {
         this.proveedorService.delete(id).subscribe({
           next: () => {
             this.proveedorService.list().subscribe((data) => {
-              this.dataSource = data;
+              this.originalDataSource = data; // Guardar los datos originales
+              this.dataSource = [...this.originalDataSource];
               this.totalItems = data.length;
               this.paginarDatos();
             });
@@ -60,10 +63,11 @@ export class ListarProveedorComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.paginatedData = this.dataSource.filter(proveedor =>
+    this.dataSource = this.originalDataSource.filter(proveedor => // Usar originalDataSource para filtrar
       proveedor.nombre.toLowerCase().includes(filterValue)
     );
-    this.totalItems = this.paginatedData.length;
+    this.totalItems = this.dataSource.length;
+    this.currentPage = 1;
     this.paginarDatos();
   }
 

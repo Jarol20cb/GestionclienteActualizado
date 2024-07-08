@@ -14,6 +14,7 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
 })
 export class ListarSociosComponent implements OnInit {
   dataSource: Socio[] = [];
+  originalDataSource: Socio[] = [];
   displayedColumns: string[] = ['id', 'nombre', 'clienteCount', 'verClientes', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
@@ -27,11 +28,13 @@ export class ListarSociosComponent implements OnInit {
     this.role = this.loginService.showRole();
     this.actualizarColumnas();
     this.cS.list().subscribe((data) => {
+      this.originalDataSource = data;
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
     });
     this.cS.getList().subscribe((data) => {
+      this.originalDataSource = data;
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
@@ -46,6 +49,7 @@ export class ListarSociosComponent implements OnInit {
           next: () => {
             this.cS.list().subscribe((data) => {
               this.cS.setList(data);
+              this.originalDataSource = data;
               this.dataSource = data;
               this.totalItems = data.length;
               this.paginarDatos();
@@ -66,7 +70,7 @@ export class ListarSociosComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.dataSource = this.dataSource.filter(socio => 
+    this.dataSource = this.originalDataSource.filter(socio => 
       socio.name.toLowerCase().includes(filterValue) || 
       socio.socioId.toString().includes(filterValue)
     );
