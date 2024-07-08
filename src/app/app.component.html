@@ -34,13 +34,27 @@
           </div>
 
           <div class="submenu">
-            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">movie</mat-icon> Plataformas</a>
+            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">subscriptions</mat-icon> Plataformas</a>
             <div class="submenu-content">
               <a routerLink="/components/servicios" (click)="closeDropdown()">Ver</a>
               <a routerLink="/components/servicios/nuevo" (click)="closeDropdown()">Registrar</a>
             </div>
           </div>
-          <a routerLink="/components/credentials" (click)="closeDropdown()"><mat-icon class="dropdown-icon">account_circle</mat-icon> Ver perfil</a>
+          <div class="submenu">
+            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">business</mat-icon> Proveedores</a>
+            <div class="submenu-content">
+              <a routerLink="/components/proveedor" (click)="closeDropdown()">Ver</a>
+              <a routerLink="/components/proveedor/nuevo" (click)="closeDropdown()">Registrar</a>
+            </div>
+          </div>
+          <div class="submenu">
+            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">person</mat-icon> Perfiles</a>
+            <div class="submenu-content">
+              <a routerLink="/components/perfil" (click)="closeDropdown()">Ver</a>
+              <a routerLink="/components/perfil/nuevo" (click)="closeDropdown()">Registrar</a>
+            </div>
+          </div>
+          <a routerLink="/components/credentials" (click)="closeDropdown()"><mat-icon class="dropdown-icon">account_circle</mat-icon> Ver cuenta</a>
           <a (click)="cerrar(); closeDropdown()"><mat-icon class="dropdown-icon">logout</mat-icon> Cerrar sesión</a>
         </div>
       </div>
