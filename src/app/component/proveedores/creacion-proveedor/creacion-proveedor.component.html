@@ -1,0 +1,30 @@
+<!-- creacion-proveedor.component.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Proveedores</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Registro de Proveedores</h2>
+    <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+      <div *ngIf="edicion" class="form-group">
+        <label for="proveedorId">Nr</label>
+        <input id="proveedorId" type="text" formControlName="proveedorId" readonly />
+      </div>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+        <div *ngIf="form.get('nombre')?.touched && form.get('nombre')?.errors?.['required']" class="error">
+          El nombre es obligatorio.
+        </div>
+      </div>
+      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="button" class="custom-button-cancel" routerLink="/components/proveedor">Cancelar</button>
+      <p>{{ mensaje }}</p>
+    </form>
+  </div>
+</body>
+</html>

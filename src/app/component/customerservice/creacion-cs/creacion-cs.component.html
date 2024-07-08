@@ -34,6 +34,17 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="perfil">Perfil</label>
+        <select id="perfil" formControlName="perfil">
+          <option *ngFor="let p of listperfil" [value]="p.perfilId">
+            {{p.correo}}
+          </option>
+        </select>
+        <div *ngIf="form.get('perfil')?.touched && form.get('perfil')?.errors?.['required']" class="error">
+          El campo es obligatorio.
+        </div>
+      </div>
+      <div class="form-group">
         <label for="fechainicio">Fecha de inicio</label>
         <input id="fechainicio" type="date" formControlName="fechainicio" [max]="maxFecha" />
         <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['required']" class="error">

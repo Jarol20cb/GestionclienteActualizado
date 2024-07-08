@@ -10,6 +10,12 @@ import { VisualizarPagosComponent } from './visualizar-pagos/visualizar-pagos.co
 import { SocioComponent } from './socio/socio.component';
 import { CreacionSocioComponent } from './socio/creacion-socio/creacion-socio.component';
 import { ListarClientesSocioComponent } from './socio/listar-clientes-socio/listar-clientes-socio.component';
+import { ListarperfilComponent } from './perfiles/listarperfil/listarperfil.component';
+import { CreacionPerfilComponent } from './perfiles/creacion-perfil/creacion-perfil.component';
+import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/creacion-proveedor.component';
+import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-proveedor.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { PerfilesComponent } from './perfiles/perfiles.component';
 
 const routes: Routes = [
   {
@@ -44,6 +50,21 @@ const routes: Routes = [
       { path: 'nuevo', component: CreacionSocioComponent },
       { path: 'ediciones/:id', component: CreacionSocioComponent },
       { path: ':socioId/clientes', component: ListarClientesSocioComponent },
+    ]
+  },
+
+  {
+    path: 'perfil',
+    component: PerfilesComponent, children:[
+      { path: 'nuevo', component: CreacionPerfilComponent },
+      { path: 'ediciones/:id', component: CreacionPerfilComponent },
+    ]
+  },
+  {
+    path: 'proveedor',
+    component: ProveedoresComponent, children:[
+      { path: 'nuevo', component: CreacionProveedorComponent },
+      { path: 'ediciones/:id', component: CreacionProveedorComponent },
     ]
   },
 ];

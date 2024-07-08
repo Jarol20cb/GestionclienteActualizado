@@ -9,7 +9,9 @@ import * as moment from 'moment';
 import { NotificationComponent } from '../../notification/notification.component';
 import { Socio } from 'src/app/model/socio';
 import { SocioService } from 'src/app/service/socio.service';
+import { Perfil } from 'src/app/model/Perfil';
 import { CustomersServices } from 'src/app/model/CustomerService';
+import { PerfilService } from 'src/app/service/perfil-service.service';
 
 @Component({
   selector: 'app-creacion-cs',
@@ -24,6 +26,7 @@ export class CreacionCsComponent implements OnInit {
   edicion: boolean = false;
   listservices: Services[] = [];
   listsocios: Socio[] = [];
+  listperfil: Perfil[] = [];
   maxFecha: string = new Date().toISOString().split('T')[0];  // Set max date to today
 
   constructor(
@@ -33,6 +36,7 @@ export class CreacionCsComponent implements OnInit {
     private route: ActivatedRoute,
     private Ds: ServicesService,
     private socioService: SocioService,
+    private perfilService: PerfilService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -47,6 +51,7 @@ export class CreacionCsComponent implements OnInit {
       idcs: [''],
       name: ['', [Validators.required, Validators.maxLength(15)]],
       services: ['', Validators.required],
+      perfil: ['', Validators.required],
       fechainicio: ['', [Validators.required, this.dateValidator.bind(this)]],
       paymentPeriod: [1, [Validators.required, Validators.min(1)]],
       fechafin: [{ value: '', disabled: true }, Validators.required],
@@ -73,6 +78,10 @@ export class CreacionCsComponent implements OnInit {
     this.socioService.list().subscribe(data => {
       this.listsocios = data;
     });
+
+    this.perfilService.list().subscribe(data => {
+      this.listperfil = data;
+    });
   }
 
   dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -90,6 +99,7 @@ export class CreacionCsComponent implements OnInit {
       this.customerservice.idcs = this.form.value.idcs;
       this.customerservice.name = this.form.value.name;
       this.customerservice.services.serviceId = this.form.value.services;
+      this.customerservice.perfil.perfilId = this.form.value.perfil;
       const fechainicio = moment(this.form.value.fechainicio).toDate();
       this.customerservice.fechainicio = fechainicio;
       this.customerservice.fechafin = moment(this.form.get('fechafin')?.value).toDate();
@@ -142,6 +152,7 @@ export class CreacionCsComponent implements OnInit {
           idcs: [data.idcs],
           name: [data.name, Validators.required],
           services: [data.services.serviceId, Validators.required],
+          perfil: [data.perfil.perfilId, Validators.required],
           fechainicio: [this.formatDate(data.fechainicio), [Validators.required, this.dateValidator.bind(this)]],
           paymentPeriod: [1, [Validators.required, Validators.min(1)]],
           fechafin: [{ value: this.formatDate(data.fechafin), disabled: true }, Validators.required],

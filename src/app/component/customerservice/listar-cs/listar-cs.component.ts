@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/service/login.service';
-import { CustomersServices } from 'src/app/model/CustomerService';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { ConfirmarRenovacionDialogComponent } from '../../confirmar-renovacion-dialog/confirmar-renovacion-dialog.component';
 import * as moment from 'moment';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { CustomersServices } from 'src/app/model/CustomerService';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
@@ -29,7 +29,7 @@ const centeredStyle = {
 })
 export class ListarCsComponent implements OnInit {
   dataSource: CustomersServices[] = [];
-  displayedColumns: string[] = ['id', 'clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['id', 'clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
   role: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -110,13 +110,13 @@ export class ListarCsComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.dataSource = this.dataSource.filter(cs => 
+    this.paginatedData = this.dataSource.filter(cs => 
       cs.name.toLowerCase().includes(filterValue) || 
       cs.services.service.toLowerCase().includes(filterValue) ||
+      cs.perfil.correo.toLowerCase().includes(filterValue) || 
       cs.socio.name.toLowerCase().includes(filterValue)
     );
-    this.totalItems = this.dataSource.length;
-    this.currentPage = 1;
+    this.totalItems = this.paginatedData.length;
     this.paginarDatos();
   }
 
@@ -138,10 +138,10 @@ export class ListarCsComponent implements OnInit {
 
   actualizarColumnas() {
     if (this.role === 'ADMIN') {
-      this.displayedColumns = ['id', 'clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
+      this.displayedColumns = ['id', 'clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
     }
     if(this.role === 'USER'){
-      this.displayedColumns = ['clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
+      this.displayedColumns = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
     }
   }
 
@@ -215,6 +215,7 @@ export class ListarCsComponent implements OnInit {
       'No.': item.idcs,
       'Cliente': item.name,
       'Tipo de servicio': item.services?.service,
+      'Perfil': item.perfil?.correo,
       'Socio': item.socio?.name,
       'Fecha de Inicio': moment(item.fechainicio).format('DD/MM/YYYY'),
       'Fecha de pagos': moment(item.fechafin).format('DD/MM/YYYY'),

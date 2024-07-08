@@ -43,6 +43,12 @@ import { SocioComponent } from './socio/socio.component';
 import { CreacionSocioComponent } from './socio/creacion-socio/creacion-socio.component';
 import { ListarClientesSocioComponent } from './socio/listar-clientes-socio/listar-clientes-socio.component';
 import { ListarSociosComponent } from './socio/listar-socios/listar-socios.component';
+import { PerfilesComponent } from './perfiles/perfiles.component';
+import { ListarperfilComponent } from './perfiles/listarperfil/listarperfil.component';
+import { CreacionPerfilComponent } from './perfiles/creacion-perfil/creacion-perfil.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-proveedor.component';
+import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/creacion-proveedor.component';
 
 
 
@@ -68,7 +74,13 @@ import { ListarSociosComponent } from './socio/listar-socios/listar-socios.compo
     SocioComponent,
     CreacionSocioComponent,
     ListarClientesSocioComponent,
-    ListarSociosComponent
+    ListarSociosComponent,
+    PerfilesComponent,
+    ListarperfilComponent,
+    CreacionPerfilComponent,
+    ProveedoresComponent,
+    ListarProveedorComponent,
+    CreacionProveedorComponent
   ],
   imports: [
     CommonModule,
