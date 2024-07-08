@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { LoginService } from 'src/app/service/login.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
@@ -15,10 +13,13 @@ import { CustomerserviceService } from 'src/app/service/customerservice.service'
   styleUrls: ['./listar-cs.component.css']
 })
 export class ListarCsComponent implements OnInit {
-  dataSource: MatTableDataSource<CustomersServices> = new MatTableDataSource();
+  dataSource: CustomersServices[] = [];
   displayedColumns: string[] = ['id', 'clientes', 'servicio', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   role: string = '';
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+  paginatedData: CustomersServices[] = [];
 
   constructor(private cS: CustomerserviceService, public dialog: MatDialog, private loginService: LoginService) {}
 
@@ -28,14 +29,16 @@ export class ListarCsComponent implements OnInit {
     this.cS.list().subscribe((data) => {
       data.forEach(this.checkAndUpdateEstado.bind(this));
       data.sort((a, b) => this.ordenarPendientes(a, b));
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource = data;
+      this.totalItems = data.length;
+      this.paginarDatos();
     });
     this.cS.getList().subscribe((data) => {
       data.forEach(this.checkAndUpdateEstado.bind(this));
       data.sort((a, b) => this.ordenarPendientes(a, b));
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource = data;
+      this.totalItems = data.length;
+      this.paginarDatos();
     });
   }
 
@@ -50,6 +53,9 @@ export class ListarCsComponent implements OnInit {
         this.cS.delete(id).subscribe(() => {
           this.cS.list().subscribe((data) => {
             this.cS.setList(data);
+            this.dataSource = data;
+            this.totalItems = data.length;
+            this.paginarDatos();
           });
         });
       }
@@ -75,8 +81,9 @@ export class ListarCsComponent implements OnInit {
             this.cS.list().subscribe((data) => {
               data.forEach(this.checkAndUpdateEstado.bind(this));
               data.sort((a, b) => this.ordenarPendientes(a, b));
-              this.dataSource = new MatTableDataSource(data);
-              this.dataSource.paginator = this.paginator;
+              this.dataSource = data;
+              this.totalItems = data.length;
+              this.paginarDatos();
             });
           });
         } else {
@@ -87,7 +94,15 @@ export class ListarCsComponent implements OnInit {
   }
 
   filter(event: any) {
-    this.dataSource.filter = event.target.value.trim().toLowerCase();
+    const filterValue = event.target.value.trim().toLowerCase();
+    this.dataSource = this.dataSource.filter(cs => 
+      cs.name.toLowerCase().includes(filterValue) || 
+      cs.services.service.toLowerCase().includes(filterValue) ||
+      cs.socio.name.toLowerCase().includes(filterValue)
+    );
+    this.totalItems = this.dataSource.length;
+    this.currentPage = 1;
+    this.paginarDatos();
   }
 
   isOverdue(customerService: CustomersServices): boolean {
@@ -115,12 +130,30 @@ export class ListarCsComponent implements OnInit {
     }
   }
 
-  getRowClass(element: CustomersServices): string {
-    return element.estado === 'pendiente' ? 'pendiente-row' : '';
+  changePageSize(event: any) {
+    this.itemsPerPage = parseInt(event.target.value, 10);
+    this.currentPage = 1;
+    this.paginarDatos();
   }
 
-  getEstadoClass(element: CustomersServices): string {
-    return element.estado === 'pendiente' ? 'pendiente-estado' : '';
+  paginarDatos() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedData = this.dataSource.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.totalItems) {
+      this.currentPage++;
+      this.paginarDatos();
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.paginarDatos();
+    }
   }
 
   checkAndUpdateEstado(element: CustomersServices) {
@@ -134,10 +167,31 @@ export class ListarCsComponent implements OnInit {
       this.cS.update(element).subscribe(() => {
         this.cS.list().subscribe((data) => {
           data.sort((a, b) => this.ordenarPendientes(a, b));
-          this.dataSource = new MatTableDataSource(data);
-          this.dataSource.paginator = this.paginator;
+          this.dataSource = data;
+          this.totalItems = data.length;
+          this.paginarDatos();
         });
       });
+    }
+  }
+
+  getRowClass(element: CustomersServices): string {
+    if (element.estado === 'pendiente') {
+      return 'pendiente-row';
+    } else if (element.estado === 'cancelado') {
+      return 'cancelado-row';
+    } else {
+      return '';
+    }
+  }
+
+  getEstadoClass(element: CustomersServices): string {
+    if (element.estado === 'pendiente') {
+      return 'pendiente-estado';
+    } else if (element.estado === 'cancelado') {
+      return 'cancelado-estado';
+    } else {
+      return '';
     }
   }
 }

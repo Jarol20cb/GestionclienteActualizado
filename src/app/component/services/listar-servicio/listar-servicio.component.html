@@ -16,12 +16,12 @@
         <input (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
       </div>
       <div class="paginator-actions">
-        <span>Items per page:</span>
+        <span>Mostrar:</span>
         <select (change)="changePageSize($event)" class="custom-select">
           <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{size}}</option>
         </select>
         <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" routerLink="/components/servicios/nuevo">
-          <i class="fas fa-plus"></i> Nuevo registro
+          <i class="fas fa-plus"></i> Añadir
         </button>
       </div>
     </div>

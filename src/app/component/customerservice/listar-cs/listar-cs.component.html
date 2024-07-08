@@ -1,79 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de registros</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <h2 class="header">Lista de registros</h2>
-    <div class="toolbar">
-      <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
-      <button *ngIf="role=='ADMIN' || role=='USER'" class="custom-button" routerLink="/components/custser/nuevo">Registrar nuevo</button>
+  <div class="container" *ngIf="verificar()">
+    <br>
+    <h2 style="text-align: center;">Lista de registros</h2>
+    <div class="header-actions">
+      <div class="search-container">
+        <span class="search-icon"><mat-icon>search</mat-icon></span>
+        <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
+      </div>
+      <div class="paginator-actions">
+        <span class="items-per-page">Mostrar:</span>
+        <select (change)="changePageSize($event)" class="custom-select">
+          <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
+        </select>
+        <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" routerLink="/components/custser/nuevo">
+          <mat-icon>add</mat-icon> Añadir
+        </button>
+      </div>
     </div>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-    <div class="table-container">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>No.</th>
-          <td mat-cell *matCellDef="let element">{{ element.idcs }}</td>
-        </ng-container>
-        <ng-container matColumnDef="clientes">
-          <th mat-header-cell *matHeaderCellDef>Cliente</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
-        <ng-container matColumnDef="servicio">
-          <th mat-header-cell *matHeaderCellDef>Tipo de servicio</th>
-          <td mat-cell *matCellDef="let element">{{ element.services.service }}</td>
-        </ng-container>
-        <ng-container matColumnDef="fechainicio">
-          <th mat-header-cell *matHeaderCellDef>Fecha de Inicio</th>
-          <td mat-cell *matCellDef="let element">{{ element.fechainicio | date : "dd/MM/yyyy" }}</td>
-        </ng-container>
-        <ng-container matColumnDef="fechafin">
-          <th mat-header-cell *matHeaderCellDef>Fecha de pagos</th>
-          <td mat-cell *matCellDef="let element">{{ element.fechafin | date : "dd/MM/yyyy" }}</td>
-        </ng-container>
-        <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef>Estado de la cuenta</th>
-          <td mat-cell *matCellDef="let element" [ngClass]="getEstadoClass(element)">
-            {{ element.estado }}
+    <br>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Cliente</th>
+          <th>Tipo de servicio</th>
+          <th>Fecha de Inicio</th>
+          <th>Fecha de pagos</th>
+          <th>Estado de la cuenta</th>
+          <th>Socio</th>
+          <th>Cambiar</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of paginatedData" [ngClass]="getRowClass(element)">
+          <td>{{ element.idcs }}</td>
+          <td>{{ element.name }}</td>
+          <td>{{ element.services.service }}</td>
+          <td>{{ element.fechainicio | date : "dd/MM/yyyy" }}</td>
+          <td>{{ element.fechafin | date : "dd/MM/yyyy" }}</td>
+          <td [ngClass]="getEstadoClass(element)">{{ element.estado }}</td>
+          <td>{{ element.socio.name }}</td>
+          <td>
+            <button (click)="cambiarEstado(element)" class="custom-button rounded-button renew-button">
+              <mat-icon>update</mat-icon>
+            </button>
           </td>
-        </ng-container>
-        <ng-container matColumnDef="socio">
-          <th mat-header-cell *matHeaderCellDef>Socio</th>
-          <td mat-cell *matCellDef="let element">{{ element.socio.name }}</td>
-        </ng-container>
-        <ng-container matColumnDef="cambiarEstado">
-          <th mat-header-cell *matHeaderCellDef>Cambiar</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-button (click)="cambiarEstado(element)" class="custom-button rounded-button renew-button">Renovar</button>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="editar">
-          <th mat-header-cell *matHeaderCellDef>Editar</th>
-          <td mat-cell *matCellDef="let element">
-            <button [routerLink]="['ediciones', element.idcs]" matRipple="false" class="custom-button rounded-button">
+          <td>
+            <button [routerLink]="['ediciones', element.idcs]" class="custom-button rounded-button">
               <mat-icon class="custom-icon">create</mat-icon>
             </button>
           </td>
-        </ng-container>
-        <ng-container matColumnDef="eliminar">
-          <th mat-header-cell *matHeaderCellDef>Eliminar</th>
-          <td mat-cell *matCellDef="let element">
-            <button (click)="eliminar(element.idcs)" matRipple="false" class="custom-delete-button ">
+          <td>
+            <button (click)="eliminar(element.idcs)" class="custom-delete-button">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="getRowClass(row)"></tr>
-      </table>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
     </div>
   </div>
-  <br><br>
 </body>
 </html>
