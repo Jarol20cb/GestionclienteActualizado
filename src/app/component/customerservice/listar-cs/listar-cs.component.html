@@ -15,10 +15,12 @@
         <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
       </div>
       <div class="paginator-actions">
-        <span class="items-per-page">Mostrar:</span>
+        <span class="items-per-page">Mostrar paginas:</span>
         <select (change)="changePageSize($event)" class="custom-select">
           <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
         </select>
+      </div>
+      <div class="button-actions">
         <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" routerLink="/components/custser/nuevo">
           <mat-icon>add</mat-icon> Añadir
         </button>

@@ -11,6 +11,17 @@ import { saveAs } from 'file-saver';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
+// Define los estilos
+const centeredStyle = {
+  alignment: { vertical: 'center', horizontal: 'center' },
+  border: {
+    top: { style: 'thin', color: { rgb: '000000' } },
+    bottom: { style: 'thin', color: { rgb: '000000' } },
+    left: { style: 'thin', color: { rgb: '000000' } },
+    right: { style: 'thin', color: { rgb: '000000' } }
+  }
+};
+
 @Component({
   selector: 'app-listar-cs',
   templateUrl: './listar-cs.component.html',
@@ -200,26 +211,37 @@ export class ListarCsComponent implements OnInit {
   }
 
   exportToExcel() {
-    // Aplana los datos de dataSource
     const flattenedData = this.dataSource.map(item => ({
-      idcs: item.idcs,
-      name: item.name,
-      service: item.services?.service,
-      socio: item.socio?.name,
-      fechainicio: item.fechainicio,
-      fechafin: item.fechafin,
-      estado: item.estado
+      'No.': item.idcs,
+      'Cliente': item.name,
+      'Tipo de servicio': item.services?.service,
+      'Socio': item.socio?.name,
+      'Fecha de Inicio': moment(item.fechainicio).format('DD/MM/YYYY'),
+      'Fecha de pagos': moment(item.fechafin).format('DD/MM/YYYY'),
+      'Estado de la cuenta': item.estado
     }));
-  
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(flattenedData);
+
+    // Aplicar estilos de centrado y bordes
+    const range = XLSX.utils.decode_range(worksheet['!ref']!);
+    for (let R = range.s.r; R <= range.e.r; ++R) {
+      for (let C = range.s.c; C <= range.e.c; ++C) {
+        const cell_address = { c: C, r: R };
+        const cell_ref = XLSX.utils.encode_cell(cell_address);
+        if (!worksheet[cell_ref]) continue;
+        if (!worksheet[cell_ref].s) worksheet[cell_ref].s = {};
+        worksheet[cell_ref].s = centeredStyle;
+      }
+    }
+
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, 'CustomerServices');
   }
-  
+
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
     saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
   }
-  
 }

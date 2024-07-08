@@ -21,12 +21,14 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 10px;
 }
 
 .search-container {
   position: relative;
   width: 50%;
+  margin-bottom: 10px; /* Ajustado para mejorar la apariencia en responsive */
 }
 
 .search-icon {
@@ -50,6 +52,14 @@ h2 {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px; /* Ajustado para mejorar la apariencia en responsive */
+}
+
+.button-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px; /* Ajustado para mejorar la apariencia en responsive */
 }
 
 .mi-boton {
@@ -70,12 +80,6 @@ h2 {
 .mi-boton:hover {
   background-color: #1A5276;
   transform: scale(1.05);
-}
-
-.paginator-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 .custom-select {
@@ -201,7 +205,7 @@ h2 {
     margin-bottom: 10px;
   }
 
-  .paginator-actions {
+  .paginator-actions, .button-actions {
     width: 100%;
     justify-content: space-between;
   }
