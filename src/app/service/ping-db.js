@@ -24,5 +24,11 @@ async function pingDatabase() {
     }
 }
 
-// Intervalo para ejecutar la función cada 5 minutos (300,000 ms)
-setInterval(pingDatabase, 300000); // Intervalo en milisegundos (300,000 ms = 5 minutos)
+// Función para iniciar el intervalo
+function startPing() {
+    pingDatabase(); // Envía el primer ping inmediatamente
+    setInterval(pingDatabase, 120000); // Intervalo en milisegundos (120,000 ms = 2 minutos)
+}
+
+// Inicia el proceso de ping
+startPing();
