@@ -1,0 +1,33 @@
+<!-- src/app/components/servicios/listar-perfiles/listar-perfiles.component.html -->
+<div class="container">
+    <h2>Perfiles del Servicio</h2>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Correo</th>
+          <th>Contraseña</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>Limite Usuarios</th>
+          <th>Usuarios Actuales</th>
+          <th>Usuarios Disponibles</th>
+          <th>Proveedor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let perfil of perfiles">
+          <td>{{ perfil.perfilId }}</td>
+          <td>{{ perfil.correo }}</td>
+          <td>{{ perfil.contrasena }}</td>
+          <td>{{ perfil.fechainicio | date }}</td>
+          <td>{{ perfil.fechafin | date }}</td>
+          <td>{{ perfil.limiteUsuarios }}</td>
+          <td>{{ perfil.usuariosActuales }}</td>
+          <td>{{ perfil.usuariosDisponibles }}</td>
+          <td>{{ perfil.proveedor.nombre }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

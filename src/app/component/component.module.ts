@@ -49,6 +49,7 @@ import { CreacionPerfilComponent } from './perfiles/creacion-perfil/creacion-per
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-proveedor.component';
 import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/creacion-proveedor.component';
+import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
 
 
 
@@ -80,7 +81,8 @@ import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/cre
     CreacionPerfilComponent,
     ProveedoresComponent,
     ListarProveedorComponent,
-    CreacionProveedorComponent
+    CreacionProveedorComponent,
+    ListarPerfilesComponent
   ],
   imports: [
     CommonModule,

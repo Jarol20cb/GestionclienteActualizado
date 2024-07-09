@@ -1,9 +1,12 @@
+// src/app/service/services.service.ts
+
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Services } from '../model/Services';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Subject, throwError } from 'rxjs';
+import { Subject, throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Perfil } from '../model/Perfil';
 
 const base_url = environment.base;
 
@@ -69,6 +72,15 @@ export class ServicesService {
     }).pipe(
       catchError(this.handleError.bind(this))
     );
+  }
+
+  getPerfilesByServiceId(serviceId: number): Observable<Perfil[]> {
+    let token = sessionStorage.getItem('token');
+    return this.http.get<Perfil[]>(`${this.url}/${serviceId}/perfiles`, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-Type', 'application/json'),
+    });
   }
 
   private handleError(error: HttpErrorResponse) {

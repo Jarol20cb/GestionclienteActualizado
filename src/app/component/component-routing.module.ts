@@ -16,6 +16,7 @@ import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/cre
 import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-proveedor.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
+import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     component: ServicesComponent, children:[
       { path: 'nuevo', component: CreacionServicioComponent },
       { path: 'ediciones/:id', component: CreacionServicioComponent },
+      { path: ':serviceId/perfiles', component: ListarPerfilesComponent }
     ]
   },
   {
