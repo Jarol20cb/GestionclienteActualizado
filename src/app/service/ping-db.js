@@ -2,10 +2,10 @@ const { Client } = require('pg');
 
 // Configura la conexión a tu base de datos
 const dbConfig = {
-    user: 'tu-usuario',
-    host: 'tu-host-de-base-de-datos',
-    database: 'tu-nombre-de-base-de-datos',
-    password: 'tu-contraseña',
+    user: 'gestioncliente_db_user',
+    host: 'dpg-cq68ptjv2p9s73cho4kg-a',
+    database: 'gestioncliente_db',
+    password: 'KmDi1x6siVGFOnUQ1mTziePWyXPc1dpy',
     port: 5432, // Puerto por defecto de PostgreSQL
 };
 
