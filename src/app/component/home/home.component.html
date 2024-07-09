@@ -7,23 +7,23 @@
         <mat-icon>add</mat-icon> Agregar plataformas
       </button>
       <button class="button" routerLink="/components/custser">
-        <mat-icon>group</mat-icon> Ver mis clientes
+        <mat-icon>group</mat-icon> Ver clientes
       </button>
       <button class="button" routerLink="/components/socios">
-        <mat-icon>people_outline</mat-icon> Ver mis socios
+        <mat-icon>people_outline</mat-icon> Ver socios
       </button>
       <button class="button" routerLink="/components/perfil">
-        <mat-icon>videocam</mat-icon> Ver perfiles
+        <mat-icon>people_outline</mat-icon> Ver perfiles
       </button>
       <button class="button" routerLink="/components/proveedor">
-        <mat-icon>contact_mail</mat-icon> Ver proveedores
+        <mat-icon>people_outline</mat-icon> Ver proveedores
       </button>
     </div>
     
   </div>
   <div class="right-column">
     <div class="statistics-container">
-      <div class="stat-card">
+      <div class="stat-card" routerLink="/components/custser">
         <div class="stat-text">
           <h2>{{ totalUsuarios }}</h2>
           <p>Total de usuarios</p>

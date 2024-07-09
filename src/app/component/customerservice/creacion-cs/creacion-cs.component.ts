@@ -158,6 +158,10 @@ export class CreacionCsComponent implements OnInit {
     if (this.edicion) {
       this.cS.listId(this.id).subscribe((data) => {
         this.customerservice = data;
+
+        // Cargar perfiles disponibles para el servicio actual
+        this.loadAvailablePerfiles(data.services.serviceId);
+
         this.form = this.formBuilder.group({
           idcs: [data.idcs],
           name: [data.name, Validators.required],
