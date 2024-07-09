@@ -17,9 +17,11 @@
       <div class="form-group">
         <label for="service">Servicio</label>
         <select id="service" formControlName="service">
+          <option value="" disabled [selected]="true">Seleccione un servicio</option>
           <option *ngFor="let s of listservices" [value]="s.serviceId">
             {{s.service}}
           </option>
+          <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
         </select>
         <div *ngIf="form.get('service')?.touched && form.get('service')?.errors?.['required']" class="error">
           El servicio es obligatorio.
@@ -52,6 +54,9 @@
         <div *ngIf="form.get('fechafin')?.touched && form.get('fechafin')?.errors?.['required']" class="error">
           La fecha de vencimiento es obligatoria.
         </div>
+        <div *ngIf="form.get('fechafin')?.touched && form.get('fechafin')?.errors?.['invalidDate']" class="error">
+          La fecha de vencimiento no puede ser menor a la fecha de inicio.
+        </div>
       </div>
       <div class="form-group">
         <label for="limiteUsuarios">Límite de Usuarios</label>
@@ -74,9 +79,11 @@
       <div class="form-group">
         <label for="proveedor">Proveedor</label>
         <select id="proveedor" formControlName="proveedor">
+          <option value="" disabled [selected]="true">Seleccione un proveedor</option>
           <option *ngFor="let p of listproveedores" [value]="p.proveedorId">
             {{p.nombre}}
           </option>
+          <option *ngIf="listproveedores.length === 0" disabled>No hay proveedores disponibles</option>
         </select>
         <div *ngIf="form.get('proveedor')?.touched && form.get('proveedor')?.errors?.['required']" class="error">
           El proveedor es obligatorio.

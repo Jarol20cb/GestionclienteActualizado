@@ -45,19 +45,21 @@ export class CreacionPerfilComponent implements OnInit {
       correo: ['', Validators.required],
       contrasena: ['', Validators.required],
       fechainicio: ['', Validators.required],
-      fechafin: ['', Validators.required],
+      fechafin: ['', [Validators.required, this.dateValidator.bind(this)]],
       limiteUsuarios: ['', [Validators.required, Validators.min(1)]],
-      usuariosActuales: [0, Validators.required], // Inicializa en 0
-      usuariosDisponibles: ['', Validators.required], // Inicializa con el mismo valor que limiteUsuarios
+      usuariosActuales: [0, Validators.required],
+      usuariosDisponibles: ['', Validators.required],
       proveedor: ['', Validators.required]
     });
 
     this.servicesService.list().subscribe(data => {
       this.listservices = data;
+      this.form.get('service')?.setValue('');
     });
 
     this.proveedorService.list().subscribe(data => {
       this.listproveedores = data;
+      this.form.get('proveedor')?.setValue('');
     });
 
     this.form.get('limiteUsuarios')?.valueChanges.subscribe(value => {
@@ -74,8 +76,8 @@ export class CreacionPerfilComponent implements OnInit {
       this.perfil.fechainicio = this.form.value.fechainicio;
       this.perfil.fechafin = this.form.value.fechafin;
       this.perfil.limiteUsuarios = this.form.value.limiteUsuarios;
-      this.perfil.usuariosActuales = 0; // Inicializa en 0
-      this.perfil.usuariosDisponibles = this.form.value.limiteUsuarios; // Igual a limiteUsuarios
+      this.perfil.usuariosActuales = 0;
+      this.perfil.usuariosDisponibles = this.form.value.limiteUsuarios;
       this.perfil.proveedor.proveedorId = this.form.value.proveedor;
 
       if (this.edicion) {
@@ -114,5 +116,14 @@ export class CreacionPerfilComponent implements OnInit {
         });
       });
     }
+  }
+
+  dateValidator(control: FormControl): { [key: string]: boolean } | null {
+    const startDate = new Date(this.form.get('fechainicio')?.value);
+    const endDate = new Date(control.value);
+    if (endDate < startDate) {
+      return { invalidDate: true };
+    }
+    return null;
   }
 }

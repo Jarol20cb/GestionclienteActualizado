@@ -49,7 +49,7 @@ export class CreacionCsComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       idcs: [''],
-      name: ['', [Validators.required, Validators.maxLength(15)]],
+      name: ['', [Validators.required, Validators.maxLength(40)]],
       services: ['', Validators.required],
       perfil: ['', Validators.required],
       fechainicio: ['', [Validators.required, this.dateValidator.bind(this)]],
@@ -77,10 +77,16 @@ export class CreacionCsComponent implements OnInit {
 
     this.Ds.list().subscribe(data => {
       this.listservices = data;
+      if (this.listservices.length === 0) {
+        this.form.get('services')?.setValue('');
+      }
     });
 
     this.socioService.list().subscribe(data => {
       this.listsocios = data;
+      if (this.listsocios.length === 0) {
+        this.form.get('socio')?.setValue('');
+      }
     });
 
     if (this.edicion) {
@@ -91,6 +97,9 @@ export class CreacionCsComponent implements OnInit {
   loadAvailablePerfiles(serviceId: number) {
     this.perfilService.findAvailableByService(serviceId).subscribe(data => {
       this.listperfil = data;
+      if (this.listperfil.length === 0) {
+        this.form.get('perfil')?.setValue('');
+      }
     });
   }
 
@@ -164,7 +173,7 @@ export class CreacionCsComponent implements OnInit {
 
         this.form = this.formBuilder.group({
           idcs: [data.idcs],
-          name: [data.name, Validators.required],
+          name: [data.name, [Validators.required, Validators.maxLength(40)]],
           services: [data.services.serviceId, Validators.required],
           perfil: [data.perfil.perfilId, Validators.required],
           fechainicio: [this.formatDate(data.fechainicio), [Validators.required, this.dateValidator.bind(this)]],
