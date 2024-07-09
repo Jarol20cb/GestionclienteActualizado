@@ -1,4 +1,3 @@
-<!-- creacion-proveedor.component.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +19,11 @@
         <div *ngIf="form.get('nombre')?.touched && form.get('nombre')?.errors?.['required']" class="error">
           El nombre es obligatorio.
         </div>
+        <div *ngIf="form.get('nombre')?.touched && form.get('nombre')?.errors?.['maxlength']" class="error">
+          El nombre no puede exceder los 100 caracteres.
+        </div>
       </div>
-      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="submit" class="custom-button" [disabled]="form.invalid">Aceptar</button>
       <button type="button" class="custom-button-cancel" routerLink="/components/proveedor">Cancelar</button>
       <p>{{ mensaje }}</p>
     </form>

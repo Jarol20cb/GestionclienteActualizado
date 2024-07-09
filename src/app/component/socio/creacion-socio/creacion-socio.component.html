@@ -21,9 +21,12 @@
         <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['required']" class="error">
           El nombre es obligatorio.
         </div>
+        <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['maxlength']" class="error">
+          El nombre no puede exceder los 40 caracteres.
+        </div>
       </div>
       <p>{{ mensaje }}</p>
-      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="submit" class="custom-button" [disabled]="form.invalid">Aceptar</button>
       <button type="button" class="custom-button-cancel" routerLink="/components/socios">Cancelar</button>
     </form>
   </div>

@@ -18,19 +18,25 @@
       <div class="form-group">
         <label for="service">Nombre del servicio</label>
         <input id="service" type="text" formControlName="service" />
-        <div *ngIf="obtenerControlCampo('service')?.touched && obtenerControlCampo('service')?.errors?.['required']" class="error">
+        <div *ngIf="form.get('service')?.touched && form.get('service')?.errors?.['required']" class="error">
           El nombre del servicio es obligatorio.
+        </div>
+        <div *ngIf="form.get('service')?.touched && form.get('service')?.errors?.['maxlength']" class="error">
+          El nombre del servicio no puede exceder los 20 caracteres.
         </div>
       </div>
       <div class="form-group">
         <label for="description">Descripción</label>
         <input id="description" type="text" formControlName="description" />
-        <div *ngIf="obtenerControlCampo('description')?.touched && obtenerControlCampo('description')?.errors?.['required']" class="error">
+        <div *ngIf="form.get('description')?.touched && form.get('description')?.errors?.['required']" class="error">
           La descripción es obligatoria.
+        </div>
+        <div *ngIf="form.get('description')?.touched && form.get('description')?.errors?.['maxlength']" class="error">
+          La descripción no puede exceder los 150 caracteres.
         </div>
       </div>
       <p>{{ mensaje }}</p>
-      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="submit" class="custom-button" [disabled]="form.invalid">Aceptar</button>
       <button type="button" class="custom-button-cancel" routerLink="/components/servicios">Cancelar</button>
     </form>
   </div>

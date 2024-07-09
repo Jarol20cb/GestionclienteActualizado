@@ -1,4 +1,3 @@
-// creacion-proveedor.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -33,7 +32,7 @@ export class CreacionProveedorComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       proveedorId: [''],
-      nombre: ['', Validators.required]
+      nombre: ['', [Validators.required, Validators.maxLength(100)]]
     });
   }
 
@@ -66,7 +65,7 @@ export class CreacionProveedorComponent implements OnInit {
       this.proveedorService.listId(this.id).subscribe(data => {
         this.form = this.formBuilder.group({
           proveedorId: new FormControl(data.proveedorId),
-          nombre: new FormControl(data.nombre)
+          nombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(100)])
         });
       });
     }

@@ -32,8 +32,8 @@ export class CreacionServicioComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       serviceId: [''],
-      service: ['', Validators.required],
-      description: ['', Validators.required],
+      service: ['', [Validators.required, Validators.maxLength(20)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
     });
   }
 
@@ -75,8 +75,8 @@ export class CreacionServicioComponent implements OnInit {
       this.cS.listId(this.id).subscribe(data => {
         this.form = new FormGroup({
           serviceId: new FormControl(data.serviceId),
-          service: new FormControl(data.service),
-          description: new FormControl(data.description),
+          service: new FormControl(data.service, [Validators.required, Validators.maxLength(20)]),
+          description: new FormControl(data.description, [Validators.required, Validators.maxLength(150)]),
         });
       });
     }

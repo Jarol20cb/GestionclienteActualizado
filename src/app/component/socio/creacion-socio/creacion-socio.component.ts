@@ -32,7 +32,7 @@ export class CreacionSocioComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       socioId: [''],
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(40)]],
     });
   }
 
