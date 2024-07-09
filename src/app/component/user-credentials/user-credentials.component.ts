@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router'; // Importa Router desde @angular/router
 import { LoginService } from 'src/app/service/login.service';
 import { CerrarSesionComponent } from '../dialogo/cerrar-sesion/cerrar-sesion.component';
 import { Registro } from 'src/app/model/registro';
@@ -13,7 +14,7 @@ export class UserCredentialsComponent implements OnInit {
   user: Registro = new Registro();
   error: string;
 
-  constructor(private loginService: LoginService, private dialog: MatDialog) {
+  constructor(private loginService: LoginService, private dialog: MatDialog, private router: Router) {
     this.error = ''; // Inicialización de la propiedad error
   }
 
@@ -42,7 +43,7 @@ export class UserCredentialsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         sessionStorage.clear();
-        window.location.href = '/login';
+        this.router.navigate(['/login']);
       }
     });
   }

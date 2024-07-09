@@ -17,23 +17,29 @@ import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
+import { GuardService } from '../service/guard.service';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [GuardService] // Proteger la ruta 'home' con el guardia
   },
   {
     path: 'credentials',
-    component: UserCredentialsComponent
+    component: UserCredentialsComponent,
+    canActivate: [GuardService] // Proteger la ruta 'credentials' con el guardia
   },
   {
     path: 'reporte',
-    component: VisualizarPagosComponent
+    component: VisualizarPagosComponent,
+    canActivate: [GuardService] // Proteger la ruta 'reporte' con el guardia
   },
   {
     path: 'servicios',
-    component: ServicesComponent, children:[
+    component: ServicesComponent,
+    canActivate: [GuardService], // Proteger la ruta 'servicios' con el guardia
+    children:[
       { path: 'nuevo', component: CreacionServicioComponent },
       { path: 'ediciones/:id', component: CreacionServicioComponent },
       { path: ':serviceId/perfiles', component: ListarPerfilesComponent }
@@ -41,30 +47,37 @@ const routes: Routes = [
   },
   {
     path: 'custser',
-    component: CustomerserviceComponent, children:[
+    component: CustomerserviceComponent,
+    canActivate: [GuardService], // Proteger la ruta 'custser' con el guardia
+    children:[
       { path: 'nuevo', component: CreacionCsComponent },
       { path: 'ediciones/:id', component: CreacionCsComponent },
     ]
   },
   {
     path: 'socios',
-    component: SocioComponent, children:[
+    component: SocioComponent,
+    canActivate: [GuardService], // Proteger la ruta 'socios' con el guardia
+    children:[
       { path: 'nuevo', component: CreacionSocioComponent },
       { path: 'ediciones/:id', component: CreacionSocioComponent },
       { path: ':socioId/clientes', component: ListarClientesSocioComponent },
     ]
   },
-
   {
     path: 'perfil',
-    component: PerfilesComponent, children:[
+    component: PerfilesComponent,
+    canActivate: [GuardService], // Proteger la ruta 'perfil' con el guardia
+    children:[
       { path: 'nuevo', component: CreacionPerfilComponent },
       { path: 'ediciones/:id', component: CreacionPerfilComponent },
     ]
   },
   {
     path: 'proveedor',
-    component: ProveedoresComponent, children:[
+    component: ProveedoresComponent,
+    canActivate: [GuardService], // Proteger la ruta 'proveedor' con el guardia
+    children:[
       { path: 'nuevo', component: CreacionProveedorComponent },
       { path: 'ediciones/:id', component: CreacionProveedorComponent },
     ]

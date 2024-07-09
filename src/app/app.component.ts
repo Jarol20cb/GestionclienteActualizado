@@ -3,6 +3,7 @@ import { LoginService } from './service/login.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CerrarSesionComponent } from './component/dialogo/cerrar-sesion/cerrar-sesion.component';
 import { Registro } from './model/registro';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
   role: string = "";
   username: string = "";
 
-  constructor(private loginService: LoginService, private dialog: MatDialog) { }
+  constructor(private loginService: LoginService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.verificar();
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         sessionStorage.clear();
-        window.location.href = '/login';
+        this.router.navigate(['/login']);
       }
     });
   }
