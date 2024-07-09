@@ -1,0 +1,208 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding-top: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #1A5276;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.report-cards {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.report-card {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-card-icon {
+  font-size: 2em;
+  margin-right: 10px;
+  color: #4CA1AF;
+}
+
+.report-number {
+  margin: 0;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #4CA1AF;
+}
+
+.report-label {
+  margin: 0;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-container select {
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-color: rgba(236, 240, 241, 0.5);
+  margin-right: 10px;
+  font-size: 16px;
+  width: 250px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23000" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 10px center;
+  background-size: 10px;
+}
+
+.filter-container select:focus {
+  border-color: #1A5276;
+  outline: none;
+}
+
+.filter-container input {
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-color: rgba(236, 240, 241, 0.5);
+  margin-right: 10px;
+  font-size: 16px;
+  width: 200px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: left;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.custom-table thead tr {
+  background-color: #4CA1AF;
+  color: white;
+  text-align: center;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.custom-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.custom-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.custom-table tbody tr:last-of-type {
+  border-bottom: 2px solid #4CA1AF;
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.paginator button {
+  margin: 0 5px;
+}
+
+.custom-button {
+  background-color: #4CA1AF;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-button:hover {
+  background-color: #1A5276;
+}
+
+.custom-button[disabled] {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.no-records {
+  text-align: center;
+  font-size: 18px;
+  color: #1A5276;
+  margin-top: 20px;
+}
+
+/* Media Queries para responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .report-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .report-card {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+
+  .custom-table th, .custom-table td {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-card-icon {
+    font-size: 1.5em;
+  }
+
+  .report-number {
+    font-size: 2em;
+  }
+
+  .report-label {
+    font-size: 1em;
+  }
+  
+  .custom-table th, .custom-table td {
+    padding: 8px;
+    font-size: 0.8em;
+  }
+}

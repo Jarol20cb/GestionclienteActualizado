@@ -1,33 +1,104 @@
-<!-- src/app/components/servicios/listar-perfiles/listar-perfiles.component.html -->
-<div class="container">
-    <h2>Perfiles del Servicio</h2>
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Correo</th>
-          <th>Contraseña</th>
-          <th>Fecha Inicio</th>
-          <th>Fecha Fin</th>
-          <th>Limite Usuarios</th>
-          <th>Usuarios Actuales</th>
-          <th>Usuarios Disponibles</th>
-          <th>Proveedor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let perfil of perfiles">
-          <td>{{ perfil.perfilId }}</td>
-          <td>{{ perfil.correo }}</td>
-          <td>{{ perfil.contrasena }}</td>
-          <td>{{ perfil.fechainicio | date }}</td>
-          <td>{{ perfil.fechafin | date }}</td>
-          <td>{{ perfil.limiteUsuarios }}</td>
-          <td>{{ perfil.usuariosActuales }}</td>
-          <td>{{ perfil.usuariosDisponibles }}</td>
-          <td>{{ perfil.proveedor.nombre }}</td>
-        </tr>
-      </tbody>
-    </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>perfiles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h2 class="header">Perfiles del Servicio</h2>
+    <div class="report-cards">
+      <div class="report-card">
+        <div class="report-card-content">
+          <i class="fas fa-users report-card-icon"></i>
+          <div>
+            <p class="report-number">{{ totalPerfiles }}</p>
+            <p class="report-label">Total de Perfiles</p>
+          </div>
+        </div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-content">
+          <i class="fas fa-user report-card-icon"></i>
+          <div>
+            <p class="report-number">{{ totalUsuarios }}</p>
+            <p class="report-label">Total de Usuarios</p>
+          </div>
+        </div>
+      </div>
+      <div class="report-card">
+        <div class="report-card-content">
+          <i class="fas fa-user-check report-card-icon"></i>
+          <div>
+            <p class="report-number">{{ usuariosDisponibles }}</p>
+            <p class="report-label">Usuarios Disponibles</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-container">
+      <select class="filter-type" [(ngModel)]="selectedFilterType" (change)="updateFilter()">
+        <option value="">Buscar</option>
+        <option value="correo">Correo</option>
+        <option value="proveedor">Proveedor</option>
+        <option value="fechainicio">Fecha Inicio</option>
+        <option value="fechafin">Fecha Fin</option>
+      </select>
+      <div *ngIf="selectedFilterType === 'correo'">
+        <input type="text" placeholder="Buscar por Correo" [(ngModel)]="filters.correo" (input)="applyFilters()">
+      </div>
+      <div *ngIf="selectedFilterType === 'proveedor'">
+        <input type="text" placeholder="Buscar por Proveedor" [(ngModel)]="filters.proveedor" (input)="applyFilters()">
+      </div>
+      <div *ngIf="selectedFilterType === 'fechainicio'">
+        <input type="date" placeholder="Fecha Inicio" [(ngModel)]="filters.fechainicio" (input)="applyFilters()">
+      </div>
+      <div *ngIf="selectedFilterType === 'fechafin'">
+        <input type="date" placeholder="Fecha Fin" [(ngModel)]="filters.fechafin" (input)="applyFilters()">
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Correo</th>
+            <th>Contraseña</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Limite Usuarios</th>
+            <th>Usuarios Actuales</th>
+            <th>Usuarios Disponibles</th>
+            <th>Proveedor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let perfil of paginatedPerfiles">
+            <td>{{ perfil.perfilId }}</td>
+            <td>{{ perfil.correo }}</td>
+            <td>{{ perfil.contrasena }}</td>
+            <td>{{ perfil.fechainicio | date }}</td>
+            <td>{{ perfil.fechafin | date }}</td>
+            <td>{{ perfil.limiteUsuarios }}</td>
+            <td>{{ perfil.usuariosActuales }}</td>
+            <td>{{ perfil.usuariosDisponibles }}</td>
+            <td>{{ perfil.proveedor.nombre }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="paginator">
+      <button class="custom-button" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button class="custom-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
+    <div *ngIf="perfiles.length === 0" class="no-records">
+      <p>No hay registros</p>
+    </div>
   </div>
   
+  
+</body>
+</html>
