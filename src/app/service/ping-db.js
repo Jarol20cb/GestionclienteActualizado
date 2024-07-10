@@ -20,7 +20,7 @@ async function pingDatabase() {
 
     try {
         await client.connect();
-        const res = await client.query('SELECT 1');
+        const res = await client.query('SELECT * FROM perfiles WHERE service_id = $1', [3]);
         console.log('Ping enviado correctamente:', res.rows);
     } catch (err) {
         console.error('Error al enviar ping a la base de datos:', err);

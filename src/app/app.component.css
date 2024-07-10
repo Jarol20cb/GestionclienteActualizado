@@ -10,6 +10,8 @@ body {
 .toolbar {
   background: linear-gradient(135deg, #2C3E50, #4CA1AF);
   color: white;
+  position: fixed;
+  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -50,6 +50,7 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-proveedor.component';
 import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/creacion-proveedor.component';
 import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
+import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
 
 
 
@@ -82,7 +83,8 @@ import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfi
     ProveedoresComponent,
     ListarProveedorComponent,
     CreacionProveedorComponent,
-    ListarPerfilesComponent
+    ListarPerfilesComponent,
+    BienvenidaComponent
   ],
   imports: [
     CommonModule,

@@ -18,6 +18,7 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
 import { GuardService } from '../service/guard.service';
+import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
 
 const routes: Routes = [
   {
@@ -82,6 +83,11 @@ const routes: Routes = [
       { path: 'ediciones/:id', component: CreacionProveedorComponent },
     ]
   },
+  {
+    path: 'bienvenida',
+    component: BienvenidaComponent,
+    canActivate: [GuardService]
+  }
 ];
 
 @NgModule({
