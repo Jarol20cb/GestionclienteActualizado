@@ -1,12 +1,12 @@
 .container {
   max-width: 800px;
   margin: auto;
-  padding-top: 20px; /* Añadir espacio arriba */
+  padding-top: 20px;
 }
 
 .header {
   text-align: center;
-  color: #1A5276;
+  color: #2c3e50;
   margin-bottom: 20px;
   font-size: 30px;
   font-weight: bold;
@@ -14,7 +14,7 @@
 
 .filter-container {
   display: flex;
-  justify-content: center; /* Centrar el select */
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -27,15 +27,15 @@
   margin-right: 10px;
   font-size: 16px;
   width: 250px;
-  -webkit-appearance: none; /* Eliminar el estilo predeterminado en navegadores webkit */
-  -moz-appearance: none; /* Eliminar el estilo predeterminado en Firefox */
-  appearance: none; /* Eliminar el estilo predeterminado en otros navegadores */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23000" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 10px center;
   background-size: 10px;
 }
 
 .filter-container select:focus {
-  border-color: #1A5276;
+  border-color: #2980b9;
   outline: none;
 }
 
@@ -59,11 +59,11 @@
   margin: 25px 0;
   font-size: 18px;
   text-align: left;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .custom-table thead tr {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: white;
   text-align: center;
 }
@@ -83,7 +83,7 @@
 }
 
 .custom-table tbody tr:last-of-type {
-  border-bottom: 2px solid #4CA1AF;
+  border-bottom: 2px solid #2980b9;
 }
 
 .paginator {
@@ -98,7 +98,7 @@
 }
 
 .custom-button {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: #ffffff;
   border: none;
   padding: 10px 15px;
@@ -108,7 +108,7 @@
 }
 
 .custom-button:hover {
-  background-color: #1A5276;
+  background-color: #1f2e3d;
 }
 
 .custom-button[disabled] {
@@ -119,13 +119,13 @@
 .no-records {
   text-align: center;
   font-size: 18px;
-  color: #1A5276;
+  color: #2c3e50;
   margin-top: 20px;
 }
 
 .back-button {
   display: block;
-  margin: 10px auto 20px auto; /* Ajustar margen */
+  margin: 10px auto 20px auto;
 }
 
 .filters {

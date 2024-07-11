@@ -1,74 +1,63 @@
 <app-toolbar></app-toolbar>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-  <div class="container" *ngIf="verificar()">
-    <br>
-    <h2 style="text-align: center;">Lista de servicios</h2>
-    <div class="header-actions">
-      <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
-      </div>
-      <div class="paginator-actions">
-        <span>Mostrar:</span>
-        <select (change)="changePageSize($event)" class="custom-select">
-          <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{size}}</option>
-        </select>
-        <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" routerLink="/components/servicios/nuevo">
-          <i class="fas fa-plus"></i> Añadir
-        </button>
-      </div>
+<div class="container" *ngIf="verificar()">
+  <br>
+  <h2 style="text-align: center;">Lista de servicios</h2>
+  <div class="header-actions">
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
     </div>
-    <br>
-    <div class="table-container">
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Servicio</th>
-            <th>Descripción</th>
-            <th *ngIf="role === 'ADMIN' || role === 'USER'">Ver Perfiles</th>
-            <th *ngIf="role === 'ADMIN' || role === 'USER'">Editar</th>
-            <th *ngIf="role === 'ADMIN' || role === 'USER'">Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let element of paginatedData; let i = index">
-            <td>{{ element.serviceId }}</td>
-            <td>{{ element.service }}</td>
-            <td>{{ element.description }}</td>
-            <td *ngIf="role === 'ADMIN' || role === 'USER'">
-              <button [routerLink]="['/components/servicios', element.serviceId, 'perfiles']" class="custom-button">
-                <i class="fas fa-eye"></i>
-              </button>
-            </td>
-            <td *ngIf="role === 'ADMIN' || role === 'USER'">
-              <button [routerLink]="['ediciones', element.serviceId]" class="custom-button">
-                <mat-icon>create</mat-icon>
-              </button>
-            </td>
-            <td *ngIf="role === 'ADMIN' || role === 'USER'">
-              <button (click)="eliminar(element.serviceId)" class="custom-delete-button">
-                <i class="fas fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="pagination-controls">
-      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-      <span>Página {{ currentPage }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
+    <div class="paginator-actions">
+      <span>Mostrar:</span>
+      <select (change)="changePageSize($event)" class="custom-select">
+        <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{size}}</option>
+      </select>
+      <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" routerLink="/components/servicios/nuevo">
+        <i class="fas fa-plus"></i> Añadir
+      </button>
     </div>
   </div>
-  <br><br><br>
-</body>
-</html>
+  <br>
+  <div class="table-container table-responsive">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Servicio</th>
+          <th>Descripción</th>
+          <th *ngIf="role === 'ADMIN' || role === 'USER'">Ver Perfiles</th>
+          <th *ngIf="role === 'ADMIN' || role === 'USER'">Editar</th>
+          <th *ngIf="role === 'ADMIN' || role === 'USER'">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of paginatedData; let i = index">
+          <td>{{ element.serviceId }}</td>
+          <td>{{ element.service }}</td>
+          <td>{{ element.description }}</td>
+          <td *ngIf="role === 'ADMIN' || role === 'USER'">
+            <button [routerLink]="['/components/servicios', element.serviceId, 'perfiles']" class="custom-button">
+              <i class="fas fa-eye"></i>
+            </button>
+          </td>
+          <td *ngIf="role === 'ADMIN' || role === 'USER'">
+            <button [routerLink]="['ediciones', element.serviceId]" class="custom-button">
+              <mat-icon>create</mat-icon>
+            </button>
+          </td>
+          <td *ngIf="role === 'ADMIN' || role === 'USER'">
+            <button (click)="eliminar(element.serviceId)" class="custom-delete-button">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span>Página {{ currentPage }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
+  </div>
+</div>
+<br><br><br>

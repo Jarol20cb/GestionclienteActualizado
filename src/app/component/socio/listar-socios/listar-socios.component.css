@@ -10,7 +10,7 @@ body {
 }
 
 h2 {
-  color: #1A5276;
+  color: #2c3e50;
   font-size: 30px;
   font-weight: bold;
   margin-top: 20px;
@@ -53,7 +53,7 @@ h2 {
 }
 
 .mi-boton {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -68,7 +68,7 @@ h2 {
 }
 
 .mi-boton:hover {
-  background-color: #1A5276;
+  background-color: #1f2e3d;
   transform: scale(1.05);
 }
 
@@ -100,12 +100,12 @@ h2 {
   padding: 10px;
   text-align: center;
   border: 1px solid #ddd;
-  color: #34495E;
+  color: #34495e;
   vertical-align: middle;
 }
 
 .custom-table th {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: white;
 }
 
@@ -114,7 +114,7 @@ h2 {
 }
 
 .custom-button, .custom-delete-button {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: white;
   border: none;
   padding: 8px;
@@ -127,20 +127,20 @@ h2 {
   align-items: center;
   justify-content: center;
   margin: auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .custom-delete-button {
-  background-color: #E74C3C;
+  background-color: #e74c3c;
 }
 
 .custom-button:hover, .custom-delete-button:hover {
-  background-color: #1A5276;
+  background-color: #1f2e3d;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .custom-delete-button:hover {
-  background-color: #C0392B;
+  background-color: #c0392b;
 }
 
 .custom-button mat-icon, .custom-delete-button mat-icon {
@@ -157,7 +157,7 @@ h2 {
 }
 
 .pagination-controls button {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -167,12 +167,12 @@ h2 {
 }
 
 .pagination-controls button:disabled {
-  background-color: #ccc;
+  background-color: #7f8c8d;
   cursor: not-allowed;
 }
 
 .pagination-controls button:hover:not(:disabled) {
-  background-color: #1A5276;
+  background-color: #1f2e3d;
 }
 
 .pagination-controls span {

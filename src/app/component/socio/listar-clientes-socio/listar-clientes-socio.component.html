@@ -52,13 +52,13 @@
         </tr>
       </tbody>
     </table>
-    <div class="paginator">
-      <button class="custom-button" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-      <span>Página {{ currentPage }} de {{ totalPages }}</span>
-      <button class="custom-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
-    </div>
   </div>
   <ng-template #noRecords>
     <p class="no-records">Aún no hay registros</p>
   </ng-template>
+</div>
+<div class="paginator">
+  <button class="custom-button" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+  <span>Página {{ currentPage }} de {{ totalPages }}</span>
+  <button class="custom-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
 </div>

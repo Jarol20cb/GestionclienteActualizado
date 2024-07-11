@@ -6,7 +6,7 @@
 
 h2 {
   text-align: center;
-  color: #1A5276;
+  color: #2c3e50;
   margin-bottom: 20px;
   font-size: 30px;
   font-weight: bold;
@@ -39,14 +39,14 @@ h2 {
 .report-card-icon {
   font-size: 2em;
   margin-right: 10px;
-  color: #4CA1AF;
+  color: #2980b9;
 }
 
 .report-number {
   margin: 0;
   font-size: 2.5em;
   font-weight: bold;
-  color: #4CA1AF;
+  color: #2980b9;
 }
 
 .report-label {
@@ -78,7 +78,7 @@ h2 {
 }
 
 .filter-container select:focus {
-  border-color: #1A5276;
+  border-color: #2980b9;
   outline: none;
 }
 
@@ -102,11 +102,11 @@ h2 {
   margin: 25px 0;
   font-size: 18px;
   text-align: left;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .custom-table thead tr {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: white;
   text-align: center;
 }
@@ -126,7 +126,7 @@ h2 {
 }
 
 .custom-table tbody tr:last-of-type {
-  border-bottom: 2px solid #4CA1AF;
+  border-bottom: 2px solid #2980b9;
 }
 
 .paginator {
@@ -141,7 +141,7 @@ h2 {
 }
 
 .custom-button {
-  background-color: #4CA1AF;
+  background-color: #2980b9;
   color: #ffffff;
   border: none;
   padding: 10px 15px;
@@ -151,7 +151,7 @@ h2 {
 }
 
 .custom-button:hover {
-  background-color: #1A5276;
+  background-color: #1f2e3d;
 }
 
 .custom-button[disabled] {
@@ -162,11 +162,10 @@ h2 {
 .no-records {
   text-align: center;
   font-size: 18px;
-  color: #1A5276;
+  color: #2c3e50;
   margin-top: 20px;
 }
 
-/* Media Queries para responsive design */
 @media (max-width: 768px) {
   .container {
     padding: 10px;

@@ -1,10 +1,10 @@
 <div style="text-align: center;">
-  <h2 mat-dialog-title>Confirmación</h2>
+  <h2 mat-dialog-title style="color: #2c3e50;">Confirmación</h2> <!-- Color de texto azul medio -->
   <mat-dialog-content style="text-align: center;">
-    <p>¿Estás seguro de que quieres renovar este servicio?</p>
+    <p style="color: #34495e;">¿Estás seguro de que quieres renovar este servicio?</p> <!-- Color de texto gris oscuro -->
   </mat-dialog-content>
   <mat-dialog-actions style="text-align: center; justify-content: center; display: flex; gap: 10px;">
-    <button mat-button (click)="confirm(true)" color="warn">Confirmar</button>
-    <button mat-button (click)="confirm(false)">Cancelar</button>
+    <button mat-button (click)="confirm(true)" style="background-color: #e74c3c; color: #ecf0f1;" color="warn">Confirmar</button> <!-- Botón rojo con texto blanco -->
+    <button mat-button (click)="confirm(false)" style="background-color: #2980b9; color: #ecf0f1;">Cancelar</button> <!-- Botón azul con texto blanco -->
   </mat-dialog-actions>
 </div>

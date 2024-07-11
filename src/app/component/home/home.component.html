@@ -1,65 +1,95 @@
 <app-toolbar></app-toolbar>
-<div class="container">
-  <div class="left-column">
-    <img src="assets/icono-usuario.png" alt="Avatar">
-    <div class="welcome-text">Bienvenido, {{ user.name }}!</div>
-    <div class="button-container">
-      <button class="button" routerLink="/components/servicios">
-        <mat-icon>add</mat-icon> Agregar plataformas
-      </button>
-      <button class="button" routerLink="/components/custser">
-        <mat-icon>group</mat-icon> Ver clientes
-      </button>
-      <button class="button" routerLink="/components/socios">
-        <mat-icon>people_outline</mat-icon> Ver socios
-      </button>
-      <button class="button" routerLink="/components/perfil">
-        <mat-icon>people_outline</mat-icon> Ver perfiles
-      </button>
-      <button class="button" routerLink="/components/proveedor">
-        <mat-icon>people_outline</mat-icon> Ver proveedores
+<div class="main-container">
+  <div class="sidebar" [class.collapsed]="isSidebarCollapsed">
+    <div class="profile-section">
+      <img src="assets/icono-usuario.png" alt="Profile Picture">
+      <p>{{user.username}}</p>
+      <button class="custom-button" (click)="verPerfil()">
+        <span class="material-icons">person</span> Ver perfil
       </button>
     </div>
+    <ul>
+      <li><a routerLink="/components/servicios"><span class="material-icons">add</span> Agregar plataformas</a></li>
+      <li><a routerLink="/components/custser"><span class="material-icons">group</span> Ver clientes</a></li>
+      <li><a routerLink="/components/socios"><span class="material-icons">people</span> Ver socios</a></li>
+      <li><a routerLink="/components/perfil"><span class="material-icons">badge</span> Ver perfiles</a></li>
+      <li><a routerLink="/components/proveedor"><span class="material-icons">local_shipping</span> Ver proveedores</a></li>
+    </ul>
   </div>
-  <div class="right-column">
-    <div class="statistics-container">
-      <div class="stat-card" routerLink="/components/custser">
-        <div class="stat-text">
-          <h2>{{ totalUsuarios }}</h2>
+  <button (click)="toggleSidebar()" class="sidebar-toggle">
+    <span class="material-icons">{{ isSidebarCollapsed ? 'chevron_right' : 'chevron_left' }}</span>
+  </button>
+
+  <div class="content" [ngClass]="{'collapsed-content': isSidebarCollapsed, 'expanded-content': !isSidebarCollapsed}">
+    <div class="header">
+      <h1>Bienvenido, {{user.name}}!</h1>
+    </div>
+
+    <div class="dashboard">
+      <div class="dashboard-grid">
+        <div class="report-card">
+          <div class="report-header">
+            <span class="material-icons report-icon">group</span>
+            <h2>{{ totalUsuarios }}</h2>
+          </div>
           <p>Total de usuarios</p>
         </div>
-        <i class="fas fa-users stat-icon"></i>
-      </div>
-      <div class="stat-card">
-        <div class="stat-text">
-          <h2>{{ totalDeudores }}</h2>
+        <div class="report-card">
+          <div class="report-header">
+            <span class="material-icons report-icon">account_balance_wallet</span>
+            <h2>{{ usuariosDeudores }}</h2>
+          </div>
           <p>Usuarios deudores</p>
         </div>
-        <i class="fas fa-user-times stat-icon"></i>
-      </div>
-    </div>
-    <div class="accordion-container">
-      <h3>Clientes con Estado Pendiente</h3>
-      <mat-accordion *ngIf="paginatedClientes.length > 0">
-        <mat-expansion-panel *ngFor="let cliente of paginatedClientes">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ cliente.name }} - Deudor
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div>
-            <p><strong>Fecha de Inicio:</strong> {{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</p>
-            <p><strong>Fecha de Pago:</strong> {{ cliente.fechafin | date: 'dd/MM/yyyy' }}</p>
-            <p><strong>Tipo de Servicio:</strong> {{ cliente.services.service }}</p>
+        <div class="report-card">
+          <div class="report-header">
+            <span class="material-icons report-icon">badge</span>
+            <h2>{{ usuariosDisponiblesPerfiles }}</h2>
           </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-      <div *ngIf="clientesPendientes.length > itemsPerPage" class="pagination-controls">
-        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-        <span>Página {{ currentPage }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length">Siguiente</button>
+          <p>Perfiles Disponibles</p>
+        </div>
+
+        <div class="report-card">
+  <div class="report-header">
+    <span class="material-icons report-icon">account_balance_wallet</span>
+    <h2>{{(usuariosDeudores / totalUsuarios) * 100 | number:'1.0-2'}}%</h2>
+  </div>
+  <p>Tasa de Deuda de Usuarios</p>
+  <div class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="(usuariosDeudores / totalUsuarios) * 100"></div>
+    </div>
+  </div>
+</div>
+
+        
       </div>
-      <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
+
+      <div class="clients-section">
+        <div class="report-card accordion-card">
+          <strong><h1>Clientes con Estado Pendiente</h1></strong><br>
+          <mat-accordion *ngIf="paginatedClientes.length > 0">
+            <mat-expansion-panel *ngFor="let cliente of paginatedClientes">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ cliente.name }} - Deudor
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div>
+                <p><strong>Fecha de Inicio:</strong> {{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</p>
+                <p><strong>Fecha de Pago:</strong> {{ cliente.fechafin | date: 'dd/MM/yyyy' }}</p>
+                <p><strong>Tipo de Servicio:</strong> {{ cliente.services.service }}</p>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <div *ngIf="clientesPendientes.length > itemsPerPage" class="pagination-controls">
+            <button (click)="previousPage()" [disabled]="currentPage === 1"><span class="material-icons">{{ 'chevron_left' }}</span></button>
+            <span>Página {{ currentPage }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length"><span class="material-icons">{{ 'chevron_right' }}</span></button>
+          </div>
+          <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
+        </div> 
+      </div>     
     </div>
   </div>
 </div>

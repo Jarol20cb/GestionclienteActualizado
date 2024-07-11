@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/service/login.service';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
 import { Registro } from 'src/app/model/registro';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,32 +12,52 @@ import { Registro } from 'src/app/model/registro';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  role: string = "";
-  username: string = ""; // Nombre de usuario
-  name: String = "";
+  user: Registro = new Registro();
+  totalUsuarios: number = 0;
+  usuariosDeudores: number = 0;
+  totalPerfiles = 3;
+  usuariosActualesPerfiles = 3;
+  usuariosDisponiblesPerfiles = 9;
+  isSidebarCollapsed = true; // Por defecto, la barra lateral está cerrada en modo responsive
+  isMobile = false;
   clientesPendientes: CustomersServices[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
-  user: Registro = new Registro();
   error: string = "";
 
-  totalUsuarios: number = 0;
-  totalDeudores: number = 0;
-
-  constructor(private loginService: LoginService, private dialog: MatDialog, private cS: CustomerserviceService) {}
+  constructor(private loginService: LoginService, private dialog: MatDialog, private cS: CustomerserviceService, private router: Router) {}
 
   ngOnInit(): void {
-    this.verificar();
+    this.loadUserDetails();
     this.cargarClientesPendientes();
-    this.getUserDetails();
     this.cargarEstadisticas();
+    this.checkWindowSize();
   }
 
-  verificar() {
-    this.role = this.loginService.showRole();
-    this.username = this.loginService.showUser();
-    this.name = this.loginService.showName();
-    return this.loginService.verificar();
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkWindowSize();
+  }
+
+  checkWindowSize() {
+    this.isMobile = window.innerWidth <= 768;
+    if (this.isMobile) {
+      this.isSidebarCollapsed = true;
+    } else {
+      this.isSidebarCollapsed = false;
+    }
+  }
+
+  loadUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+      },
+      error => {
+        this.error = error;
+        console.error('Error al obtener los detalles del usuario', error);
+      }
+    );
   }
 
   cargarClientesPendientes() {
@@ -59,22 +80,18 @@ export class HomeComponent implements OnInit {
     this.currentPage--;
   }
 
-  getUserDetails() {
-    this.loginService.getUserDetails().subscribe(
-      data => {
-        this.user = data;
-      },
-      error => {
-        this.error = error;
-        console.error('Error al obtener los detalles del usuario', error);
-      }
-    );
-  }
-
   cargarEstadisticas() {
     this.cS.list().subscribe((data) => {
       this.totalUsuarios = data.length;
-      this.totalDeudores = data.filter(cliente => cliente.estado === 'pendiente').length;
+      this.usuariosDeudores = data.filter(cliente => cliente.estado === 'pendiente').length;
     });
+  }
+
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  verPerfil() {
+    this.router.navigate(['/components/credentials']);
   }
 }
