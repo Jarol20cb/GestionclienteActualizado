@@ -427,6 +427,9 @@ canvas {
   position: relative;
   display: block;
   margin: 0 auto;
+  margin-bottom: 40px;
+  max-width: 100%; /* Agregado para mejorar la respuesta en modo móvil */
+  height: auto; /* Agregado para ajustar la altura en modo móvil */
 }
 
 canvas:hover {
