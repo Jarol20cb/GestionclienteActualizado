@@ -26,71 +26,80 @@
     </div>
 
     <div class="dashboard">
-      <div class="dashboard-grid">
-        <div class="report-card">
-          <div class="report-header">
-            <span class="material-icons report-icon">group</span>
-            <h2>{{ totalUsuarios }}</h2>
-          </div>
-          <p>Total de usuarios</p>
+      <div class="top-section">
+        <div class="widgets-section">
+          <h2>Plataformas más Usadas</h2>
+          <canvas id="popularPlatformsChart" width="430" height="250"></canvas>
         </div>
-        <div class="report-card">
-          <div class="report-header">
-            <span class="material-icons report-icon">account_balance_wallet</span>
-            <h2>{{ usuariosDeudores }}</h2>
+
+        <div class="clients-section">
+          <div class="report-card accordion-card">
+            <strong><h1>Clientes con Estado Pendiente</h1></strong><br>
+            <mat-accordion *ngIf="paginatedClientes.length > 0">
+              <mat-expansion-panel *ngFor="let cliente of paginatedClientes">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ cliente.name }} - Deudor
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div>
+                  <p><strong>Fecha de Inicio:</strong> {{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</p>
+                  <p><strong>Fecha de Pago:</strong> {{ cliente.fechafin | date: 'dd/MM/yyyy' }}</p>
+                  <p><strong>Tipo de Servicio:</strong> {{ cliente.services.service }}</p>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <div *ngIf="clientesPendientes.length > itemsPerPage" class="pagination-controls">
+              <button (click)="previousPage()" [disabled]="currentPage === 1">
+                <span class="material-icons">chevron_left</span>
+              </button>
+              <span>Página {{ currentPage }}</span>
+              <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length">
+                <span class="material-icons">chevron_right</span>
+              </button>
+            </div>
+            <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
+          </div> 
+        </div> 
+      </div>
+
+      <div class="bottom-section">
+        <div class="dashboard-grid">
+          <div class="report-card">
+            <div class="report-header">
+              <span class="material-icons report-icon">group</span>
+              <h2>{{ totalUsuarios }}</h2>
+            </div>
+            <p>Total de usuarios</p>
           </div>
-          <p>Usuarios deudores</p>
-        </div>
-        <div class="report-card">
-          <div class="report-header">
-            <span class="material-icons report-icon">badge</span>
-            <h2>{{ usuariosDisponiblesPerfiles }}</h2>
+          <div class="report-card">
+            <div class="report-header">
+              <span class="material-icons report-icon">account_balance_wallet</span>
+              <h2>{{ usuariosDeudores }}</h2>
+            </div>
+            <p>Usuarios deudores</p>
           </div>
-          <p>Perfiles Disponibles</p>
-        </div>
-        <div class="report-card">
-          <div class="report-header">
-            <span class="material-icons report-icon">account_balance_wallet</span>
-            <h2>{{(usuariosDeudores / totalUsuarios) * 100 | number:'1.0-2'}}%</h2>
+          <div class="report-card">
+            <div class="report-header">
+              <span class="material-icons report-icon">badge</span>
+              <h2>{{ usuariosDisponiblesPerfiles }}</h2>
+            </div>
+            <p>Perfiles Disponibles</p>
           </div>
-          <p>Tasa de Deuda de Usuarios</p>
-          <div class="progress-bar-container">
-            <div class="progress-bar">
-              <div class="progress" [style.width.%]="(usuariosDeudores / totalUsuarios) * 100"></div>
+          <div class="report-card">
+            <div class="report-header">
+              <span class="material-icons report-icon">account_balance_wallet</span>
+              <h2>{{(usuariosDeudores / totalUsuarios) * 100 | number:'1.0-2'}}%</h2>
+            </div>
+            <p>Tasa de Deuda de Usuarios</p>
+            <div class="progress-bar-container">
+              <div class="progress-bar">
+                <div class="progress" [style.width.%]="(usuariosDeudores / totalUsuarios) * 100"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="clients-section">
-        <div class="report-card accordion-card">
-          <strong><h1>Clientes con Estado Pendiente</h1></strong><br>
-          <mat-accordion *ngIf="paginatedClientes.length > 0">
-            <mat-expansion-panel *ngFor="let cliente of paginatedClientes">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{ cliente.name }} - Deudor
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <div>
-                <p><strong>Fecha de Inicio:</strong> {{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</p>
-                <p><strong>Fecha de Pago:</strong> {{ cliente.fechafin | date: 'dd/MM/yyyy' }}</p>
-                <p><strong>Tipo de Servicio:</strong> {{ cliente.services.service }}</p>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-          <div *ngIf="clientesPendientes.length > itemsPerPage" class="pagination-controls">
-            <button (click)="previousPage()" [disabled]="currentPage === 1">
-              <span class="material-icons">chevron_left</span>
-            </button>
-            <span>Página {{ currentPage }}</span>
-            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length">
-              <span class="material-icons">chevron_right</span>
-            </button>
-          </div>
-          <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
-        </div> 
-      </div>     
-    </div>
+    </div>       
   </div>
 </div>
