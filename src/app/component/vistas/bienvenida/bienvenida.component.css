@@ -18,11 +18,12 @@ body {
 
 /* Estilos de la barra lateral */
 .sidebar {
+  margin-top: 0;
   background-color: #1f2e3d;
   color: #ecf0f1;
-  width: 250px;
+  width: 280px;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   left: 0;
   transition: transform 0.3s ease;
   z-index: 4;
@@ -34,7 +35,8 @@ body {
 
 .profile-section {
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 .profile-section img {
@@ -64,7 +66,7 @@ body {
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
+  padding: 10px;
 }
 
 .sidebar ul li {
@@ -94,10 +96,11 @@ body {
   color: #ecf0f1;
   cursor: pointer;
   font-size: 24px;
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 250px;
+  left: 280px;
   width: 30px;
+  z-index: 4;
   height: 60px;
   display: flex;
   align-items: center;
@@ -185,6 +188,10 @@ body {
   margin-right: 5px;
 }
 
+.report-header h2{
+  font-size: 40px;
+}
+
 .report-card h2 {
   font-size: 40px;
   margin: 0;
@@ -254,7 +261,7 @@ body {
 
 .pagination-controls button {
   margin: 0 5px;
-  padding: 12px 24px;
+  padding: 5px 12px;
   background-color: #2980b9;
   color: white;
   border: none;
@@ -284,7 +291,36 @@ body {
   transform: translateY(-5px);
 }
 
+.accordion-card p{
+  font-size: 15px;
+}
+
+.accordion-card h1 {
+  font-weight: bold;
+  color: #7f8c8d;
+}
+
+@media screen and (max-width: 1251px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .dashboard-grid {
+    width: 100%;
+  }
+
+  .clients-section {
+    width: 100%;
+    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+  }
+}
+
+
 @media screen and (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+  }
 
   .sidebar p{
     font-size: 80%;
@@ -306,10 +342,15 @@ body {
   .content {
     margin-left: 0;
   }
+
   .sidebar-toggle {
-    left: 0;
+    left: 280px;
+    transition: left 0.3s ease; /* Añadido para la transición */
   }
 
+  .sidebar.collapsed + .sidebar-toggle {
+    left: 0;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -317,20 +358,41 @@ body {
     font-size: 1.5em;
   }
 
+  .report-card {
+    padding: 15px;
+  }
+
   .report-card h2 {
     font-size: 1.5em;
   }
 
   .report-icon {
-    font-size: 36px;
+    font-size: 28px;
+  }
+
+  .report-card p {
+    font-size: 18px;
+  }
+
+  .progress-bar {
+    height: 15px;
+  }
+
+  .progress-label {
+    font-size: 18px;
   }
 
   .sidebar {
-    width: 200px;
+    width: 80%;
   }
 
   .sidebar-toggle {
-    left: 200px;
+    left: 80%;
+    transition: left 0.3s ease; /* Añadido para la transición */
+  }
+
+  .sidebar.collapsed + .sidebar-toggle {
+    left: 0;
   }
 
   .content {

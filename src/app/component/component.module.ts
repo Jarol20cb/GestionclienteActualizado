@@ -51,6 +51,7 @@ import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-
 import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/creacion-proveedor.component';
 import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
 import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
+import { ToolbarComponent } from './vistas/toolbar/toolbar.component';
 
 
 
@@ -84,7 +85,8 @@ import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
     ListarProveedorComponent,
     CreacionProveedorComponent,
     ListarPerfilesComponent,
-    BienvenidaComponent
+    BienvenidaComponent,
+    ToolbarComponent
   ],
   imports: [
     CommonModule,

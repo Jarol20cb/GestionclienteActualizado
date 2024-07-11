@@ -1,3 +1,4 @@
+<app-toolbar></app-toolbar>
 <div class="main-container">
   <div class="sidebar" [class.collapsed]="isSidebarCollapsed">
     <div class="profile-section">
@@ -66,7 +67,7 @@
 
       <div class="clients-section">
         <div class="report-card accordion-card">
-          <p>Clientes con Estado Pendiente</p><br>
+          <strong><h1>Clientes con Estado Pendiente</h1></strong><br>
           <mat-accordion *ngIf="paginatedClientes.length > 0">
             <mat-expansion-panel *ngFor="let cliente of paginatedClientes">
               <mat-expansion-panel-header>
@@ -82,9 +83,9 @@
             </mat-expansion-panel>
           </mat-accordion>
           <div *ngIf="clientesPendientes.length > itemsPerPage" class="pagination-controls">
-            <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+            <button (click)="previousPage()" [disabled]="currentPage === 1"><span class="material-icons">{{ 'chevron_left' }}</span></button>
             <span>Página {{ currentPage }}</span>
-            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length">Siguiente</button>
+            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length"><span class="material-icons">{{ 'chevron_right' }}</span></button>
           </div>
           <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
         </div> 
