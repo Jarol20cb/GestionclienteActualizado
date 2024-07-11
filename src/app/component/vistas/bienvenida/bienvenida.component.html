@@ -48,21 +48,18 @@
           </div>
           <p>Perfiles Disponibles</p>
         </div>
-
         <div class="report-card">
-  <div class="report-header">
-    <span class="material-icons report-icon">account_balance_wallet</span>
-    <h2>{{(usuariosDeudores / totalUsuarios) * 100 | number:'1.0-2'}}%</h2>
-  </div>
-  <p>Tasa de Deuda de Usuarios</p>
-  <div class="progress-bar-container">
-    <div class="progress-bar">
-      <div class="progress" [style.width.%]="(usuariosDeudores / totalUsuarios) * 100"></div>
-    </div>
-  </div>
-</div>
-
-        
+          <div class="report-header">
+            <span class="material-icons report-icon">account_balance_wallet</span>
+            <h2>{{(usuariosDeudores / totalUsuarios) * 100 | number:'1.0-2'}}%</h2>
+          </div>
+          <p>Tasa de Deuda de Usuarios</p>
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="progress" [style.width.%]="(usuariosDeudores / totalUsuarios) * 100"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="clients-section">
@@ -83,9 +80,13 @@
             </mat-expansion-panel>
           </mat-accordion>
           <div *ngIf="clientesPendientes.length > itemsPerPage" class="pagination-controls">
-            <button (click)="previousPage()" [disabled]="currentPage === 1"><span class="material-icons">{{ 'chevron_left' }}</span></button>
+            <button (click)="previousPage()" [disabled]="currentPage === 1">
+              <span class="material-icons">chevron_left</span>
+            </button>
             <span>Página {{ currentPage }}</span>
-            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length"><span class="material-icons">{{ 'chevron_right' }}</span></button>
+            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= clientesPendientes.length">
+              <span class="material-icons">chevron_right</span>
+            </button>
           </div>
           <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
         </div> 
