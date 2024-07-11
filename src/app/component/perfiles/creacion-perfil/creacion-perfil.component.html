@@ -10,10 +10,6 @@
   <div class="container">
     <h2>Registro de Perfiles</h2>
     <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
-      <div *ngIf="edicion" class="form-group">
-        <label for="perfilId">Nr</label>
-        <input id="perfilId" type="text" formControlName="perfilId" readonly />
-      </div>
       <div class="form-group">
         <label for="service">Servicio</label>
         <select id="service" formControlName="service">

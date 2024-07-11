@@ -32,7 +32,6 @@
       <table class="custom-table">
         <thead>
           <tr>
-            <th>No.</th>
             <th>Nombre</th>
             <th>Editar</th>
             <th>Eliminar</th>
@@ -40,7 +39,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let element of paginatedData">
-            <td>{{ element.proveedorId }}</td>
             <td>{{ element.nombre }}</td>
             <td>
               <button [routerLink]="['ediciones', element.proveedorId]" class="custom-button">

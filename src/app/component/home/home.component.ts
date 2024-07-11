@@ -16,9 +16,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   user: Registro = new Registro();
   totalUsuarios: number = 0;
   usuariosDeudores: number = 0;
-  totalPerfiles = 3;
-  usuariosActualesPerfiles = 3;
-  usuariosDisponiblesPerfiles = 9;
+  usuariosDisponiblesPerfiles: number = 0;
   isSidebarCollapsed = true;
   isMobile = false;
   clientesPendientes: CustomersServices[] = [];

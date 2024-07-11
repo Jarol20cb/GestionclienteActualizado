@@ -9,10 +9,6 @@
   <div class="container">
     <h2>Registro de Proveedores</h2>
     <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
-      <div *ngIf="edicion" class="form-group">
-        <label for="proveedorId">Nr</label>
-        <input id="proveedorId" type="text" formControlName="proveedorId" readonly />
-      </div>
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <input id="nombre" type="text" formControlName="nombre" />

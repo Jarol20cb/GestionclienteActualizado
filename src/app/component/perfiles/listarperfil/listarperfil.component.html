@@ -33,7 +33,6 @@
       <table class="custom-table">
         <thead>
           <tr>
-            <th>No.</th>
             <th>Tipo de servicio</th>
             <th>Correo</th>
             <th>Contraseña</th>
@@ -49,7 +48,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let element of paginatedData">
-            <td>{{ element.perfilId }}</td>
             <td>{{ element.service.service }}</td>
             <td>{{ element.correo }}</td>
             <td>

@@ -30,7 +30,7 @@ const centeredStyle = {
 export class ListarCsComponent implements OnInit {
   dataSource: CustomersServices[] = [];
   originalDataSource: CustomersServices[] = []; // Nueva variable para mantener los datos originales
-  displayedColumns: string[] = ['id', 'clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
   role: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -144,7 +144,7 @@ export class ListarCsComponent implements OnInit {
 
   actualizarColumnas() {
     if (this.role === 'ADMIN') {
-      this.displayedColumns = ['id', 'clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
+      this.displayedColumns = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
     }
     if(this.role === 'USER'){
       this.displayedColumns = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
@@ -219,7 +219,6 @@ export class ListarCsComponent implements OnInit {
 
   exportToExcel() {
     const flattenedData = this.dataSource.map(item => ({
-      'No.': item.idcs,
       'Cliente': item.name,
       'Tipo de servicio': item.services?.service,
       'Perfil': item.perfil?.correo,

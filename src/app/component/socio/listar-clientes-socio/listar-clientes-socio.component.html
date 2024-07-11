@@ -31,7 +31,6 @@
     <table class="custom-table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nombre</th>
           <th>Servicio</th>
           <th>Descripción</th>
@@ -42,7 +41,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let customerService of paginatedCustomerServices">
-          <td>{{ customerService.idcs }}</td>
           <td>{{ customerService.name }}</td>
           <td>{{ customerService.services.service }}</td>
           <td>{{ customerService.services.description }}</td>

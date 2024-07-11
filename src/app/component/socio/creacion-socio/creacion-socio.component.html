@@ -11,10 +11,6 @@
   <div class="container">
     <h2>Registro de Socio</h2>
     <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
-      <div *ngIf="edicion" class="form-group">
-        <label for="socioId">Nr</label>
-        <input id="socioId" type="text" formControlName="socioId" readonly />
-      </div>
       <div class="form-group">
         <label for="name">Nombre</label>
         <input id="name" type="text" formControlName="name" />

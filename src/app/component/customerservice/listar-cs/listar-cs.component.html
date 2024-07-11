@@ -34,7 +34,6 @@
     <table class="custom-table">
       <thead>
         <tr>
-          <th>No.</th>
           <th>Cliente</th>
           <th>Tipo de servicio</th>
           <th>Perfil</th>
@@ -49,7 +48,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let element of paginatedData" [ngClass]="getRowClass(element)">
-          <td>{{ element.idcs }}</td>
           <td>{{ element.name }}</td>
           <td>{{ element.services.service }}</td>
           <td>{{ element.perfil.correo }}</td>
