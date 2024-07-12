@@ -14,7 +14,7 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
 export class ListarServicioComponent implements OnInit {
   dataSource: Services[] = [];
   originalDataSource: Services[] = [];
-  displayedColumns: string[] = ['id', 'servicio', 'descripcion', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['servicio', 'descripcion', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -131,7 +131,7 @@ export class ListarServicioComponent implements OnInit {
 
   private actualizarColumnas() {
     if (this.role === 'ADMIN' || this.role === 'USER') {
-      this.displayedColumns = ['id', 'servicio', 'descripcion', 'editar', 'eliminar'];
+      this.displayedColumns = ['servicio', 'descripcion', 'editar', 'eliminar'];
     }
   }
 }

@@ -43,8 +43,8 @@
           <th>Estado</th>
           <th>Socio</th>
           <th>Cambiar</th>
-          <th>Editar</th>
-          <th>Eliminar</th>
+          <th *ngIf="role=='ADMIN' || role=='USER'">Editar</th>
+          <th *ngIf="role=='ADMIN' || role=='USER'">Eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -56,17 +56,17 @@
           <td>{{ element.fechafin | date : "dd/MM/yyyy" }}</td>
           <td [ngClass]="getEstadoClass(element)">{{ element.estado }}</td>
           <td>{{ element.socio.name }}</td>
-          <td>
+          <td *ngIf="role === 'ADMIN' || role === 'USER'">
             <button (click)="cambiarEstado(element)" class="custom-button rounded-button renew-button">
               <mat-icon>update</mat-icon>
             </button>
           </td>
-          <td>
+          <td *ngIf="role === 'ADMIN' || role === 'USER'"> 
             <button (click)="editarClienteServicio(element.idcs)" class="custom-button rounded-button">
               <mat-icon class="custom-icon">create</mat-icon>
             </button>
           </td>
-          <td>
+          <td *ngIf="role === 'ADMIN' || role === 'USER'">
             <button (click)="eliminar(element.idcs)" class="custom-delete-button">
               <mat-icon>delete</mat-icon>
             </button>

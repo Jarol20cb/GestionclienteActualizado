@@ -5,11 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Perfiles</title>
-  <link rel="stylesheet" href="./listarperfil.component.css">
 </head>
 <body>
   <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
-  <div class="container">
+  <div class="container" *ngIf="verificar()">
     <br>
     <h2>Lista de Perfiles</h2>
     <div class="header-actions">
@@ -24,7 +23,7 @@
         </select>
       </div>
       <div class="button-actions">
-        <button class="mi-boton" (click)="mostrarFormulario()">
+        <button class="mi-boton" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="mostrarFormulario()">
           <mat-icon>add</mat-icon> Añadir
         </button>
       </div>
@@ -65,12 +64,12 @@
             <td>{{ element.usuariosActuales }}</td>
             <td>{{ element.usuariosDisponibles }}</td>
             <td>{{ element.proveedor.nombre }}</td>
-            <td>
+            <td *ngIf="role === 'ADMIN' || role === 'USER'">
               <button (click)="editarPerfil(element.perfilId)" class="custom-button">
                 <mat-icon>create</mat-icon>
               </button>
             </td>
-            <td>
+            <td *ngIf="role === 'ADMIN' || role === 'USER'">
               <button (click)="eliminar(element.perfilId)" class="custom-delete-button">
                 <mat-icon>delete</mat-icon>
               </button>

@@ -42,6 +42,20 @@ export class ListarProveedorComponent implements OnInit {
     });
   }
 
+  
+  verificar() {
+    this.role = this.loginService.showRole();
+    this.actualizarColumnas();
+    return this.loginService.verificar();
+  }
+
+  private actualizarColumnas() {
+    if (this.role === 'ADMIN' || this.role === 'USER') {
+      this.displayedColumns = ['id', 'nombre', 'editar', 'eliminar'];
+    }
+  }
+
+
   mostrarFormulario() {
     this.mostrarFormularioRegistro = true;
     this.idEdicion = null;
@@ -120,17 +134,5 @@ export class ListarProveedorComponent implements OnInit {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.paginatedData = this.dataSource.slice(start, end);
-  }
-
-  verificar() {
-    this.role = this.loginService.showRole();
-    this.actualizarColumnas();
-    return this.loginService.verificar();
-  }
-
-  private actualizarColumnas() {
-    if (this.role === 'ADMIN' || this.role === 'USER') {
-      this.displayedColumns = ['id', 'nombre', 'editar', 'eliminar'];
-    }
   }
 }

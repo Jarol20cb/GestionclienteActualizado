@@ -1,9 +1,23 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+html, body {
+  height: 100%;
+}
+
 .container {
   max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
   margin: auto;
   padding: 20px;
   border-radius: 15px;
   background-color: #ffffff;
+  overflow-y: auto; /* Asegura el desplazamiento vertical */
+  max-height: 100vh; /* Limita la altura máxima para el desplazamiento */
 }
 
 .form-title {
@@ -16,6 +30,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  flex-wrap: wrap; /* Asegura que los elementos se envuelvan en pantallas pequeñas */
 }
 
 .form-group {
@@ -152,4 +167,42 @@
 .buttons-container {
   text-align: center;
   margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-height: 80vh;
+  }
+  
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-right: 0;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-group input,
+  .form-group select {
+    padding: 8px;
+  }
+
+  .custom-button,
+  .custom-button-cancel {
+    padding: 8px 16px;
+    margin: 5px;
+  }
+
+  .increment-buttons button {
+    width: 25px;
+    height: 25px;
+  }
+
+  .increment-buttons span {
+    font-size: 14px;
+  }
 }

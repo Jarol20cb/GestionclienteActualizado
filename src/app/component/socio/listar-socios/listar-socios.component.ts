@@ -15,7 +15,7 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
 export class ListarSociosComponent implements OnInit {
   dataSource: Socio[] = [];
   originalDataSource: Socio[] = [];
-  displayedColumns: string[] = ['id', 'nombre', 'clienteCount', 'verClientes', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['nombre', 'clienteCount', 'verClientes', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -111,7 +111,7 @@ export class ListarSociosComponent implements OnInit {
 
   private actualizarColumnas() {
     if (this.role === 'ADMIN' || this.role === 'USER') {
-      this.displayedColumns = ['id', 'nombre', 'clienteCount', 'verClientes', 'editar', 'eliminar'];
+      this.displayedColumns = ['nombre', 'clienteCount', 'verClientes', 'editar', 'eliminar'];
     }
   }
 

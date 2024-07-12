@@ -15,7 +15,7 @@
         </select>
       </div>
       <div class="button-actions">
-        <button class="mi-boton" (click)="mostrarFormulario()">
+        <button class="mi-boton" *ngIf="role=='ADMIN' || role=='USER'" (click)="mostrarFormulario()">
           <mat-icon>add</mat-icon> Añadir
         </button>
       </div>
@@ -26,20 +26,20 @@
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th *ngIf="role=='ADMIN' || role=='USER'">Editar</th>
+            <th *ngIf="role=='ADMIN' || role=='USER'">Eliminar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let element of paginatedData">
             <td>{{ element.nombre }}</td>
             <td>
-              <button (click)="editarProveedor(element.proveedorId)" class="custom-button">
+              <button (click)="editarProveedor(element.proveedorId)" *ngIf="role=='ADMIN' || role=='USER'" class="custom-button">
                 <mat-icon>create</mat-icon>
               </button>
             </td>
             <td>
-              <button (click)="eliminar(element.proveedorId)" class="custom-delete-button">
+              <button (click)="eliminar(element.proveedorId)" *ngIf="role=='ADMIN' || role=='USER'" class="custom-delete-button">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

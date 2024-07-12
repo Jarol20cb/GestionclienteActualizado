@@ -4,6 +4,7 @@ import { Perfil } from 'src/app/model/Perfil';
 import { PerfilService } from 'src/app/service/perfil-service.service';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dialog.component';
+import { LoginService } from 'src/app/service/login.service';
 
 interface PerfilExtendido extends Perfil {
   showPassword?: boolean;
@@ -17,7 +18,7 @@ interface PerfilExtendido extends Perfil {
 export class ListarperfilComponent implements OnInit {
   dataSource: PerfilExtendido[] = [];
   originalDataSource: PerfilExtendido[] = []; // Nueva variable para mantener los datos originales
-  displayedColumns: string[] = ['id', 'servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
+  displayedColumns: string[] = ['servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -27,7 +28,7 @@ export class ListarperfilComponent implements OnInit {
   mostrarFormularioRegistro: boolean = false;
   idEdicion: number | null = null;
 
-  constructor(private perfilService: PerfilService, public dialog: MatDialog) {}
+  constructor(private perfilService: PerfilService, public dialog: MatDialog, private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.perfilService.list().subscribe((data) => {
@@ -42,6 +43,19 @@ export class ListarperfilComponent implements OnInit {
       this.totalItems = data.length;
       this.paginarDatos();
     });
+  }
+
+  actualizarColumnas() {
+    if (this.role === 'ADMIN') {
+      this.displayedColumns = ['servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
+    }
+    if(this.role === 'CUSTOMER'){
+      this.displayedColumns = ['servicio', 'correo', 'contrasena', 'fechainicio', 'fechafin', 'limiteUsuarios', 'usuariosActuales', 'usuariosDisponibles', 'proveedor', 'editar', 'eliminar'];
+    }
+  }
+
+  verificar(): boolean {
+    return this.loginService.verificar();
   }
 
   mostrarFormulario() {

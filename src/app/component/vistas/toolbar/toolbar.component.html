@@ -12,7 +12,7 @@
       <button class="toolbar-button" routerLink="/components/home">
         <mat-icon class="toolbar-icon">home</mat-icon>
       </button>
-      <div class="dropdown">
+      <div class="dropdown" *ngIf="role === 'ADMIN' || role === 'USER'">
         <button class="toolbar-button" (click)="toggleDropdown($event)">
           <mat-icon class="toolbar-icon">menu</mat-icon>
         </button>
@@ -21,7 +21,7 @@
             <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">group</mat-icon> Clientes</a>
             <div class="submenu-content">
               <a routerLink="/components/custser" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/custser/nuevo" (click)="closeDropdown()">Registrar</a>
+              <a routerLink="/components/custser/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
             </div>
           </div>
           
@@ -29,7 +29,7 @@
             <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">people_outline</mat-icon> Socios</a>
             <div class="submenu-content">
               <a routerLink="/components/socios" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/socios/nuevo" (click)="closeDropdown()">Registrar</a>
+              <a routerLink="/components/socios/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
             </div>
           </div>
 
@@ -37,21 +37,21 @@
             <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">subscriptions</mat-icon> Plataformas</a>
             <div class="submenu-content">
               <a routerLink="/components/servicios" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/servicios/nuevo" (click)="closeDropdown()">Registrar</a>
+              <a routerLink="/components/servicios/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
             </div>
           </div>
           <div class="submenu">
             <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">business</mat-icon> Proveedores</a>
             <div class="submenu-content">
               <a routerLink="/components/proveedor" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/proveedor/nuevo" (click)="closeDropdown()">Registrar</a>
+              <a routerLink="/components/proveedor/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
             </div>
           </div>
           <div class="submenu">
             <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">person</mat-icon> Perfiles</a>
             <div class="submenu-content">
               <a routerLink="/components/perfil" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/perfil/nuevo" (click)="closeDropdown()">Registrar</a>
+              <a routerLink="/components/perfil/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
             </div>
           </div>
           <a routerLink="/components/credentials" (click)="closeDropdown()"><mat-icon class="dropdown-icon">account_circle</mat-icon> Ver cuenta</a>

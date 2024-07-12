@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   validarRol() {
-    return this.role === 'ADMIN' || this.role === 'USER';
+    return this.role === 'ADMIN' || this.role === 'CUSTOMER';
   }
 
   cerrar() {

@@ -35,17 +35,17 @@
             <td>{{ element.name }}</td>
             <td>{{ element.clienteCount }}</td>
             <td>
-              <button (click)="verClientes(element.socioId)" class="custom-button">
+              <button *ngIf="role=='ADMIN' || role=='USER'" (click)="verClientes(element.socioId)" class="custom-button">
                 <mat-icon>visibility</mat-icon>
               </button>
             </td>
             <td>
-              <button (click)="editarSocio(element.socioId)" class="custom-button">
+              <button *ngIf="role=='ADMIN' || role=='USER'" (click)="editarSocio(element.socioId)" class="custom-button">
                 <mat-icon>create</mat-icon>
               </button>
             </td>
             <td>
-              <button (click)="eliminar(element.socioId)" class="custom-delete-button">
+              <button *ngIf="role=='ADMIN' || role=='USER'" (click)="eliminar(element.socioId)" class="custom-delete-button">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

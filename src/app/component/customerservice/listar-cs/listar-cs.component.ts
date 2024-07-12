@@ -168,7 +168,7 @@ export class ListarCsComponent implements OnInit {
     if (this.role === 'ADMIN') {
       this.displayedColumns = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
     }
-    if(this.role === 'USER'){
+    if(this.role === 'CUSTOMER'){
       this.displayedColumns = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
     }
   }
