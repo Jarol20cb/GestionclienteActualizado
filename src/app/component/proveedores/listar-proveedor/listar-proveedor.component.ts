@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Proveedor } from 'src/app/model/Proveedor';
+import { LoginService } from 'src/app/service/login.service';
 import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dialog.component';
+import { Proveedor } from 'src/app/model/Proveedor';
 import { ProveedorService } from 'src/app/service/proveedor-service.service';
 
 @Component({
@@ -12,44 +13,68 @@ import { ProveedorService } from 'src/app/service/proveedor-service.service';
 })
 export class ListarProveedorComponent implements OnInit {
   dataSource: Proveedor[] = [];
-  originalDataSource: Proveedor[] = []; // Nueva variable para mantener los datos originales
+  originalDataSource: Proveedor[] = [];
   displayedColumns: string[] = ['id', 'nombre', 'editar', 'eliminar'];
+  role: string = "";
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
   paginatedData: Proveedor[] = [];
+  mostrarFormularioRegistro: boolean = false;
+  idEdicion: number | null = null;
 
-  constructor(private proveedorService: ProveedorService, public dialog: MatDialog) {}
+  constructor(private cS: ProveedorService, public dialog: MatDialog, private loginService: LoginService) {}
 
   ngOnInit(): void {
-    this.proveedorService.list().subscribe((data) => {
-      this.originalDataSource = data; // Guardar los datos originales
-      this.dataSource = [...this.originalDataSource];
+    this.role = this.loginService.showRole();
+    this.actualizarColumnas();
+    this.cS.list().subscribe((data) => {
+      this.originalDataSource = data;
+      this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
     });
-    this.proveedorService.getList().subscribe((data) => {
-      this.originalDataSource = data; // Guardar los datos originales
-      this.dataSource = [...this.originalDataSource];
+    this.cS.getList().subscribe((data) => {
+      this.originalDataSource = data;
+      this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
     });
+  }
+
+  mostrarFormulario() {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = null;
+  }
+
+  ocultarFormulario() {
+    this.mostrarFormularioRegistro = false;
+  }
+
+  cerrarFormulario() {
+    this.ocultarFormulario();
+  }
+
+  editarProveedor(id: number) {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = id;
   }
 
   eliminar(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.proveedorService.delete(id).subscribe({
+        this.cS.delete(id).subscribe({
           next: () => {
-            this.proveedorService.list().subscribe((data) => {
-              this.originalDataSource = data; // Guardar los datos originales
-              this.dataSource = [...this.originalDataSource];
+            this.cS.list().subscribe((data) => {
+              this.originalDataSource = data;
+              this.dataSource = data;
               this.totalItems = data.length;
               this.paginarDatos();
             });
           },
           error: (errorMessage) => {
+            console.log('Error message:', errorMessage);
             this.dialog.open(WarningDialogComponent, {
               data: {
                 message: errorMessage
@@ -63,7 +88,7 @@ export class ListarProveedorComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.dataSource = this.originalDataSource.filter(proveedor => // Usar originalDataSource para filtrar
+    this.dataSource = this.originalDataSource.filter(proveedor =>
       proveedor.nombre.toLowerCase().includes(filterValue)
     );
     this.totalItems = this.dataSource.length;
@@ -72,7 +97,7 @@ export class ListarProveedorComponent implements OnInit {
   }
 
   changePageSize(event: any) {
-    this.itemsPerPage = event.target.value;
+    this.itemsPerPage = parseInt(event.target.value, 10);
     this.currentPage = 1;
     this.paginarDatos();
   }
@@ -95,5 +120,17 @@ export class ListarProveedorComponent implements OnInit {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.paginatedData = this.dataSource.slice(start, end);
+  }
+
+  verificar() {
+    this.role = this.loginService.showRole();
+    this.actualizarColumnas();
+    return this.loginService.verificar();
+  }
+
+  private actualizarColumnas() {
+    if (this.role === 'ADMIN' || this.role === 'USER') {
+      this.displayedColumns = ['id', 'nombre', 'editar', 'eliminar'];
+    }
   }
 }

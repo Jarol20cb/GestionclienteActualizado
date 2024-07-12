@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
+  <div class="formulario-contenedor">
     <h2>Registro de Socio</h2>
     <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
       <div class="form-group">
@@ -23,8 +23,8 @@
       </div>
       <p>{{ mensaje }}</p>
       <button type="submit" class="custom-button" [disabled]="form.invalid">Aceptar</button>
-      <button type="button" class="custom-button-cancel" routerLink="/components/socios">Cancelar</button>
+      <button type="button" class="custom-button-cancel" (click)="ocultarFormulario()">Cancelar</button>
     </form>
-  </div>
+  </div>  
 </body>
 </html>

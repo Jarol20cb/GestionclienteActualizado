@@ -1,6 +1,5 @@
 .container {
-  text-align: center;
-  max-width: 400px;
+  max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
   margin: auto;
   padding: 20px;
   border-radius: 15px;
@@ -9,14 +8,25 @@
   margin-top: 1.5%;
 }
 
-h2 {
+.form-title {
   color: #2980B9;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.form-group {
+.form-row {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 15px;
-  text-align: left;
+}
+
+.form-group {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.form-group:last-child {
+  margin-right: 0;
 }
 
 .form-group label {
@@ -25,7 +35,8 @@ h2 {
   font-weight: bold;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -44,7 +55,7 @@ h2 {
 
 .form-group select option {
   padding: 10px;
-  white-space: pre-wrap; /* Permite el salto de línea */
+  white-space: pre-wrap;
 }
 
 .custom-select {
@@ -71,7 +82,8 @@ h2 {
   margin-top: 10px;
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
   border-color: #2980B9;
 }
@@ -82,7 +94,8 @@ h2 {
   margin-top: 5px;
 }
 
-.custom-button, .custom-button-cancel {
+.custom-button,
+.custom-button-cancel {
   background-color: #2980B9;
   color: white;
   border: none;
@@ -97,12 +110,14 @@ h2 {
   background-color: #1A5276;
 }
 
-.custom-button:hover, .custom-button-cancel:hover {
+.custom-button:hover,
+.custom-button-cancel:hover {
   background-color: #145A86;
   transform: translateY(-2px);
 }
 
-.custom-button:active, .custom-button-cancel:active {
+.custom-button:active,
+.custom-button-cancel:active {
   background-color: #0E3C5F;
   transform: translateY(0);
 }
@@ -134,4 +149,9 @@ h2 {
 .increment-buttons span {
   font-size: 16px;
   padding: 0 10px;
+}
+
+.buttons-container {
+  text-align: center;
+  margin-top: 20px;
 }

@@ -13,13 +13,15 @@ import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dia
 })
 export class ListarServicioComponent implements OnInit {
   dataSource: Services[] = [];
-  originalDataSource: Services[] = []; // Nueva variable para mantener los datos originales
+  originalDataSource: Services[] = [];
   displayedColumns: string[] = ['id', 'servicio', 'descripcion', 'editar', 'eliminar'];
   role: string = "";
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
   paginatedData: Services[] = [];
+  mostrarFormularioRegistro: boolean = false;
+  idEdicion: number | null = null;
 
   constructor(private cS: ServicesService, public dialog: MatDialog, private loginService: LoginService) {}
 
@@ -27,17 +29,35 @@ export class ListarServicioComponent implements OnInit {
     this.role = this.loginService.showRole();
     this.actualizarColumnas();
     this.cS.list().subscribe((data) => {
-      this.originalDataSource = data; // Guardar los datos originales
+      this.originalDataSource = data;
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
     });
     this.cS.getList().subscribe((data) => {
-      this.originalDataSource = data; // Guardar los datos originales
+      this.originalDataSource = data;
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
     });
+  }
+
+  mostrarFormulario() {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = null;
+  }
+
+  ocultarFormulario() {
+    this.mostrarFormularioRegistro = false;
+  }
+
+  cerrarFormulario() {
+    this.ocultarFormulario();
+  }
+
+  editarServicio(id: number) {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = id;
   }
 
   eliminar(id: number) {
@@ -47,7 +67,7 @@ export class ListarServicioComponent implements OnInit {
         this.cS.delete(id).subscribe({
           next: () => {
             this.cS.list().subscribe((data) => {
-              this.originalDataSource = data; // Guardar los datos originales
+              this.originalDataSource = data;
               this.dataSource = data;
               this.totalItems = data.length;
               this.paginarDatos();
@@ -68,7 +88,7 @@ export class ListarServicioComponent implements OnInit {
 
   filter(event: any) {
     const filterValue = event.target.value.trim().toLowerCase();
-    this.dataSource = this.originalDataSource.filter(service => // Usar originalDataSource para filtrar
+    this.dataSource = this.originalDataSource.filter(service =>
       service.service.toLowerCase().includes(filterValue) ||
       service.description.toLowerCase().includes(filterValue)
     );

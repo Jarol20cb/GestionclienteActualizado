@@ -1,13 +1,6 @@
 <app-toolbar></app-toolbar>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Proveedores</title>
-</head>
-<body>
-  <div class="container">
+<div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
+  <div class="listar-container" *ngIf="verificar()">
     <br>
     <h2 style="text-align: center;">Lista de Proveedores</h2>
     <div class="header-actions">
@@ -22,7 +15,7 @@
         </select>
       </div>
       <div class="button-actions">
-        <button class="mi-boton" routerLink="/components/proveedor/nuevo">
+        <button class="mi-boton" (click)="mostrarFormulario()">
           <mat-icon>add</mat-icon> Añadir
         </button>
       </div>
@@ -41,7 +34,7 @@
           <tr *ngFor="let element of paginatedData">
             <td>{{ element.nombre }}</td>
             <td>
-              <button [routerLink]="['ediciones', element.proveedorId]" class="custom-button">
+              <button (click)="editarProveedor(element.proveedorId)" class="custom-button">
                 <mat-icon>create</mat-icon>
               </button>
             </td>
@@ -60,5 +53,7 @@
       <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
     </div>
   </div>
-</body>
-</html>
+  <div *ngIf="mostrarFormularioRegistro" class="formulario-overlay">
+    <app-creacion-proveedor [id]="idEdicion" (cerrarFormulario)="cerrarFormulario()"></app-creacion-proveedor>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Socio } from 'src/app/model/socio';
@@ -13,7 +13,8 @@ export class CreacionSocioComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   socio: Socio = new Socio();
   mensaje: string = '';
-  id: number = 0;
+  @Input() id: number | null = null;
+  @Output() cerrarFormulario = new EventEmitter<void>();
   edicion: boolean = false;
 
   constructor(
@@ -24,16 +25,17 @@ export class CreacionSocioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.id = params['id'];
-      this.edicion = params['id'] !== null && params['id'] !== undefined;
-      this.initForm();
-    });
-
     this.form = this.formBuilder.group({
       socioId: [''],
       name: ['', [Validators.required, Validators.maxLength(40)]],
     });
+
+    if (this.id !== null) {
+      this.edicion = true;
+      this.initForm();
+    } else {
+      this.edicion = false;
+    }
   }
 
   aceptar(): void {
@@ -44,13 +46,14 @@ export class CreacionSocioComponent implements OnInit {
       if (this.edicion) {
         this.socioService.update(this.socio).subscribe(() => {
           this.actualizarLista();
+          this.cerrarFormulario.emit();
         });
       } else {
         this.socioService.insert(this.socio).subscribe(() => {
           this.actualizarLista();
+          this.cerrarFormulario.emit();
         });
       }
-      this.router.navigate(['components/socios']);
     } else {
       this.mensaje = 'Revise los campos!!!';
     }
@@ -65,7 +68,7 @@ export class CreacionSocioComponent implements OnInit {
   }
 
   private initForm(): void {
-    if (this.edicion) {
+    if (this.edicion && this.id !== null) {
       this.socioService.listId(this.id).subscribe((data) => {
         this.form.patchValue({
           socioId: data.socioId,
@@ -79,5 +82,9 @@ export class CreacionSocioComponent implements OnInit {
     this.socioService.list().subscribe((data) => {
       this.socioService.setList(data);
     });
+  }
+
+  ocultarFormulario() {
+    this.cerrarFormulario.emit();
   }
 }

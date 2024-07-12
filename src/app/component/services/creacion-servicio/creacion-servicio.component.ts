@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Services } from 'src/app/model/Services';
@@ -13,7 +13,8 @@ export class CreacionServicioComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   services: Services = new Services();
   mensaje: string = '';
-  id: number = 0;
+  @Input() id: number | null = null;
+  @Output() cerrarFormulario = new EventEmitter<void>();
   edicion: boolean = false;
 
   constructor(
@@ -24,17 +25,18 @@ export class CreacionServicioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((data: Params) => {
-      this.id = data['id'];
-      this.edicion = data['id'] != null;
-      this.init();
-    });
-
     this.form = this.formBuilder.group({
       serviceId: [''],
       service: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.required, Validators.maxLength(150)]],
     });
+
+    if (this.id !== null) {
+      this.edicion = true;
+      this.init();
+    } else {
+      this.edicion = false;
+    }
   }
 
   aceptar() {
@@ -48,15 +50,16 @@ export class CreacionServicioComponent implements OnInit {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
           });
+          this.cerrarFormulario.emit();
         });
       } else {
         this.cS.insert(this.services).subscribe(() => {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
           });
+          this.cerrarFormulario.emit();
         });
       }
-      this.router.navigate(['components/servicios']);
     } else {
       this.mensaje = 'Revise los campos!!!';
     }
@@ -71,7 +74,7 @@ export class CreacionServicioComponent implements OnInit {
   }
 
   init() {
-    if (this.edicion) {
+    if (this.edicion && this.id !== null) {
       this.cS.listId(this.id).subscribe(data => {
         this.form = new FormGroup({
           serviceId: new FormControl(data.serviceId),
@@ -80,5 +83,9 @@ export class CreacionServicioComponent implements OnInit {
         });
       });
     }
+  }
+
+  ocultarFormulario() {
+    this.cerrarFormulario.emit();
   }
 }

@@ -21,6 +21,8 @@ export class ListarSociosComponent implements OnInit {
   itemsPerPage: number = 5;
   totalItems: number = 0;
   paginatedData: Socio[] = [];
+  mostrarFormularioRegistro: boolean = false;
+  idEdicion: number | null = null;
 
   constructor(private cS: SocioService, public dialog: MatDialog, private loginService: LoginService, private router: Router) {}
 
@@ -39,6 +41,24 @@ export class ListarSociosComponent implements OnInit {
       this.totalItems = data.length;
       this.paginarDatos();
     });
+  }
+
+  mostrarFormulario() {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = null;
+  }
+
+  ocultarFormulario() {
+    this.mostrarFormularioRegistro = false;
+  }
+
+  cerrarFormulario() {
+    this.ocultarFormulario();
+  }
+
+  editarSocio(id: number) {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = id;
   }
 
   eliminar(id: number) {

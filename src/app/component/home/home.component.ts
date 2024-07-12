@@ -40,6 +40,11 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     this.cargarEstadisticas();
     this.cargarPlataformasPopulares();
     this.checkWindowSize();
+    this.perfilService.list().subscribe((data) => {
+      this.usuariosDisponiblesPerfiles = data.reduce((total, perfil) => {
+        return total + perfil.usuariosDisponibles;
+      }, 0);
+    });
   }
 
   ngAfterViewChecked() {
