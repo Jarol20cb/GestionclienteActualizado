@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Perfil } from 'src/app/model/Perfil';
@@ -17,7 +17,8 @@ export class CreacionPerfilComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   perfil: Perfil = new Perfil();
   mensaje: string = '';
-  id: number = 0;
+  @Input() id: number | null = null;
+  @Output() cerrarFormulario = new EventEmitter<void>();
   edicion: boolean = false;
   listservices: Services[] = [];
   listproveedores: Proveedor[] = [];
@@ -33,12 +34,6 @@ export class CreacionPerfilComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((data: Params) => {
-      this.id = data['id'];
-      this.edicion = data['id'] != null;
-      this.init();
-    });
-
     this.form = this.formBuilder.group({
       perfilId: [''],
       service: ['', Validators.required],
@@ -51,6 +46,13 @@ export class CreacionPerfilComponent implements OnInit {
       usuariosDisponibles: ['', Validators.required],
       proveedor: ['', Validators.required]
     });
+
+    if (this.id !== null) {
+      this.edicion = true;
+      this.init();
+    } else {
+      this.edicion = false;
+    }
 
     this.servicesService.list().subscribe(data => {
       this.listservices = data;
@@ -84,6 +86,7 @@ export class CreacionPerfilComponent implements OnInit {
         this.perfilService.update(this.perfil).subscribe(() => {
           this.perfilService.list().subscribe(data => {
             this.perfilService.setList(data);
+            this.cerrarFormulario.emit();
           });
         });
       } else {
@@ -91,16 +94,16 @@ export class CreacionPerfilComponent implements OnInit {
           this.perfilService.list().subscribe(data => {
             this.perfilService.setList(data);
           });
+          this.cerrarFormulario.emit();
         });
       }
-      this.router.navigate(['components/perfil']);
     } else {
       this.mensaje = 'Revise los campos!!!';
     }
   }
 
   init() {
-    if (this.edicion) {
+    if (this.edicion && this.id !== null) {
       this.perfilService.listId(this.id).subscribe(data => {
         this.form = this.formBuilder.group({
           perfilId: new FormControl(data.perfilId),
@@ -125,5 +128,9 @@ export class CreacionPerfilComponent implements OnInit {
       return { invalidDate: true };
     }
     return null;
+  }
+
+  ocultarFormulario() {
+    this.cerrarFormulario.emit();
   }
 }

@@ -24,6 +24,9 @@ export class ListarperfilComponent implements OnInit {
   totalItems: number = 0;
   paginatedData: PerfilExtendido[] = [];
 
+  mostrarFormularioRegistro: boolean = false;
+  idEdicion: number | null = null;
+
   constructor(private perfilService: PerfilService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -39,6 +42,24 @@ export class ListarperfilComponent implements OnInit {
       this.totalItems = data.length;
       this.paginarDatos();
     });
+  }
+
+  mostrarFormulario() {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = null;
+  }
+
+  ocultarFormulario() {
+    this.mostrarFormularioRegistro = false;
+  }
+
+  cerrarFormulario() {
+    this.ocultarFormulario();
+  }
+
+  editarPerfil(id: number) {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = id;
   }
 
   togglePasswordVisibility(element: PerfilExtendido) {

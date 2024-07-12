@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./listarperfil.component.css">
 </head>
 <body>
+  <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
   <div class="container">
     <br>
     <h2>Lista de Perfiles</h2>
@@ -23,7 +24,7 @@
         </select>
       </div>
       <div class="button-actions">
-        <button class="mi-boton" routerLink="/components/perfil/nuevo">
+        <button class="mi-boton" (click)="mostrarFormulario()">
           <mat-icon>add</mat-icon> Añadir
         </button>
       </div>
@@ -65,7 +66,7 @@
             <td>{{ element.usuariosDisponibles }}</td>
             <td>{{ element.proveedor.nombre }}</td>
             <td>
-              <button [routerLink]="['ediciones', element.perfilId]" class="custom-button">
+              <button (click)="editarPerfil(element.perfilId)" class="custom-button">
                 <mat-icon>create</mat-icon>
               </button>
             </td>
@@ -84,5 +85,9 @@
       <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
     </div>
   </div>
+  <div *ngIf="mostrarFormularioRegistro" class="formulario-overlay">
+    <app-creacion-perfil [id]="idEdicion" (cerrarFormulario)="cerrarFormulario()"></app-creacion-perfil>
+  </div>
+</div>
 </body>
 </html>
