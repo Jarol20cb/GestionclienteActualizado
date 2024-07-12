@@ -7,6 +7,7 @@
   <title>Lista de registros</title>
 </head>
 <body>
+  <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
   <div class="container" *ngIf="verificar()">
     <br>
     <h2 style="text-align: center;">Lista de registros</h2>
@@ -22,7 +23,7 @@
         </select>
       </div>
       <div class="button-actions">
-        <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" routerLink="/components/custser/nuevo">
+        <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" (click)="mostrarFormulario()">
           <mat-icon>add</mat-icon> Añadir
         </button>
         <button (click)="exportToExcel()" class="mi-boton">
@@ -61,7 +62,7 @@
             </button>
           </td>
           <td>
-            <button [routerLink]="['ediciones', element.idcs]" class="custom-button rounded-button">
+            <button (click)="editarClienteServicio(element.idcs)" class="custom-button rounded-button">
               <mat-icon class="custom-icon">create</mat-icon>
             </button>
           </td>
@@ -80,5 +81,9 @@
       <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
     </div>
   </div>
+  <div *ngIf="mostrarFormularioRegistro" class="formulario-overlay">
+    <app-creacion-cs [id]="idEdicion" (cerrarFormulario)="cerrarFormulario()"></app-creacion-cs>
+  </div>
+</div>
 </body>
 </html>

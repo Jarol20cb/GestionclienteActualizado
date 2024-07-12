@@ -29,13 +29,16 @@ const centeredStyle = {
 })
 export class ListarCsComponent implements OnInit {
   dataSource: CustomersServices[] = [];
-  originalDataSource: CustomersServices[] = []; // Nueva variable para mantener los datos originales
+  originalDataSource: CustomersServices[] = [];
   displayedColumns: string[] = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
   role: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
   paginatedData: CustomersServices[] = [];
+
+  mostrarFormularioRegistro: boolean = false;
+  idEdicion: number | null = null;
 
   constructor(private cS: CustomerserviceService, public dialog: MatDialog, private loginService: LoginService) {}
 
@@ -58,6 +61,25 @@ export class ListarCsComponent implements OnInit {
       this.totalItems = data.length;
       this.paginarDatos();
     });
+
+  }
+
+  mostrarFormulario() {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = null;
+  }
+
+  ocultarFormulario() {
+    this.mostrarFormularioRegistro = false;
+  }
+
+  cerrarFormulario() {
+    this.ocultarFormulario();
+  }
+
+  editarClienteServicio(id: number) {
+    this.mostrarFormularioRegistro = true;
+    this.idEdicion = id;
   }
 
   verificar(): boolean {

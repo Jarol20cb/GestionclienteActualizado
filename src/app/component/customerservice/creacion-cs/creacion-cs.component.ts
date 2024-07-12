@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,7 +22,8 @@ export class CreacionCsComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   customerservice: CustomersServices = new CustomersServices();
   mensaje: string = '';
-  id: number = 0;
+  @Input() id: number | null = null;
+  @Output() cerrarFormulario = new EventEmitter<void>();
   edicion: boolean = false;
   listservices: Services[] = [];
   listsocios: Socio[] = [];
@@ -41,12 +42,6 @@ export class CreacionCsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((data: Params) => {
-      this.id = data['id'];
-      this.edicion = data['id'] != null;
-      this.init();
-    });
-
     this.form = this.formBuilder.group({
       idcs: [''],
       name: ['', [Validators.required, Validators.maxLength(40)]],
@@ -58,6 +53,13 @@ export class CreacionCsComponent implements OnInit {
       estado: [{ value: 'cancelado', disabled: true }],
       socio: ['', Validators.required]
     });
+
+    if (this.id !== null) {
+      this.edicion = true;
+      this.init();
+    } else {
+      this.edicion = false;
+    }
 
     this.form.get('services')?.valueChanges.subscribe(serviceId => {
       this.loadAvailablePerfiles(serviceId);
@@ -131,6 +133,7 @@ export class CreacionCsComponent implements OnInit {
         this.cS.update(this.customerservice).subscribe(() => {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
+            this.cerrarFormulario.emit();
           });
           this.showNotification(`Se ha actualizado el registro de ${this.customerservice.name}`);
         });
@@ -139,10 +142,10 @@ export class CreacionCsComponent implements OnInit {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
           });
+          this.cerrarFormulario.emit();
           this.showNotification(`Se ha registrado correctamente a ${this.customerservice.name}`);
         });
       }
-      this.router.navigate(['components/custser']);
     } else {
       this.mensaje = "Ingrese todos los campos!!!";
     }
@@ -164,7 +167,7 @@ export class CreacionCsComponent implements OnInit {
   }
 
   init() {
-    if (this.edicion) {
+    if (this.edicion && this.id !== null) {
       this.cS.listId(this.id).subscribe((data) => {
         this.customerservice = data;
 
@@ -234,5 +237,9 @@ export class CreacionCsComponent implements OnInit {
       this.form.get('paymentPeriod')?.setValue(currentValue - 1);
       this.updateFechafin(this.form.get('fechainicio')?.value, currentValue - 1);
     }
+  }
+
+  ocultarFormulario() {
+    this.cerrarFormulario.emit();
   }
 }
