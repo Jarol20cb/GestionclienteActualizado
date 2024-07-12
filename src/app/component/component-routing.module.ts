@@ -77,7 +77,7 @@ const routes: Routes = [
   {
     path: 'proveedor',
     component: ProveedoresComponent,
-    canActivate: [GuardService], // Proteger la ruta 'proveedor' con el guardia
+    canActivate: [GuardService],
     children:[
       { path: 'nuevo', component: CreacionProveedorComponent },
       { path: 'ediciones/:id', component: CreacionProveedorComponent },

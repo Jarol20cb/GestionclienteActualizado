@@ -52,6 +52,10 @@ import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/cre
 import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
 import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
 import { ToolbarComponent } from './vistas/toolbar/toolbar.component';
+import { GestorPerfilesComponent } from './services/perfiles/gestor-perfiles/gestor-perfiles.component';
+import { ListarClientesComponent } from './services/perfiles/listar-clientes/listar-clientes.component';
+import { PerfilClienteComponent } from './services/perfiles/perfil-cliente/perfil-cliente.component';
+import { RegistroPerfilComponent } from './services/perfiles/registro-perfil/registro-perfil.component';
 
 
 
@@ -86,7 +90,12 @@ import { ToolbarComponent } from './vistas/toolbar/toolbar.component';
     CreacionProveedorComponent,
     ListarPerfilesComponent,
     BienvenidaComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    GestorPerfilesComponent,
+    ListarClientesComponent,
+    PerfilClienteComponent,
+    RegistroPerfilComponent,
+
   ],
   imports: [
     CommonModule,
