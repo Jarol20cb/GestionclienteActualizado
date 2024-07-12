@@ -1,0 +1,41 @@
+<app-toolbar></app-toolbar>
+<div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
+  <div class="container" *ngIf="verificar()">
+    <br>
+    <h2>Lista de Clientes</h2>
+    <div class="header-actions">
+      <div class="search-container">
+        <span class="search-icon"><mat-icon>search</mat-icon></span>
+        <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
+      </div>
+      <div class="paginator-actions">
+        <span class="items-per-page">Mostrar páginas:</span>
+        <select (change)="changePageSize($event)" class="custom-select">
+          <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="card-container">
+      <mat-card *ngFor="let cliente of paginatedData" class="client-card">
+        <mat-card-header>
+          <mat-card-title>{{ cliente.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Correo: {{ cliente.perfil.correo }}</p>
+          <p>Servicio: {{ cliente.services.service }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button [routerLink]="['/clientes', cliente.idcs, 'perfil']" class="custom-button">
+            Ver Perfil
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
+    </div>
+  </div>
+</div>

@@ -54,7 +54,9 @@ export class ListarperfilComponent implements OnInit {
     }
   }
 
-  verificar(): boolean {
+  verificar() {
+    this.role = this.loginService.showRole();
+    this.actualizarColumnas();
     return this.loginService.verificar();
   }
 

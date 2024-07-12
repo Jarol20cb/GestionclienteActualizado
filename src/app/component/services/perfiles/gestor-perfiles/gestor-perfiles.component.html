@@ -1,0 +1,88 @@
+<app-toolbar></app-toolbar>
+<div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
+  <div class="container" *ngIf="verificar()">
+    <br>
+    <h2>Lista de Perfiles de {{ serviceId }}</h2>
+    <div class="header-actions">
+      <div class="search-container">
+        <span class="search-icon"><mat-icon>search</mat-icon></span>
+        <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
+      </div>
+      <div class="paginator-actions">
+        <span class="items-per-page">Mostrar páginas:</span>
+        <select (change)="changePageSize($event)" class="custom-select">
+          <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
+        </select>
+      </div>
+      <div class="button-actions">
+        <button class="mi-boton" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="mostrarFormulario()">
+          <mat-icon>add</mat-icon> Añadir
+        </button>
+      </div>
+    </div>
+    <br>
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Tipo de servicio</th>
+            <th>Correo</th>
+            <th>Contraseña</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Límite de Usuarios</th>
+            <th>Usuarios Actuales</th>
+            <th>Usuarios Disponibles</th>
+            <th>Proveedor</th>
+            <th>Ver Clientes</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of paginatedData">
+            <td>{{ element.service.service }}</td>
+            <td>{{ element.correo }}</td>
+            <td>
+              <div class="password-container">
+                <input [type]="element.showPassword ? 'text' : 'password'" [value]="element.contrasena" readonly class="password-field">
+                <button (click)="togglePasswordVisibility(element)" class="eye-button">
+                  <mat-icon>{{ element.showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+              </div>
+            </td>
+            <td>{{ element.fechainicio | date : "dd/MM/yyyy" }}</td>
+            <td>{{ element.fechafin | date : "dd/MM/yyyy" }}</td>
+            <td>{{ element.limiteUsuarios }}</td>
+            <td>{{ element.usuariosActuales }}</td>
+            <td>{{ element.usuariosDisponibles }}</td>
+            <td>{{ element.proveedor.nombre }}</td>
+            <td>
+              <button [routerLink]="['/perfiles', element.perfilId, 'clientes']" class="custom-button">
+                <i class="fas fa-eye"></i>
+              </button>
+            </td>
+            <td *ngIf="role === 'ADMIN' || role === 'USER'">
+              <button (click)="editarPerfil(element.perfilId)" class="custom-button">
+                <mat-icon>create</mat-icon>
+              </button>
+            </td>
+            <td *ngIf="role === 'ADMIN' || role === 'USER'">
+              <button (click)="eliminar(element.perfilId)" class="custom-delete-button">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
+    </div>
+  </div>
+  <div *ngIf="mostrarFormularioRegistro" class="formulario-overlay">
+    <app-creacion-perfil [id]="idEdicion" (cerrarFormulario)="cerrarFormulario()"></app-creacion-perfil>
+  </div>
+</div>
