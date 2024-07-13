@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model/User';
-import { switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 const base_url = environment.base;
 
@@ -13,75 +13,65 @@ const base_url = environment.base;
 export class AdministracionService {
   private url = `${base_url}/admin/users`;
   private listaCambio = new BehaviorSubject<User[]>([]);
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    })
+  };
 
-  constructor(private http: HttpClient) {}
-
-  private getHeaders() {
-    let token = sessionStorage.getItem('token');
-    return new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json');
+  constructor(private http: HttpClient) {
+    this.refrescarLista();
   }
 
-  list() {
-    return this.http.get<User[]>(this.url, {
-      headers: this.getHeaders(),
-    }).pipe(
-      tap(users => this.listaCambio.next(users)) // Emitimos la nueva lista
+  list(): Observable<User[]> {
+    return this.http.get<User[]>(this.url, this.httpOptions).pipe(
+      tap(data => this.listaCambio.next(data))
     );
   }
 
-  insert(user: User) {
-    return this.http.post(this.url, user, {
-      headers: this.getHeaders(),
-    }).pipe(
-      switchMap(() => this.list())
+  insert(user: User): Observable<User> {
+    return this.http.post<User>(this.url, user, this.httpOptions).pipe(
+      tap(() => this.refrescarLista())
     );
   }
 
-  setList(listaNueva: User[]) {
-    this.listaCambio.next(listaNueva);
+  update(id: number, user: User): Observable<User> {
+    return this.http.put<User>(`${this.url}/${id}`, user, this.httpOptions).pipe(
+      tap(() => this.refrescarLista())
+    );
   }
 
-  getList() {
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`, this.httpOptions).pipe(
+      tap(() => this.refrescarLista())
+    );
+  }
+
+  enable(id: number): Observable<void> {
+    return this.http.put<void>(`${this.url}/${id}/enable`, null, this.httpOptions).pipe(
+      tap(() => this.refrescarLista())
+    );
+  }
+
+  disable(id: number): Observable<void> {
+    return this.http.put<void>(`${this.url}/${id}/disable`, null, this.httpOptions).pipe(
+      tap(() => this.refrescarLista())
+    );
+  }
+
+  getList(): Observable<User[]> {
     return this.listaCambio.asObservable();
   }
 
-  getUserById(id: number) {
-    return this.http.get<User>(`${this.url}/${id}`, {
-      headers: this.getHeaders(),
-    });
+  public refrescarLista(): void {
+    this.list().subscribe();
   }
 
-  update(id: number, user: User) {
-    return this.http.put(`${this.url}/${id}`, user, {
-      headers: this.getHeaders(),
-    }).pipe(
-      switchMap(() => this.list())
-    );
-  }
-
-  delete(id: number) {
-    return this.http.delete(`${this.url}/${id}`, {
-      headers: this.getHeaders(),
-    }).pipe(
-      switchMap(() => this.list())
-    );
-  }
-
-  enable(id: number) {
-    return this.http.put(`${this.url}/${id}/enable`, null, {
-      headers: this.getHeaders(),
-    }).pipe(
-      switchMap(() => this.list())
-    );
-  }
-
-  disable(id: number) {
-    return this.http.put(`${this.url}/${id}/disable`, null, {
-      headers: this.getHeaders(),
-    }).pipe(
-      switchMap(() => this.list())
-    );
+  // Metodo para iniciar el sondeo
+  public startPolling(interval: number = 1000): void {
+    setInterval(() => {
+      this.refrescarLista();
+    }, interval);
   }
 }

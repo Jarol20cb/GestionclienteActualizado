@@ -1,5 +1,3 @@
-// src/app/service/services.service.ts
-
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Services } from '../model/Services';

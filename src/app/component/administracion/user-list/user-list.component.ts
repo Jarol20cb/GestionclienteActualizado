@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from 'src/app/model/User';
 import { AdministracionService } from 'src/app/service/administracion.service';
 import { Subscription } from 'rxjs';
@@ -11,52 +10,67 @@ import { Subscription } from 'rxjs';
 })
 export class UserListComponent implements OnInit, OnDestroy {
   users: User[] = [];
-  editingUser: User | null = null; // Añadir esta línea
-  private subscription: Subscription = new Subscription();
+  editingUser: User | null = null;
+  private subscriptions: Subscription[] = [];
 
-  constructor(private administracionService: AdministracionService, private router: Router) {}
+  showNotification: boolean = false;
+  notificationMessage: string = '';
+  actionToConfirm: () => void = () => {};
+
+  constructor(private administracionService: AdministracionService) {}
 
   ngOnInit(): void {
-    this.loadUsers();
-    this.subscription = this.administracionService.getList().subscribe(users => {
-      this.users = users;
-    });
+    this.subscriptions.push(
+      this.administracionService.getList().subscribe(users => {
+        this.users = users;
+      })
+    );
+    this.administracionService.startPolling(1000); // Actualizar cada segundo
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  loadUsers(): void {
-    this.administracionService.list().subscribe((data: User[]) => {
-      this.users = data;
-    });
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   toggleUserStatus(user: User): void {
-    const action = user.enabled ? this.administracionService.disable(user.id) : this.administracionService.enable(user.id);
-    action.subscribe(() => {
-      this.loadUsers(); // Recargar la lista de usuarios después de la acción
-    });
+    this.notificationMessage = user.enabled ? `¿Desactivar al usuario ${user.username}?` : `¿Activar al usuario ${user.username}?`;
+    this.actionToConfirm = () => {
+      const action = user.enabled ? this.administracionService.disable(user.id) : this.administracionService.enable(user.id);
+      this.subscriptions.push(
+        action.subscribe(() => {
+          this.administracionService.refrescarLista();
+          this.hideNotification();
+        })
+      );
+    };
+    this.showNotification = true;
   }
 
   deleteUser(id: number): void {
-    this.administracionService.delete(id).subscribe(() => {
-      this.loadUsers(); // Recargar la lista de usuarios después de la eliminación
-    });
+    this.notificationMessage = `¿Eliminar al usuario con ID ${id}?`;
+    this.actionToConfirm = () => {
+      this.subscriptions.push(
+        this.administracionService.delete(id).subscribe(() => {
+          this.administracionService.refrescarLista();
+          this.hideNotification();
+        })
+      );
+    };
+    this.showNotification = true;
   }
 
   editUser(user: User): void {
-    this.editingUser = { ...user }; // Crear una copia del usuario para editar
+    this.editingUser = { ...user };
   }
 
-  updateUser(): void {
-    if (this.editingUser) {
-      this.administracionService.update(this.editingUser.id, this.editingUser).subscribe(() => {
-        alert('User updated successfully');
-        this.editingUser = null;
-        this.loadUsers(); // Recargar la lista de usuarios después de la actualización
-      });
+  updateUser(user: User): void {
+    if (user) {
+      this.subscriptions.push(
+        this.administracionService.update(user.id, user).subscribe(() => {
+          this.editingUser = null;
+          this.administracionService.refrescarLista();
+        })
+      );
     }
   }
 
@@ -66,5 +80,22 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   getRoles(user: User): string {
     return user.roles ? user.roles.map(role => role.rol).join(', ') : 'No Roles';
+  }
+
+  hideNotification() {
+    this.showNotification = false;
+    this.notificationMessage = '';
+    this.actionToConfirm = () => {};
+  }
+
+  confirmAction() {
+    if (this.actionToConfirm) {
+      this.actionToConfirm();
+      this.hideNotification(); // Ocultar notificación después de confirmar la acción
+    }
+  }
+
+  cancelAction() {
+    this.hideNotification();
   }
 }

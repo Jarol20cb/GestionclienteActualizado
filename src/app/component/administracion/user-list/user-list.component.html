@@ -1,61 +1,49 @@
-<!-- HTML -->
-<table class="user-table">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Name</th>
-      <th>Company Name</th>
-      <th>Roles</th>
-      <th>Enabled</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.username }}</td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.companyName }}</td>
-      <td>{{ getRoles(user) }}</td>
-      <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
-      <td>
-        <button class="action-btn enable-btn" (click)="toggleUserStatus(user)">
-          {{ user.enabled ? 'Disable' : 'Enable' }}
-        </button>
-        <button class="action-btn delete-btn" (click)="deleteUser(user.id)">Delete</button>
-        <button class="action-btn edit-btn" (click)="editUser(user)">Edit</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="edit-form-container" *ngIf="editingUser">
-  <div class="edit-form">
-    <h2>Edit User</h2>
-    <form (ngSubmit)="updateUser()">
-      <label>
-        Username:
-        <input [(ngModel)]="editingUser.username" name="username" required />
-      </label>
-      <label>
-        Name:
-        <input [(ngModel)]="editingUser.name" name="name" required />
-      </label>
-      <label>
-        Company Name:
-        <input [(ngModel)]="editingUser.companyName" name="companyName" required />
-      </label>
-      <label>
-        Enabled:
-        <input type="checkbox" [(ngModel)]="editingUser.enabled" name="enabled" />
-      </label>
-      <label>
-        Roles:
-        <input [(ngModel)]="editingUser.roles" name="roles" />
-      </label>
-      <div class="form-buttons">
-        <button type="submit" class="save-btn">Save</button>
-        <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
-      </div>
-    </form>
-  </div>
+<app-toolbar></app-toolbar>
+<div class="container">
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Nombre de Usuario</th>
+        <th>Nombre</th>
+        <th>Nombre de la Empresa</th>
+        <th>Roles</th>
+        <th>Habilitado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.username }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.companyName }}</td>
+        <td>{{ getRoles(user) }}</td>
+        <td>
+          <label class="switch">
+            <input type="checkbox" [checked]="user.enabled" (change)="toggleUserStatus(user)">
+            <span class="slider"></span>
+          </label>
+        </td>
+        <td>
+          <button class="action-btn edit-btn" (click)="editUser(user)">Editar</button>
+          <button class="action-btn delete-btn" (click)="deleteUser(user.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+<div class="overlay" *ngIf="showNotification"></div>
+
+<app-creayeditaadministracion
+  *ngIf="editingUser"
+  [user]="editingUser"
+  (save)="updateUser($event)"
+  (cancel)="cancelEdit()">
+</app-creayeditaadministracion>
+
+<app-notificationadministracion
+  *ngIf="showNotification"
+  [message]="notificationMessage"
+  (confirm)="confirmAction()"
+  (cancel)="cancelAction()"
+></app-notificationadministracion>

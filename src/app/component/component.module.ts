@@ -57,6 +57,8 @@ import { ListarClientesComponent } from './services/perfiles/listar-clientes/lis
 import { PerfilClienteComponent } from './services/perfiles/perfil-cliente/perfil-cliente.component';
 import { RegistroPerfilComponent } from './services/perfiles/registro-perfil/registro-perfil.component';
 import { UserListComponent } from './administracion/user-list/user-list.component';
+import { NotificationAdministracionComponent } from './administracion/notificationadministracion/notificationadministracion.component';
+import { CreayeditaadministracionComponent } from './administracion/creayeditaadministracion/creayeditaadministracion.component';
 
 
 
@@ -97,6 +99,8 @@ import { UserListComponent } from './administracion/user-list/user-list.componen
     PerfilClienteComponent,
     RegistroPerfilComponent,
     UserListComponent,
+    NotificationAdministracionComponent,
+    CreayeditaadministracionComponent,
 
   ],
   imports: [

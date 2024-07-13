@@ -12,6 +12,10 @@
       <button class="toolbar-button" routerLink="/components/home">
         <mat-icon class="toolbar-icon">home</mat-icon>
       </button>
+
+      <button *ngIf="role === 'ADMIN'" class="toolbar-button"  routerLink="/components/users">
+        <mat-icon class="toolbar-icon">verified_user</mat-icon>
+      </button>
       <div class="dropdown" *ngIf="role === 'ADMIN' || role === 'USER'">
         <button class="toolbar-button" (click)="toggleDropdown($event)">
           <mat-icon class="toolbar-icon">menu</mat-icon>

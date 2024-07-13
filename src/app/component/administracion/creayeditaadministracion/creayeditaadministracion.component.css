@@ -1,0 +1,111 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 1000;
+  width: 90%;
+  max-width: 600px;
+}
+
+.modal-content h2 {
+  color: #1976d2;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input-text {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;  /* Hacer más redondos los inputs */
+  font-size: 14px;
+  outline: none;
+}
+
+.input-text:focus {
+  border-color: #1976d2; /* Cambiar color de borde al enfocarse */
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.5); /* Sombra sutil */
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+}
+
+.eye-icon {
+  margin-left: -30px;
+  cursor: pointer;
+}
+
+.form-group input[type="checkbox"] {
+  width: auto;
+  margin-top: 10px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #1976d2;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.form-buttons button.cancel-btn {
+  background-color: #e53935;
+}
+
+.form-buttons button:hover {
+  background-color: #1565c0;
+}
+
+.form-buttons button.cancel-btn:hover {
+  background-color: #c62828;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .modal-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .form-buttons button {
+    padding: 10px 15px;
+  }
+}
