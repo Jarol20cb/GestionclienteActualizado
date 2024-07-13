@@ -1,6 +1,8 @@
 <div class="overlay" *ngIf="message"></div>
 <div class="notification-container">
   <p>{{ message }}</p>
+<div class="buttons">
   <button (click)="onConfirm()">Aceptar</button>
   <button class="cancel-btn" (click)="onCancel()">Cancelar</button>
+</div>
 </div>

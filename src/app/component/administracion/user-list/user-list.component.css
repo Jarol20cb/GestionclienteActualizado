@@ -1,8 +1,55 @@
 .container{
   padding: 40px;
 }
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.table-controls input {
+  width: 200px;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-color: rgba(236, 240, 241, 0.5);
+  font-size: 16px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pagination-controls button {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #1f2e3d;
+}
+
+.pagination-controls span {
+  line-height: 40px;
+  font-size: 18px;
+}
+
 .user-table {
-  width: 80%;
+  width: 100%;
   margin: 20px auto;
   border-collapse: collapse;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -10,50 +57,62 @@
 
 .user-table th, .user-table td {
   padding: 10px;
-  text-align: left;
+  text-align: center;
   border: 1px solid #ddd;
+  color: #34495e;
+  vertical-align: middle;
 }
 
 .user-table th {
-  background-color: #1976d2; /* Color de fondo azul */
+  background-color: #2980b9; /* Color de fondo azul */
   color: white;
-  text-transform: uppercase;
-}
-
-.user-table tr:nth-child(even) {
-  background-color: #f2f2f2;
 }
 
 .user-table tr:hover {
   background-color: #ddd;
 }
 
-.action-btn {
-  padding: 5px 10px;
-  margin: 2px;
+.custom-button, .custom-delete-button {
+  background-color: #2980b9;
+  color: white;
   border: none;
+  padding: 8px;
+  border-radius: 50%;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.edit-btn {
-  background-color: #1976d2; /* Color de fondo azul */
+.custom-delete-button {
+  background-color: #e74c3c;
+}
+
+.custom-button:hover, .custom-delete-button:hover {
+  background-color: #1f2e3d;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-delete-button:hover {
+  background-color: #c0392b;
+}
+
+.custom-button mat-icon, .custom-delete-button mat-icon {
+  font-size: 20px;
   color: white;
 }
-
-.edit-btn:hover {
-  background-color: #1565c0; /* Color azul más oscuro */
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-.delete-btn {
-  background-color: #e53935; /* Color de fondo rojo */
-  color: white;
-}
-
-.delete-btn:hover {
-  background-color: #c62828; /* Color rojo más oscuro */
-}
 
 .switch {
   position: relative;
@@ -93,7 +152,7 @@
 }
 
 input:checked + .slider {
-  background-color: #1976d2;
+  background-color: #2980b9;
 }
 
 input:checked + .slider:before {

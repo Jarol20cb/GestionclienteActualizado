@@ -10,8 +10,12 @@ import { Subscription } from 'rxjs';
 })
 export class UserListComponent implements OnInit, OnDestroy {
   users: User[] = [];
+  paginatedUsers: User[] = [];
   editingUser: User | null = null;
   private subscriptions: Subscription[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalPages: number = 1;
 
   showNotification: boolean = false;
   notificationMessage: string = '';
@@ -23,13 +27,51 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.administracionService.getList().subscribe(users => {
         this.users = users;
+        this.sortUsersById();
+        this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
+        this.updatePaginatedUsers();
       })
     );
-    this.administracionService.startPolling(1000); // Actualizar cada segundo
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  sortUsersById(): void {
+    this.users.sort((a, b) => a.id - b.id);
+  }
+
+  filterUsers(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const query = inputElement.value;
+    const filteredUsers = this.users.filter(user => 
+      user.username.includes(query) || 
+      user.name.includes(query) || 
+      user.companyName.includes(query)
+    );
+    this.totalPages = Math.ceil(filteredUsers.length / this.itemsPerPage);
+    this.currentPage = 1;
+    this.paginatedUsers = filteredUsers.slice(0, this.itemsPerPage);
+  }
+
+  updatePaginatedUsers(): void {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    this.paginatedUsers = this.users.slice(start, start + this.itemsPerPage);
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedUsers();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedUsers();
+    }
   }
 
   toggleUserStatus(user: User): void {
@@ -47,16 +89,19 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(id: number): void {
-    this.notificationMessage = `¿Eliminar al usuario con ID ${id}?`;
-    this.actionToConfirm = () => {
-      this.subscriptions.push(
-        this.administracionService.delete(id).subscribe(() => {
-          this.administracionService.refrescarLista();
-          this.hideNotification();
-        })
-      );
-    };
-    this.showNotification = true;
+    const user = this.users.find(u => u.id === id);
+    if (user) {
+      this.notificationMessage = `¿Eliminar al usuario ${user.username}?`;
+      this.actionToConfirm = () => {
+        this.subscriptions.push(
+          this.administracionService.delete(id).subscribe(() => {
+            this.administracionService.refrescarLista();
+            this.hideNotification();
+          })
+        );
+      };
+      this.showNotification = true;
+    }
   }
 
   editUser(user: User): void {

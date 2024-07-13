@@ -13,6 +13,7 @@
 
 .notification-container p {
   margin-bottom: 20px;
+  color: #2c3e50; /* Color del texto */
 }
 
 .notification-container button {
@@ -20,22 +21,23 @@
   padding: 10px 20px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  background-color: #4CAF50;
+  border-radius: 25px; /* Redondeado para coincidir con los botones */
+  background-color: #2980b9; /* Azul */
   color: white;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s;
 }
 
 .notification-container button.cancel-btn {
-  background-color: #f44336;
+  background-color: #e74c3c; /* Rojo */
 }
 
 .notification-container button:hover {
-  background-color: #45a049;
+  background-color: #1f2e3d; /* Azul oscuro */
+  transform: scale(1.05); /* Pequeño zoom */
 }
 
 .notification-container button.cancel-btn:hover {
-  background-color: #d32f2f;
+  background-color: #c0392b; /* Rojo oscuro */
 }
 
 .overlay {
@@ -47,3 +49,11 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
