@@ -56,6 +56,7 @@ import { GestorPerfilesComponent } from './services/perfiles/gestor-perfiles/ges
 import { ListarClientesComponent } from './services/perfiles/listar-clientes/listar-clientes.component';
 import { PerfilClienteComponent } from './services/perfiles/perfil-cliente/perfil-cliente.component';
 import { RegistroPerfilComponent } from './services/perfiles/registro-perfil/registro-perfil.component';
+import { UserListComponent } from './administracion/user-list/user-list.component';
 
 
 
@@ -95,6 +96,7 @@ import { RegistroPerfilComponent } from './services/perfiles/registro-perfil/reg
     ListarClientesComponent,
     PerfilClienteComponent,
     RegistroPerfilComponent,
+    UserListComponent,
 
   ],
   imports: [

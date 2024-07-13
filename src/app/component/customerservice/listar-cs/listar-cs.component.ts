@@ -47,7 +47,7 @@ export class ListarCsComponent implements OnInit {
     this.actualizarColumnas();
     this.cS.list().subscribe((data) => {
       data.forEach(this.checkAndUpdateEstado.bind(this));
-      data.sort((a, b) => this.ordenarPendientes(a, b));
+      data.sort((a, b) => this.ordenarEstados(a, b));
       this.originalDataSource = data; // Guardar los datos originales
       this.dataSource = data;
       this.totalItems = data.length;
@@ -55,13 +55,12 @@ export class ListarCsComponent implements OnInit {
     });
     this.cS.getList().subscribe((data) => {
       data.forEach(this.checkAndUpdateEstado.bind(this));
-      data.sort((a, b) => this.ordenarPendientes(a, b));
+      data.sort((a, b) => this.ordenarEstados(a, b));
       this.originalDataSource = data; // Guardar los datos originales
       this.dataSource = data;
       this.totalItems = data.length;
       this.paginarDatos();
     });
-
   }
 
   mostrarFormulario() {
@@ -121,7 +120,7 @@ export class ListarCsComponent implements OnInit {
           this.cS.update(element).subscribe(() => {
             this.cS.list().subscribe((data) => {
               data.forEach(this.checkAndUpdateEstado.bind(this));
-              data.sort((a, b) => this.ordenarPendientes(a, b));
+              data.sort((a, b) => this.ordenarEstados(a, b));
               this.originalDataSource = data; // Guardar los datos originales
               this.dataSource = data;
               this.totalItems = data.length;
@@ -154,10 +153,14 @@ export class ListarCsComponent implements OnInit {
     return endDate.isBefore(today) && customerService.estado !== 'cancelado';
   }
 
-  ordenarPendientes(a: CustomersServices, b: CustomersServices): number {
+  ordenarEstados(a: CustomersServices, b: CustomersServices): number {
     if (a.estado === 'pendiente' && b.estado !== 'pendiente') {
       return -1;
     } else if (a.estado !== 'pendiente' && b.estado === 'pendiente') {
+      return 1;
+    } else if (a.estado === 'fiado' && b.estado !== 'fiado') {
+      return -1;
+    } else if (a.estado !== 'fiado' && b.estado === 'fiado') {
       return 1;
     } else {
       return 0;
@@ -209,7 +212,7 @@ export class ListarCsComponent implements OnInit {
       element.estado = 'pendiente';
       this.cS.update(element).subscribe(() => {
         this.cS.list().subscribe((data) => {
-          data.sort((a, b) => this.ordenarPendientes(a, b));
+          data.sort((a, b) => this.ordenarEstados(a, b));
           this.originalDataSource = data; // Guardar los datos originales
           this.dataSource = data;
           this.totalItems = data.length;
@@ -219,21 +222,25 @@ export class ListarCsComponent implements OnInit {
     }
   }
 
-  getRowClass(element: CustomersServices): string {
+  getRowColor(element: CustomersServices): string {
     if (element.estado === 'pendiente') {
-      return 'pendiente-row';
+      return 'rgba(255, 0, 0, 0.3)';
     } else if (element.estado === 'cancelado') {
-      return 'cancelado-row';
+      return 'rgba(0, 128, 0, 0.1)';
+    } else if (element.estado === 'fiado') {
+      return 'rgba(255, 165, 0, 0.3)';
     } else {
       return '';
     }
   }
 
-  getEstadoClass(element: CustomersServices): string {
+  getEstadoColor(element: CustomersServices): string {
     if (element.estado === 'pendiente') {
-      return 'pendiente-estado';
+      return 'red';
     } else if (element.estado === 'cancelado') {
-      return 'cancelado-estado';
+      return 'green';
+    } else if (element.estado === 'fiado') {
+      return 'orange';
     } else {
       return '';
     }

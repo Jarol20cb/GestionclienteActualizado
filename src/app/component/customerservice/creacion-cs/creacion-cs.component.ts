@@ -50,7 +50,7 @@ export class CreacionCsComponent implements OnInit {
       fechainicio: ['', [Validators.required, this.dateValidator.bind(this)]],
       paymentPeriod: [1, [Validators.required, Validators.min(1)]],
       fechafin: [{ value: '', disabled: true }, Validators.required],
-      estado: [{ value: 'cancelado', disabled: true }],
+      estado: ['cancelado', Validators.required],
       socio: ['', Validators.required]
     });
 
@@ -124,7 +124,7 @@ export class CreacionCsComponent implements OnInit {
       const fechainicio = moment(this.form.value.fechainicio).toDate();
       this.customerservice.fechainicio = fechainicio;
       this.customerservice.fechafin = moment(this.form.get('fechafin')?.value).toDate();
-      this.customerservice.estado = 'cancelado';
+      this.customerservice.estado = this.form.value.estado;
       this.customerservice.socio.socioId = this.form.value.socio;
 
       this.updateEstadoAutomatico();
@@ -182,7 +182,7 @@ export class CreacionCsComponent implements OnInit {
           fechainicio: [this.formatDate(data.fechainicio), [Validators.required, this.dateValidator.bind(this)]],
           paymentPeriod: [1, [Validators.required, Validators.min(1)]],
           fechafin: [{ value: this.formatDate(data.fechafin), disabled: true }, Validators.required],
-          estado: [{ value: data.estado, disabled: true }],
+          estado: [data.estado, Validators.required],
           socio: [data.socio ? data.socio.socioId : '', Validators.required]
         });
 

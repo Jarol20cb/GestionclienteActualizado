@@ -48,20 +48,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let element of paginatedData" [ngClass]="getRowClass(element)">
+        <tr *ngFor="let element of paginatedData" [style.background-color]="getRowColor(element)">
           <td>{{ element.name }}</td>
           <td>{{ element.services.service }}</td>
           <td>{{ element.perfil.correo }}</td>
-          <td>{{ element.fechainicio | date : "dd/MM/yyyy" }}</td>
-          <td>{{ element.fechafin | date : "dd/MM/yyyy" }}</td>
-          <td [ngClass]="getEstadoClass(element)">{{ element.estado }}</td>
+          <td>{{ element.fechainicio | date : 'dd/MM/yyyy' }}</td>
+          <td>{{ element.fechafin | date : 'dd/MM/yyyy' }}</td>
+          <td [style.color]="getEstadoColor(element)">{{ element.estado }}</td>
           <td>{{ element.socio.name }}</td>
           <td *ngIf="role === 'ADMIN' || role === 'USER'">
             <button (click)="cambiarEstado(element)" class="custom-button rounded-button renew-button">
               <mat-icon>update</mat-icon>
             </button>
           </td>
-          <td *ngIf="role === 'ADMIN' || role === 'USER'"> 
+          <td *ngIf="role === 'ADMIN' || role === 'USER'">
             <button (click)="editarClienteServicio(element.idcs)" class="custom-button rounded-button">
               <mat-icon class="custom-icon">create</mat-icon>
             </button>

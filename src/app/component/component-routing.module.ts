@@ -10,15 +10,14 @@ import { VisualizarPagosComponent } from './visualizar-pagos/visualizar-pagos.co
 import { SocioComponent } from './socio/socio.component';
 import { CreacionSocioComponent } from './socio/creacion-socio/creacion-socio.component';
 import { ListarClientesSocioComponent } from './socio/listar-clientes-socio/listar-clientes-socio.component';
-import { ListarperfilComponent } from './perfiles/listarperfil/listarperfil.component';
 import { CreacionPerfilComponent } from './perfiles/creacion-perfil/creacion-perfil.component';
 import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/creacion-proveedor.component';
-import { ListarProveedorComponent } from './proveedores/listar-proveedor/listar-proveedor.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
 import { GuardService } from '../service/guard.service';
 import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
+import { UserListComponent } from './administracion/user-list/user-list.component';
 
 const routes: Routes = [
   {
@@ -87,7 +86,9 @@ const routes: Routes = [
     path: 'bienvenida',
     component: BienvenidaComponent,
     canActivate: [GuardService]
-  }
+  },
+
+  { path: 'users', component: UserListComponent },
 ];
 
 @NgModule({

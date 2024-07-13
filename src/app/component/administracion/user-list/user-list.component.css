@@ -1,0 +1,217 @@
+/* CSS */
+
+/* Estilos generales para la tabla */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  font-family: 'Arial', sans-serif;
+  min-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.user-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.user-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.user-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.user-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+/* Estilos para los botones de acción */
+.action-btn {
+  background-color: #009879;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #007f63;
+}
+
+.enable-btn {
+  background-color: #4CAF50;
+}
+
+.enable-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.delete-btn:hover {
+  background-color: #da190b;
+}
+
+.edit-btn {
+  background-color: #FFC107;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Estilos para centrar el formulario de edición */
+.edit-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  z-index: 1000; /* Asegura que el formulario esté por encima de otros elementos */
+}
+
+.edit-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 400px; /* Ancho fijo para el formulario */
+}
+
+.edit-form h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.edit-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="checkbox"],
+.edit-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.edit-form .form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-form .save-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-form .cancel-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-form .save-btn:hover {
+  background-color: #45a049;
+}
+
+.edit-form .cancel-btn:hover {
+  background-color: #da190b;
+}
+
+/* Estilos adicionales para un diseño más moderno */
+body {
+  background-color: #f4f4f9;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+header {
+  background: #50b3a2;
+  color: #fff;
+  padding-top: 30px;
+  min-height: 70px;
+  border-bottom: #e8491d 3px solid;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+header ul {
+  padding: 0;
+  list-style: none;
+}
+
+header li {
+  display: inline;
+  padding: 0 20px 0 20px;
+}
+
+header #branding {
+  float: left;
+}
+
+header #branding h1 {
+  margin: 0;
+}
+
+header nav {
+  float: right;
+  margin-top: 10px;
+}
+
+header .highlight, header .current a {
+  color: #e8491d;
+  font-weight: bold;
+}
+
+header a:hover {
+  color: #cccccc;
+}
