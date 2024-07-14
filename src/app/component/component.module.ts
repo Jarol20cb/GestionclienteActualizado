@@ -59,6 +59,8 @@ import { RegistroPerfilComponent } from './services/perfiles/registro-perfil/reg
 import { UserListComponent } from './administracion/user-list/user-list.component';
 import { NotificationAdministracionComponent } from './administracion/notificationadministracion/notificationadministracion.component';
 import { CreayeditaadministracionComponent } from './administracion/creayeditaadministracion/creayeditaadministracion.component';
+import { GestorperfileslistarComponent } from './services/perfiles/gestor-perfiles/gestorperfileslistar/gestorperfileslistar.component';
+import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfiles/gestorperfilescrear/gestorperfilescrear.component';
 
 
 
@@ -101,6 +103,8 @@ import { CreayeditaadministracionComponent } from './administracion/creayeditaad
     UserListComponent,
     NotificationAdministracionComponent,
     CreayeditaadministracionComponent,
+    GestorperfileslistarComponent,
+    GestorperfilescrearComponent,
 
   ],
   imports: [
