@@ -61,6 +61,8 @@ import { NotificationAdministracionComponent } from './administracion/notificati
 import { CreayeditaadministracionComponent } from './administracion/creayeditaadministracion/creayeditaadministracion.component';
 import { GestorperfileslistarComponent } from './services/perfiles/gestor-perfiles/gestorperfileslistar/gestorperfileslistar.component';
 import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfiles/gestorperfilescrear/gestorperfilescrear.component';
+import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/crear-perfil-cliente/crear-perfil-cliente.component';
+import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente/listar-perfil-cliente/listar-perfil-cliente.component';
 
 
 
@@ -105,6 +107,8 @@ import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfile
     CreayeditaadministracionComponent,
     GestorperfileslistarComponent,
     GestorperfilescrearComponent,
+    CrearPerfilClienteComponent,
+    ListarPerfilClienteComponent,
 
   ],
   imports: [

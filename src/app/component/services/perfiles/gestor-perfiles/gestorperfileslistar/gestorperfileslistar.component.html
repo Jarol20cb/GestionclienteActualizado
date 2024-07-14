@@ -32,9 +32,9 @@
           <td>{{ perfil.usuariosDisponibles }}</td>
           <td>{{ perfil.proveedor.nombre }}</td>
           <td>
-            <button [routerLink]="['/components/servicios/perfiles', perfil.perfilId, 'clientes']" class="custom-button">
-              <i class="fas fa-eye"></i> Ver Clientes
-            </button>
+            <button [routerLink]="['/components/servicios', serviceId, 'perfilesservice', perfil.perfilId, 'perfilclientes']" class="custom-button">
+              <i class="fas fa-eye"></i>
+            </button>            
           </td>
         </tr>
       </tbody>

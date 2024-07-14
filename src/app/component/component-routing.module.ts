@@ -20,6 +20,8 @@ import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
 import { UserListComponent } from './administracion/user-list/user-list.component';
 import { GestorperfileslistarComponent } from './services/perfiles/gestor-perfiles/gestorperfileslistar/gestorperfileslistar.component';
 import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfiles/gestorperfilescrear/gestorperfilescrear.component';
+import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente/listar-perfil-cliente/listar-perfil-cliente.component';
+import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/crear-perfil-cliente/crear-perfil-cliente.component';
 
 const routes: Routes = [
   {
@@ -52,12 +54,14 @@ const routes: Routes = [
   {
     path: 'servicios',
     component: ServicesComponent,
-    canActivate: [GuardService], // Proteger la ruta 'servicios' con el guardia
+    canActivate: [GuardService],
     children: [
       { path: 'nuevo', component: CreacionServicioComponent },
       { path: 'ediciones/:id', component: CreacionServicioComponent },
       { path: ':serviceId/perfilesservice', component: GestorperfileslistarComponent },
-      { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent }
+      { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent },
+      { path: ':serviceId/perfilesservice/:perfilId/perfilclientes', component: ListarPerfilClienteComponent },
+      { path: ':serviceId/perfilesservice/:perfilId/perfilclientes/crear', component: CrearPerfilClienteComponent }
     ]
   },
   
