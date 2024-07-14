@@ -15,7 +15,6 @@ export class RegistroComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   registro: Registro = new Registro();
   id: number = 0;
-  roles: string[] = ['ADMIN', 'USER'];
   passwordVisible: boolean = false;
 
   constructor(
@@ -35,7 +34,6 @@ export class RegistroComponent implements OnInit {
       username: ['', [Validators.required, Validators.email]], // Validación de correo electrónico
       password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', Validators.required],
-      roles: ['', Validators.required],
       name: ['', Validators.required],
       companyName: ['', Validators.required],
     });
@@ -47,7 +45,7 @@ export class RegistroComponent implements OnInit {
         id: this.form.value.id,
         username: this.form.value.username,
         password: this.form.value.password,
-        roles: [this.form.value.roles],
+        roles: ['USER'], // Asignar el rol USER por defecto
         name: this.form.value.name,
         companyName: this.form.value.companyName,
       };
