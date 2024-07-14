@@ -20,7 +20,7 @@ export class GestorperfileslistarComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.serviceId = params['serviceId'];
+      this.serviceId = +params['serviceId']; // Convert to number
       this.cargarPerfiles();
     });
   }
@@ -34,4 +34,5 @@ export class GestorperfileslistarComponent implements OnInit {
   agregarPerfil(): void {
     this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/crear`]);
   }
+
 }
