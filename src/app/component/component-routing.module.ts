@@ -14,43 +14,28 @@ import { CreacionPerfilComponent } from './perfiles/creacion-perfil/creacion-per
 import { CreacionProveedorComponent } from './proveedores/creacion-proveedor/creacion-proveedor.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
-import { ListarPerfilesComponent } from './services/listar-perfiles/listar-perfiles.component';
 import { GuardService } from '../service/guard.service';
 import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
 import { UserListComponent } from './administracion/user-list/user-list.component';
 import { GestorperfileslistarComponent } from './services/perfiles/gestor-perfiles/gestorperfileslistar/gestorperfileslistar.component';
 import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfiles/gestorperfilescrear/gestorperfilescrear.component';
-import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente/listar-perfil-cliente/listar-perfil-cliente.component';
-import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/crear-perfil-cliente/crear-perfil-cliente.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [GuardService] // Proteger la ruta 'home' con el guardia
+    canActivate: [GuardService]
   },
   {
     path: 'credentials',
     component: UserCredentialsComponent,
-    canActivate: [GuardService] // Proteger la ruta 'credentials' con el guardia
+    canActivate: [GuardService]
   },
   {
     path: 'reporte',
     component: VisualizarPagosComponent,
-    canActivate: [GuardService] // Proteger la ruta 'reporte' con el guardia
+    canActivate: [GuardService]
   },
-  // {
-  //   path: 'servicios',
-  //   component: ServicesComponent,
-  //   canActivate: [GuardService], // Proteger la ruta 'servicios' con el guardia
-  //   children:[
-  //     { path: 'nuevo', component: CreacionServicioComponent },
-  //     { path: 'ediciones/:id', component: CreacionServicioComponent },
-  //     { path: ':serviceId/perfiles', component: ListarPerfilesComponent }
-  //   ]
-  // },
-
-
   {
     path: 'servicios',
     component: ServicesComponent,
@@ -60,15 +45,13 @@ const routes: Routes = [
       { path: 'ediciones/:id', component: CreacionServicioComponent },
       { path: ':serviceId/perfilesservice', component: GestorperfileslistarComponent },
       { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent },
-      { path: ':serviceId/perfilesservice/:perfilId/perfilclientes', component: ListarPerfilClienteComponent },
-      { path: ':serviceId/perfilesservice/:perfilId/perfilclientes/crear', component: CrearPerfilClienteComponent }
     ]
   },
   
   {
     path: 'custser',
     component: CustomerserviceComponent,
-    canActivate: [GuardService], // Proteger la ruta 'custser' con el guardia
+    canActivate: [GuardService],
     children:[
       { path: 'nuevo', component: CreacionCsComponent },
       { path: 'ediciones/:id', component: CreacionCsComponent },
@@ -77,7 +60,7 @@ const routes: Routes = [
   {
     path: 'socios',
     component: SocioComponent,
-    canActivate: [GuardService], // Proteger la ruta 'socios' con el guardia
+    canActivate: [GuardService],
     children:[
       { path: 'nuevo', component: CreacionSocioComponent },
       { path: 'ediciones/:id', component: CreacionSocioComponent },
@@ -87,7 +70,7 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: PerfilesComponent,
-    canActivate: [GuardService], // Proteger la ruta 'perfil' con el guardia
+    canActivate: [GuardService],
     children:[
       { path: 'nuevo', component: CreacionPerfilComponent },
       { path: 'ediciones/:id', component: CreacionPerfilComponent },
@@ -96,7 +79,7 @@ const routes: Routes = [
   {
     path: 'proveedor',
     component: ProveedoresComponent,
-    canActivate: [GuardService], // Proteger la ruta 'proveedor' con el guardia
+    canActivate: [GuardService],
     children:[
       { path: 'nuevo', component: CreacionProveedorComponent },
       { path: 'ediciones/:id', component: CreacionProveedorComponent },
