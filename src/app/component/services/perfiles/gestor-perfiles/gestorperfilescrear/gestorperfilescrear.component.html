@@ -1,1 +1,57 @@
-<p>gestorperfilescrear works!</p>
+<app-toolbar></app-toolbar>
+<div class="container">
+  <h2>Registrar Perfil</h2>
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
+    <div class="form-group">
+      <label for="correo">Correo</label>
+      <input id="correo" formControlName="correo" type="email" />
+      <div *ngIf="form.get('correo')?.touched && form.get('correo')?.errors?.['required']" class="error">
+        El correo es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contrasena">Contraseña</label>
+      <input id="contrasena" formControlName="contrasena" type="password" />
+      <div *ngIf="form.get('contrasena')?.touched && form.get('contrasena')?.errors?.['required']" class="error">
+        La contraseña es obligatoria.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fechainicio">Fecha de Inicio</label>
+      <input id="fechainicio" formControlName="fechainicio" type="date" />
+      <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['required']" class="error">
+        La fecha de inicio es obligatoria.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fechafin">Fecha de Vencimiento</label>
+      <input id="fechafin" formControlName="fechafin" type="date" />
+      <div *ngIf="form.get('fechafin')?.touched && form.get('fechafin')?.errors?.['required']" class="error">
+        La fecha de vencimiento es obligatoria.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="limiteUsuarios">Límite de Usuarios</label>
+      <input id="limiteUsuarios" formControlName="limiteUsuarios" type="number" />
+      <div *ngIf="form.get('limiteUsuarios')?.touched && form.get('limiteUsuarios')?.errors?.['required']" class="error">
+        El límite de usuarios es obligatorio.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="proveedor">Proveedor</label>
+      <select id="proveedor" formControlName="proveedor">
+        <option value="" disabled [selected]="true">Seleccione un proveedor</option>
+        <option *ngFor="let proveedor of proveedores" [value]="proveedor.proveedorId">
+          {{proveedor.nombre}}
+        </option>
+      </select>
+      <div *ngIf="form.get('proveedor')?.touched && form.get('proveedor')?.errors?.['required']" class="error">
+        El proveedor es obligatorio.
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit" class="custom-button">Aceptar</button>
+      <button type="button" (click)="cancelar()" class="custom-button-cancel">Cancelar</button>
+    </div>
+  </form>
+</div>

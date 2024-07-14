@@ -35,7 +35,7 @@
             <td>{{ element.service }}</td>
             <td>{{ element.description }}</td>
             <td *ngIf="role === 'ADMIN' || role === 'USER'">
-              <button [routerLink]="['/components/servicios', element.serviceId, 'perfiles']" class="custom-button">
+              <button [routerLink]="['/components/servicios', element.serviceId, 'perfilesservice']" class="custom-button">
                 <i class="fas fa-eye"></i>
               </button>
             </td>
