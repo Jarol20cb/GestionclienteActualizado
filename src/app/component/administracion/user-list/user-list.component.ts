@@ -32,6 +32,9 @@ export class UserListComponent implements OnInit, OnDestroy {
         this.updatePaginatedUsers();
       })
     );
+
+    // Iniciar el sondeo para actualizar la lista de usuarios automáticamente
+    this.administracionService.startPolling();
   }
 
   ngOnDestroy(): void {
@@ -105,8 +108,13 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   editUser(user: User): void {
-    this.editingUser = { ...user };
+    this.subscriptions.push(
+      this.administracionService.getUserById(user.id).subscribe((fullUser) => {
+        this.editingUser = fullUser;
+      })
+    );
   }
+  
 
   updateUser(user: User): void {
     if (user) {

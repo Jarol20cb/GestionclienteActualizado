@@ -1,7 +1,7 @@
 <div class="overlay" *ngIf="user"></div>
 <div class="modal-container" *ngIf="user">
   <div class="modal-content">
-    <h2>{{ user?.id ? 'Editar Usuario' : 'Crear Usuario' }}</h2>
+    <h2>{{ user.id ? 'Editar Usuario' : 'Crear Usuario' }}</h2>
     <form (ngSubmit)="onSave()">
       <div class="form-group">
         <label for="username">Nombre de Usuario:</label>
@@ -28,7 +28,11 @@
       </div>
       <div class="form-group">
         <label for="roles">Roles:</label>
-        <input id="roles" class="input-text" [(ngModel)]="user!.roles" name="roles" readonly />
+        <div class="role-radios">
+          <label *ngFor="let role of availableRoles">
+            <input type="radio" name="role" [value]="role" [(ngModel)]="selectedRole" /> {{ role }}
+          </label>
+        </div>
       </div>
       <div class="form-buttons">
         <button type="submit" class="save-btn">Guardar</button>

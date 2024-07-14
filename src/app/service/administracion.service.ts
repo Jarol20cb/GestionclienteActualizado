@@ -3,7 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model/User';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
+import { timer } from 'rxjs';
 
 const base_url = environment.base;
 
@@ -22,6 +23,7 @@ export class AdministracionService {
 
   constructor(private http: HttpClient) {
     this.refrescarLista();
+    this.startPolling();
   }
 
   list(): Observable<User[]> {
@@ -38,9 +40,18 @@ export class AdministracionService {
 
   update(id: number, user: User): Observable<User> {
     return this.http.put<User>(`${this.url}/${id}`, user, this.httpOptions).pipe(
-      tap(() => this.refrescarLista())
+      tap(updatedUser => {
+        // Actualizar la lista de usuarios con los datos del usuario actualizado
+        const users = this.listaCambio.getValue();
+        const index = users.findIndex(u => u.id === id);
+        if (index !== -1) {
+          users[index] = updatedUser;
+          this.listaCambio.next(users);
+        }
+      })
     );
   }
+  
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`, this.httpOptions).pipe(
@@ -68,10 +79,15 @@ export class AdministracionService {
     this.list().subscribe();
   }
 
-  // Metodo para iniciar el sondeo
+  // Método para iniciar el sondeo
   public startPolling(interval: number = 1000): void {
-    setInterval(() => {
-      this.refrescarLista();
-    }, interval);
+    timer(0, interval).pipe(
+      switchMap(() => this.list())
+    ).subscribe();
   }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.url}/${id}`, this.httpOptions);
+  }
+  
 }
