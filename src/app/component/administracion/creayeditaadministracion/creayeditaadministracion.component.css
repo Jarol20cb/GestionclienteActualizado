@@ -14,45 +14,53 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   z-index: 1000;
   width: 90%;
   max-width: 600px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
 }
 
 .modal-content h2 {
-  color: #1976d2;
+  color: #2980b9; /* Azul */
   text-align: center;
   margin-bottom: 20px;
   font-size: 24px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333;
+  color: #34495e; /* Gris oscuro */
 }
 
 .input-text {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 16px;
   outline: none;
 }
 
 .input-text:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+  border-color: #2980b9; /* Azul */
+  box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
 }
 
 .password-container {
@@ -63,6 +71,8 @@
 .eye-icon {
   margin-left: -30px;
   cursor: pointer;
+  font-size: 18px;
+  color: #7f8c8d; /* Gris */
 }
 
 .role-radios {
@@ -73,7 +83,7 @@
 .role-radios label {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .role-radios input[type="radio"] {
@@ -88,31 +98,77 @@
 
 .form-buttons button {
   margin: 0 10px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  background-color: #1976d2;
+  border-radius: 8px;
+  background-color: #2980b9; /* Azul */
   color: white;
   transition: background-color 0.3s ease;
 }
 
 .form-buttons button.cancel-btn {
-  background-color: #e53935;
+  background-color: #e74c3c; /* Rojo */
 }
 
 .form-buttons button:hover {
-  background-color: #1565c0;
+  background-color: #1f2e3d; /* Azul oscuro */
 }
 
 .form-buttons button.cancel-btn:hover {
-  background-color: #c62828;
+  background-color: #c0392b; /* Rojo oscuro */
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2980b9; /* Azul */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
 
 @media screen and (max-width: 768px) {
   .modal-container {
     width: 95%;
-    padding: 15px;
+    padding: 20px;
   }
 
   .form-buttons button {
