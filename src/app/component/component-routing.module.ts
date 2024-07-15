@@ -47,6 +47,7 @@ const routes: Routes = [
       { path: 'ediciones/:id', component: CreacionServicioComponent },
       { path: ':serviceId/perfilesservice', component: GestorperfileslistarComponent },
       { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent },
+      { path: ':serviceId/perfilesservice/ediciones/:perfilId', component: GestorperfilescrearComponent }, // Ruta para editar perfil
       { path: ':serviceId/perfilesservice/:perfilId/listar-perfil-cliente', component: ListarPerfilClienteComponent },
       { path: ':serviceId/perfilesservice/:perfilId/crear-perfil-cliente', component: CrearPerfilClienteComponent },
       { path: ':serviceId/perfilesservice/:perfilId/editar-perfil-cliente/:clienteId', component: CrearPerfilClienteComponent }, 

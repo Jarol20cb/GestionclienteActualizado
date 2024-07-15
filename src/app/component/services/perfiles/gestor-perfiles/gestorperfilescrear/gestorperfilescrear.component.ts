@@ -13,26 +13,33 @@ import { Proveedor } from 'src/app/model/Proveedor';
 })
 export class GestorperfilescrearComponent implements OnInit {
   form: FormGroup = new FormGroup({});
-  serviceId: number = 0;
+  perfil: Perfil = new Perfil();
+  mensaje: string = '';
   proveedores: Proveedor[] = [];
+  serviceId: number = 0;
+  perfilId: number | null = null;  // Para almacenar el ID del perfil en edición
+  edicion: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
     private perfilService: PerfilService,
     private proveedorService: ProveedorService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.serviceId = params['serviceId'];
-      this.initForm();
-      this.cargarProveedores();
+      this.serviceId = +params['serviceId'];
+      if (params['perfilId']) {
+        this.perfilId = +params['perfilId'];
+        this.edicion = true;
+        this.loadPerfil();
+      } else {
+        this.edicion = false;
+      }
     });
-  }
 
-  initForm(): void {
     this.form = this.formBuilder.group({
       correo: ['', Validators.required],
       contrasena: ['', Validators.required],
@@ -41,28 +48,53 @@ export class GestorperfilescrearComponent implements OnInit {
       limiteUsuarios: ['', [Validators.required, Validators.min(1)]],
       proveedor: ['', Validators.required]
     });
-  }
 
-  cargarProveedores(): void {
     this.proveedorService.list().subscribe(data => {
       this.proveedores = data;
     });
   }
 
+  loadPerfil(): void {
+    if (this.perfilId) {
+      this.perfilService.listId(this.perfilId).subscribe(data => {
+        this.perfil = data;
+        this.form.patchValue({
+          correo: this.perfil.correo,
+          contrasena: this.perfil.contrasena,
+          fechainicio: this.formatDate(this.perfil.fechainicio),
+          fechafin: this.formatDate(this.perfil.fechafin),
+          limiteUsuarios: this.perfil.limiteUsuarios,
+          proveedor: this.perfil.proveedor.proveedorId
+        });
+      });
+    }
+  }
+
+  formatDate(date: Date): string {
+    return new Date(date).toISOString().substring(0, 10);
+  }
+
   aceptar(): void {
     if (this.form.valid) {
-      const perfil = new Perfil();
-      perfil.service.serviceId = this.serviceId;
-      perfil.correo = this.form.value.correo;
-      perfil.contrasena = this.form.value.contrasena;
-      perfil.fechainicio = this.form.value.fechainicio;
-      perfil.fechafin = this.form.value.fechafin;
-      perfil.limiteUsuarios = this.form.value.limiteUsuarios;
-      perfil.proveedor.proveedorId = this.form.value.proveedor;
+      this.perfil.service.serviceId = this.serviceId;
+      this.perfil.correo = this.form.value.correo;
+      this.perfil.contrasena = this.form.value.contrasena;
+      this.perfil.fechainicio = new Date(this.form.value.fechainicio);
+      this.perfil.fechafin = new Date(this.form.value.fechafin);
+      this.perfil.limiteUsuarios = this.form.value.limiteUsuarios;
+      this.perfil.proveedor.proveedorId = this.form.value.proveedor;
 
-      this.perfilService.insert(perfil).subscribe(() => {
-        this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice`]);
-      });
+      if (this.edicion) {
+        this.perfilService.update(this.perfil).subscribe(() => {
+          this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice`]);
+        });
+      } else {
+        this.perfilService.insert(this.perfil).subscribe(() => {
+          this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice`]);
+        });
+      }
+    } else {
+      this.mensaje = "Ingrese todos los campos!!!";
     }
   }
 

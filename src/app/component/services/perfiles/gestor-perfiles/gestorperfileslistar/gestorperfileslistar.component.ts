@@ -35,4 +35,7 @@ export class GestorperfileslistarComponent implements OnInit {
     this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/crear`]);
   }
 
+  editarPerfil(perfilId: number): void {
+    this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/ediciones/${perfilId}`]);
+  }
 }
