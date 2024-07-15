@@ -13,7 +13,12 @@ import { PerfilService } from 'src/app/service/perfil-service.service';
 })
 export class GestorperfileslistarComponent implements OnInit {
   perfiles: Perfil[] = [];
+  originalData: Perfil[] = [];
+  paginatedData: Perfil[] = [];
   serviceId: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
 
   constructor(
     private perfilService: PerfilService,
@@ -24,7 +29,7 @@ export class GestorperfileslistarComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.serviceId = +params['serviceId']; // Convert to number
+      this.serviceId = +params['serviceId'];
       this.cargarPerfiles();
     });
   }
@@ -32,6 +37,9 @@ export class GestorperfileslistarComponent implements OnInit {
   cargarPerfiles(): void {
     this.perfilService.list().subscribe(data => {
       this.perfiles = data.filter(perfil => perfil.service.serviceId === this.serviceId);
+      this.originalData = this.perfiles;
+      this.totalItems = this.perfiles.length;
+      this.paginarDatos();
     });
   }
 
@@ -49,16 +57,12 @@ export class GestorperfileslistarComponent implements OnInit {
       if (result === true) {
         this.perfilService.delete(perfilId).subscribe({
           next: () => {
-            this.perfilService.list().subscribe((data) => {
-              this.perfiles
-            });
+            this.cargarPerfiles();
           },
           error: (errorMessage) => {
             console.log('Error message:', errorMessage);
             this.dialog.open(WarningDialogComponent, {
-              data: {
-                message: errorMessage
-              }
+              data: { message: errorMessage }
             });
           }
         });
@@ -66,4 +70,40 @@ export class GestorperfileslistarComponent implements OnInit {
     });
   }
 
+  filter(event: any) {
+    const filterValue = event.target.value.trim().toLowerCase();
+    this.perfiles = this.originalData.filter(perfil => 
+      perfil.correo.toLowerCase().includes(filterValue) || 
+      perfil.proveedor.nombre.toLowerCase().includes(filterValue)
+    );
+    this.totalItems = this.perfiles.length;
+    this.currentPage = 1;
+    this.paginarDatos();
+  }
+
+  changePageSize(event: any) {
+    this.itemsPerPage = parseInt(event.target.value, 10);
+    this.currentPage = 1;
+    this.paginarDatos();
+  }
+
+  paginarDatos() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.paginatedData = this.perfiles.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.totalItems) {
+      this.currentPage++;
+      this.paginarDatos();
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.paginarDatos();
+    }
+  }
 }
