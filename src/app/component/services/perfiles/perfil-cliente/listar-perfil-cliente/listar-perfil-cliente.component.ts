@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
 
@@ -15,6 +15,7 @@ export class ListarPerfilClienteComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private customerserviceService: CustomerserviceService
   ) {}
 
@@ -30,5 +31,9 @@ export class ListarPerfilClienteComponent implements OnInit {
     this.customerserviceService.list().subscribe(data => {
       this.clientes = data.filter(cliente => cliente.perfil.perfilId === this.perfilId);
     });
+  }
+
+  navigateToCrearCliente(): void {
+    this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/crear-perfil-cliente`]);
   }
 }

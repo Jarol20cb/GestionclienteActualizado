@@ -1,6 +1,11 @@
 <app-toolbar></app-toolbar>
 <div class="container">
   <h2>Clientes del Perfil</h2>
+  <div class="header-actions">
+    <button (click)="navigateToCrearCliente()" class="mi-boton">
+      <mat-icon>add</mat-icon> Añadir Cliente
+    </button>
+  </div>
   <div class="table-container">
     <table class="custom-table">
       <thead>

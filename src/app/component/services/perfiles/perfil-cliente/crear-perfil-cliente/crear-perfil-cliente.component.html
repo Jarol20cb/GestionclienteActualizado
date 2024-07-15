@@ -1,1 +1,80 @@
-<p>crear-perfil-cliente works!</p>
+<app-toolbar></app-toolbar>
+<div class="container">
+  <h2 class="form-title">Registro de clientes</h2>
+  <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Nombre del cliente</label>
+        <input id="name" type="text" formControlName="name" />
+        <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['required']" class="error">
+          El nombre del cliente es obligatorio.
+        </div>
+        <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['maxlength']" class="error">
+          El nombre del cliente no puede exceder 40 caracteres.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechainicio">Fecha de inicio</label>
+        <input id="fechainicio" type="date" formControlName="fechainicio" [max]="maxFecha" />
+        <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['required']" class="error">
+          La fecha es obligatoria.
+        </div>
+        <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['invalidDate']" class="error">
+          No puede seleccionar una fecha futura.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="paymentPeriod">Cantidad de meses</label>
+        <div class="increment-buttons">
+          <button type="button" (click)="decrementMonths()">-</button>
+          <span>{{ form.get('paymentPeriod')?.value }}</span>
+          <button type="button" (click)="incrementMonths()">+</button>
+        </div>
+        <div *ngIf="form.get('paymentPeriod')?.touched && form.get('paymentPeriod')?.errors?.['required']" class="error">
+          La cantidad de meses es obligatoria.
+        </div>
+        <div *ngIf="form.get('paymentPeriod')?.touched && form.get('paymentPeriod')?.errors?.['min']" class="error">
+          La cantidad de meses debe ser al menos 1.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fechafin">Fecha de fin</label>
+        <input id="fechafin" type="date" formControlName="fechafin" />
+        <div *ngIf="form.get('fechafin')?.touched && form.get('fechafin')?.errors?.['required']" class="error">
+          La fecha es obligatoria.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <select id="estado" formControlName="estado">
+          <option value="cancelado">Cancelado</option>
+          <option value="fiado">Fiado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="socio">Socio</label>
+        <select id="socio" formControlName="socio">
+          <option value="" disabled selected>Seleccione un socio</option>
+          <option *ngFor="let s of listSocios" [value]="s.socioId">
+            {{s.name}}
+          </option>
+          <option *ngIf="listSocios.length === 0" disabled>No hay socios disponibles</option>
+        </select>
+        <div *ngIf="form.get('socio')?.touched && form.get('socio')?.errors?.['required']" class="error">
+          El campo es obligatorio.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group buttons-container">
+        <button type="submit" class="custom-button" [disabled]="form.invalid">Aceptar</button>
+        <button type="button" class="custom-button-cancel" (click)="ocultarFormulario()">Cancelar</button>
+        <p>{{ mensaje }}</p>
+      </div>
+    </div>
+  </form>
+</div>
