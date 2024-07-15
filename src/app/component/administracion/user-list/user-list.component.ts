@@ -33,7 +33,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Iniciar el sondeo para actualizar la lista de usuarios automáticamente
     this.administracionService.startPolling();
   }
 
@@ -114,7 +113,6 @@ export class UserListComponent implements OnInit, OnDestroy {
       })
     );
   }
-  
 
   updateUser(user: User): void {
     if (user) {
@@ -144,11 +142,17 @@ export class UserListComponent implements OnInit, OnDestroy {
   confirmAction() {
     if (this.actionToConfirm) {
       this.actionToConfirm();
-      this.hideNotification(); // Ocultar notificación después de confirmar la acción
+      this.hideNotification();
     }
   }
 
   cancelAction() {
     this.hideNotification();
+  }
+
+  sendNotification(message: string, userIds: number[]): void {
+    this.administracionService.sendNotification(message, userIds).subscribe(() => {
+      console.log('Notificaciones enviadas');
+    });
   }
 }

@@ -1,5 +1,11 @@
 <app-toolbar></app-toolbar>
 <div class="container">
+  <h2>Enviar Notificación</h2>
+  <div>
+    <input type="text" #notificationMessageInput placeholder="Mensaje de la notificación" class="input-notification"/>
+    <button (click)="sendNotification(notificationMessageInput.value, [])">Enviar a Todos</button>
+  </div>
+  
   <div class="table-controls">
     <input type="text" placeholder="Buscar..." (input)="filterUsers($event)" class="input-busqueda"/>
     <div class="pagination-controls">
@@ -19,6 +25,7 @@
         <th>Roles</th>
         <th>Habilitado</th>
         <th>Acciones</th>
+        <th>Enviar Notificación</th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +51,9 @@
             </button>
           </div>
         </td>
+        <td>
+          <button (click)="sendNotification(notificationMessageInput.value, [user.id])">Enviar</button>
+        </td>
       </tr>
     </tbody>
   </table>  
@@ -62,5 +72,5 @@
   *ngIf="showNotification"
   [message]="notificationMessage"
   (confirm)="confirmAction()"
-  (cancel)="cancelAction()"
-></app-notificationadministracion>
+  (cancel)="cancelAction()">
+</app-notificationadministracion>

@@ -21,6 +21,7 @@ import { GestorperfileslistarComponent } from './services/perfiles/gestor-perfil
 import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfiles/gestorperfilescrear/gestorperfilescrear.component';
 import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente/listar-perfil-cliente/listar-perfil-cliente.component';
 import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/crear-perfil-cliente/crear-perfil-cliente.component';
+import { NotificacionComponent } from './administracion/notificacion/notificacion.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,12 @@ const routes: Routes = [
   },
 
   { path: 'users', component: UserListComponent },
+
+  {
+    path: 'notifications',
+    component: NotificacionComponent,
+    canActivate: [GuardService]
+  },
 ];
 
 @NgModule({

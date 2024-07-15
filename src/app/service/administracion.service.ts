@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { User } from '../model/User';
-import { tap, switchMap } from 'rxjs/operators';
-import { timer } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 const base_url = environment.base;
 
@@ -13,6 +13,7 @@ const base_url = environment.base;
 })
 export class AdministracionService {
   private url = `${base_url}/admin/users`;
+  private notificationUrl = `${base_url}/admin/notifications`;
   private listaCambio = new BehaviorSubject<User[]>([]);
   private httpOptions = {
     headers: new HttpHeaders({
@@ -41,7 +42,6 @@ export class AdministracionService {
   update(id: number, user: User): Observable<User> {
     return this.http.put<User>(`${this.url}/${id}`, user, this.httpOptions).pipe(
       tap(updatedUser => {
-        // Actualizar la lista de usuarios con los datos del usuario actualizado
         const users = this.listaCambio.getValue();
         const index = users.findIndex(u => u.id === id);
         if (index !== -1) {
@@ -51,7 +51,6 @@ export class AdministracionService {
       })
     );
   }
-  
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`, this.httpOptions).pipe(
@@ -75,12 +74,11 @@ export class AdministracionService {
     return this.listaCambio.asObservable();
   }
 
-  public refrescarLista(): void {
+  refrescarLista(): void {
     this.list().subscribe();
   }
 
-  // Método para iniciar el sondeo
-  public startPolling(interval: number = 1000): void {
+  startPolling(interval: number = 1000): void {
     timer(0, interval).pipe(
       switchMap(() => this.list())
     ).subscribe();
@@ -89,5 +87,8 @@ export class AdministracionService {
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.url}/${id}`, this.httpOptions);
   }
-  
+
+  sendNotification(message: string, userIds: number[]): Observable<any> {
+    return this.http.post(`${this.notificationUrl}/send`, { message, userIds }, this.httpOptions);
+  }
 }
