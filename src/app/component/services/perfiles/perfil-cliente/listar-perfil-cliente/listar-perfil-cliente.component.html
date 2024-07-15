@@ -2,12 +2,20 @@
 <div class="container">
   <h2>Clientes del Perfil</h2>
   <div class="header-actions">
+    <button (click)="navigateToPerfil()" class="mi-boton">
+      <mat-icon>arrow_back</mat-icon> Volver al Perfil
+    </button>
+    <div class="search-container">
+      <span class="search-icon"><mat-icon>search</mat-icon></span>
+      <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
+    </div>
     <button (click)="navigateToCrearCliente()" class="mi-boton">
       <mat-icon>add</mat-icon> Añadir Cliente
     </button>
-  </div><br>
+  </div>
+  <br>
   <div class="cards-container">
-    <div class="card" *ngFor="let cliente of clientes">
+    <div class="card" *ngFor="let cliente of filteredClientes">
       <div class="card-content">
         <mat-icon class="user-icon">person</mat-icon>
         <h3>{{ cliente.name }}</h3>

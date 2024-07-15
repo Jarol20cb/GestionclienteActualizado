@@ -11,9 +11,10 @@
 
 h2 {
   color: #2c3e50;
+  padding: 10px;
   font-size: 30px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 40px;
   text-align: center;
 }
 
@@ -167,6 +168,28 @@ h2 {
 .custom-button mat-icon {
   font-size: 20px;
   color: #ecf0f1;
+}
+
+.search-container {
+  position: relative;
+  width: 50%;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #ccc;
+}
+
+.input-busqueda {
+  width: 100%;
+  padding: 12px 20px 12px 40px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-color: rgba(236, 240, 241, 0.5);
+  font-size: 16px;
 }
 
 @media (max-width: 768px) {

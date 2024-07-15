@@ -14,6 +14,7 @@ export class ListarPerfilClienteComponent implements OnInit {
   perfilId: number = 0;
   serviceId: number = 0;
   clientes: CustomersServices[] = [];
+  filteredClientes: CustomersServices[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,7 @@ export class ListarPerfilClienteComponent implements OnInit {
   loadClientes(): void {
     this.customerserviceService.list().subscribe(data => {
       this.clientes = data.filter(cliente => cliente.perfil.perfilId === this.perfilId);
+      this.filteredClientes = this.clientes; // Inicializar los clientes filtrados
     });
   }
 
@@ -44,6 +46,10 @@ export class ListarPerfilClienteComponent implements OnInit {
     this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/editar-perfil-cliente/${clienteId}`]);
   }
 
+  navigateToPerfil(): void {
+    this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice`]);
+  }
+
   eliminar(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
@@ -53,5 +59,14 @@ export class ListarPerfilClienteComponent implements OnInit {
         });
       }
     });
+  }
+
+  filter(event: any) {
+    const filterValue = event.target.value.trim().toLowerCase();
+    this.filteredClientes = this.clientes.filter(cliente =>
+      cliente.name.toLowerCase().includes(filterValue) || 
+      cliente.services.service.toLowerCase().includes(filterValue) || 
+      cliente.estado.toLowerCase().includes(filterValue)
+    );
   }
 }

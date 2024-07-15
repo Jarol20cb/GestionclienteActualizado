@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
-import { WarningDialogComponent } from 'src/app/component/dialogo/warning-dialog/warning-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Perfil } from 'src/app/model/Perfil';
 import { PerfilService } from 'src/app/service/perfil-service.service';
+import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
+import { WarningDialogComponent } from 'src/app/component/dialogo/warning-dialog/warning-dialog.component';
 
 @Component({
   selector: 'app-gestorperfileslistar',
@@ -62,7 +62,9 @@ export class GestorperfileslistarComponent implements OnInit {
           error: (errorMessage) => {
             console.log('Error message:', errorMessage);
             this.dialog.open(WarningDialogComponent, {
-              data: { message: errorMessage }
+              data: {
+                message: errorMessage
+              }
             });
           }
         });
@@ -79,6 +81,10 @@ export class GestorperfileslistarComponent implements OnInit {
     this.totalItems = this.perfiles.length;
     this.currentPage = 1;
     this.paginarDatos();
+  }
+
+  navigateToServicio(): void {
+    this.router.navigate([`/components/servicios`]);
   }
 
   changePageSize(event: any) {

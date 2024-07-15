@@ -2,6 +2,9 @@
 <div class="container">
   <h2>Perfiles del Servicio</h2>
   <div class="header-actions">
+    <button (click)="navigateToServicio()" class="mi-boton">
+      <mat-icon>arrow_back</mat-icon> Volver al Servicio
+    </button>
     <div class="search-container">
       <span class="search-icon"><mat-icon>search</mat-icon></span>
       <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
