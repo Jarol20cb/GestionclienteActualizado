@@ -23,6 +23,7 @@ export class CrearPerfilClienteComponent implements OnInit {
   maxFecha: string = new Date().toISOString().split('T')[0];  // Set max date to today
   perfilId: number = 0;
   serviceId: number = 0;
+  clienteId: number | null = null;  // Para almacenar el ID del cliente en edición
 
   constructor(
     private cS: CustomerserviceService,
@@ -37,6 +38,10 @@ export class CrearPerfilClienteComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.serviceId = +params['serviceId'];
       this.perfilId = +params['perfilId'];
+      if (params['clienteId']) {
+        this.clienteId = +params['clienteId'];
+        this.loadCliente();
+      }
     });
 
     this.form = this.formBuilder.group({
@@ -68,6 +73,23 @@ export class CrearPerfilClienteComponent implements OnInit {
     });
   }
 
+  loadCliente(): void {
+    if (this.clienteId) {
+      this.cS.listId(this.clienteId).subscribe((data) => {
+        this.customerservice = data;
+        this.form.patchValue({
+          name: data.name,
+          fechainicio: moment(data.fechainicio).format('YYYY-MM-DD'),
+          paymentPeriod: 1,
+          fechafin: moment(data.fechafin).format('YYYY-MM-DD'),
+          estado: data.estado,
+          socio: data.socio ? data.socio.socioId : ''
+        });
+        this.updateFechafin(this.form.value.fechainicio, this.form.value.paymentPeriod);
+      });
+    }
+  }
+
   dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const selectedDate = new Date(control.value);
     const today = new Date();
@@ -91,13 +113,25 @@ export class CrearPerfilClienteComponent implements OnInit {
 
       this.updateEstadoAutomatico();
 
-      this.cS.insert(this.customerservice).subscribe(data => {
-        this.cS.list().subscribe(data => {
-          this.cS.setList(data);
+      if (this.clienteId) {
+        this.cS.update(this.customerservice).subscribe(data => {
+          this.cS.list().subscribe(data => {
+            this.cS.setList(data);
+          });
+          this.cerrarFormulario.emit();
+          this.showNotification(`Se ha actualizado correctamente a ${this.customerservice.name}`);
+          this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/listar-perfil-cliente`]);  // Redirigir a la lista de clientes
         });
-        this.cerrarFormulario.emit();
-        this.showNotification(`Se ha registrado correctamente a ${this.customerservice.name}`);
-      });
+      } else {
+        this.cS.insert(this.customerservice).subscribe(data => {
+          this.cS.list().subscribe(data => {
+            this.cS.setList(data);
+          });
+          this.cerrarFormulario.emit();
+          this.showNotification(`Se ha registrado correctamente a ${this.customerservice.name}`);
+          this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/listar-perfil-cliente`]);  // Redirigir a la lista de clientes
+        });
+      }
     } else {
       this.mensaje = "Ingrese todos los campos!!!";
     }

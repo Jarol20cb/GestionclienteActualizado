@@ -15,6 +15,7 @@
           <th>Fecha de Inicio</th>
           <th>Fecha de Fin</th>
           <th>Estado</th>
+          <th>Editar</th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,11 @@
           <td>{{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</td>
           <td>{{ cliente.fechafin | date: 'dd/MM/yyyy' }}</td>
           <td>{{ cliente.estado }}</td>
+          <td>
+            <button (click)="navigateToEditarCliente(cliente.idcs)" class="custom-button">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

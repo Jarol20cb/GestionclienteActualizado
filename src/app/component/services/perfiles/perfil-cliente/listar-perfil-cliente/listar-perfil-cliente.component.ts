@@ -36,4 +36,8 @@ export class ListarPerfilClienteComponent implements OnInit {
   navigateToCrearCliente(): void {
     this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/crear-perfil-cliente`]);
   }
+
+  navigateToEditarCliente(clienteId: number): void {
+    this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/editar-perfil-cliente/${clienteId}`]);
+  }
 }

@@ -49,6 +49,7 @@ const routes: Routes = [
       { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent },
       { path: ':serviceId/perfilesservice/:perfilId/listar-perfil-cliente', component: ListarPerfilClienteComponent },
       { path: ':serviceId/perfilesservice/:perfilId/crear-perfil-cliente', component: CrearPerfilClienteComponent },
+      { path: ':serviceId/perfilesservice/:perfilId/editar-perfil-cliente/:clienteId', component: CrearPerfilClienteComponent }, 
 
     ]
   },
