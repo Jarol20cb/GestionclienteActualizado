@@ -20,10 +20,10 @@ export class CrearPerfilClienteComponent implements OnInit {
   mensaje: string = '';
   @Output() cerrarFormulario = new EventEmitter<void>();
   listSocios: Socio[] = [];
-  maxFecha: string = new Date().toISOString().split('T')[0];  // Set max date to today
+  maxFecha: string = new Date().toISOString().split('T')[0];
   perfilId: number = 0;
   serviceId: number = 0;
-  clienteId: number | null = null;  // Para almacenar el ID del cliente en edición
+  clienteId: number | null = null;
 
   constructor(
     private cS: CustomerserviceService,
@@ -181,10 +181,6 @@ export class CrearPerfilClienteComponent implements OnInit {
       this.form.get('paymentPeriod')?.setValue(currentValue - 1);
       this.updateFechafin(this.form.get('fechainicio')?.value, currentValue - 1);
     }
-  }
-
-  ocultarFormulario() {
-    this.cerrarFormulario.emit();
   }
 
   cancelar(): void {
