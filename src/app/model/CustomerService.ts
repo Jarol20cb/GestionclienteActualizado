@@ -10,5 +10,6 @@ export class CustomersServices {
     fechainicio: Date = new Date();
     fechafin: Date = new Date();
     estado: string = "";
-    socio: Socio = new Socio(); // Agregar Socio
+    socio: Socio = new Socio();
+    numerocelular?: string;
 }

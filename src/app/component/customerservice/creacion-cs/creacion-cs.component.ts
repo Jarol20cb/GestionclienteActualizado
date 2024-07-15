@@ -51,7 +51,8 @@ export class CreacionCsComponent implements OnInit {
       paymentPeriod: [1, [Validators.required, Validators.min(1)]],
       fechafin: [{ value: '', disabled: true }, Validators.required],
       estado: ['cancelado', Validators.required],
-      socio: ['', Validators.required]
+      socio: ['', Validators.required],
+      numerocelular: ['', Validators.maxLength(15)] // Añadir validación para numerocelular
     });
 
     if (this.id !== null) {
@@ -126,6 +127,7 @@ export class CreacionCsComponent implements OnInit {
       this.customerservice.fechafin = moment(this.form.get('fechafin')?.value).toDate();
       this.customerservice.estado = this.form.value.estado;
       this.customerservice.socio.socioId = this.form.value.socio;
+      this.customerservice.numerocelular = this.form.value.numerocelular; // Añadir numerocelular
 
       this.updateEstadoAutomatico();
 
@@ -183,7 +185,8 @@ export class CreacionCsComponent implements OnInit {
           paymentPeriod: [1, [Validators.required, Validators.min(1)]],
           fechafin: [{ value: this.formatDate(data.fechafin), disabled: true }, Validators.required],
           estado: [data.estado, Validators.required],
-          socio: [data.socio ? data.socio.socioId : '', Validators.required]
+          socio: [data.socio ? data.socio.socioId : '', Validators.required],
+          numerocelular: [data.numerocelular, Validators.maxLength(15)] // Añadir numerocelular
         });
 
         this.form.get('fechainicio')?.valueChanges.subscribe(value => {

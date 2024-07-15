@@ -50,7 +50,8 @@ export class CrearPerfilClienteComponent implements OnInit {
       paymentPeriod: [1, [Validators.required, Validators.min(1)]],
       fechafin: [{ value: '', disabled: true }, Validators.required],
       estado: ['cancelado', Validators.required],
-      socio: ['', Validators.required]
+      socio: ['', Validators.required],
+      numerocelular: ['', Validators.maxLength(15)] // Añadir validación para numerocelular
     });
 
     this.form.get('fechainicio')?.valueChanges.subscribe(value => {
@@ -83,7 +84,8 @@ export class CrearPerfilClienteComponent implements OnInit {
           paymentPeriod: 1,
           fechafin: moment(data.fechafin).format('YYYY-MM-DD'),
           estado: data.estado,
-          socio: data.socio ? data.socio.socioId : ''
+          socio: data.socio ? data.socio.socioId : '',
+          numerocelular: data.numerocelular // Añadir numerocelular
         });
         this.updateFechafin(this.form.value.fechainicio, this.form.value.paymentPeriod);
       });
@@ -110,6 +112,7 @@ export class CrearPerfilClienteComponent implements OnInit {
       this.customerservice.fechafin = moment(this.form.get('fechafin')?.value).toDate();
       this.customerservice.estado = this.form.value.estado;
       this.customerservice.socio.socioId = this.form.value.socio;
+      this.customerservice.numerocelular = this.form.value.numerocelular; // Añadir numerocelular
 
       this.updateEstadoAutomatico();
 

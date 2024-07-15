@@ -23,6 +23,7 @@
         <p><strong>Fecha de Inicio:</strong> {{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</p>
         <p><strong>Fecha de Fin:</strong> {{ cliente.fechafin | date: 'dd/MM/yyyy' }}</p>
         <p><strong>Estado:</strong> {{ cliente.estado }}</p>
+        <p><strong>Número de Celular:</strong> {{ cliente.numerocelular }}</p>
         <div class="buttoncontainer">
           <button (click)="navigateToEditarCliente(cliente.idcs)" class="custom-button">
             <mat-icon>edit</mat-icon>
