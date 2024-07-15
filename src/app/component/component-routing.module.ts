@@ -19,6 +19,7 @@ import { BienvenidaComponent } from './vistas/bienvenida/bienvenida.component';
 import { UserListComponent } from './administracion/user-list/user-list.component';
 import { GestorperfileslistarComponent } from './services/perfiles/gestor-perfiles/gestorperfileslistar/gestorperfileslistar.component';
 import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfiles/gestorperfilescrear/gestorperfilescrear.component';
+import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente/listar-perfil-cliente/listar-perfil-cliente.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: 'ediciones/:id', component: CreacionServicioComponent },
       { path: ':serviceId/perfilesservice', component: GestorperfileslistarComponent },
       { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent },
+      { path: ':serviceId/perfilesservice/:perfilId/listar-perfil-cliente', component: ListarPerfilClienteComponent },
     ]
   },
   

@@ -1,0 +1,26 @@
+<app-toolbar></app-toolbar>
+<div class="container">
+  <h2>Clientes del Perfil</h2>
+  <div class="table-container">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Servicio</th>
+          <th>Fecha de Inicio</th>
+          <th>Fecha de Fin</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.name }}</td>
+          <td>{{ cliente.services.service }}</td>
+          <td>{{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ cliente.fechafin | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ cliente.estado }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
