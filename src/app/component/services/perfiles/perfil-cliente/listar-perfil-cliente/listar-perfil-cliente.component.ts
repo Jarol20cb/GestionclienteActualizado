@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
+import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listar-perfil-cliente',
@@ -16,7 +18,8 @@ export class ListarPerfilClienteComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private customerserviceService: CustomerserviceService
+    private customerserviceService: CustomerserviceService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -39,5 +42,16 @@ export class ListarPerfilClienteComponent implements OnInit {
 
   navigateToEditarCliente(clienteId: number): void {
     this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/editar-perfil-cliente/${clienteId}`]);
+  }
+
+  eliminar(id: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.customerserviceService.delete(id).subscribe(() => {
+          this.loadClientes();
+        });
+      }
+    });
   }
 }

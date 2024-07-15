@@ -5,33 +5,25 @@
     <button (click)="navigateToCrearCliente()" class="mi-boton">
       <mat-icon>add</mat-icon> Añadir Cliente
     </button>
-  </div>
-  <div class="table-container">
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Servicio</th>
-          <th>Fecha de Inicio</th>
-          <th>Fecha de Fin</th>
-          <th>Estado</th>
-          <th>Editar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cliente of clientes">
-          <td>{{ cliente.name }}</td>
-          <td>{{ cliente.services.service }}</td>
-          <td>{{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ cliente.fechafin | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ cliente.estado }}</td>
-          <td>
-            <button (click)="navigateToEditarCliente(cliente.idcs)" class="custom-button">
-              <mat-icon>edit</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  </div><br>
+  <div class="cards-container">
+    <div class="card" *ngFor="let cliente of clientes">
+      <div class="card-content">
+        <mat-icon class="user-icon">person</mat-icon>
+        <h3>{{ cliente.name }}</h3>
+        <p><strong>Servicio:</strong> {{ cliente.services.service }}</p>
+        <p><strong>Fecha de Inicio:</strong> {{ cliente.fechainicio | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Fecha de Fin:</strong> {{ cliente.fechafin | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Estado:</strong> {{ cliente.estado }}</p>
+        <div class="buttoncontainer">
+          <button (click)="navigateToEditarCliente(cliente.idcs)" class="custom-button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="eliminar(cliente.idcs)" class="custom-delete-button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
