@@ -55,7 +55,6 @@ import { ToolbarComponent } from './vistas/toolbar/toolbar.component';
 import { GestorPerfilesComponent } from './services/perfiles/gestor-perfiles/gestor-perfiles.component';
 import { ListarClientesComponent } from './services/perfiles/listar-clientes/listar-clientes.component';
 import { PerfilClienteComponent } from './services/perfiles/perfil-cliente/perfil-cliente.component';
-import { RegistroPerfilComponent } from './services/perfiles/registro-perfil/registro-perfil.component';
 import { UserListComponent } from './administracion/user-list/user-list.component';
 import { NotificationAdministracionComponent } from './administracion/notificationadministracion/notificationadministracion.component';
 import { CreayeditaadministracionComponent } from './administracion/creayeditaadministracion/creayeditaadministracion.component';
@@ -101,7 +100,6 @@ import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente
     GestorPerfilesComponent,
     ListarClientesComponent,
     PerfilClienteComponent,
-    RegistroPerfilComponent,
     UserListComponent,
     NotificationAdministracionComponent,
     CreayeditaadministracionComponent,
