@@ -186,4 +186,8 @@ export class CrearPerfilClienteComponent implements OnInit {
   ocultarFormulario() {
     this.cerrarFormulario.emit();
   }
+
+  cancelar(): void {
+    this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/${this.perfilId}/listar-perfil-cliente`]);
+  }
 }
