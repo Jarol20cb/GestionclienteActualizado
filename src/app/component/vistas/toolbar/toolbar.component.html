@@ -16,11 +16,6 @@
       <button *ngIf="role === 'ADMIN'" class="toolbar-button"  routerLink="/components/users">
         <mat-icon class="toolbar-icon">verified_user</mat-icon>
       </button>
-
-       <!-- Botón para ir al componente de notificaciones -->
-       <button class="toolbar-button" routerLink="/components/notifications">
-        <mat-icon class="toolbar-icon">notifications</mat-icon>
-      </button>
       <div class="dropdown" *ngIf="role === 'ADMIN' || role === 'USER'">
         <button class="toolbar-button" (click)="toggleDropdown($event)">
           <mat-icon class="toolbar-icon">menu</mat-icon>
@@ -67,6 +62,12 @@
           <a (click)="cerrar(); closeDropdown()"><mat-icon class="dropdown-icon">logout</mat-icon> Cerrar sesión</a>
         </div>
       </div>
+
+      <!-- Botón para ir al componente de notificaciones -->
+      <button class="toolbar-button" routerLink="/components/notifications">
+        <mat-icon class="toolbar-icon">notifications</mat-icon>
+      </button>
+      
     </div>
   </div><br><br>
 </body>

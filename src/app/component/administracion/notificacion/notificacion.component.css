@@ -1,27 +1,26 @@
 .notification-container {
-    padding: 1em;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    max-width: 600px;
-    margin: 2em auto;
-  }
-  
-  .notification-container h2 {
-    text-align: center;
-  }
-  
-  .notification-container ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .notification-container li {
-    padding: 0.5em;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .notification-container li:last-child {
-    border-bottom: none;
-  }
-  
+  padding: 1em;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  max-width: 600px;
+  margin: 2em auto;
+}
+
+.notification-container h2 {
+  text-align: center;
+}
+
+.notification-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notification-container li {
+  padding: 0.5em;
+  border-bottom: 1px solid #ddd;
+}
+
+.notification-container li:last-child {
+  border-bottom: none;
+}
