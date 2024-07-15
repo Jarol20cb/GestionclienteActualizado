@@ -91,4 +91,8 @@ export class AdministracionService {
   sendNotification(message: string, userIds: number[]): Observable<any> {
     return this.http.post(`${this.notificationUrl}/send`, { message, userIds }, this.httpOptions);
   }
+
+  sendNotificationToAll(message: string): Observable<any> {
+    return this.http.post(`${this.notificationUrl}/sendToAll`, { message }, this.httpOptions);
+  }
 }

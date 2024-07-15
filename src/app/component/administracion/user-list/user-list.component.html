@@ -3,7 +3,7 @@
   <h2>Enviar Notificación</h2>
   <div>
     <input type="text" #notificationMessageInput placeholder="Mensaje de la notificación" class="input-notification"/>
-    <button (click)="sendNotification(notificationMessageInput.value, [])">Enviar a Todos</button>
+    <button (click)="sendNotificationToAll(notificationMessageInput.value)">Enviar a Todos</button>
   </div>
   
   <div class="table-controls">

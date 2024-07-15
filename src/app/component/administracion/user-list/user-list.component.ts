@@ -155,4 +155,10 @@ export class UserListComponent implements OnInit, OnDestroy {
       console.log('Notificaciones enviadas');
     });
   }
+
+  sendNotificationToAll(message: string): void {
+    this.administracionService.sendNotificationToAll(message).subscribe(() => {
+      console.log('Notificaciones enviadas a todos los usuarios');
+    });
+  }
 }
