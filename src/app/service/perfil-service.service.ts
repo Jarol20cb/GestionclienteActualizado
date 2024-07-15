@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Perfil } from '../model/Perfil';
-import { Subject } from 'rxjs';
+import { catchError, Subject, throwError } from 'rxjs';
 
 const base_url = environment.base;
 
@@ -44,13 +44,16 @@ export class PerfilService {
     });
   }
 
+
   delete(id: number) {
     let token = sessionStorage.getItem('token');
     return this.http.delete(`${this.url}/${id}`, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),
-    });
+    }).pipe(
+      catchError(this.handleError.bind(this))
+    );
   }
 
   setList(listaNueva: Perfil[]) {
@@ -77,5 +80,19 @@ export class PerfilService {
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),
     });
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Ocurrió un error desconocido!';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      if (error.status === 409 || error.status === 500) {
+        errorMessage = 'No se puede borrar: está vinculado a otros registros.';
+      } else {
+        errorMessage = `Error: ${error.message}`;
+      }
+    }
+    return throwError(errorMessage);
   }
 }

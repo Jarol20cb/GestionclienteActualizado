@@ -84,10 +84,8 @@ export class ServicesService {
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocurrió un error desconocido!';
     if (error.error instanceof ErrorEvent) {
-      // Client-side errors
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side errors
       if (error.status === 409 || error.status === 500) {
         errorMessage = 'No se puede borrar: está vinculado a otros registros.';
       } else {

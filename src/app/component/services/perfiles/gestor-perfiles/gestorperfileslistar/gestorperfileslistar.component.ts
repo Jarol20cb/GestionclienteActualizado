@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
+import { WarningDialogComponent } from 'src/app/component/dialogo/warning-dialog/warning-dialog.component';
 import { Perfil } from 'src/app/model/Perfil';
 import { PerfilService } from 'src/app/service/perfil-service.service';
 
@@ -15,7 +18,8 @@ export class GestorperfileslistarComponent implements OnInit {
   constructor(
     private perfilService: PerfilService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -38,4 +42,28 @@ export class GestorperfileslistarComponent implements OnInit {
   editarPerfil(perfilId: number): void {
     this.router.navigate([`/components/servicios/${this.serviceId}/perfilesservice/ediciones/${perfilId}`]);
   }
+
+  eliminarPerfil(perfilId: number) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.perfilService.delete(perfilId).subscribe({
+          next: () => {
+            this.perfilService.list().subscribe((data) => {
+              this.perfiles
+            });
+          },
+          error: (errorMessage) => {
+            console.log('Error message:', errorMessage);
+            this.dialog.open(WarningDialogComponent, {
+              data: {
+                message: errorMessage
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
 }
