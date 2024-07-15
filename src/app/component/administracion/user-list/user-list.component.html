@@ -1,9 +1,9 @@
 <app-toolbar></app-toolbar>
 <div class="container">
   <h2>Enviar Notificación</h2>
-  <div>
+  <div class="notification-controls">
     <input type="text" #notificationMessageInput placeholder="Mensaje de la notificación" class="input-notification"/>
-    <button (click)="sendNotificationToAll(notificationMessageInput.value)">Enviar a Todos</button>
+    <button (click)="sendNotificationToAll(notificationMessageInput.value)" class="button-primary-small">Enviar a Todos</button>
   </div>
   
   <div class="table-controls">
@@ -52,7 +52,7 @@
           </div>
         </td>
         <td>
-          <button (click)="sendNotification(notificationMessageInput.value, [user.id])">Enviar</button>
+          <button (click)="sendNotification(notificationMessageInput.value, [user.id])" class="button-primary">Enviar</button>
         </td>
       </tr>
     </tbody>

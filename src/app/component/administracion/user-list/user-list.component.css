@@ -158,7 +158,49 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(14px);
 }
+.notification-controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
+.input-notification {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-color: rgba(236, 240, 241, 0.5);
+  font-size: 16px;
+}
+
+.button-primary-small {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+}
+
+.button-primary-small:hover {
+  background-color: #1f2e3d;
+}
+
+.button-primary {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-primary:hover {
+  background-color: #1f2e3d;
+}
 /* Media Queries */
 @media screen and (max-width: 768px) {
   .user-table {
