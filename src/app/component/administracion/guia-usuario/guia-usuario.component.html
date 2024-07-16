@@ -1,0 +1,79 @@
+<app-toolbar></app-toolbar><br><br>
+<div class="guide-container">
+    <h1>📚 Guía de Usuario para la Aplicación de Gestión de Clientes</h1>
+    <div class="section" id="proveedores">
+        <h2>🏢 Proveedores</h2>
+        <p>Los proveedores son aquellos que te brindan los perfiles que necesitas.</p>
+        <ol>
+            <li>Accede a la sección de Proveedores desde el menú principal.</li>
+            <li>Añade un nuevo proveedor haciendo clic en el botón "Agregar Proveedor".</li>
+            <li>Completa el formulario con la información del proveedor y guarda los cambios.</li>
+        </ol>
+    </div>
+    <div class="section" id="socios">
+        <h2>👥 Socios</h2>
+        <p>Los socios son los encargados de contactar a los clientes.</p>
+        <ol>
+            <li>Accede a la sección de Socios desde el menú principal.</li>
+            <li>Añade un nuevo socio haciendo clic en el botón "Agregar Socio".</li>
+            <li>Completa el formulario con la información del socio y guarda los cambios.</li>
+        </ol>
+    </div>
+    <div class="section" id="servicios">
+        <h2>📦 Servicios</h2>
+        <p>Los servicios son los productos o servicios que ofreces, como Netflix, Spotify, etc.</p>
+        <ol>
+            <li>Accede a la sección de Servicios desde el menú principal.</li>
+            <li>Añade un nuevo servicio haciendo clic en el botón "Agregar Servicio".</li>
+            <li>Completa el formulario con la información del servicio y guarda los cambios.</li>
+        </ol>
+    </div>
+    <div class="section" id="perfiles">
+        <h2>🔖 Perfiles</h2>
+        <p>En la sección de perfiles, registras todos los perfiles y especificas qué proveedor te brindó cada perfil.</p>
+        <ol>
+            <li>Accede a la sección de Perfiles desde el menú principal.</li>
+            <li>Añade un nuevo perfil haciendo clic en el botón "Agregar Perfil".</li>
+            <li>Completa el formulario con la información del perfil, incluyendo el proveedor que te lo brindó, y guarda los cambios.</li>
+        </ol>
+    </div>
+    <div class="section" id="clientes">
+        <h2>👤 Clientes</h2>
+        <p>Aquí registras a tus clientes, indicando el tipo de servicio, el perfil y el socio que los contactó.</p>
+        <ol>
+            <li>Accede a la sección de Clientes desde el menú principal.</li>
+            <li>Añade un nuevo cliente haciendo clic en el botón "Agregar Cliente".</li>
+            <li>Completa el formulario con la información del cliente, seleccionando el tipo de servicio, el perfil y el socio que los contactó. Guarda los cambios.</li>
+        </ol>
+    </div>
+    <div class="section" id="resumen">
+        <h2>📋 Resumen del Proceso</h2>
+        <p>Para una gestión eficiente, <strong>sigue este orden</strong> al llenar la información:</p>
+        <ol>
+            <li><a routerLink="/components/custser">Proveedores 🏢</a></li>
+            <li><a routerLink="/components/socios">Socios 👥</a></li>
+            <li><a routerLink="/components/servicios">Servicios 📦</a></li>
+            <li><a routerLink="/components/perfil">Perfiles 🔖</a></li>
+            <li><a routerLink="/components/custser">Clientes 👤</a></li>
+        </ol>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>

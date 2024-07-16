@@ -22,6 +22,7 @@ import { GestorperfilescrearComponent } from './services/perfiles/gestor-perfile
 import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente/listar-perfil-cliente/listar-perfil-cliente.component';
 import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/crear-perfil-cliente/crear-perfil-cliente.component';
 import { NotificacionComponent } from './administracion/notificacion/notificacion.component';
+import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario.component';
 
 const routes: Routes = [
   {
@@ -106,6 +107,7 @@ const routes: Routes = [
     component: NotificacionComponent,
     canActivate: [GuardService]
   },
+  { path: 'guiausuario', component: GuiaUsuarioComponent }
 ];
 
 @NgModule({
