@@ -1,0 +1,143 @@
+<div class="wizard-container">
+  <div class="wizard-header">
+    <ul class="wizard-steps">
+      <li [class.active]="currentStep >= 1">1</li>
+      <li [class.active]="currentStep >= 2">2</li>
+      <li [class.active]="currentStep >= 3">3</li>
+      <li [class.active]="currentStep >= 4">4</li>
+      <li [class.active]="currentStep >= 5">5</li>
+      <li [class.active]="currentStep >= 6">6</li>
+      <li [class.active]="currentStep >= 7">7</li>
+    </ul>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="aceptar()">
+    <div class="wizard-content">
+      <!-- Paso 1: Nombre del cliente -->
+      <div *ngIf="currentStep === 1" class="step">
+        <h3>Registro de Cliente</h3>
+        <label for="name">Nombre del cliente</label>
+        <input id="name" type="text" formControlName="name" />
+        <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['required']" class="error">
+          El nombre del cliente es obligatorio.
+        </div>
+        <div *ngIf="obtenerControlCampo('name')?.touched && obtenerControlCampo('name')?.errors?.['maxlength']" class="error">
+          El nombre del cliente no puede exceder 40 caracteres.
+        </div>
+      </div>
+
+      <!-- Paso 2 y 3: Tipo de servicio y Perfil -->
+      <div *ngIf="currentStep === 2" class="step">
+        <h3>Tipo de Servicio y Perfil</h3>
+        <label for="services">Tipo de servicio</label>
+        <select id="services" formControlName="services">
+          <option value="" disabled selected>Seleccione un servicio</option>
+          <option *ngFor="let c of listservices" [value]="c.serviceId">
+            {{c.service}}
+          </option>
+          <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
+        </select>
+        <div *ngIf="form.get('services')?.touched && form.get('services')?.errors?.['required']" class="error">
+          El campo es obligatorio.
+        </div>
+        <label for="perfil">Perfil</label>
+        <select id="perfil" formControlName="perfil" class="custom-select">
+          <option value="" disabled selected>Seleccione un perfil</option>
+          <option *ngFor="let p of listperfil" [value]="p.perfilId">
+            {{p.correo}} <span>(Total: {{p.limiteUsuarios}}, Ocupados: {{p.usuariosActuales}})</span>
+          </option>
+          <option *ngIf="listperfil.length === 0" disabled>No hay perfiles disponibles</option>
+        </select>
+        <div *ngIf="form.get('perfil')?.touched && form.get('perfil')?.errors?.['required']" class="error">
+          El campo es obligatorio.
+        </div>
+      </div>
+
+      <!-- Paso 4, 5 y 6: Fecha de inicio, Cantidad de meses y Fecha de pago -->
+      <div *ngIf="currentStep === 3" class="step">
+        <h3>Detalles del Servicio</h3>
+        <label for="fechainicio">Fecha de inicio</label>
+        <input id="fechainicio" type="date" formControlName="fechainicio" [max]="maxFecha" />
+        <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['required']" class="error">
+          La fecha es obligatoria.
+        </div>
+        <div *ngIf="form.get('fechainicio')?.touched && form.get('fechainicio')?.errors?.['invalidDate']" class="error">
+          No puede seleccionar una fecha futura.
+        </div>
+        <label for="paymentPeriod">Cantidad de meses</label>
+        <div class="increment-buttons">
+          <button type="button" (click)="decrementMonths()">-</button>
+          <span>{{ form.get('paymentPeriod')?.value }}</span>
+          <button type="button" (click)="incrementMonths()">+</button>
+        </div>
+        <div *ngIf="form.get('paymentPeriod')?.touched && form.get('paymentPeriod')?.errors?.['required']" class="error">
+          La cantidad de meses es obligatoria.
+        </div>
+        <div *ngIf="form.get('paymentPeriod')?.touched && form.get('paymentPeriod')?.errors?.['min']" class="error">
+          La cantidad de meses debe ser al menos 1.
+        </div>
+        <label for="fechafin">Fecha de pago</label>
+        <input id="fechafin" type="date" formControlName="fechafin" />
+        <div *ngIf="form.get('fechafin')?.touched && form.get('fechafin')?.errors?.['required']" class="error">
+          La fecha es obligatoria.
+        </div>
+      </div>
+
+      <!-- Paso 7: Estado -->
+      <div *ngIf="currentStep === 4" class="step">
+        <h3>Estado</h3>
+        <label for="estado">Estado</label>
+        <select id="estado" formControlName="estado">
+          <option value="cancelado">Cancelado</option>
+          <option value="fiado">Fiado</option>
+        </select>
+      </div>
+
+      <!-- Paso 8: Socio -->
+      <div *ngIf="currentStep === 5" class="step">
+        <h3>Socio</h3>
+        <label for="socio">Socio</label>
+        <select id="socio" formControlName="socio">
+          <option value="" disabled selected>Seleccione un socio</option>
+          <option *ngFor="let s of listsocios" [value]="s.socioId">
+            {{s.name}}
+          </option>
+          <option *ngIf="listsocios.length === 0" disabled>No hay socios disponibles</option>
+        </select>
+        <div *ngIf="form.get('socio')?.touched && form.get('socio')?.errors?.['required']" class="error">
+          El campo es obligatorio.
+        </div>
+      </div>
+
+      <!-- Paso 9: Número de Celular -->
+      <div *ngIf="currentStep === 6" class="step">
+        <h3>Número de Celular (opcional)</h3>
+        <label for="numerocelular">Número de Celular (opcional)</label>
+        <input id="numerocelular" type="text" formControlName="numerocelular" />
+        <div *ngIf="form.get('numerocelular')?.touched && form.get('numerocelular')?.errors?.['maxlength']" class="error">
+          El número de celular no puede exceder 15 caracteres.
+        </div>
+      </div>
+
+      <!-- Paso 10: Confirmación -->
+      <div *ngIf="currentStep === 7" class="step">
+        <h3>Confirmación</h3>
+        <p><strong>Nombre del cliente:</strong> {{form.get('name')?.value}}</p>
+        <p><strong>Tipo de servicio:</strong> {{form.get('services')?.value}}</p>
+        <p><strong>Perfil:</strong> {{form.get('perfil')?.value}}</p>
+        <p><strong>Fecha de inicio:</strong> {{form.get('fechainicio')?.value}}</p>
+        <p><strong>Cantidad de meses:</strong> {{form.get('paymentPeriod')?.value}}</p>
+        <p><strong>Fecha de pago:</strong> {{form.get('fechafin')?.value}}</p>
+        <p><strong>Estado:</strong> {{form.get('estado')?.value}}</p>
+        <p><strong>Socio:</strong> {{form.get('socio')?.value}}</p>
+        <p><strong>Número de celular:</strong> {{form.get('numerocelular')?.value}}</p>
+      </div>
+    </div>
+
+    <div class="wizard-navigation">
+      <button type="button" class="btn btn-primary" (click)="prevStep()" [disabled]="currentStep === 1">Anterior</button>
+      <button *ngIf="currentStep < 7" type="button" class="btn btn-primary" (click)="nextStep()">Siguiente</button>
+      <button *ngIf="currentStep === 7" type="submit" class="btn btn-primary">Registrar</button>
+      <button *ngIf="currentStep === 7" type="button" class="btn btn-secondary" (click)="ocultarFormulario()">Cancelar</button>
+    </div>
+  </form>
+</div>

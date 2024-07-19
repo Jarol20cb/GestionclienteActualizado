@@ -1,0 +1,169 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.wizard-container {
+  max-width: 600px;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto; /* Añadido */
+  position: absolute; /* Añadido */
+  top: 50%; /* Añadido */
+  left: 50%; /* Añadido */
+  transform: translate(-50%, -50%); /* Añadido */
+}
+
+
+.wizard-header {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.wizard-steps {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  width: 100%;
+}
+
+.wizard-steps li {
+  width: 30px;
+  height: 30px;
+  background-color: #ddd;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.wizard-steps li.active {
+  background-color: #007bff;
+}
+
+.wizard-content {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wizard-content h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  width: 100%;
+  max-width: 500px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+.increment-buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.increment-buttons button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.increment-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.increment-buttons span {
+  margin: 0 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 50px;
+  text-align: center;
+}
+
+.wizard-navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px; /* Añade espacio entre los botones */
+}
+
+.wizard-navigation .btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.wizard-navigation .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.wizard-navigation .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.wizard-navigation .btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.wizard-navigation .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.wizard-navigation .btn + .btn {
+  margin-left: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9em;
+}

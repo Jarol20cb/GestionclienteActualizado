@@ -23,6 +23,7 @@ import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente
 import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/crear-perfil-cliente/crear-perfil-cliente.component';
 import { NotificacionComponent } from './administracion/notificacion/notificacion.component';
 import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario.component';
+import { RegistroClienteComponent } from '../wizard/registro-cliente/registro-cliente.component';
 
 const routes: Routes = [
   {
@@ -107,7 +108,11 @@ const routes: Routes = [
     component: NotificacionComponent,
     canActivate: [GuardService]
   },
-  { path: 'guiausuario', component: GuiaUsuarioComponent }
+  { path: 'guiausuario', component: GuiaUsuarioComponent },
+
+  { path: 'wizard', component: RegistroClienteComponent },
+
+
 ];
 
 @NgModule({

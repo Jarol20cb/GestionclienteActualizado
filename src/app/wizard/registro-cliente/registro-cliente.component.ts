@@ -6,19 +6,19 @@ import { Services } from 'src/app/model/Services';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { ServicesService } from 'src/app/service/services.service';
 import * as moment from 'moment';
-import { NotificationComponent } from '../../notification/notification.component';
 import { Socio } from 'src/app/model/socio';
 import { SocioService } from 'src/app/service/socio.service';
 import { Perfil } from 'src/app/model/Perfil';
 import { CustomersServices } from 'src/app/model/CustomerService';
 import { PerfilService } from 'src/app/service/perfil-service.service';
+import { NotificationComponent } from 'src/app/component/notification/notification.component';
 
 @Component({
-  selector: 'app-creacion-cs',
-  templateUrl: './creacion-cs.component.html',
-  styleUrls: ['./creacion-cs.component.css']
+  selector: 'app-registro-cliente',
+  templateUrl: './registro-cliente.component.html',
+  styleUrls: ['./registro-cliente.component.css']
 })
-export class CreacionCsComponent implements OnInit {
+export class RegistroClienteComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   customerservice: CustomersServices = new CustomersServices();
   mensaje: string = '';
@@ -29,6 +29,19 @@ export class CreacionCsComponent implements OnInit {
   listsocios: Socio[] = [];
   listperfil: Perfil[] = [];
   maxFecha: string = new Date().toISOString().split('T')[0];  // Set max date to today
+  currentStep: number = 1;
+  steps: string[] = [
+    'Registro de Cliente',
+    'Tipo de Servicio',
+    'Perfil',
+    'Fecha de inicio',
+    'Cantidad de meses',
+    'Fecha de pago',
+    'Estado',
+    'Socio',
+    'Número de Celular',
+    'Confirmación'
+  ];
 
   constructor(
     private cS: CustomerserviceService,
@@ -146,7 +159,6 @@ export class CreacionCsComponent implements OnInit {
           });
           this.cerrarFormulario.emit();
           this.showNotification(`Se ha registrado correctamente a ${this.customerservice.name}`);
-          this.router.navigate(['components/cutser'])
         });
       }
     } else {
@@ -240,6 +252,18 @@ export class CreacionCsComponent implements OnInit {
     if (currentValue > 1) {
       this.form.get('paymentPeriod')?.setValue(currentValue - 1);
       this.updateFechafin(this.form.get('fechainicio')?.value, currentValue - 1);
+    }
+  }
+
+  prevStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
+  }
+
+  nextStep() {
+    if (this.currentStep < this.steps.length) {
+      this.currentStep++;
     }
   }
 

@@ -14,10 +14,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { RegistroClienteComponent } from './wizard/registro-cliente/registro-cliente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    RegistroClienteComponent,
 
   ],
   imports: [
