@@ -140,13 +140,13 @@
       <div *ngIf="currentStep === 7" class="step">
         <h3>Confirmación</h3>
         <p><strong>Nombre del cliente:</strong> {{form.get('name')?.value}}</p>
-        <p><strong>Tipo de servicio:</strong> {{form.get('services')?.value}}</p>
-        <p><strong>Perfil:</strong> {{form.get('perfil')?.value}}</p>
+        <p><strong>Tipo de servicio:</strong> {{getServiceName(form.get('services')?.value)}}</p>
+        <p><strong>Perfil:</strong> {{getPerfilEmail(form.get('perfil')?.value)}}</p>
         <p><strong>Fecha de inicio:</strong> {{form.get('fechainicio')?.value}}</p>
         <p><strong>Cantidad de meses:</strong> {{form.get('paymentPeriod')?.value}}</p>
         <p><strong>Fecha de pago:</strong> {{form.get('fechafin')?.value}}</p>
         <p><strong>Estado:</strong> {{form.get('estado')?.value}}</p>
-        <p><strong>Socio:</strong> {{form.get('socio')?.value}}</p>
+        <p><strong>Socio:</strong> {{getSocioName(form.get('socio')?.value)}}</p>
         <p><strong>Número de celular:</strong> {{form.get('numerocelular')?.value}}</p>
       </div>
     </div>

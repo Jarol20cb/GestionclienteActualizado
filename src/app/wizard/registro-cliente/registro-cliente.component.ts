@@ -43,6 +43,10 @@ export class RegistroClienteComponent implements OnInit {
     'Confirmación'
   ];
 
+  serviceMap: { [key: number]: string } = {};
+  perfilMap: { [key: number]: string } = {};
+  socioMap: { [key: number]: string } = {};
+
   constructor(
     private cS: CustomerserviceService,
     private router: Router,
@@ -93,6 +97,7 @@ export class RegistroClienteComponent implements OnInit {
 
     this.Ds.list().subscribe(data => {
       this.listservices = data;
+      this.serviceMap = this.createServiceMap(data);
       if (this.listservices.length === 0) {
         this.form.get('services')?.setValue('');
       }
@@ -100,6 +105,7 @@ export class RegistroClienteComponent implements OnInit {
 
     this.socioService.list().subscribe(data => {
       this.listsocios = data;
+      this.socioMap = this.createSocioMap(data);
       if (this.listsocios.length === 0) {
         this.form.get('socio')?.setValue('');
       }
@@ -110,15 +116,50 @@ export class RegistroClienteComponent implements OnInit {
     }
   }
 
-  
-
   loadAvailablePerfiles(serviceId: number) {
     this.perfilService.findAvailableByService(serviceId).subscribe(data => {
       this.listperfil = data;
+      this.perfilMap = this.createPerfilMap(data);
       if (this.listperfil.length === 0) {
         this.form.get('perfil')?.setValue('');
       }
     });
+  }
+
+  createServiceMap(services: Services[]): { [key: number]: string } {
+    const map: { [key: number]: string } = {};
+    services.forEach(service => {
+      map[service.serviceId] = service.service;
+    });
+    return map;
+  }
+
+  createPerfilMap(perfiles: Perfil[]): { [key: number]: string } {
+    const map: { [key: number]: string } = {};
+    perfiles.forEach(perfil => {
+      map[perfil.perfilId] = perfil.correo;
+    });
+    return map;
+  }
+
+  createSocioMap(socios: Socio[]): { [key: number]: string } {
+    const map: { [key: number]: string } = {};
+    socios.forEach(socio => {
+      map[socio.socioId] = socio.name;
+    });
+    return map;
+  }
+
+  getServiceName(serviceId: number): string {
+    return this.serviceMap[serviceId] || `ID ${serviceId}`;
+  }
+
+  getPerfilEmail(perfilId: number): string {
+    return this.perfilMap[perfilId] || `ID ${perfilId}`;
+  }
+
+  getSocioName(socioId: number): string {
+    return this.socioMap[socioId] || `ID ${socioId}`;
   }
 
   dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -273,3 +314,4 @@ export class RegistroClienteComponent implements OnInit {
     this.cerrarFormulario.emit();
   }
 }
+
