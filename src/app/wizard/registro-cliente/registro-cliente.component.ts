@@ -110,6 +110,8 @@ export class RegistroClienteComponent implements OnInit {
     }
   }
 
+  
+
   loadAvailablePerfiles(serviceId: number) {
     this.perfilService.findAvailableByService(serviceId).subscribe(data => {
       this.listperfil = data;
