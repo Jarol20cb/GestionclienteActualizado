@@ -64,6 +64,7 @@ import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/
 import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente/listar-perfil-cliente/listar-perfil-cliente.component';
 import { NotificacionComponent } from './administracion/notificacion/notificacion.component';
 import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario.component';
+import { RegistroClienteComponent } from '../wizard/registro-cliente/registro-cliente.component';
 
 
 
@@ -111,6 +112,7 @@ import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario
     ListarPerfilClienteComponent,
     NotificacionComponent,
     GuiaUsuarioComponent,
+    RegistroClienteComponent,
 
   ],
   imports: [

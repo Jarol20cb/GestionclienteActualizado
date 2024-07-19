@@ -1,14 +1,32 @@
+<app-toolbar></app-toolbar>
 <div class="wizard-container">
   <div class="wizard-header">
-    <ul class="wizard-steps">
-      <li [class.active]="currentStep >= 1">1</li>
-      <li [class.active]="currentStep >= 2">2</li>
-      <li [class.active]="currentStep >= 3">3</li>
-      <li [class.active]="currentStep >= 4">4</li>
-      <li [class.active]="currentStep >= 5">5</li>
-      <li [class.active]="currentStep >= 6">6</li>
-      <li [class.active]="currentStep >= 7">7</li>
-    </ul>
+    <div class="steps">
+      <span class="circle" [class.active]="currentStep >= 1">
+        <mat-icon>person</mat-icon>
+      </span>
+      <span class="circle" [class.active]="currentStep >= 2">
+        <mat-icon>build</mat-icon>
+      </span>
+      <span class="circle" [class.active]="currentStep >= 3">
+        <mat-icon>description</mat-icon>
+      </span>
+      <span class="circle" [class.active]="currentStep >= 4">
+        <mat-icon>event</mat-icon>
+      </span>
+      <span class="circle" [class.active]="currentStep >= 5">
+        <mat-icon>calendar_today</mat-icon>
+      </span>
+      <span class="circle" [class.active]="currentStep >= 6">
+        <mat-icon>payment</mat-icon>
+      </span>
+      <span class="circle" [class.active]="currentStep >= 7">
+        <mat-icon>check_circle</mat-icon>
+      </span>
+      <div class="progress-bar">
+        <span class="indicator" [style.width.%]="((currentStep - 1) / 6) * 100"></span>
+      </div>
+    </div>
   </div>
   <form [formGroup]="form" (ngSubmit)="aceptar()">
     <div class="wizard-content">
