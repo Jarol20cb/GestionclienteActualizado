@@ -5,13 +5,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Services } from 'src/app/model/Services';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { ServicesService } from 'src/app/service/services.service';
-import * as moment from 'moment';
 import { Socio } from 'src/app/model/socio';
 import { SocioService } from 'src/app/service/socio.service';
 import { Perfil } from 'src/app/model/Perfil';
 import { CustomersServices } from 'src/app/model/CustomerService';
 import { PerfilService } from 'src/app/service/perfil-service.service';
 import { NotificationComponent } from 'src/app/component/notification/notification.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -28,8 +28,11 @@ export class RegistroClienteComponent implements OnInit {
   listservices: Services[] = [];
   listsocios: Socio[] = [];
   listperfil: Perfil[] = [];
-  maxFecha: string = new Date().toISOString().split('T')[0];  // Set max date to today
+  maxFecha: string = new Date().toISOString().split('T')[0];
   currentStep: number = 1;
+  serviceOption: string = 'existing';
+  perfilOption: string = 'existing';
+
   steps: string[] = [
     'Registro de Cliente',
     'Tipo de Servicio',
@@ -69,7 +72,9 @@ export class RegistroClienteComponent implements OnInit {
       fechafin: [{ value: '', disabled: true }, Validators.required],
       estado: ['cancelado', Validators.required],
       socio: ['', Validators.required],
-      numerocelular: ['', Validators.maxLength(15)] // Añadir validación para numerocelular
+      numerocelular: ['', Validators.maxLength(15)],
+      serviceOption: ['existing'],
+      perfilOption: ['existing']
     });
 
     if (this.id !== null) {
@@ -95,60 +100,66 @@ export class RegistroClienteComponent implements OnInit {
       }
     });
 
-    this.Ds.list().subscribe(data => {
-      this.listservices = data;
-      this.serviceMap = this.createServiceMap(data);
-      if (this.listservices.length === 0) {
-        this.form.get('services')?.setValue('');
-      }
-    });
-
-    this.socioService.list().subscribe(data => {
-      this.listsocios = data;
-      this.socioMap = this.createSocioMap(data);
-      if (this.listsocios.length === 0) {
-        this.form.get('socio')?.setValue('');
-      }
-    });
+    this.loadServicesAndSocios();
 
     if (this.edicion) {
       this.init();
     }
   }
 
+  loadServicesAndSocios() {
+    this.Ds.list().subscribe(data => {
+      this.listservices = data || [];
+      this.serviceMap = this.createServiceMap(this.listservices);
+      if (this.listservices.length === 0) {
+        this.form.get('services')?.setValue('');
+      }
+    });
+  
+    this.socioService.list().subscribe(data => {
+      this.listsocios = data || [];
+      this.socioMap = this.createSocioMap(this.listsocios);
+      if (this.listsocios.length === 0) {
+        this.form.get('socio')?.setValue('');
+      }
+    });
+  }
+  
   loadAvailablePerfiles(serviceId: number) {
     this.perfilService.findAvailableByService(serviceId).subscribe(data => {
-      this.listperfil = data;
-      this.perfilMap = this.createPerfilMap(data);
+      this.listperfil = data || [];
+      this.perfilMap = this.createPerfilMap(this.listperfil);
       if (this.listperfil.length === 0) {
         this.form.get('perfil')?.setValue('');
       }
     });
   }
+  
 
-  createServiceMap(services: Services[]): { [key: number]: string } {
+  createServiceMap(services: Services[] = []): { [key: number]: string } {
     const map: { [key: number]: string } = {};
-    services.forEach(service => {
+    (services || []).forEach(service => {
       map[service.serviceId] = service.service;
     });
     return map;
   }
-
-  createPerfilMap(perfiles: Perfil[]): { [key: number]: string } {
+  
+  createPerfilMap(perfiles: Perfil[] = []): { [key: number]: string } {
     const map: { [key: number]: string } = {};
-    perfiles.forEach(perfil => {
+    (perfiles || []).forEach(perfil => {
       map[perfil.perfilId] = perfil.correo;
     });
     return map;
   }
-
-  createSocioMap(socios: Socio[]): { [key: number]: string } {
+  
+  createSocioMap(socios: Socio[] = []): { [key: number]: string } {
     const map: { [key: number]: string } = {};
-    socios.forEach(socio => {
+    (socios || []).forEach(socio => {
       map[socio.socioId] = socio.name;
     });
     return map;
   }
+  
 
   getServiceName(serviceId: number): string {
     return this.serviceMap[serviceId] || `ID ${serviceId}`;
@@ -183,7 +194,7 @@ export class RegistroClienteComponent implements OnInit {
       this.customerservice.fechafin = moment(this.form.get('fechafin')?.value).toDate();
       this.customerservice.estado = this.form.value.estado;
       this.customerservice.socio.socioId = this.form.value.socio;
-      this.customerservice.numerocelular = this.form.value.numerocelular; // Añadir numerocelular
+      this.customerservice.numerocelular = this.form.value.numerocelular;
 
       this.updateEstadoAutomatico();
 
@@ -192,6 +203,7 @@ export class RegistroClienteComponent implements OnInit {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
             this.cerrarFormulario.emit();
+            this.router.navigate(['/components/custser']); // Navegar a la ruta deseada después de la actualización
           });
           this.showNotification(`Se ha actualizado el registro de ${this.customerservice.name}`);
         });
@@ -202,6 +214,7 @@ export class RegistroClienteComponent implements OnInit {
           });
           this.cerrarFormulario.emit();
           this.showNotification(`Se ha registrado correctamente a ${this.customerservice.name}`);
+          this.router.navigate(['/components/custser']); // Navegar a la ruta deseada después del registro
         });
       }
     } else {
@@ -229,7 +242,6 @@ export class RegistroClienteComponent implements OnInit {
       this.cS.listId(this.id).subscribe((data) => {
         this.customerservice = data;
 
-        // Cargar perfiles disponibles para el servicio actual
         this.loadAvailablePerfiles(data.services.serviceId);
 
         this.form = this.formBuilder.group({
@@ -242,7 +254,9 @@ export class RegistroClienteComponent implements OnInit {
           fechafin: [{ value: this.formatDate(data.fechafin), disabled: true }, Validators.required],
           estado: [data.estado, Validators.required],
           socio: [data.socio ? data.socio.socioId : '', Validators.required],
-          numerocelular: [data.numerocelular, Validators.maxLength(15)] // Añadir numerocelular
+          numerocelular: [data.numerocelular, Validators.maxLength(15)],
+          serviceOption: ['existing'],
+          perfilOption: ['existing']
         });
 
         this.form.get('fechainicio')?.valueChanges.subscribe(value => {
@@ -310,8 +324,21 @@ export class RegistroClienteComponent implements OnInit {
     }
   }
 
+  selectServiceOption(option: string) {
+    this.serviceOption = option;
+    if (option === 'existing') {
+      this.loadServicesAndSocios();
+    }
+  }
+
+  selectPerfilOption(option: string) {
+    this.perfilOption = option;
+    if (option === 'existing') {
+      this.loadAvailablePerfiles(this.form.get('services')?.value);
+    }
+  }
+
   ocultarFormulario() {
     this.cerrarFormulario.emit();
   }
 }
-

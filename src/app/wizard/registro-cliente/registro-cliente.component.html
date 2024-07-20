@@ -46,27 +46,71 @@
       <!-- Paso 2: Tipo de servicio y Perfil -->
       <div *ngIf="currentStep === 2" class="step">
         <h3>Tipo de Servicio y Perfil</h3>
-        <label for="services">Tipo de servicio</label>
-        <select id="services" formControlName="services">
-          <option value="" disabled selected>Seleccione un servicio</option>
-          <option *ngFor="let c of listservices" [value]="c.serviceId">
-            {{c.service}}
-          </option>
-          <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
-        </select>
-        <div *ngIf="form.get('services')?.touched && form.get('services')?.errors?.['required']" class="error">
-          El campo es obligatorio.
+
+        <!-- Opciones para Servicio -->
+        <div>
+          <label for="serviceOption">Elija una opción para el servicio:</label>
+          <div class="radio-group">
+            <div>
+              <input type="radio" id="useExistingService" formControlName="serviceOption" value="existing" (change)="selectServiceOption('existing')">
+              <label for="useExistingService">Usar Servicio Existente</label>
+            </div>
+            <div>
+              <input type="radio" id="createNewService" formControlName="serviceOption" value="new" (change)="selectServiceOption('new')">
+              <label for="createNewService">Crear Nuevo Servicio</label>
+            </div>
+          </div>
         </div>
-        <label for="perfil">Perfil</label>
-        <select id="perfil" formControlName="perfil" class="custom-select">
-          <option value="" disabled selected>Seleccione un perfil</option>
-          <option *ngFor="let p of listperfil" [value]="p.perfilId">
-            {{p.correo}} <span>(Total: {{p.limiteUsuarios}}, Ocupados: {{p.usuariosActuales}})</span>
-          </option>
-          <option *ngIf="listperfil.length === 0" disabled>No hay perfiles disponibles</option>
-        </select>
-        <div *ngIf="form.get('perfil')?.touched && form.get('perfil')?.errors?.['required']" class="error">
-          El campo es obligatorio.
+
+        <div *ngIf="serviceOption === 'existing'">
+          <label for="services">Tipo de servicio</label>
+          <select id="services" formControlName="services">
+            <option value="" disabled selected>Seleccione un servicio</option>
+            <option *ngFor="let c of listservices || []" [value]="c.serviceId">
+              {{c.service}}
+            </option>
+            <option *ngIf="(listservices || []).length === 0" disabled>No hay servicios disponibles</option>
+          </select>
+          <div *ngIf="form.get('services')?.touched && form.get('services')?.errors?.['required']" class="error">
+            El campo es obligatorio.
+          </div>
+        </div>
+
+        <div *ngIf="serviceOption === 'new'">
+          <app-creacion-servicio (cerrarFormulario)="selectServiceOption('existing'); loadServicesAndSocios()"></app-creacion-servicio>
+        </div>
+
+        <!-- Opciones para Perfil -->
+        <div>
+          <label for="perfilOption">Elija una opción para el perfil:</label>
+          <div class="radio-group">
+            <div>
+              <input type="radio" id="useExistingPerfil" formControlName="perfilOption" value="existing" (change)="selectPerfilOption('existing')">
+              <label for="useExistingPerfil">Usar Perfil Existente</label>
+            </div>
+            <div>
+              <input type="radio" id="createNewPerfil" formControlName="perfilOption" value="new" (change)="selectPerfilOption('new')">
+              <label for="createNewPerfil">Crear Nuevo Perfil</label>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="perfilOption === 'existing'">
+          <label for="perfil">Perfil</label>
+          <select id="perfil" formControlName="perfil" class="custom-select">
+            <option value="" disabled selected>Seleccione un perfil</option>
+            <option *ngFor="let p of listperfil || []" [value]="p.perfilId">
+              {{p.correo}} <span>(Total: {{p.limiteUsuarios}}, Ocupados: {{p.usuariosActuales}})</span>
+            </option>
+            <option *ngIf="(listperfil || []).length === 0" disabled>No hay perfiles disponibles</option>
+          </select>
+          <div *ngIf="form.get('perfil')?.touched && form.get('perfil')?.errors?.['required']" class="error">
+            El campo es obligatorio.
+          </div>
+        </div>
+
+        <div *ngIf="perfilOption === 'new'">
+          <app-creacion-perfil (cerrarFormulario)="selectPerfilOption('existing'); loadAvailablePerfiles(form.get('services')?.value)"></app-creacion-perfil>
         </div>
       </div>
 
@@ -116,10 +160,10 @@
         <label for="socio">Socio</label>
         <select id="socio" formControlName="socio">
           <option value="" disabled selected>Seleccione un socio</option>
-          <option *ngFor="let s of listsocios" [value]="s.socioId">
+          <option *ngFor="let s of listsocios || []" [value]="s.socioId">
             {{s.name}}
           </option>
-          <option *ngIf="listsocios.length === 0" disabled>No hay socios disponibles</option>
+          <option *ngIf="(listsocios || []).length === 0" disabled>No hay socios disponibles</option>
         </select>
         <div *ngIf="form.get('socio')?.touched && form.get('socio')?.errors?.['required']" class="error">
           El campo es obligatorio.
@@ -155,7 +199,8 @@
       <button type="button" class="btn btn-primary" (click)="prevStep()" [disabled]="currentStep === 1">Anterior</button>
       <button *ngIf="currentStep < 7" type="button" class="btn btn-primary" (click)="nextStep()">Siguiente</button>
       <button *ngIf="currentStep === 7" type="submit" class="btn btn-primary">Registrar</button>
-      <button *ngIf="currentStep === 7" type="button" class="btn btn-secondary" (click)="ocultarFormulario()">Cancelar</button>
+      <!-- <button *ngIf="currentStep === 7" type="button" class="btn btn-secondary" (click)="ocultarFormulario()">Cancelar</button> -->
+      <button *ngIf="currentStep === 7" type="button" class="btn btn-secondary" routerLink="/components/custser">Cancelar</button>
     </div>
   </form>
 </div>

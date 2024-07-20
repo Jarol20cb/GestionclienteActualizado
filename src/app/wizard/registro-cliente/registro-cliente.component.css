@@ -115,6 +115,23 @@ select:focus {
   box-shadow: 0 0 8px rgba(41, 128, 185, 0.25);
 }
 
+.radio-group {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.radio-group div {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.radio-group label {
+  margin-left: 5px;
+}
+
 .increment-buttons {
   display: flex;
   align-items: center;
