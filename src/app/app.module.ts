@@ -14,10 +14,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { RegistroSocioComponent } from './wizard/registro-socio/registro-socio.component';
+import { RegistroProveedorComponent } from './wizard/registro-proveedor/registro-proveedor.component';
+import { RegistroServicioComponent } from './wizard/registro-servicio/registro-servicio.component';
+import { RegistroPerfilesComponent } from './wizard/registro-perfiles/registro-perfiles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    RegistroSocioComponent,
+    RegistroProveedorComponent,
+    RegistroServicioComponent,
+    RegistroPerfilesComponent,
 
   ],
   imports: [
