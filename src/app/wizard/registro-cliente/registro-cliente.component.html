@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <!-- Paso 2 y 3: Tipo de servicio y Perfil -->
+      <!-- Paso 2: Tipo de servicio y Perfil -->
       <div *ngIf="currentStep === 2" class="step">
         <h3>Tipo de Servicio y Perfil</h3>
         <label for="services">Tipo de servicio</label>
@@ -70,7 +70,7 @@
         </div>
       </div>
 
-      <!-- Paso 4, 5 y 6: Fecha de inicio, Cantidad de meses y Fecha de pago -->
+      <!-- Paso 3: Fecha de inicio, Cantidad de meses y Fecha de pago -->
       <div *ngIf="currentStep === 3" class="step">
         <h3>Detalles del Servicio</h3>
         <label for="fechainicio">Fecha de inicio</label>
@@ -100,7 +100,7 @@
         </div>
       </div>
 
-      <!-- Paso 7: Estado -->
+      <!-- Paso 4: Estado -->
       <div *ngIf="currentStep === 4" class="step">
         <h3>Estado</h3>
         <label for="estado">Estado</label>
@@ -110,7 +110,7 @@
         </select>
       </div>
 
-      <!-- Paso 8: Socio -->
+      <!-- Paso 5: Socio -->
       <div *ngIf="currentStep === 5" class="step">
         <h3>Socio</h3>
         <label for="socio">Socio</label>
@@ -126,7 +126,7 @@
         </div>
       </div>
 
-      <!-- Paso 9: Número de Celular -->
+      <!-- Paso 6: Número de Celular -->
       <div *ngIf="currentStep === 6" class="step">
         <h3>Número de Celular (opcional)</h3>
         <label for="numerocelular">Número de Celular (opcional)</label>
@@ -136,7 +136,7 @@
         </div>
       </div>
 
-      <!-- Paso 10: Confirmación -->
+      <!-- Paso 7: Confirmación -->
       <div *ngIf="currentStep === 7" class="step">
         <h3>Confirmación</h3>
         <p><strong>Nombre del cliente:</strong> {{form.get('name')?.value}}</p>
