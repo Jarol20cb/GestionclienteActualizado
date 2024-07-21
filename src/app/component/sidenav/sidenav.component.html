@@ -1,7 +1,11 @@
-<div class="sidenav" id="sidenav">
+<div class="sidenav" id="sidenav" *ngIf="verificar()">
     <div class="logo">Gestioname</div>
     <div class="sidenav-container">
-      <a (click)="setActive('home')" routerLink="/components/home" [class.active]="active === 'home'">
+    <a (click)="setActive('gestion')" routerLink="/components/users" *ngIf="role === 'ADMIN'" [class.active]="active === 'gestion'">
+        <span class="material-icons icon">verified_user</span>
+        <span class="text">Gestion de Perfiles</span>
+    </a>
+    <a (click)="setActive('home')" routerLink="/components/home" [class.active]="active === 'home'">
         <span class="material-icons icon">home</span>
         <span class="text">Inicio</span>
     </a>
