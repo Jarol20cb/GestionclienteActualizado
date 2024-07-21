@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   totalUsuarios: number = 0;
   usuariosDeudores: number = 0;
   usuariosDisponiblesPerfiles: number = 0;
-  isSidebarCollapsed = true;
   isMobile = false;
   clientesPendientes: CustomersServices[] = [];
   currentPage: number = 1;
@@ -39,7 +38,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     this.cargarClientesPendientes();
     this.cargarEstadisticas();
     this.cargarPlataformasPopulares();
-    this.checkWindowSize();
     this.perfilService.list().subscribe((data) => {
       this.usuariosDisponiblesPerfiles = data.reduce((total, perfil) => {
         return total + perfil.usuariosDisponibles;
@@ -53,21 +51,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
       this.isChartRendered = true;
     }
   }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.checkWindowSize();
-  }
-
-  checkWindowSize() {
-    this.isMobile = window.innerWidth <= 768;
-    if (this.isMobile) {
-      this.isSidebarCollapsed = true;
-    } else {
-      this.isSidebarCollapsed = false;
-    }
-  }
-
   loadUserDetails() {
     this.loginService.getUserDetails().subscribe(
       data => {
@@ -125,9 +108,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  toggleSidebar() {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
-  }
 
   verPerfil() {
     this.router.navigate(['/components/credentials']);

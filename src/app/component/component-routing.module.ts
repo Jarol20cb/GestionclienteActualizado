@@ -24,95 +24,105 @@ import { CrearPerfilClienteComponent } from './services/perfiles/perfil-cliente/
 import { NotificacionComponent } from './administracion/notificacion/notificacion.component';
 import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario.component';
 import { RegistroClienteComponent } from '../wizard/registro-cliente/registro-cliente.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 const routes: Routes = [
+
   {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [GuardService]
-  },
-  {
-    path: 'credentials',
-    component: UserCredentialsComponent,
-    canActivate: [GuardService]
-  },
-  {
-    path: 'reporte',
-    component: VisualizarPagosComponent,
-    canActivate: [GuardService]
-  },
-  {
-    path: 'servicios',
-    component: ServicesComponent,
+    path: '',
+    component: SidenavComponent, // Usa LayoutComponent como contenedor
     canActivate: [GuardService],
     children: [
-      { path: 'nuevo', component: CreacionServicioComponent },
-      { path: 'ediciones/:id', component: CreacionServicioComponent },
-      { path: ':serviceId/perfilesservice', component: GestorperfileslistarComponent },
-      { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent },
-      { path: ':serviceId/perfilesservice/ediciones/:perfilId', component: GestorperfilescrearComponent }, // Ruta para editar perfil
-      { path: ':serviceId/perfilesservice/:perfilId/listar-perfil-cliente', component: ListarPerfilClienteComponent },
-      { path: ':serviceId/perfilesservice/:perfilId/crear-perfil-cliente', component: CrearPerfilClienteComponent },
-      { path: ':serviceId/perfilesservice/:perfilId/editar-perfil-cliente/:clienteId', component: CrearPerfilClienteComponent }, 
+      {
+        path: 'home',
+        component: HomeComponent,
+        canActivate: [GuardService]
+      },
+      {
+        path: 'credentials',
+        component: UserCredentialsComponent,
+        canActivate: [GuardService]
+      },
+      {
+        path: 'reporte',
+        component: VisualizarPagosComponent,
+        canActivate: [GuardService]
+      },
+      {
+        path: 'servicios',
+        component: ServicesComponent,
+        canActivate: [GuardService],
+        children: [
+          { path: 'nuevo', component: CreacionServicioComponent },
+          { path: 'ediciones/:id', component: CreacionServicioComponent },
+          { path: ':serviceId/perfilesservice', component: GestorperfileslistarComponent },
+          { path: ':serviceId/perfilesservice/crear', component: GestorperfilescrearComponent },
+          { path: ':serviceId/perfilesservice/ediciones/:perfilId', component: GestorperfilescrearComponent }, // Ruta para editar perfil
+          { path: ':serviceId/perfilesservice/:perfilId/listar-perfil-cliente', component: ListarPerfilClienteComponent },
+          { path: ':serviceId/perfilesservice/:perfilId/crear-perfil-cliente', component: CrearPerfilClienteComponent },
+          { path: ':serviceId/perfilesservice/:perfilId/editar-perfil-cliente/:clienteId', component: CrearPerfilClienteComponent }, 
+    
+        ]
+      },
+      
+      {
+        path: 'custser',
+        component: CustomerserviceComponent,
+        canActivate: [GuardService],
+        children:[
+          { path: 'nuevo', component: CreacionCsComponent },
+          { path: 'ediciones/:id', component: CreacionCsComponent },
+        ]
+      },
+      {
+        path: 'socios',
+        component: SocioComponent,
+        canActivate: [GuardService],
+        children:[
+          { path: 'nuevo', component: CreacionSocioComponent },
+          { path: 'ediciones/:id', component: CreacionSocioComponent },
+          { path: ':socioId/clientes', component: ListarClientesSocioComponent },
+        ]
+      },
+      {
+        path: 'perfil',
+        component: PerfilesComponent,
+        canActivate: [GuardService],
+        children:[
+          { path: 'nuevo', component: CreacionPerfilComponent },
+          { path: 'ediciones/:id', component: CreacionPerfilComponent },
+        ]
+      },
+      {
+        path: 'proveedor',
+        component: ProveedoresComponent,
+        canActivate: [GuardService],
+        children:[
+          { path: 'nuevo', component: CreacionProveedorComponent },
+          { path: 'ediciones/:id', component: CreacionProveedorComponent },
+        ]
+      },
+      {
+        path: 'bienvenida',
+        component: BienvenidaComponent,
+        canActivate: [GuardService]
+      },
+    
+      { path: 'users', component: UserListComponent },
+    
+      {
+        path: 'notifications',
+        component: NotificacionComponent,
+        canActivate: [GuardService]
+      },
+      { path: 'guiausuario', component: GuiaUsuarioComponent },
+    
+      { path: 'wizard', component: RegistroClienteComponent },
 
+      { path: '', redirectTo: 'home', pathMatch: 'full' }, // Ruta por defecto
+      { path: '**', redirectTo: 'home' } 
     ]
-  },
-  
-  {
-    path: 'custser',
-    component: CustomerserviceComponent,
-    canActivate: [GuardService],
-    children:[
-      { path: 'nuevo', component: CreacionCsComponent },
-      { path: 'ediciones/:id', component: CreacionCsComponent },
-    ]
-  },
-  {
-    path: 'socios',
-    component: SocioComponent,
-    canActivate: [GuardService],
-    children:[
-      { path: 'nuevo', component: CreacionSocioComponent },
-      { path: 'ediciones/:id', component: CreacionSocioComponent },
-      { path: ':socioId/clientes', component: ListarClientesSocioComponent },
-    ]
-  },
-  {
-    path: 'perfil',
-    component: PerfilesComponent,
-    canActivate: [GuardService],
-    children:[
-      { path: 'nuevo', component: CreacionPerfilComponent },
-      { path: 'ediciones/:id', component: CreacionPerfilComponent },
-    ]
-  },
-  {
-    path: 'proveedor',
-    component: ProveedoresComponent,
-    canActivate: [GuardService],
-    children:[
-      { path: 'nuevo', component: CreacionProveedorComponent },
-      { path: 'ediciones/:id', component: CreacionProveedorComponent },
-    ]
-  },
-  {
-    path: 'bienvenida',
-    component: BienvenidaComponent,
-    canActivate: [GuardService]
-  },
-
-  { path: 'users', component: UserListComponent },
-
-  {
-    path: 'notifications',
-    component: NotificacionComponent,
-    canActivate: [GuardService]
-  },
-  { path: 'guiausuario', component: GuiaUsuarioComponent },
-
-  { path: 'wizard', component: RegistroClienteComponent },
-
-
+  }
 ];
 
 @NgModule({

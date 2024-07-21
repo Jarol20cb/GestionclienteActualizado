@@ -65,6 +65,11 @@ import { ListarPerfilClienteComponent } from './services/perfiles/perfil-cliente
 import { NotificacionComponent } from './administracion/notificacion/notificacion.component';
 import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario.component';
 import { RegistroClienteComponent } from '../wizard/registro-cliente/registro-cliente.component';
+import { RegistroSocioComponent } from '../wizard/registro-socio/registro-socio.component';
+import { RegistroProveedorComponent } from '../wizard/registro-proveedor/registro-proveedor.component';
+import { RegistroServicioComponent } from '../wizard/registro-servicio/registro-servicio.component';
+import { RegistroPerfilesComponent } from '../wizard/registro-perfiles/registro-perfiles.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 
@@ -113,6 +118,11 @@ import { RegistroClienteComponent } from '../wizard/registro-cliente/registro-cl
     NotificacionComponent,
     GuiaUsuarioComponent,
     RegistroClienteComponent,
+    RegistroSocioComponent,
+    RegistroProveedorComponent,
+    RegistroServicioComponent,
+    RegistroPerfilesComponent,
+    SidenavComponent,
 
   ],
   imports: [

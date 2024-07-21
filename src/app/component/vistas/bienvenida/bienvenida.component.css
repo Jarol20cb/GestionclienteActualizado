@@ -1,11 +1,153 @@
-.container {
-  text-align: center;
-  margin: 20px;
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
 }
 
-.chart-container {
-  width: 80%;
-  margin: auto;
-  position: relative;
-  height: 40vh;
+.sidenav-container {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #1d2b36;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  padding-top: 20px;
+  transition: width 0.3s, left 0.3s;
+  overflow: hidden;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.sidenav.closed {
+  width: 85px;
+}
+
+.sidenav.responsive.closed {
+  left: 0;
+  width: 85px;
+}
+
+.sidenav.responsive.open {
+  width: 250px;
+  left: 0;
+}
+
+.sidenav a {
+  padding: 15px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #b8c7ce;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  cursor: pointer;
+  margin: 5px 0; /* Elimina el margen lateral */
+  border-radius: 0; /* Elimina el borde redondeado */
+}
+
+.sidenav a .icon {
+  margin-right: 15px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.sidenav a .text {
+  display: inline;
+}
+
+.sidenav.closed a .text, .sidenav.responsive.closed a .text {
+  display: none;
+}
+
+.sidenav a:hover {
+  background-color: #2b3e50;
+  color: #ffffff;
+}
+
+.sidenav a.active, .sidenav a.active .icon {
+  background-color: #ffffff;
+  color: #1d2b36;
+  margin: 5px 0;
+  border-radius: 18px;
+}
+
+.sidenav .logo {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.sidenav.closed .logo, .sidenav.responsive.closed .logo {
+  display: none;
+}
+
+.sidenav .profile {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  color: #b8c7ce;
+}
+
+.sidenav .profile img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.sidenav .profile .name {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.sidenav.closed .profile .name, .sidenav.responsive.closed .profile .name, .sidenav.closed .profile .role, .sidenav.responsive.closed .profile .role {
+  display: none;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+.main-content.closed {
+  margin-left: 80px;
+}
+
+.main-content.responsive {
+  margin-left: 80px;
+  padding: 20px;
+}
+
+.main-content.responsive.open {
+  margin-left: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .sidenav {
+      left: -250px;
+      width: 250px;
+  }
+  .sidenav.closed {
+      left: -250px;
+  }
+  .sidenav.open {
+      left: 0;
+  }
+  .main-content {
+      margin-left: 0;
+  }
+  .main-content.responsive.open {
+      margin-left: 250px;
+  }
 }

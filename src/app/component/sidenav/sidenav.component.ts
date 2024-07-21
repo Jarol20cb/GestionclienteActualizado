@@ -1,13 +1,16 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/service/login.service';
 
 @Component({
-  selector: 'app-bienvenida',
-  templateUrl: './bienvenida.component.html',
-  styleUrls: ['./bienvenida.component.css']
+  selector: 'app-sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.css']
 })
-export class BienvenidaComponent implements OnInit {
-
+export class SidenavComponent implements OnInit{
   active: string = 'dashboard';
+  role:string="";
+  username:string=""
+  constructor(private loginService: LoginService){}
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent) {
@@ -72,5 +75,11 @@ export class BienvenidaComponent implements OnInit {
   setActive(tab: string) {
     this.active = tab;
     this.openNav(); // Asegúrate de que la barra lateral se abra cuando se seleccione un tab
+  }
+
+  verificar() {
+    this.role=this.loginService.showRole();
+    this.username=this.loginService.showUser();
+    return this.loginService.verificar();
   }
 }

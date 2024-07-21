@@ -1,38 +1,14 @@
-<app-toolbar></app-toolbar>
 <div class="main-container">
-  <div class="sidebar" [class.collapsed]="isSidebarCollapsed">
-    <div class="profile-section">
-      <img src="assets/icono-usuario.png" alt="Profile Picture">
-      <p>{{user.username}}</p>
-      <button class="custom-button" (click)="verPerfil()">
-        <span class="material-icons">person</span> Ver perfil
-      </button>
-    </div>
-    <ul>
-      <li><a routerLink="/components/guiausuario"><span class="material-icons">menu_book</span> Guia de usuario</a></li>
-      <li><a routerLink="/components/servicios"><span class="material-icons">add</span> Agregar plataformas</a></li>
-      <li><a routerLink="/components/custser"><span class="material-icons">group</span> Ver clientes</a></li>
-      <li><a routerLink="/components/socios"><span class="material-icons">people</span> Ver socios</a></li>
-      <li><a routerLink="/components/perfil"><span class="material-icons">badge</span> Ver perfiles</a></li>
-      <li><a routerLink="/components/proveedor"><span class="material-icons">local_shipping</span> Ver proveedores</a></li>
-    </ul>
-  </div>
-  <button (click)="toggleSidebar()" class="sidebar-toggle">
-    <span class="material-icons">{{ isSidebarCollapsed ? 'chevron_right' : 'chevron_left' }}</span>
-  </button>
-
-  <div class="content" [ngClass]="{'collapsed-content': isSidebarCollapsed, 'expanded-content': !isSidebarCollapsed}">
+  <div class="content">
     <div class="header">
-      <h1>Bienvenido, {{user.name}}!</h1>
+      <h1>Bienvenido, {{user.name}}! 👋</h1>
     </div>
-
     <div class="dashboard">
       <div class="top-section">
         <div class="widgets-section">
           <h2>Plataformas con mas perfiles</h2>
           <canvas id="popularPlatformsChart" width="430" height="250"></canvas>
         </div>
-
         <div class="clients-section">
           <div class="report-card accordion-card">
             <strong><h1>Clientes con Estado Pendiente</h1></strong><br>
