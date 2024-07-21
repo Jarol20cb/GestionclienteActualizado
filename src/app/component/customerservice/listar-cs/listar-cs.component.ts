@@ -256,28 +256,33 @@ export class ListarCsComponent implements OnInit {
       'Fecha de pagos': moment(item.fechafin).format('DD/MM/YYYY'),
       'Estado de la cuenta': item.estado
     }));
-
+  
+    // Crear el libro de trabajo y la hoja de trabajo
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(flattenedData);
-
-    // Aplicar estilos de centrado y bordes
-    const range = XLSX.utils.decode_range(worksheet['!ref']!);
-    for (let R = range.s.r; R <= range.e.r; ++R) {
-      for (let C = range.s.c; R <= range.e.c; ++C) {
-        const cell_address = { c: C, r: R };
-        const cell_ref = XLSX.utils.encode_cell(cell_address);
-        if (!worksheet[cell_ref]) continue;
-        if (!worksheet[cell_ref].s) worksheet[cell_ref].s = {};
-        worksheet[cell_ref].s = centeredStyle;
-      }
-    }
-
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    this.saveAsExcelFile(excelBuffer, 'CustomerServices');
+  
+    // Aplicar estilos de centrado y bordes de forma asincrónica
+    setTimeout(() => {
+      const range = XLSX.utils.decode_range(worksheet['!ref']!);
+      for (let R = range.s.r; R <= range.e.r; ++R) {
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const cell_address = { c: C, r: R };
+          const cell_ref = XLSX.utils.encode_cell(cell_address);
+          if (!worksheet[cell_ref]) continue;
+          if (!worksheet[cell_ref].s) worksheet[cell_ref].s = {};
+          worksheet[cell_ref].s = centeredStyle;
+        }
+      }
+  
+      // Convertir el libro de trabajo a un buffer
+      const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, 'CustomerServices');
+    }, 0);
   }
-
+  
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
     saveAs(data, `${fileName}_export_${new Date().getTime()}.xlsx`);
   }
+  
 }
