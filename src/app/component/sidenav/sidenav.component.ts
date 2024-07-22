@@ -1,16 +1,24 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Registro } from 'src/app/model/registro';
 import { LoginService } from 'src/app/service/login.service';
+import { CerrarSesionComponent } from '../dialogo/cerrar-sesion/cerrar-sesion.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit{
+export class SidenavComponent implements OnInit {
   active: string = 'dashboard';
-  role:string="";
-  username:string=""
-  constructor(private loginService: LoginService){}
+  role: string = "";
+  username: string = "";
+  user: Registro = new Registro();
+  error: string = "";
+  submenuActive: string = '';
+
+  constructor(private loginService: LoginService, private dialog: MatDialog, private router: Router) {}
 
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent) {
@@ -22,11 +30,24 @@ export class SidenavComponent implements OnInit{
 
   ngOnInit() {
     this.checkWindowSize();
+    this.loadUserDetails();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.checkWindowSize();
+  }
+
+  loadUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+      },
+      error => {
+        this.error = error;
+        console.error('Error al obtener los detalles del usuario', error);
+      }
+    );
   }
 
   checkWindowSize() {
@@ -53,6 +74,7 @@ export class SidenavComponent implements OnInit{
     } else {
       sidenav?.classList.add("closed");
       mainContent?.classList.remove("responsive");
+      this.submenuActive = '';
     }
   }
 
@@ -70,16 +92,35 @@ export class SidenavComponent implements OnInit{
     sidenav?.classList.add("closed");
     sidenav?.classList.remove("open");
     mainContent?.classList.add("closed");
+    this.submenuActive = '';
   }
 
   setActive(tab: string) {
     this.active = tab;
-    this.openNav(); // Asegúrate de que la barra lateral se abra cuando se seleccione un tab
+    this.openNav();
+  }
+
+  toggleSubmenu(tab: string) {
+    this.submenuActive = this.submenuActive === tab ? '' : tab;
   }
 
   verificar() {
-    this.role=this.loginService.showRole();
-    this.username=this.loginService.showUser();
+    this.role = this.loginService.showRole();
+    this.username = this.loginService.showUser();
     return this.loginService.verificar();
+  }
+
+  cerrar() {
+    const dialogRef = this.dialog.open(CerrarSesionComponent, {
+      width: '300px',
+      data: { mensaje: '¿Estás seguro de cerrar la sesión?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        sessionStorage.clear();
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

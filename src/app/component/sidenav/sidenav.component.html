@@ -1,34 +1,91 @@
 <div class="sidenav" id="sidenav" *ngIf="verificar()">
     <div class="logo">Gestioname</div>
-    <div class="sidenav-container">
-    <a (click)="setActive('gestion')" routerLink="/components/users" *ngIf="role === 'ADMIN'" [class.active]="active === 'gestion'">
-        <span class="material-icons icon">verified_user</span>
-        <span class="text">Gestion de Perfiles</span>
-    </a>
-    <a (click)="setActive('home')" routerLink="/components/home" [class.active]="active === 'home'">
-        <span class="material-icons icon">home</span>
-        <span class="text">Inicio</span>
-    </a>
-    <a (click)="setActive('clientes')" routerLink="/components/custser" [class.active]="active === 'clientes'">
-        <span class="material-icons icon">people</span>
-        <span class="text">Clientes</span>
-    </a>
-    <a (click)="setActive('socios')" routerLink="/components/socios" [class.active]="active === 'socios'">
-        <span class="material-icons icon">handshake</span>
-        <span class="text">Socios y proveedores</span>
-    </a>
-    <a (click)="setActive('servicios')" routerLink="/components/servicios" [class.active]="active === 'servicios'">
-        <span class="material-icons icon">subscriptions</span>
-        <span class="text">Servicios</span>
-    </a>
-    <a (click)="setActive('pages')" routerLink="/components/perfil" [class.active]="active === 'pages'">
-        <span class="material-icons icon">email</span>
-        <span class="text">Perfiles</span>
-    </a>
+    <div class="user-info">
+        <img src="assets/icono-usuario.png" alt="User Image" class="user-image">
+        <div class="usermane-info">
+            <span class="user-role">{{user.username}}</span>
+        </div>
     </div>
-  </div>
-  
-  <div class="main-content" id="main-content" (click)="handleClickOutside($event)">
+    <div class="sidenav-container">
+        <a (click)="setActive('administracion')" routerLink="/components/users" *ngIf="role === 'ADMIN'" [class.active]="active === 'administracion'">
+            <span class="material-icons icon">verified_user</span>
+            <span class="text">Gestion de Perfiles</span>
+        </a>
+        <a (click)="setActive('home')" routerLink="/components/home" [class.active]="active === 'home'">
+            <span class="material-icons icon">home</span>
+            <span class="text">Inicio</span>
+        </a>
+        <a (click)="setActive('notificaciones')" routerLink="/components/notifications" [class.active]="active === 'notificaciones'">
+            <span class="material-icons icon">notifications</span>
+            <span class="text">Notificaciones</span>
+        </a>
+
+        <!-- gestion -->
+        <div class="menu-item" (click)="setActive('gestion')" (click)="toggleSubmenu('gestion')" [class.active]="active === 'gestion'">
+            <a>
+                <span class="material-icons icon">manage_accounts</span>
+                <span class="text">Gestión</span>
+            </a>
+            <ul *ngIf="submenuActive === 'gestion'">
+                <li>
+                    <a (click)="setActive('clientes')" routerLink="/components/custser" [class.active]="active === 'clientes'">
+                        <span class="material-icons icon">people</span>
+                        <span class="text">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="setActive('socios')" routerLink="/components/socios" [class.active]="active === 'socios'">
+                        <span class="material-icons icon">handshake</span>
+                        <span class="text">Socios y proveedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="setActive('servicios')" routerLink="/components/servicios" [class.active]="active === 'servicios'">
+                        <span class="material-icons icon">subscriptions</span>
+                        <span class="text">Servicios</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="setActive('perfiles')" routerLink="/components/perfil" [class.active]="active === 'perfiles'">
+                        <span class="material-icons icon">email</span>
+                        <span class="text">Perfiles</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Configuracion -->
+        <div class="menu-item" (click)="setActive('configuracion')" (click)="toggleSubmenu('configuracion')" [class.active]="active === 'configuracion'">
+            <a>
+                <span class="material-icons icon">settings</span>
+                <span class="text">Gestión</span>
+            </a>
+            <ul *ngIf="submenuActive === 'configuracion'">
+                <li>
+                    <a (click)="setActive('credenciales')" routerLink="/components/credentials" [class.active]="active === 'credenciales'">
+                        <span class="material-icons icon">account_circle</span>
+                        <span class="text">Ver Perfil</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="setActive('guia')" routerLink="/components/guiausuario" [class.active]="active === 'guia'">
+                        <span class="material-icons icon">help_outline</span>
+                        <span class="text">Guía de Usuario</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+    <div class="botton-container">
+        <a class="bottom-button" (click)="setActive('bottom-perfil')" (click)="cerrar()" [class.active]="active === 'bottom-perfil'">
+            <span class="material-icons icon">logout</span>
+            <span class="text">Cerrar Sesión</span>
+        </a>
+    </div>
+</div>
+
+<div class="main-content" id="main-content" (click)="handleClickOutside($event)">
     <router-outlet></router-outlet>
-  </div>
-  
+</div>

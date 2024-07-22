@@ -1,7 +1,7 @@
 <div class="main-container">
   <div class="content">
     <div class="header">
-      <h1>Bienvenido, {{user.name}}! 👋</h1>
+      <h1>Bienvenido, {{user.name}}! <img style="width: 30px; height: 30px;" src="assets/koalasaludando.ico" alt=""></h1>
     </div>
     <div class="dashboard">
       <div class="top-section">
@@ -35,8 +35,11 @@
                 <span class="material-icons">chevron_right</span>
               </button>
             </div>
-            <p *ngIf="clientesPendientes.length === 0">No hay clientes con estado pendiente.</p>
-          </div> 
+            <div *ngIf="clientesPendientes.length === 0" class="no-clientes">
+              <img src="assets/koala-durmiendo.png" alt="No hay clientes con estado pendiente" style="max-width: 40%; height: auto; display: block; margin: 0 auto;">
+            </div>
+          </div>
+          
         </div> 
       </div>
 
