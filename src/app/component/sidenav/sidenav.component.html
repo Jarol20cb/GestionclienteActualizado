@@ -15,10 +15,6 @@
             <span class="material-icons icon">home</span>
             <span class="text">Inicio</span>
         </a>
-        <a (click)="setActive('notificaciones')" routerLink="/components/notifications" [class.active]="active === 'notificaciones'">
-            <span class="material-icons icon">notifications</span>
-            <span class="text">Notificaciones</span>
-        </a>
 
         <!-- gestion -->
         <div class="menu-item" (click)="setActive('gestion')" (click)="toggleSubmenu('gestion')" [class.active]="active === 'gestion'">
@@ -53,6 +49,11 @@
                 </li>
             </ul>
         </div>
+        
+        <a (click)="setActive('notificaciones')" routerLink="/components/notifications" [class.active]="active === 'notificaciones'">
+            <span class="material-icons icon">notifications</span>
+            <span class="text">Notificaciones</span>
+        </a>
 
         <!-- Configuracion -->
         <div class="menu-item" (click)="setActive('configuracion')" (click)="toggleSubmenu('configuracion')" [class.active]="active === 'configuracion'">
