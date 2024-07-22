@@ -8,23 +8,24 @@
 <body>
   <div class="login-container">
     <div class="form-card">
-      <div class="avatar-container">
-        <img src="assets/NCXD.png" alt="Logo de la empresa" class="avatar">
+      <div class="left-section">
+        <img src="assets/koala.png" alt="Rentala" class="logo">
+        <p class="description">Automatiza el alquiler de tus servicios de streaming.</p>
       </div>
-      <h1>Iniciar Sesión</h1><br><br>
-
-      <div class="input-container">
-        <mat-icon class="input-icon">person</mat-icon>
-        <input matInput type="text" placeholder="Username" [(ngModel)]="username" />
-      </div><br>
-      <div class="input-container">
-        <mat-icon class="input-icon">lock</mat-icon>
-        <input type="password" matInput placeholder="Password" [(ngModel)]="password" />
-      </div>
-
-      <div class="button-container">
-        <button class="mi-boton" (click)="login()">Iniciar sesión</button><br>
-        <p>¿Aún no cuentas con una cuenta? <span routerLink="/registro" class="hover-effect">Regístrate</span></p>
+      <div class="right-section">
+        <h1>Iniciar Sesión</h1>
+        <div class="input-container">
+          <mat-icon class="input-icon">person</mat-icon>
+          <input matInput type="text" placeholder="Username" [(ngModel)]="username" />
+        </div>
+        <div class="input-container">
+          <mat-icon class="input-icon">lock</mat-icon>
+          <input type="password" matInput placeholder="Password" [(ngModel)]="password" />
+        </div>
+        <div class="button-container">
+          <button class="mi-boton" (click)="login()">Iniciar sesión</button>
+          <p>¿Aún no cuentas con una cuenta? <span routerLink="/registro" class="hover-effect">Regístrate</span></p>
+        </div>
       </div>
     </div>
   </div>
