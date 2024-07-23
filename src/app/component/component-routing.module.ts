@@ -34,6 +34,7 @@ import { PerfileditComponent } from './componentescreaedita/perfiledit/perfiledi
 import { CustomerDetailComponent } from './componentesvista/customer/customer-detail/customer-detail.component';
 import { PerfilesOverviewComponent } from './componentesvista/perfiles/perfiles-overview/perfiles-overview.component';
 import { PerfilesDetailComponent } from './componentesvista/perfiles/perfiles-detail/perfiles-detail.component';
+import { ServiciosOverviewComponent } from './componentesvista/servicios/servicios-overview/servicios-overview.component';
 
 const routes: Routes = [
 
@@ -138,6 +139,8 @@ const routes: Routes = [
 
       { path: 'perfil-overview', component: PerfilesOverviewComponent },
       { path: 'perfil-detail/:id', component: PerfilesDetailComponent },
+
+      { path: 'servicios-overview', component: ServiciosOverviewComponent },
       
       
 

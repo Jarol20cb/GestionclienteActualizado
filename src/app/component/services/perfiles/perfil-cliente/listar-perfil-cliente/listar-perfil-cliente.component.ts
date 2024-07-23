@@ -69,4 +69,8 @@ export class ListarPerfilClienteComponent implements OnInit {
       cliente.estado.toLowerCase().includes(filterValue)
     );
   }
+
+  viewDetails(customerId: number): void {
+    this.router.navigate(['/components/customer-detail', customerId]);
+  }
 }

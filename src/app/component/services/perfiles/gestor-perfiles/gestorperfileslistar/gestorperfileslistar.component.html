@@ -1,66 +1,54 @@
-<div class="container">
-  <h2>Perfiles del Servicio {{ serviceId }}</h2>
-  <div class="header-actions">
-    <button (click)="navigateToServicio()" class="mi-boton">
-      <mat-icon>arrow_back</mat-icon> Volver al Servicio
-    </button>
-    <div class="search-container">
-      <span class="search-icon"><mat-icon>search</mat-icon></span>
-      <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+  <div class="perfiles-overview-container">
+    <div class="header">
+      <h2>Perfiles del Servicio {{ serviceId }}</h2>
+      <div class="header-actions">
+        <button (click)="navigateToServicio()" class="volver-boton">
+          <span class="volver-icon">&#x2190;</span> Volver
+        </button>
+        <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="search-input">
+        <button (click)="agregarPerfil()" class="añadir-boton">
+          <span class="añadir-icon">+</span> Añadir
+        </button>
+      </div>
     </div>
-    <button (click)="agregarPerfil()" class="mi-boton">
-      <mat-icon>add</mat-icon> Añadir Perfil
-    </button>
+
+    <div class="content">
+      <div class="profile-list-container">
+        <div *ngIf="totalItems > 0" class="pagination-controls">
+          <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">&lt;</button>
+          <span>Página {{ currentPage }} de {{ totalPages }}</span>
+          <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">&gt;</button>
+        </div>
+
+        <div *ngIf="totalItems === 0" class="no-data-container">
+          <img src="assets/koala-triste.png" alt="No Data" class="no-data-image">
+          <p class="no-data-text">No hay nada registrado</p>
+        </div>
+
+        <div *ngIf="totalItems > 0" class="profile-list">
+          <div class="profile-item" *ngFor="let perfil of paginatedData">
+            <div class="profile-info">
+              <h3>{{ perfil.correo }}</h3>
+              <p><strong>Contraseña:</strong> {{ perfil.contrasena }}</p>
+              <p><strong>Fecha de Inicio:</strong> {{ perfil.fechainicio | date: 'dd/MM/yyyy' }}</p>
+              <p><strong>Fecha de Vencimiento:</strong> {{ perfil.fechafin | date: 'dd/MM/yyyy' }}</p>
+              <p><strong>Límite de Usuarios:</strong> {{ perfil.limiteUsuarios }}</p>
+              <p><strong>Usuarios Actuales:</strong> {{ perfil.usuariosActuales }}</p>
+              <p><strong>Usuarios Disponibles:</strong> {{ perfil.usuariosDisponibles }}</p>
+              <p><strong>Proveedor:</strong> {{ perfil.proveedor.nombre }}</p>
+            </div>
+            <div class="profile-actions">
+              <button class="action-button" (click)="navigateToClientes(perfil.perfilId)">Ver Clientes</button>
+              <button class="action-button" (click)="editarPerfil(perfil.perfilId)">Editar</button>
+              <button class="action-button" (click)="eliminarPerfil(perfil.perfilId)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="table-container">
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>Correo</th>
-          <th>Contraseña</th>
-          <th>Fecha de Inicio</th>
-          <th>Fecha de Vencimiento</th>
-          <th>Límite de Usuarios</th>
-          <th>Usuarios Actuales</th>
-          <th>Usuarios Disponibles</th>
-          <th>Proveedor</th>
-          <th>Ver Clientes</th>
-          <th>Editar</th>
-          <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let perfil of paginatedData">
-          <td>{{ perfil.correo }}</td>
-          <td>{{ perfil.contrasena }}</td>
-          <td>{{ perfil.fechainicio | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ perfil.fechafin | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ perfil.limiteUsuarios }}</td>
-          <td>{{ perfil.usuariosActuales }}</td>
-          <td>{{ perfil.usuariosDisponibles }}</td>
-          <td>{{ perfil.proveedor.nombre }}</td>
-          <td>
-            <button [routerLink]="['/components/servicios', serviceId, 'perfilesservice', perfil.perfilId, 'listar-perfil-cliente']" class="custom-button">
-              <i class="fas fa-eye"></i>
-            </button>
-          </td>
-          <td>
-            <button (click)="editarPerfil(perfil.perfilId)" class="custom-button">
-              <i class="fas fa-edit"></i>
-            </button>
-          </td>
-          <td>
-            <button (click)="eliminarPerfil(perfil.perfilId)" class="custom-delete-button">
-              <i class="fas fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="pagination-controls">
-    <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-    <span>Página {{ currentPage }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
-  </div>
-</div>
+</body>

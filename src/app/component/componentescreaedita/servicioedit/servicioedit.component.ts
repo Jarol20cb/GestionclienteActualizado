@@ -55,7 +55,7 @@ export class ServicioeditComponent implements OnInit{
         this.cS.update(this.services).subscribe(() => {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
-            this.router.navigate(['/components/servicio-overview']);
+            this.router.navigate(['/components/servicios-overview']);
           });
           this.showNotification(`Se ha actualizado el registro de ${this.services.service}`);
         });
@@ -63,7 +63,7 @@ export class ServicioeditComponent implements OnInit{
         this.cS.insert(this.services).subscribe(() => {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
-            this.router.navigate(['/components/servicio-overview']);
+            this.router.navigate(['/components/servicios-overview']);
           });
           this.showNotification(`Se ha registrado correctamente a ${this.services.service}`);
         });
@@ -94,6 +94,10 @@ export class ServicioeditComponent implements OnInit{
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
+  }
+
+  cancelar(): void {
+      this.router.navigate(['/components/servicios-overview']);
   }
 
 }

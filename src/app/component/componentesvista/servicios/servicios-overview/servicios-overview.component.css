@@ -1,9 +1,9 @@
 /* General Styles */
-.perfiles-overview-container {
+.servicios-overview-container {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  color: #2c3e50;
+  color: #2c3e50; /* Gris oscuro para el texto */
   overflow-x: hidden; /* Evita el desplazamiento horizontal */
 }
 
@@ -26,44 +26,12 @@
   flex-wrap: wrap;
 }
 
-.search-input {
+.header input {
   width: 300px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; /* Gris más claro para el borde */
   font-size: 16px;
-}
-
-.volver-boton {
-  background-color: transparent;
-  border: none;
-  color: #007bff;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.volver-icon {
-  font-size: 20px;
-  margin-right: 5px;
-}
-
-.añadir-boton {
-  background-color: transparent;
-  border: 1px solid #007bff;
-  color: #007bff;
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.añadir-icon {
-  font-size: 20px;
-  margin-right: 5px;
 }
 
 .no-data-container {
@@ -73,62 +41,67 @@
 
 .no-data-text {
   font-size: 18px;
-  color: #7f8c8d;
+  color: #7f8c8d; /* Gris claro */
 }
 
 .content {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Distribuye los elementos a los extremos */
   align-items: flex-start;
   gap: 20px;
 }
 
-.profile-list-container {
+.koala-image {
+  width: 300px;
+  height: auto;
+}
+
+.servicios-list-container {
   flex: 1;
 }
 
-.profile-list {
+.servicios-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.profile-item {
+.servicio-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  background-color: #fff;
-  border: 1px solid #007bff;
+  padding: 10px 20px;
+  background-color: #fff; /* Blanco */
+  border: 1px solid #007bff; /* Azul para el borde */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
 
-.profile-item:hover {
+.servicio-item:hover {
   transform: scale(1.02);
 }
 
-.profile-info {
+.servicio-info {
   flex-grow: 1;
 }
 
-.profile-info h3 {
+.servicio-info h2 {
   margin: 0 0 5px;
 }
 
-.profile-info p {
+.servicio-info p {
   margin: 2px 0;
 }
 
-.profile-actions {
+.servicio-actions {
   display: flex;
-  gap: 10px;
+  gap: 10px; /* Espacio entre los botones */
 }
 
 .action-button {
   background-color: transparent;
-  border: 1px solid #2980b9;
+  border: 1px solid #2980b9; /* Azul */
   color: #2980b9;
   padding: 10px 15px;
   text-align: center;
@@ -141,7 +114,7 @@
 }
 
 .action-button:hover {
-  background-color: #2980b9;
+  background-color: #2980b9; /* Azul */
   color: white;
 }
 
@@ -160,7 +133,7 @@
 
 .pagination-controls button {
   background-color: transparent;
-  border: 1px solid #2980b9;
+  border: 1px solid #2980b9; /* Azul */
   color: #2980b9;
   padding: 10px 15px;
   cursor: pointer;
@@ -168,13 +141,13 @@
 }
 
 .pagination-controls button:disabled {
-  background-color: #7f8c8d;
-  color: #ecf0f1;
+  background-color: #7f8c8d; /* Fondo claro para botones deshabilitados */
+  color: #ecf0f1; /* Blanco */
   cursor: not-allowed;
 }
 
 .pagination-controls button:hover:not(:disabled) {
-  background-color: #2980b9;
+  background-color: #2980b9; /* Azul */
   color: white;
 }
 
@@ -186,7 +159,7 @@
     gap: 10px;
   }
 
-  .search-input {
+  .header input {
     width: 100%;
   }
 
@@ -201,34 +174,31 @@
     margin-top: 20px;
   }
 
-  .profile-item {
+  .servicio-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
     padding: 10px; /* Reduce padding */
   }
 
-  .profile-info h3,
-  .profile-info p {
+  .servicio-info h2,
+  .servicio-info p {
     margin: 0;
     font-size: 14px; /* Reduce font size */
   }
 
+  .servicio-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 5px; /* Reduce gap */
+  }
+
   .action-button {
     width: 100%;
-    margin-top: 10px;
-    padding: 8px 10px; /* Reduce padding */
-    font-size: 14px; /* Reduce font size */
+    padding: 5px 10px; /* Reduce padding */
+    font-size: 12px; /* Reduce font size */
   }
 
-  .header-actions {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .volver-boton, .añadir-boton {
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 10px;
+  .koala-image {
+    display: none;
   }
 }

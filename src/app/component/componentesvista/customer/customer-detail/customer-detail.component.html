@@ -8,6 +8,9 @@
     <div class="header-actions" *ngIf="customer">
       <button class="action-button" (click)="editarClienteServicio(customer.idcs)">Editar</button>
       <button class="action-button" (click)="eliminarCliente(customer.idcs)">Eliminar</button>
+      <a *ngIf="customer.numerocelular" [href]="getWhatsAppUrl(customer.numerocelular)" target="_blank" class="action-button">
+        Enviar WhatsApp
+      </a>
     </div>
   </div>
 

@@ -50,4 +50,17 @@ export class CustomerDetailComponent implements OnInit {
       console.error('ID del cliente no disponible para la edición.');
     }
   }
+
+  getWhatsAppUrl(number: string): string {
+    const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = this.customer?.fechainicio
+      ? new Date(this.customer.fechainicio).toLocaleDateString('es-ES', dateOptions)
+      : '';
+    const formattedDateWithArticle = formattedDate.replace('de', 'del');
+    const message = `Estimado usuario, se le recuerda que debe cancelar su servicio de ${this.customer?.services?.service}, su perfil es ${this.customer?.perfil?.correo} y su fecha de contrato fue el ${formattedDateWithArticle}`;
+    return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  }
+  
+  
+  
 }

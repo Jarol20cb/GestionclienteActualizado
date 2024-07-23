@@ -1,0 +1,48 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+  <div class="servicios-overview-container">
+    <div class="header">
+      <h2>Lista de servicios</h2>
+      <div class="header-actions">
+        <input type="text" placeholder="Buscar..." (input)="filter($event)" class="search-input">
+        <button class="action-button" (click)="addService()">Añadir</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="servicios-list-container">
+        <div *ngIf="totalItems > 0" class="pagination-controls">
+          <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">
+            &lt;
+          </button>
+          <span>Página {{ currentPage }} de {{ totalPages }}</span>
+          <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">
+            &gt;
+          </button>
+        </div>
+
+        <div *ngIf="totalItems === 0" class="no-data-container">
+          <img src="assets/koala-triste.png" alt="No Data" class="no-data-image">
+          <p class="no-data-text">No hay nada registrado</p>
+        </div>
+
+        <div *ngIf="totalItems > 0" class="servicios-list">
+          <div class="servicio-item" *ngFor="let servicio of paginatedData">
+            <div class="servicio-info">
+              <strong><h2>{{ servicio.service }}</h2></strong>
+              <p><strong>Descripción:</strong> {{ servicio.description }}</p>
+            </div>
+            <div class="servicio-actions" *ngIf="role === 'ADMIN' || role === 'USER'">
+              <button class="action-button" (click)="verPerfiles(servicio.serviceId)">Ver perfiles</button>
+              <button class="action-button" (click)="editService(servicio.serviceId)">Editar</button>
+              <button class="action-button" (click)="eliminar(servicio.serviceId)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img src="assets/koala-espectador.png" alt="Koala" class="koala-image">
+    </div>
+  </div>
+</body>

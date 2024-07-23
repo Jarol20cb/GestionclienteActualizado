@@ -19,6 +19,7 @@ export class GestorperfileslistarComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
+  totalPages: number = 0;
 
   constructor(
     private perfilService: PerfilService,
@@ -39,6 +40,7 @@ export class GestorperfileslistarComponent implements OnInit {
       this.perfiles = data.filter(perfil => perfil.service.serviceId === this.serviceId);
       this.originalData = this.perfiles;
       this.totalItems = this.perfiles.length;
+      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
       this.paginarDatos();
     });
   }
@@ -79,12 +81,13 @@ export class GestorperfileslistarComponent implements OnInit {
       perfil.proveedor.nombre.toLowerCase().includes(filterValue)
     );
     this.totalItems = this.perfiles.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.currentPage = 1;
     this.paginarDatos();
   }
 
   navigateToServicio(): void {
-    this.router.navigate([`/components/servicios`]);
+    this.router.navigate([`/components/servicios-overview`]);
   }
 
   changePageSize(event: any) {
@@ -111,5 +114,9 @@ export class GestorperfileslistarComponent implements OnInit {
       this.currentPage--;
       this.paginarDatos();
     }
+  }
+
+  navigateToClientes(perfilId: number): void {
+    this.router.navigate(['/components/servicios', this.serviceId, 'perfilesservice', perfilId, 'listar-perfil-cliente']);
   }
 }

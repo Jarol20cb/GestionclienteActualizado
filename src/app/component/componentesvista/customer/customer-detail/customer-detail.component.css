@@ -110,6 +110,26 @@
   color: #7f8c8d; /* Gris claro */
 }
 
+.action-button {
+  background-color: transparent;
+  border: 1px solid #2980b9; /* Azul */
+  color: #2980b9;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #2980b9; /* Azul */
+  color: white;
+}
+
+
 @media (max-width: 768px) {
   .header h2 {
     font-size: 18px;

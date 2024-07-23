@@ -1,213 +1,112 @@
-.body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
 .container {
-  width: 80%;
-  margin: auto;
-}
-
-h2 {
-  color: #2c3e50;
-  padding: 10px;
-  font-size: 30px;
-  font-weight: bold;
-  margin-top: 40px;
-  text-align: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #2c3e50; /* Gris oscuro para el texto */
+  overflow-x: hidden; /* Evita el desplazamiento horizontal */
 }
 
 .header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
 }
 
-.mi-boton {
-  background-color: #2980b9;
-  color: #ecf0f1;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 25px;
-  cursor: pointer;
+.input-busqueda {
+  width: 300px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc; /* Gris más claro para el borde */
   font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: background-color 0.3s, transform 0.3s;
-  white-space: nowrap;
 }
 
-.mi-boton:hover {
-  background-color: #1f2e3d;
-  transform: scale(1.05);
+.action-button {
+  background-color: transparent;
+  border: 1px solid #2980b9; /* Azul */
+  color: #2980b9;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #2980b9; /* Azul */
+  color: white;
 }
 
 .cards-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
 }
 
 .card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* Blanco */
+  border: 1px solid #007bff; /* Azul para el borde */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: calc(33.333% - 20px);
+  width: calc(33.333% - 20px); /* Tres tarjetas por fila con un espacio entre ellas */
   box-sizing: border-box;
-  transition: transform 0.3s, box-shadow 0.3s;
-  text-align: center;
+  transition: transform 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
 }
 
 .card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
+  text-align: center;
 }
 
-.user-icon {
-  color: #ecf0f1;
-  font-size: 50px;
-  background-color: #2980b9;
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-}
-
-.custom-delete-button {
-  padding: 5px;
-  background-color: #2980b9;
-  color: #ecf0f1;
-  border: none;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.custom-delete-button {
-  background-color: #e74c3c;
-}
-
-.custom-delete-button:hover {
-  background-color: #1f2e3d;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.custom-delete-button:hover {
-  background-color: #c0392b;
-}
-
-.custom-delete-button mat-icon {
-  font-size: 20px;
-  color: #ecf0f1;
+.koala-image {
+  width: 50px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .buttoncontainer {
   display: flex;
-  justify-content: space-between;
-  padding: 5px;
-  width: 100px;
+  justify-content: space-around;
+  margin-top: 10px;
 }
 
-.card h3 {
-  margin: 0;
-  font-size: 24px;
-  color: #2c3e50;
-}
-
-.card p {
-  margin: 0;
-  font-size: 16px;
-  color: #34495e;
-}
-
-.custom-button {
-  background-color: #2980b9;
-  color: #ecf0f1;
-  border: none;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.custom-button:hover {
-  background-color: #1f2e3d;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.custom-button mat-icon {
-  font-size: 20px;
-  color: #ecf0f1;
-}
-
-.search-container {
-  position: relative;
-  width: 50%;
-}
-
-.search-icon {
-  position: absolute;
-  top: 50%;
-  left: 15px;
-  transform: translateY(-50%);
-  color: #ccc;
-}
-
-.input-busqueda {
-  width: 100%;
-  padding: 12px 20px 12px 40px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  background-color: rgba(236, 240, 241, 0.5);
-  font-size: 16px;
+.delete-button {
+  border-color: red;
+  color: red;
 }
 
 @media (max-width: 768px) {
-  .container {
-    width: 100%;
-  }
-
   .header-actions {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+  }
+
+  .input-busqueda {
+    width: 100%;
   }
 
   .cards-container {
     flex-direction: column;
-    gap: 10px;
   }
 
   .card {
-    width: calc(100% - 20px);
+    width: 100%;
+  }
+
+  .koala-image {
+    margin-bottom: 10px;
+  }
+
+  .action-button {
+    width: 100%;
+    margin-top: 10px;
   }
 }

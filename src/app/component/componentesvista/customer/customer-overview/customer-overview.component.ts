@@ -14,7 +14,7 @@ export class CustomerOverviewComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
-  
+  totalPages: number = 0;
 
   constructor(private router: Router, private cS: CustomerserviceService) {}
 
@@ -23,6 +23,7 @@ export class CustomerOverviewComponent implements OnInit {
       this.customers = data;
       this.sortCustomers();
       this.totalItems = data.length;
+      this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
       this.paginateData();
     });
   }
@@ -38,6 +39,7 @@ export class CustomerOverviewComponent implements OnInit {
       customer.services.service.toLowerCase().includes(query)
     );
     this.totalItems = this.paginatedData.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.currentPage = 1;
     this.paginateData();
   }
@@ -67,6 +69,10 @@ export class CustomerOverviewComponent implements OnInit {
     console.log('Añadir cliente');
   }
 
+  goBack(): void {
+    this.router.navigate(['/components/previouspage']); // Ajusta esta ruta según tus necesidades
+  }
+
   sortCustomers(): void {
     const estadoOrder: { [key: string]: number } = { 'pendiente': 1, 'fiado': 2, 'otro': 3 };
     this.customers.sort((a, b) => {
@@ -75,5 +81,4 @@ export class CustomerOverviewComponent implements OnInit {
       return estadoA - estadoB;
     });
   }
-  
 }
