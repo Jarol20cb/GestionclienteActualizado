@@ -1,15 +1,93 @@
 .container {
-  max-width: 800px;
-  margin: auto;
-  padding-top: 20px;
+  background: #fff;
+  padding: 20px;
 }
 
 .header {
   text-align: center;
-  color: #2c3e50;
+  font-size: 24px;
   margin-bottom: 20px;
-  font-size: 30px;
-  font-weight: bold;
+}
+
+.button-link {
+  background: none;
+  border: none;
+  color: #007BFF;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.button-outline {
+  background: none;
+  border: 1px solid #007BFF;
+  color: #007BFF;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.button-outline:hover {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pagination-controls-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paginator-actions {
+  display: flex;
+  align-items: center;
+}
+
+.items-per-page {
+  margin-right: 8px;
+}
+
+.custom-select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.pagination-button {
+  background: none;
+  border: 1px solid #666;
+  color: #666;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.search-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.input-busqueda {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
 }
 
 .filter-container {
@@ -17,36 +95,13 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  gap: 10px;
 }
 
-.filter-container select {
-  padding: 10px;
-  border-radius: 25px;
+.input-busqueda, .custom-select {
+  padding: 8px;
+  border-radius: 4px;
   border: 1px solid #ccc;
-  background-color: rgba(236, 240, 241, 0.5);
-  margin-right: 10px;
-  font-size: 16px;
-  width: 250px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23000" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 10px center;
-  background-size: 10px;
-}
-
-.filter-container select:focus {
-  border-color: #2980b9;
-  outline: none;
-}
-
-.filter-container input {
-  padding: 10px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  background-color: rgba(236, 240, 241, 0.5);
-  margin-right: 10px;
-  font-size: 16px;
-  width: 200px;
 }
 
 .table-container {
@@ -56,88 +111,16 @@
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 18px;
+}
+
+.custom-table th, .custom-table td {
+  padding: 12px;
   text-align: left;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.custom-table thead tr {
-  background-color: #2980b9;
-  color: white;
-  text-align: center;
-}
-
-.custom-table th,
-.custom-table td {
-  padding: 12px 15px;
-  text-align: center;
-}
-
-.custom-table tbody tr {
-  border-bottom: 1px solid #dddddd;
-}
-
-.custom-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
-}
-
-.custom-table tbody tr:last-of-type {
-  border-bottom: 2px solid #2980b9;
-}
-
-.paginator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.paginator button {
-  margin: 0 5px;
-}
-
-.custom-button {
-  background-color: #2980b9;
-  color: #ffffff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.custom-button:hover {
-  background-color: #1f2e3d;
-}
-
-.custom-button[disabled] {
-  background-color: #ddd;
-  cursor: not-allowed;
+  border-bottom: 1px solid #ddd;
 }
 
 .no-records {
   text-align: center;
-  font-size: 18px;
-  color: #2c3e50;
+  color: #999;
   margin-top: 20px;
-}
-
-.back-button {
-  display: block;
-  margin: 10px auto 20px auto;
-}
-
-.filters {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.filters input {
-  padding: 10px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  background-color: rgba(236, 240, 241, 0.5);
-  width: 18%;
 }

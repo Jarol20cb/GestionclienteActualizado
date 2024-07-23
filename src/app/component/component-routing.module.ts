@@ -35,6 +35,7 @@ import { CustomerDetailComponent } from './componentesvista/customer/customer-de
 import { PerfilesOverviewComponent } from './componentesvista/perfiles/perfiles-overview/perfiles-overview.component';
 import { PerfilesDetailComponent } from './componentesvista/perfiles/perfiles-detail/perfiles-detail.component';
 import { ServiciosOverviewComponent } from './componentesvista/servicios/servicios-overview/servicios-overview.component';
+import { PresentationComponent } from './componentesvista/socios-proveedores/presentation/presentation.component';
 
 const routes: Routes = [
 
@@ -141,6 +142,8 @@ const routes: Routes = [
       { path: 'perfil-detail/:id', component: PerfilesDetailComponent },
 
       { path: 'servicios-overview', component: ServiciosOverviewComponent },
+
+      { path: 'socioproveedor-overview', component: PresentationComponent },
       
       
 

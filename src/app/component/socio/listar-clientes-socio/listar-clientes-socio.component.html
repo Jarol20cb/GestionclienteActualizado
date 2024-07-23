@@ -1,8 +1,26 @@
 <div *ngIf="socioCustomerService" class="container">
   <h2 class="header">Clientes del socio: {{ socioCustomerService.name }}</h2>
-  <button class="custom-button back-button" (click)="goBack()">Volver a Socios</button>
+  <div class="header-actions">
+    <button class="button-link" (click)="goBack()">← Volver a Socios</button>
+    <div class="search-container">
+      <input type="text" placeholder="Buscar..." class="input-busqueda" [(ngModel)]="filters.name" (input)="applyFilters()">
+    </div>
+  </div>
+  <div class="pagination-controls-top">
+    <div class="paginator-actions">
+      <span class="items-per-page">Mostrar páginas:</span>
+      <select class="custom-select" [(ngModel)]="itemsPerPage" (change)="changePageSize($event)">
+        <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
+      </select>
+    </div>
+    <div class="pagination-buttons">
+      <button (click)="previousPage()" [disabled]="currentPage === 1" class="button-outline"> <mat-icon>navigate_before</mat-icon> </button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems" class="button-outline"> <mat-icon>navigate_next</mat-icon> </button>
+    </div>
+  </div>
   <div class="filter-container">
-    <select class="filter-type" [(ngModel)]="selectedFilterType" (change)="updateFilter()">
+    <select class="custom-select" [(ngModel)]="selectedFilterType" (change)="updateFilter()">
       <option value="">Buscar</option>
       <option value="name">Nombre</option>
       <option value="service">Servicio</option>
@@ -11,19 +29,19 @@
       <option value="estado">Estado</option>
     </select>
     <div *ngIf="selectedFilterType === 'name'">
-      <input type="text" placeholder="Buscar por Nombre" [(ngModel)]="filters.name" (input)="applyFilters()">
+      <input type="text" placeholder="Buscar por Nombre" class="input-busqueda" [(ngModel)]="filters.name" (input)="applyFilters()">
     </div>
     <div *ngIf="selectedFilterType === 'service'">
-      <input type="text" placeholder="Buscar por Servicio" [(ngModel)]="filters.service" (input)="applyFilters()">
+      <input type="text" placeholder="Buscar por Servicio" class="input-busqueda" [(ngModel)]="filters.service" (input)="applyFilters()">
     </div>
     <div *ngIf="selectedFilterType === 'fechainicio'">
-      <input type="date" placeholder="Fecha Inicio" [(ngModel)]="filters.fechainicio" (input)="applyFilters()">
+      <input type="date" placeholder="Fecha Inicio" class="input-busqueda" [(ngModel)]="filters.fechainicio" (input)="applyFilters()">
     </div>
     <div *ngIf="selectedFilterType === 'fechafin'">
-      <input type="date" placeholder="Fecha Fin" [(ngModel)]="filters.fechafin" (input)="applyFilters()">
+      <input type="date" placeholder="Fecha Fin" class="input-busqueda" [(ngModel)]="filters.fechafin" (input)="applyFilters()">
     </div>
     <div *ngIf="selectedFilterType === 'estado'">
-      <input type="text" placeholder="Buscar por Estado" [(ngModel)]="filters.estado" (input)="applyFilters()">
+      <input type="text" placeholder="Buscar por Estado" class="input-busqueda" [(ngModel)]="filters.estado" (input)="applyFilters()">
     </div>
   </div>
   <div *ngIf="socioCustomerService.customerServices.length > 0; else noRecords" class="table-container">
@@ -53,9 +71,4 @@
   <ng-template #noRecords>
     <p class="no-records">Aún no hay registros</p>
   </ng-template>
-</div>
-<div class="paginator">
-  <button class="custom-button" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-  <span>Página {{ currentPage }} de {{ totalPages }}</span>
-  <button class="custom-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
 </div>

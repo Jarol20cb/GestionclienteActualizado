@@ -80,6 +80,7 @@ import { CustomerDetailComponent } from './componentesvista/customer/customer-de
 import { PerfilesOverviewComponent } from './componentesvista/perfiles/perfiles-overview/perfiles-overview.component';
 import { PerfilesDetailComponent } from './componentesvista/perfiles/perfiles-detail/perfiles-detail.component';
 import { ServiciosOverviewComponent } from './componentesvista/servicios/servicios-overview/servicios-overview.component';
+import { PresentationComponent } from './componentesvista/socios-proveedores/presentation/presentation.component';
 
 @NgModule({
   declarations: [
@@ -141,6 +142,7 @@ import { ServiciosOverviewComponent } from './componentesvista/servicios/servici
     PerfilesOverviewComponent,
     PerfilesDetailComponent,
     ServiciosOverviewComponent,
+    PresentationComponent,
 
   ],
   imports: [

@@ -1,55 +1,58 @@
 <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
-  <div class="listar-container" *ngIf="verificar()">
-    <br>
-    <h2 style="text-align: center;">Lista de Proveedores</h2>
+  <div class="listar-container">
     <div class="header-actions">
+      <button class="button-link" (click)="goBack()">
+        ← Volver
+      </button>
       <div class="search-container">
-        <span class="search-icon"><mat-icon>search</mat-icon></span>
-        <input matInput (keyup)="filter($event)" placeholder="Buscar" class="input-busqueda">
-      </div>
-      <div class="paginator-actions">
-        <span class="items-per-page">Mostrar páginas:</span>
-        <select (change)="changePageSize($event)" class="custom-select">
-          <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
-        </select>
+        <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="input-busqueda">
       </div>
       <div class="button-actions">
-        <button class="mi-boton" *ngIf="role=='ADMIN' || role=='USER'" (click)="mostrarFormulario()">
-          <mat-icon>add</mat-icon> Añadir
+        <button class="button-outline" (click)="mostrarFormulario()">
+          + Añadir
         </button>
       </div>
     </div>
+    <div class="pagination-controls-top">
+      <div class="paginator-actions">
+        <span class="items-per-page">Mostrar páginas:</span>
+        <select class="custom-select">
+          <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
+        </select>
+      </div>
+      <div class="pagination-buttons">
+        <button (click)="previousPage()" [disabled]="currentPage === 1" class="button-outline"> <mat-icon>navigate_before</mat-icon> </button> 
+        <span> Página {{ currentPage }} de {{ totalPages }} </span>
+        <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="button-outline"> <mat-icon>navigate_next</mat-icon> </button>
+      </div>
+    </div>
     <br>
+    <h2 style="text-align: center;">Lista de Proveedores</h2>
     <div class="table-container">
       <table class="custom-table">
         <thead>
           <tr>
             <th>Nombre</th>
-            <th *ngIf="role=='ADMIN' || role=='USER'">Editar</th>
-            <th *ngIf="role=='ADMIN' || role=='USER'">Eliminar</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let element of paginatedData">
             <td>{{ element.nombre }}</td>
             <td>
-              <button (click)="editarProveedor(element.proveedorId)" *ngIf="role=='ADMIN' || role=='USER'" class="custom-button">
-                <mat-icon>create</mat-icon>
+              <button (click)="editarProveedor(element.proveedorId)" class="button-outline">
+                Editar
               </button>
             </td>
             <td>
-              <button (click)="eliminar(element.proveedorId)" *ngIf="role=='ADMIN' || role=='USER'" class="custom-delete-button">
-                <mat-icon>delete</mat-icon>
+              <button (click)="eliminar(element.proveedorId)" class="button-outline button-outline-danger">
+                Eliminar
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="pagination-controls">
-      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-      <span>Página {{ currentPage }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
     </div>
   </div>
   <div *ngIf="mostrarFormularioRegistro" class="formulario-overlay">

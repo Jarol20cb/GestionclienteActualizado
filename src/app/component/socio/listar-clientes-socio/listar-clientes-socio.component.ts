@@ -18,6 +18,8 @@ export class ListarClientesSocioComponent implements OnInit {
   itemsPerPage: number = 5;
   totalPages: number = 1;
   paginatedCustomerServices: any[] = [];
+  totalItems: number = 0;
+
 
   // Filtros
   filters = {
@@ -41,6 +43,7 @@ export class ListarClientesSocioComponent implements OnInit {
       this.socioId = params['socioId'];
       this.loadCustomerServices();
     });
+    
   }
 
   loadCustomerServices() {
@@ -102,5 +105,12 @@ export class ListarClientesSocioComponent implements OnInit {
       estado: ''
     };
     this.applyFilters();
+  }
+
+  changePageSize(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.itemsPerPage = Number(selectElement.value);
+    this.currentPage = 1;
+    this.updatePagination();
   }
 }

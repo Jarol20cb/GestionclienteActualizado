@@ -5,6 +5,7 @@ import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/c
 import { WarningDialogComponent } from '../../dialogo/warning-dialog/warning-dialog.component';
 import { Proveedor } from 'src/app/model/Proveedor';
 import { ProveedorService } from 'src/app/service/proveedor-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-proveedor',
@@ -22,8 +23,9 @@ export class ListarProveedorComponent implements OnInit {
   paginatedData: Proveedor[] = [];
   mostrarFormularioRegistro: boolean = false;
   idEdicion: number | null = null;
+  totalPages: number = 0;
 
-  constructor(private cS: ProveedorService, public dialog: MatDialog, private loginService: LoginService) {}
+  constructor(private cS: ProveedorService, public dialog: MatDialog, private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     this.role = this.loginService.showRole();
@@ -40,6 +42,8 @@ export class ListarProveedorComponent implements OnInit {
       this.totalItems = data.length;
       this.paginarDatos();
     });
+
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
   
@@ -106,6 +110,7 @@ export class ListarProveedorComponent implements OnInit {
       proveedor.nombre.toLowerCase().includes(filterValue)
     );
     this.totalItems = this.dataSource.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
     this.currentPage = 1;
     this.paginarDatos();
   }
@@ -134,5 +139,9 @@ export class ListarProveedorComponent implements OnInit {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.paginatedData = this.dataSource.slice(start, end);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/components/socioproveedor-overview']);
   }
 }
