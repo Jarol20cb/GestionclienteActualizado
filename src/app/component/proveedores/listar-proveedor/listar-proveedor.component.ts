@@ -73,9 +73,22 @@ export class ListarProveedorComponent implements OnInit {
     this.ocultarFormulario();
   }
 
+  // editarProveedor(id: number) {
+  //   this.mostrarFormularioRegistro = true;
+  //   this.idEdicion = id;
+  // }
+
   editarProveedor(id: number) {
-    this.mostrarFormularioRegistro = true;
-    this.idEdicion = id;
+    if (id) {
+      this.router.navigate(['/components/proveedoredit', id]);
+    } else {
+      console.error('ID del cliente no disponible para la edición.');
+    }
+  }
+
+  addProveedor(): void {
+    this.router.navigate(['/components/proveedoredit/nuevo']);
+    console.log('Añadir cliente');
   }
 
   eliminar(id: number) {

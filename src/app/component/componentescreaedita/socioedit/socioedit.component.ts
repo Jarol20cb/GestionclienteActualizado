@@ -52,17 +52,17 @@ export class SocioeditComponent implements OnInit{
         this.socioService.update(this.socio).subscribe(() => {
           this.socioService.list().subscribe(data => {
             this.socioService.setList(data);
-            this.router.navigate(['/components/socio-overview']);
+            this.router.navigate(['/components/socios']);
           });
-          this.showNotification(`Se ha actualizado el registro de ${this.socio.name}`);
+          this.showNotification(`Se ha actualizado el registro del socio ${this.socio.name}`);
         });
       } else {
         this.socioService.insert(this.socio).subscribe(() => {
           this.socioService.list().subscribe(data => {
             this.socioService.setList(data);
-            this.router.navigate(['/components/socio-overview']);
+            this.router.navigate(['/components/socios']);
           });
-          this.showNotification(`Se ha registrado correctamente a ${this.socio.name}`);
+          this.showNotification(`Se ha registrado correctamente al socio ${this.socio.name}`);
         });
       }
     } else {

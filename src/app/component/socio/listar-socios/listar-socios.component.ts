@@ -58,9 +58,22 @@ export class ListarSociosComponent implements OnInit {
     this.ocultarFormulario();
   }
 
+  // editarSocio(id: number) {
+  //   this.mostrarFormularioRegistro = true;
+  //   this.idEdicion = id;
+  // }
+
   editarSocio(id: number) {
-    this.mostrarFormularioRegistro = true;
-    this.idEdicion = id;
+    if (id) {
+      this.router.navigate(['/components/socioedit', id]);
+    } else {
+      console.error('ID del cliente no disponible para la edición.');
+    }
+  }
+
+  addSocio(): void {
+    this.router.navigate(['/components/socioedit/nuevo']);
+    console.log('Añadir cliente');
   }
 
   eliminar(id: number) {

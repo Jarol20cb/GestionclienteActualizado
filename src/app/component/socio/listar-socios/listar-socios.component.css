@@ -12,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .button-link {
@@ -21,12 +22,14 @@
   cursor: pointer;
   font-size: 16px;
   text-decoration: none;
+  margin-bottom: 10px;
 }
 
 .search-container {
   flex: 1;
   display: flex;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .input-busqueda {
@@ -40,6 +43,8 @@
 .button-actions {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .button-outline {
@@ -87,11 +92,13 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .pagination-buttons {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .pagination-buttons .pagination-button {
@@ -118,4 +125,74 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Custom select styles */
+.custom-select {
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #007BFF;
+  border-radius: 4px;
+  color: #007BFF;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.custom-select:hover {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.custom-select:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .header-actions, .button-actions, .pagination-buttons {
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .input-busqueda {
+    max-width: 100%;
+  }
+
+  .pagination-controls span, .pagination-controls-top span {
+    margin: 10px 0;
+  }
+
+  .listar-container {
+    padding: 15px;
+  }
+
+  .custom-table th, .custom-table td {
+    padding: 8px;
+  }
+
+  .button-link, .search-container, .button-actions {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pagination-controls-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pagination-buttons {
+    margin-top: 10px;
+  }
 }

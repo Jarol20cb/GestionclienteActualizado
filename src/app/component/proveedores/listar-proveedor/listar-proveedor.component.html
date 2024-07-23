@@ -8,7 +8,7 @@
         <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="input-busqueda">
       </div>
       <div class="button-actions">
-        <button class="button-outline" (click)="mostrarFormulario()">
+        <button class="button-outline" (click)="addProveedor()">
           + Añadir
         </button>
       </div>
@@ -21,9 +21,13 @@
         </select>
       </div>
       <div class="pagination-buttons">
-        <button (click)="previousPage()" [disabled]="currentPage === 1" class="button-outline"> <mat-icon>navigate_before</mat-icon> </button> 
+        <button (click)="previousPage()" [disabled]="currentPage === 1" class="button-outline">
+          <mat-icon>navigate_before</mat-icon>
+        </button> 
         <span> Página {{ currentPage }} de {{ totalPages }} </span>
-        <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="button-outline"> <mat-icon>navigate_next</mat-icon> </button>
+        <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="button-outline">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
       </div>
     </div>
     <br>
@@ -54,8 +58,5 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div *ngIf="mostrarFormularioRegistro" class="formulario-overlay">
-    <app-creacion-proveedor [id]="idEdicion" (cerrarFormulario)="cerrarFormulario()"></app-creacion-proveedor>
   </div>
 </div>

@@ -52,7 +52,7 @@ export class ProveedoreditComponent implements OnInit{
         this.proveedorService.update(this.proveedor).subscribe(() => {
           this.proveedorService.list().subscribe(data => {
             this.proveedorService.setList(data);
-            this.router.navigate(['/components/proveedor-overview']);
+            this.router.navigate(['/components/proveedor']);
           });
           this.showNotification(`Se ha actualizado el registro de ${this.proveedor.nombre}`);
         });
@@ -60,7 +60,7 @@ export class ProveedoreditComponent implements OnInit{
         this.proveedorService.insert(this.proveedor).subscribe(() => {
           this.proveedorService.list().subscribe(data => {
             this.proveedorService.setList(data);
-            this.router.navigate(['/components/proveedor-overview']);
+            this.router.navigate(['/components/proveedor']);
           });
           this.showNotification(`Se ha registrado correctamente a ${this.proveedor.nombre}`);
         });

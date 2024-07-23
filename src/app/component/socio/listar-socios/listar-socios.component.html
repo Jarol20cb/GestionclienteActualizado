@@ -8,7 +8,7 @@
         <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="input-busqueda">
       </div>
       <div class="button-actions">
-        <button class="button-outline" (click)="mostrarFormulario()">
+        <button class="button-outline" (click)="addSocio()">
           + Añadir
         </button>
       </div>
@@ -62,8 +62,5 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div *ngIf="mostrarFormularioRegistro" class="formulario-overlay">
-    <app-creacion-socio [id]="idEdicion" (cerrarFormulario)="cerrarFormulario()"></app-creacion-socio>
   </div>
 </div>
