@@ -77,8 +77,8 @@ import { SocioeditComponent } from './componentescreaedita/socioedit/socioedit.c
 import { ServicioeditComponent } from './componentescreaedita/servicioedit/servicioedit.component';
 import { PerfileditComponent } from './componentescreaedita/perfiledit/perfiledit.component';
 import { CustomerDetailComponent } from './componentesvista/customer/customer-detail/customer-detail.component';
-
-
+import { PerfilesOverviewComponent } from './componentesvista/perfiles/perfiles-overview/perfiles-overview.component';
+import { PerfilesDetailComponent } from './componentesvista/perfiles/perfiles-detail/perfiles-detail.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +137,8 @@ import { CustomerDetailComponent } from './componentesvista/customer/customer-de
     SocioeditComponent,
     ServicioeditComponent,
     PerfileditComponent,
+    PerfilesOverviewComponent,
+    PerfilesDetailComponent,
 
   ],
   imports: [

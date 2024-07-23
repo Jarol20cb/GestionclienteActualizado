@@ -226,4 +226,12 @@ export class CustomerEditComponent implements OnInit {
     }
     return control;
   }
+
+  cancelar(): void {
+    if (this.id !== null) {
+      this.router.navigate(['/components/customer-detail', this.id]);
+    } else {
+      this.router.navigate(['/components/customer-overview']);
+    }
+  }
 }

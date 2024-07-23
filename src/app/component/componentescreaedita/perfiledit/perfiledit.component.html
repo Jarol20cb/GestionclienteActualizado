@@ -67,14 +67,6 @@
           </div>
         </div>
         <div class="form-group column">
-          <label for="usuariosActuales">Usuarios Actuales</label>
-          <input id="usuariosActuales" type="number" formControlName="usuariosActuales" readonly />
-        </div>
-        <div class="form-group column">
-          <label for="usuariosDisponibles">Usuarios Disponibles</label>
-          <input id="usuariosDisponibles" type="number" formControlName="usuariosDisponibles" readonly />
-        </div>
-        <div class="form-group column">
           <label for="proveedor">Proveedor</label>
           <select id="proveedor" formControlName="proveedor">
             <option value="" disabled [selected]="true">Seleccione un proveedor</option>
@@ -90,7 +82,7 @@
       </div>
       <div style="text-align: center; margin-top: 20px;">
         <button type="submit" class="custom-button">Aceptar</button>
-        <button type="button" class="custom-button-cancel" routerLink="/components/proveedor-overview">Cancelar</button>
+        <button type="button" class="custom-button-cancel" (click)="cancelar()">Cancelar</button>
       </div>
       <p>{{ mensaje }}</p>
     </form>

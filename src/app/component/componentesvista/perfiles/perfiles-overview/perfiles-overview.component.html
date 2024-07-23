@@ -1,0 +1,41 @@
+<div class="profile-overview-container">
+  <div class="header">
+    <h2>Perfiles</h2>
+    <div class="header-actions">
+      <input type="text" placeholder="Buscar..." (input)="filter($event)" class="search-input">
+      <button class="action-button" (click)="addProfile()">Añadir</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <img src="assets/koala-administrador.png" alt="Koala" class="koala-image">
+
+    <div class="profile-list-container">
+      <div *ngIf="totalItems > 0" class="pagination-controls">
+        <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">
+          &lt;
+        </button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">
+          &gt;
+        </button>
+      </div>
+
+      <div *ngIf="totalItems === 0" class="no-data-container">
+        <img src="assets/koala-triste.png" alt="No Data" class="no-data-image">
+        <p class="no-data-text">No hay nada registrado</p>
+      </div>
+
+      <div *ngIf="totalItems > 0" class="profile-list">
+        <div class="profile-item" *ngFor="let profile of paginatedData">
+          <div class="profile-info">
+            <strong><h3>{{ profile.correo }}</h3></strong> 
+            <p><strong>Tipo de Servicio:</strong> {{ profile.service.service }}</p>
+            <p><strong>Lo estan usando</strong> {{ profile.usuariosActuales }} usuario (s)</p>
+          </div>
+          <button class="action-button" (click)="viewDetails(profile.perfilId)">Ver detalles</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

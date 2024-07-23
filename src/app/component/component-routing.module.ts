@@ -32,6 +32,8 @@ import { SocioeditComponent } from './componentescreaedita/socioedit/socioedit.c
 import { ServicioeditComponent } from './componentescreaedita/servicioedit/servicioedit.component';
 import { PerfileditComponent } from './componentescreaedita/perfiledit/perfiledit.component';
 import { CustomerDetailComponent } from './componentesvista/customer/customer-detail/customer-detail.component';
+import { PerfilesOverviewComponent } from './componentesvista/perfiles/perfiles-overview/perfiles-overview.component';
+import { PerfilesDetailComponent } from './componentesvista/perfiles/perfiles-detail/perfiles-detail.component';
 
 const routes: Routes = [
 
@@ -125,10 +127,18 @@ const routes: Routes = [
       { path: 'guiausuario', component: GuiaUsuarioComponent },
     
       { path: 'wizard', component: RegistroClienteComponent },
+
+
+
+      //********************componentes de vista********************//
       
       { path: 'customer-overview', component: CustomerOverviewComponent },
-   
       { path: 'customer-detail/:id', component: CustomerDetailComponent },
+
+
+      { path: 'perfil-overview', component: PerfilesOverviewComponent },
+      { path: 'perfil-detail/:id', component: PerfilesDetailComponent },
+      
       
 
       //********************componentes de edicion********************//

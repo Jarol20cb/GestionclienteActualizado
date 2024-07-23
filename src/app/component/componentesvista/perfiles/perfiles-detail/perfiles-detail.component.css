@@ -1,0 +1,142 @@
+html, body {
+  overflow: hidden; /* Evita el desplazamiento en la página */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.profile-detail-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #2c3e50; /* Gris oscuro para el texto */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #2980b9; /* Azul */
+  margin-bottom: 10px;
+}
+
+.back-button .material-icons {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.header h2 {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.details {
+  margin-top: 20px;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.details-label {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.details-value {
+  color: #34495e;
+  display: flex;
+  align-items: center;
+}
+
+.password-field {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  color: #2c3e50;
+  padding-right: 10px;
+}
+
+.toggle-password-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #2980b9;
+}
+
+.toggle-password-button mat-icon {
+  font-size: 18px;
+}
+
+.action-button {
+  background-color: transparent;
+  border: 1px solid #2980b9; /* Azul */
+  color: #2980b9;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #2980b9; /* Azul */
+  color: white;
+}
+
+.no-data-container {
+  text-align: center;
+  padding: 50px;
+  color: #7f8c8d; /* Gris claro */
+}
+
+@media (max-width: 768px) {
+  .header h2 {
+    font-size: 18px;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .details-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .details-label, .details-value {
+    flex-basis: 100%;
+  }
+
+  .details-value {
+    justify-content: flex-start;
+  }
+
+  .action-button {
+    width: 100%;
+    text-align: center;
+  }
+}

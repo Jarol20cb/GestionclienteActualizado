@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Perfil } from 'src/app/model/Perfil';
@@ -14,7 +14,7 @@ import { ServicesService } from 'src/app/service/services.service';
   templateUrl: './perfiledit.component.html',
   styleUrls: ['./perfiledit.component.css']
 })
-export class PerfileditComponent implements OnInit{
+export class PerfileditComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   perfil: Perfil = new Perfil();
   mensaje: string = '';
@@ -61,16 +61,21 @@ export class PerfileditComponent implements OnInit{
 
     this.servicesService.list().subscribe(data => {
       this.listservices = data;
-      this.form.get('service')?.setValue('');
+      if (this.listservices.length === 0) {
+        this.form.get('service')?.setValue('');
+      }
     });
 
     this.proveedorService.list().subscribe(data => {
       this.listproveedores = data;
-      this.form.get('proveedor')?.setValue('');
+      if (this.listproveedores.length === 0) {
+        this.form.get('proveedor')?.setValue('');
+      }
     });
 
     this.form.get('limiteUsuarios')?.valueChanges.subscribe(value => {
-      this.form.get('usuariosDisponibles')?.setValue(value);
+      const usuariosActuales = this.form.get('usuariosActuales')?.value || 0;
+      this.form.get('usuariosDisponibles')?.setValue(value - usuariosActuales);
     });
   }
 
@@ -83,8 +88,8 @@ export class PerfileditComponent implements OnInit{
       this.perfil.fechainicio = this.form.value.fechainicio;
       this.perfil.fechafin = this.form.value.fechafin;
       this.perfil.limiteUsuarios = this.form.value.limiteUsuarios;
-      this.perfil.usuariosActuales = 0;
-      this.perfil.usuariosDisponibles = this.form.value.limiteUsuarios;
+      this.perfil.usuariosActuales = this.form.value.usuariosActuales;
+      this.perfil.usuariosDisponibles = this.form.value.usuariosDisponibles;
       this.perfil.proveedor.proveedorId = this.form.value.proveedor;
 
       if (this.edicion) {
@@ -93,7 +98,7 @@ export class PerfileditComponent implements OnInit{
             this.perfilService.setList(data);
             this.router.navigate(['/components/perfil-overview']);
           });
-          this.showNotification(`Se ha actualizado el registro de ${this.perfil.correo}`);
+          this.showNotification(`Se ha actualizado el registro del perfil ${this.perfil.correo}`);
         });
       } else {
         this.perfilService.insert(this.perfil).subscribe(() => {
@@ -101,7 +106,7 @@ export class PerfileditComponent implements OnInit{
             this.perfilService.setList(data);
             this.router.navigate(['/components/perfil-overview']);
           });
-          this.showNotification(`Se ha registrado correctamente a ${this.perfil.correo}`);
+          this.showNotification(`Se ha registrado correctamente el perfil ${this.perfil.correo}`);
         });
       }
     } else {
@@ -117,14 +122,18 @@ export class PerfileditComponent implements OnInit{
         service: data.service.serviceId,
         correo: data.correo,
         contrasena: data.contrasena,
-        fechainicio: data.fechainicio,
-        fechafin: data.fechafin,
+        fechainicio: this.formatDate(data.fechainicio),
+        fechafin: this.formatDate(data.fechafin),
         limiteUsuarios: data.limiteUsuarios,
         usuariosActuales: data.usuariosActuales,
         usuariosDisponibles: data.usuariosDisponibles,
         proveedor: data.proveedor.proveedorId
       });
     });
+  }
+
+  formatDate(date: Date): string {
+    return new Date(date).toISOString().split('T')[0];
   }
 
   dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -146,5 +155,13 @@ export class PerfileditComponent implements OnInit{
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
+  }
+
+  cancelar(): void {
+    if (this.id !== null) {
+      this.router.navigate(['/components/perfil-detail', this.id]);
+    } else {
+      this.router.navigate(['/components/perfil-overview']);
+    }
   }
 }

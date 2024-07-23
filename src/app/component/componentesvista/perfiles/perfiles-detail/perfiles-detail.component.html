@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Detalles del Perfil</title>
+</head>
+<body>
+  <div class="profile-detail-container">
+    <div class="header">
+      <div class="back-button" (click)="goBack()">
+        <span class="material-icons">arrow_back</span>
+        <span>Volver</span>
+      </div>
+      <h2>Detalles del Perfil</h2>
+      <div class="header-actions" *ngIf="profile">
+        <button class="action-button" (click)="editProfile(profile.perfilId)">Editar</button>
+        <button class="action-button" (click)="deleteProfile(profile.perfilId)">Eliminar</button>
+      </div>
+    </div>
+
+    <div *ngIf="profile">
+      <div class="details">
+        <div class="details-row">
+          <span class="details-label">Correo:</span>
+          <span class="details-value">{{ profile.correo }}</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Contraseña:</span>
+          <span class="details-value">
+            <input [type]="showPassword ? 'text' : 'password'" [value]="profile.contrasena" readonly class="password-field">
+            <button (click)="togglePasswordVisibility()" class="toggle-password-button">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Tipo de servicio:</span>
+          <span class="details-value">{{ profile.service.service }}</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Proveedor:</span>
+          <span class="details-value">{{ profile.proveedor.nombre }}</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Fecha de Inicio:</span>
+          <span class="details-value">{{ profile.fechainicio | date : 'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Fecha de Vencimiento:</span>
+          <span class="details-value">{{ profile.fechafin | date : 'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Límite de Usuarios:</span>
+          <span class="details-value">{{ profile.limiteUsuarios }}</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Número de usuarios que están usando esta cuenta:</span>
+          <span class="details-value">{{ profile.usuariosActuales }}</span>
+        </div>
+        <div class="details-row">
+          <span class="details-label">Número usuarios que aún pueden usar esta cuenta:</span>
+          <span class="details-value">{{ profile.usuariosDisponibles }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!profile" class="no-data-container">
+      <p>No hay detalles del perfil disponibles.</p>
+    </div>
+  </div>
+</body>
+</html>
