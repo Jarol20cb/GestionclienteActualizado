@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Perfiles</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Registro de Perfiles</h2>
+    <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+      <div class="form-group">
+        <label for="service">Servicio</label>
+        <select id="service" formControlName="service">
+          <option value="" disabled [selected]="true">Seleccione un servicio</option>
+          <option *ngFor="let s of listservices" [value]="s.serviceId">
+            {{s.service}}
+          </option>
+          <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
+        </select>
+        <div *ngIf="obtenerControlCampo('service')?.touched && obtenerControlCampo('service')?.errors?.['required']" class="error">
+          El servicio es obligatorio.
+        </div>
+      </div>
+      <div class="column-wrapper">
+        <div class="form-group column">
+          <label for="correo">Correo</label>
+          <input id="correo" type="email" formControlName="correo" />
+          <div *ngIf="obtenerControlCampo('correo')?.touched && obtenerControlCampo('correo')?.errors?.['required']" class="error">
+            El correo es obligatorio.
+          </div>
+        </div>
+        <div class="form-group column">
+          <label for="contrasena">Contraseña</label>
+          <input id="contrasena" type="text" formControlName="contrasena" />
+          <div *ngIf="obtenerControlCampo('contrasena')?.touched && obtenerControlCampo('contrasena')?.errors?.['required']" class="error">
+            La contraseña es obligatoria.
+          </div>
+        </div>
+        <div class="form-group column">
+          <label for="fechainicio">Fecha de Inicio</label>
+          <input id="fechainicio" type="date" formControlName="fechainicio" [max]="maxFecha" />
+          <div *ngIf="obtenerControlCampo('fechainicio')?.touched && obtenerControlCampo('fechainicio')?.errors?.['required']" class="error">
+            La fecha de inicio es obligatoria.
+          </div>
+        </div>
+        <div class="form-group column">
+          <label for="fechafin">Fecha de Vencimiento</label>
+          <input id="fechafin" type="date" formControlName="fechafin" />
+          <div *ngIf="obtenerControlCampo('fechafin')?.touched && obtenerControlCampo('fechafin')?.errors?.['required']" class="error">
+            La fecha de vencimiento es obligatoria.
+          </div>
+          <div *ngIf="obtenerControlCampo('fechafin')?.touched && obtenerControlCampo('fechafin')?.errors?.['invalidDate']" class="error">
+            La fecha de vencimiento no puede ser menor a la fecha de inicio.
+          </div>
+        </div>
+      </div>
+      <div class="column-wrapper">
+        <div class="form-group column">
+          <label for="limiteUsuarios">Límite de Usuarios</label>
+          <input id="limiteUsuarios" type="number" formControlName="limiteUsuarios" />
+          <div *ngIf="obtenerControlCampo('limiteUsuarios')?.touched && obtenerControlCampo('limiteUsuarios')?.errors?.['required']" class="error">
+            El límite de usuarios es obligatorio.
+          </div>
+          <div *ngIf="obtenerControlCampo('limiteUsuarios')?.touched && obtenerControlCampo('limiteUsuarios')?.errors?.['min']" class="error">
+            El límite de usuarios debe ser al menos 1.
+          </div>
+        </div>
+        <div class="form-group column">
+          <label for="usuariosActuales">Usuarios Actuales</label>
+          <input id="usuariosActuales" type="number" formControlName="usuariosActuales" readonly />
+        </div>
+        <div class="form-group column">
+          <label for="usuariosDisponibles">Usuarios Disponibles</label>
+          <input id="usuariosDisponibles" type="number" formControlName="usuariosDisponibles" readonly />
+        </div>
+        <div class="form-group column">
+          <label for="proveedor">Proveedor</label>
+          <select id="proveedor" formControlName="proveedor">
+            <option value="" disabled [selected]="true">Seleccione un proveedor</option>
+            <option *ngFor="let p of listproveedores" [value]="p.proveedorId">
+              {{p.nombre}}
+            </option>
+            <option *ngIf="listproveedores.length === 0" disabled>No hay proveedores disponibles</option>
+          </select>
+          <div *ngIf="obtenerControlCampo('proveedor')?.touched && obtenerControlCampo('proveedor')?.errors?.['required']" class="error">
+            El proveedor es obligatorio.
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <button type="submit" class="custom-button">Aceptar</button>
+        <button type="button" class="custom-button-cancel" routerLink="/components/proveedor-overview">Cancelar</button>
+      </div>
+      <p>{{ mensaje }}</p>
+    </form>
+  </div>
+</body>
+</html>

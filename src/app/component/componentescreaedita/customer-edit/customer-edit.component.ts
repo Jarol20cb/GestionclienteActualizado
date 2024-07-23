@@ -1,34 +1,29 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Services } from 'src/app/model/Services';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
-import { ServicesService } from 'src/app/service/services.service';
-import * as moment from 'moment';
-import { NotificationComponent } from '../../notification/notification.component';
-import { Socio } from 'src/app/model/socio';
-import { SocioService } from 'src/app/service/socio.service';
-import { Perfil } from 'src/app/model/Perfil';
 import { CustomersServices } from 'src/app/model/CustomerService';
+import { ServicesService } from 'src/app/service/services.service';
+import { SocioService } from 'src/app/service/socio.service';
 import { PerfilService } from 'src/app/service/perfil-service.service';
+import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-creacion-cs',
-  templateUrl: './creacion-cs.component.html',
-  styleUrls: ['./creacion-cs.component.css']
+  selector: 'app-customer-edit',
+  templateUrl: './customer-edit.component.html',
+  styleUrls: ['./customer-edit.component.css']
 })
-export class CreacionCsComponent implements OnInit {
+export class CustomerEditComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   customerservice: CustomersServices = new CustomersServices();
   mensaje: string = '';
-  @Input() id: number | null = null;
-  @Output() cerrarFormulario = new EventEmitter<void>();
+  id: number | null = null;
   edicion: boolean = false;
-  listservices: Services[] = [];
-  listsocios: Socio[] = [];
-  listperfil: Perfil[] = [];
-  maxFecha: string = new Date().toISOString().split('T')[0];  // Set max date to today
+  listservices: any[] = [];
+  listsocios: any[] = [];
+  listperfil: any[] = [];
+  maxFecha: string = new Date().toISOString().split('T')[0];
 
   constructor(
     private cS: CustomerserviceService,
@@ -55,12 +50,16 @@ export class CreacionCsComponent implements OnInit {
       numerocelular: ['', Validators.maxLength(15)] // Añadir validación para numerocelular
     });
 
-    if (this.id !== null) {
-      this.edicion = true;
-      this.init();
-    } else {
-      this.edicion = false;
-    }
+    this.route.paramMap.subscribe(params => {
+      const id = +params.get('id')!;
+      if (id) {
+        this.edicion = true;
+        this.id = id;
+        this.init(this.id);
+      } else {
+        this.edicion = false;
+      }
+    });
 
     this.form.get('services')?.valueChanges.subscribe(serviceId => {
       this.loadAvailablePerfiles(serviceId);
@@ -93,7 +92,7 @@ export class CreacionCsComponent implements OnInit {
     });
 
     if (this.edicion) {
-      this.init();
+      this.init(this.id!);
     }
   }
 
@@ -135,7 +134,7 @@ export class CreacionCsComponent implements OnInit {
         this.cS.update(this.customerservice).subscribe(() => {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
-            this.cerrarFormulario.emit();
+            this.router.navigate(['/components/customer-overview']);
           });
           this.showNotification(`Se ha actualizado el registro de ${this.customerservice.name}`);
         });
@@ -144,9 +143,8 @@ export class CreacionCsComponent implements OnInit {
           this.cS.list().subscribe(data => {
             this.cS.setList(data);
           });
-          this.cerrarFormulario.emit();
+          this.router.navigate(['/components/customer-overview']);
           this.showNotification(`Se ha registrado correctamente a ${this.customerservice.name}`);
-          this.router.navigate(['components/customer-overview'])
         });
       }
     } else {
@@ -169,43 +167,29 @@ export class CreacionCsComponent implements OnInit {
     }
   }
 
-  init() {
-    if (this.edicion && this.id !== null) {
-      this.cS.listId(this.id).subscribe((data) => {
-        this.customerservice = data;
+  init(id: number) {
+    this.cS.listId(id).subscribe((data) => {
+      this.customerservice = data;
 
-        // Cargar perfiles disponibles para el servicio actual
-        this.loadAvailablePerfiles(data.services.serviceId);
+      // Cargar perfiles disponibles para el servicio actual
+      this.loadAvailablePerfiles(data.services.serviceId);
 
-        this.form = this.formBuilder.group({
-          idcs: [data.idcs],
-          name: [data.name, [Validators.required, Validators.maxLength(40)]],
-          services: [data.services.serviceId, Validators.required],
-          perfil: [data.perfil.perfilId, Validators.required],
-          fechainicio: [this.formatDate(data.fechainicio), [Validators.required, this.dateValidator.bind(this)]],
-          paymentPeriod: [1, [Validators.required, Validators.min(1)]],
-          fechafin: [{ value: this.formatDate(data.fechafin), disabled: true }, Validators.required],
-          estado: [data.estado, Validators.required],
-          socio: [data.socio ? data.socio.socioId : '', Validators.required],
-          numerocelular: [data.numerocelular, Validators.maxLength(15)] // Añadir numerocelular
-        });
-
-        this.form.get('fechainicio')?.valueChanges.subscribe(value => {
-          if (value && this.form.get('paymentPeriod')?.value) {
-            this.updateFechafin(value, this.form.get('paymentPeriod')?.value);
-          }
-        });
-
-        this.form.get('paymentPeriod')?.valueChanges.subscribe(value => {
-          if (this.form.get('fechainicio')?.value && value) {
-            this.updateFechafin(this.form.get('fechainicio')?.value, value);
-          }
-        });
-
-        this.updateFechafin(this.form.value.fechainicio, this.form.value.paymentPeriod);
-        this.updateEstadoAutomatico();
+      this.form.patchValue({
+        idcs: data.idcs,
+        name: data.name,
+        services: data.services.serviceId,
+        perfil: data.perfil.perfilId,
+        fechainicio: this.formatDate(data.fechainicio),
+        paymentPeriod: 1,
+        fechafin: this.formatDate(data.fechafin),
+        estado: data.estado,
+        socio: data.socio ? data.socio.socioId : '',
+        numerocelular: data.numerocelular // Añadir numerocelular
       });
-    }
+
+      this.updateFechafin(this.form.value.fechainicio, this.form.value.paymentPeriod);
+      this.updateEstadoAutomatico();
+    });
   }
 
   formatDate(date: Date): string {
@@ -213,22 +197,14 @@ export class CreacionCsComponent implements OnInit {
   }
 
   showNotification(message: string) {
-    this.snackBar.openFromComponent(NotificationComponent, {
-      data: { message },
+    this.snackBar.open(message, '', {
       duration: 5000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
   }
 
-  obtenerControlCampo(nombreCampo: string): AbstractControl {
-    const control = this.form.get(nombreCampo);
-    if (!control) {
-      throw new Error(`Control no encontrado para el campo ${nombreCampo}`);
-    }
-    return control;
-  }
-
+  // Implementar los métodos incrementMonths y decrementMonths
   incrementMonths() {
     const currentValue = this.form.get('paymentPeriod')?.value;
     this.form.get('paymentPeriod')?.setValue(currentValue + 1);
@@ -243,7 +219,11 @@ export class CreacionCsComponent implements OnInit {
     }
   }
 
-  ocultarFormulario() {
-    this.cerrarFormulario.emit();
+  obtenerControlCampo(nombreCampo: string): AbstractControl {
+    const control = this.form.get(nombreCampo);
+    if (!control) {
+      throw new Error(`Control no encontrado para el campo ${nombreCampo}`);
+    }
+    return control;
   }
 }

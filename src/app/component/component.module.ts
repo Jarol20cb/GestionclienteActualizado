@@ -70,6 +70,13 @@ import { RegistroProveedorComponent } from '../wizard/registro-proveedor/registr
 import { RegistroServicioComponent } from '../wizard/registro-servicio/registro-servicio.component';
 import { RegistroPerfilesComponent } from '../wizard/registro-perfiles/registro-perfiles.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { CustomerOverviewComponent } from './customerservice/customer-overview/customer-overview.component';
+import { CustomerDetailComponent } from './customerservice/customer-detail/customer-detail.component';
+import { CustomerEditComponent } from './componentescreaedita/customer-edit/customer-edit.component';
+import { ProveedoreditComponent } from './componentescreaedita/proveedoredit/proveedoredit.component';
+import { SocioeditComponent } from './componentescreaedita/socioedit/socioedit.component';
+import { ServicioeditComponent } from './componentescreaedita/servicioedit/servicioedit.component';
+import { PerfileditComponent } from './componentescreaedita/perfiledit/perfiledit.component';
 
 
 
@@ -123,6 +130,13 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     RegistroServicioComponent,
     RegistroPerfilesComponent,
     SidenavComponent,
+    CustomerOverviewComponent,
+    CustomerDetailComponent,
+    CustomerEditComponent,
+    ProveedoreditComponent,
+    SocioeditComponent,
+    ServicioeditComponent,
+    PerfileditComponent,
 
   ],
   imports: [

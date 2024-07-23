@@ -1,0 +1,35 @@
+<div class="customer-overview-container">
+    <div class="header">
+      <h2>Clientes</h2>
+      <div class="header-actions">
+        <input type="text" placeholder="Buscar..." (input)="filter($event)">
+        <button class="action-button" (click)="addCustomer()">Añadir</button>
+      </div>
+    </div>
+  
+    <div *ngIf="totalItems === 0" class="no-data-container">
+      <img src="assets/koala-triste.png" alt="No Data" class="no-data-image">
+      <p class="no-data-text">No hay nada registrado</p>
+    </div>
+  
+    <div *ngIf="totalItems > 0" class="customer-list">
+      <div class="customer-item" *ngFor="let customer of paginatedData" [ngClass]="{'pending': customer.estado === 'pendiente', 'fiado': customer.estado === 'fiado'}">
+        <img src="assets/usuariocliente.png" alt="Koala" class="koala-image">
+        <div class="customer-info">
+          <h3>{{ customer.name }}</h3>
+          <p>Servicio: {{ customer.services.service }}</p>
+          <p>Inicio: {{ customer.fechainicio | date : 'dd/MM/yyyy' }}</p>
+          <p>Vencimiento: {{ customer.fechafin | date : 'dd/MM/yyyy' }}</p>
+          <p>Estado: {{ customer.estado }}</p>
+        </div>
+        <button class="action-button" (click)="viewDetails(customer.idcs)">Ver detalles</button>
+      </div>
+    </div>
+  
+    <div *ngIf="totalItems > 0" class="pagination-controls">
+      <button class="action-button" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button class="action-button" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">Siguiente</button>
+    </div>
+  </div>
+  

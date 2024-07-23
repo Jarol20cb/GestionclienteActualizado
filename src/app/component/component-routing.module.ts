@@ -25,6 +25,13 @@ import { NotificacionComponent } from './administracion/notificacion/notificacio
 import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario.component';
 import { RegistroClienteComponent } from '../wizard/registro-cliente/registro-cliente.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { CustomerOverviewComponent } from './customerservice/customer-overview/customer-overview.component';
+import { CustomerDetailComponent } from './customerservice/customer-detail/customer-detail.component';
+import { CustomerEditComponent } from './componentescreaedita/customer-edit/customer-edit.component';
+import { ProveedoreditComponent } from './componentescreaedita/proveedoredit/proveedoredit.component';
+import { SocioeditComponent } from './componentescreaedita/socioedit/socioedit.component';
+import { ServicioeditComponent } from './componentescreaedita/servicioedit/servicioedit.component';
+import { PerfileditComponent } from './componentescreaedita/perfiledit/perfiledit.component';
 
 const routes: Routes = [
 
@@ -118,6 +125,30 @@ const routes: Routes = [
       { path: 'guiausuario', component: GuiaUsuarioComponent },
     
       { path: 'wizard', component: RegistroClienteComponent },
+      
+      { path: 'customer-overview', component: CustomerOverviewComponent },
+   
+      { path: 'customer-detail/:id', component: CustomerDetailComponent },
+      
+
+      //********************componentes de edicion********************//
+
+      { path: 'customeredit/:id', component: CustomerEditComponent },
+      { path: 'customeredit/nuevo', component: CustomerEditComponent },
+
+      { path: 'proveedoredit/:id', component: ProveedoreditComponent },
+      { path: 'proveedoredit/nuevo', component: ProveedoreditComponent },
+
+      { path: 'socioedit/:id', component: SocioeditComponent },
+      { path: 'socioedit/nuevo', component: SocioeditComponent },
+
+      { path: 'servicioedit/:id', component: ServicioeditComponent },
+      { path: 'servicioedit/nuevo', component: ServicioeditComponent },
+
+      { path: 'perfiledit/:id', component: PerfileditComponent },
+      { path: 'perfiledit/nuevo', component: PerfileditComponent },
+      
+
 
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Ruta por defecto
       { path: '**', redirectTo: 'home' } 

@@ -1,0 +1,56 @@
+<div class="customer-detail-container">
+  <div class="header">
+    <div class="back-button" (click)="goBack()">
+      <span class="material-icons">arrow_back</span>
+      <span>Volver</span>
+    </div>
+    <h2>Detalles del Cliente</h2>
+    <div class="header-actions" *ngIf="customer">
+      <button class="action-button" (click)="editarClienteServicio(customer.idcs)">Editar</button>
+      <button class="action-button" (click)="eliminarCliente(customer.idcs)">Eliminar</button>
+    </div>
+  </div>
+
+  <div *ngIf="customer">
+    <div class="customer-overview">
+      <div class="customer-photo">
+        <img src="/assets/koalacliente2.png" alt="{{ customer.name }}" />
+      </div>
+      <div class="customer-info">
+        <h3>{{ customer.name }}</h3>
+        <p>{{ customer.perfil.correo }}</p>
+      </div>
+    </div>
+
+    <div class="details">
+      <div class="details-row">
+        <span class="details-label">Tipo de servicio:</span>
+        <span class="details-value">{{ customer.services.service }}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Fecha de Inicio:</span>
+        <span class="details-value">{{ customer.fechainicio | date : 'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Fecha de Vencimiento:</span>
+        <span class="details-value">{{ customer.fechafin | date : 'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Estado:</span>
+        <span class="details-value">{{ customer.estado }}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Socio:</span>
+        <span class="details-value">{{ customer.socio.name }}</span>
+      </div>
+      <div class="details-row">
+        <span class="details-label">Número de Celular:</span>
+        <span class="details-value">{{ customer.numerocelular }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!customer" class="no-data-container">
+    <p>No hay detalles del cliente disponibles.</p>
+  </div>
+</div>
