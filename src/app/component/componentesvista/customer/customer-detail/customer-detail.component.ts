@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
 import { CustomersServices } from 'src/app/model/CustomerService';
-import { ConfirmDialogComponent } from '../../dialogo/confirm-dialog-component/confirm-dialog-component.component';
+import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
 
 @Component({
   selector: 'app-customer-detail',

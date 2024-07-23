@@ -33,7 +33,7 @@ export class CustomerEditComponent implements OnInit {
     private Ds: ServicesService,
     private socioService: SocioService,
     private perfilService: PerfilService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {

@@ -25,13 +25,13 @@ import { NotificacionComponent } from './administracion/notificacion/notificacio
 import { GuiaUsuarioComponent } from './administracion/guia-usuario/guia-usuario.component';
 import { RegistroClienteComponent } from '../wizard/registro-cliente/registro-cliente.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { CustomerOverviewComponent } from './customerservice/customer-overview/customer-overview.component';
-import { CustomerDetailComponent } from './customerservice/customer-detail/customer-detail.component';
+import { CustomerOverviewComponent } from './componentesvista/customer/customer-overview/customer-overview.component';
 import { CustomerEditComponent } from './componentescreaedita/customer-edit/customer-edit.component';
 import { ProveedoreditComponent } from './componentescreaedita/proveedoredit/proveedoredit.component';
 import { SocioeditComponent } from './componentescreaedita/socioedit/socioedit.component';
 import { ServicioeditComponent } from './componentescreaedita/servicioedit/servicioedit.component';
 import { PerfileditComponent } from './componentescreaedita/perfiledit/perfiledit.component';
+import { CustomerDetailComponent } from './componentesvista/customer/customer-detail/customer-detail.component';
 
 const routes: Routes = [
 
