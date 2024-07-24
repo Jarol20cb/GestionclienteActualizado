@@ -11,13 +11,16 @@
     <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
       <div class="form-group">
         <label for="service">Servicio</label>
-        <select id="service" formControlName="service">
-          <option value="" disabled [selected]="true">Seleccione un servicio</option>
-          <option *ngFor="let s of listservices" [value]="s.serviceId">
-            {{s.service}}
-          </option>
-          <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
-        </select>
+        <div class="select-container">
+          <select id="service" formControlName="service">
+            <option value="" disabled [selected]="true">Seleccione un servicio</option>
+            <option *ngFor="let s of listservices" [value]="s.serviceId">
+              {{s.service}}
+            </option>
+            <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
+          </select>
+          <button type="button" (click)="navigateToCreateService()">+</button>
+        </div>
         <div *ngIf="obtenerControlCampo('service')?.touched && obtenerControlCampo('service')?.errors?.['required']" class="error">
           El servicio es obligatorio.
         </div>
@@ -68,13 +71,16 @@
         </div>
         <div class="form-group column">
           <label for="proveedor">Proveedor</label>
-          <select id="proveedor" formControlName="proveedor">
-            <option value="" disabled [selected]="true">Seleccione un proveedor</option>
-            <option *ngFor="let p of listproveedores" [value]="p.proveedorId">
-              {{p.nombre}}
-            </option>
-            <option *ngIf="listproveedores.length === 0" disabled>No hay proveedores disponibles</option>
-          </select>
+          <div class="select-container">
+            <select id="proveedor" formControlName="proveedor">
+              <option value="" disabled [selected]="true">Seleccione un proveedor</option>
+              <option *ngFor="let p of listproveedores" [value]="p.proveedorId">
+                {{p.nombre}}
+              </option>
+              <option *ngIf="listproveedores.length === 0" disabled>No hay proveedores disponibles</option>
+            </select>
+            <button type="button" (click)="navigateToCreateProveedor()">+</button>
+          </div>
           <div *ngIf="obtenerControlCampo('proveedor')?.touched && obtenerControlCampo('proveedor')?.errors?.['required']" class="error">
             El proveedor es obligatorio.
           </div>

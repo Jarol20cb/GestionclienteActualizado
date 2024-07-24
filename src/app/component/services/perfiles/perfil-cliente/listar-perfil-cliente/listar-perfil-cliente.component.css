@@ -2,8 +2,8 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  color: #2c3e50; /* Gris oscuro para el texto */
-  overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  color: #2c3e50;
+  overflow-x: hidden;
 }
 
 .header-actions {
@@ -18,13 +18,13 @@
   width: 300px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc; /* Gris más claro para el borde */
+  border: 1px solid #ccc;
   font-size: 16px;
 }
 
 .action-button {
   background-color: transparent;
-  border: 1px solid #2980b9; /* Azul */
+  border: 1px solid #2980b9;
   color: #2980b9;
   padding: 10px 15px;
   text-align: center;
@@ -37,7 +37,7 @@
 }
 
 .action-button:hover {
-  background-color: #2980b9; /* Azul */
+  background-color: #2980b9;
   color: white;
 }
 
@@ -48,12 +48,12 @@
 }
 
 .card {
-  background-color: #fff; /* Blanco */
-  border: 1px solid #007bff; /* Azul para el borde */
+  background-color: #fff;
+  border: 1px solid #007bff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: calc(33.333% - 20px); /* Tres tarjetas por fila con un espacio entre ellas */
+  width: calc(33.333% - 20px);
   box-sizing: border-box;
   transition: transform 0.3s;
 }
@@ -66,7 +66,7 @@
   text-align: center;
 }
 
-.koala-image {
+.cliente-image {
   width: 50px;
   height: auto;
   margin-bottom: 10px;
@@ -81,6 +81,17 @@
 .delete-button {
   border-color: red;
   color: red;
+}
+
+.no-data-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.no-data-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
@@ -101,7 +112,7 @@
     width: 100%;
   }
 
-  .koala-image {
+  .cliente-image {
     margin-bottom: 10px;
   }
 

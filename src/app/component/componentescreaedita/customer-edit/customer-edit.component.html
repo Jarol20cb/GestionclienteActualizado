@@ -24,13 +24,16 @@
         </div>
         <div class="form-group">
           <label for="services">Tipo de servicio</label>
-          <select id="services" formControlName="services">
-            <option value="" disabled selected>Seleccione un servicio</option>
-            <option *ngFor="let c of listservices" [value]="c.serviceId">
-              {{c.service}}
-            </option>
-            <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
-          </select>
+          <div class="select-container">
+            <select id="services" formControlName="services">
+              <option value="" disabled selected>Seleccione un servicio</option>
+              <option *ngFor="let c of listservices" [value]="c.serviceId">
+                {{c.service}}
+              </option>
+              <option *ngIf="listservices.length === 0" disabled>No hay servicios disponibles</option>
+            </select>
+            <button type="button" (click)="navigateToCreateService()">+</button>
+          </div>
           <div *ngIf="form.get('services')?.touched && form.get('services')?.errors?.['required']" class="error">
             El campo es obligatorio.
           </div>
@@ -39,13 +42,16 @@
       <div class="form-row">
         <div class="form-group">
           <label for="perfil">Perfil</label>
-          <select id="perfil" formControlName="perfil" class="custom-select">
-            <option value="" disabled selected>Seleccione un perfil</option>
-            <option *ngFor="let p of listperfil" [value]="p.perfilId">
-              {{p.correo}} <span>(Total: {{p.limiteUsuarios}}, Ocupados: {{p.usuariosActuales}})</span>
-            </option>
-            <option *ngIf="listperfil.length === 0" disabled>No hay perfiles disponibles</option>
-          </select>
+          <div class="select-container">
+            <select id="perfil" formControlName="perfil" class="custom-select">
+              <option value="" disabled selected>Seleccione un perfil</option>
+              <option *ngFor="let p of listperfil" [value]="p.perfilId">
+                {{p.correo}} <span>(Total: {{p.limiteUsuarios}}, Ocupados: {{p.usuariosActuales}})</span>
+              </option>
+              <option *ngIf="listperfil.length === 0" disabled>No hay perfiles disponibles</option>
+            </select>
+            <button type="button" (click)="navigateToCreatePerfil()">+</button>
+          </div>
           <div *ngIf="form.get('perfil')?.touched && form.get('perfil')?.errors?.['required']" class="error">
             El campo es obligatorio.
           </div>
@@ -94,13 +100,16 @@
         </div>
         <div class="form-group">
           <label for="socio">Socio</label>
-          <select id="socio" formControlName="socio">
-            <option value="" disabled selected>Seleccione un socio</option>
-            <option *ngFor="let s of listsocios" [value]="s.socioId">
-              {{s.name}}
-            </option>
-            <option *ngIf="listsocios.length === 0" disabled>No hay socios disponibles</option>
-          </select>
+          <div class="select-container">
+            <select id="socio" formControlName="socio">
+              <option value="" disabled selected>Seleccione un socio</option>
+              <option *ngFor="let s of listsocios" [value]="s.socioId">
+                {{s.name}}
+              </option>
+              <option *ngIf="listsocios.length === 0" disabled>No hay socios disponibles</option>
+            </select>
+            <button type="button" (click)="navigateToCreateSocio()">+</button>
+          </div>
           <div *ngIf="form.get('socio')?.touched && form.get('socio')?.errors?.['required']" class="error">
             El campo es obligatorio.
           </div>

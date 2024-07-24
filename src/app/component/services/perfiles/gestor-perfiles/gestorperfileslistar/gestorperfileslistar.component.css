@@ -68,12 +68,13 @@
 
 .no-data-container {
   text-align: center;
-  padding: 50px;
+  margin-top: 50px;
 }
 
-.no-data-text {
-  font-size: 18px;
-  color: #7f8c8d;
+.no-data-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .content {

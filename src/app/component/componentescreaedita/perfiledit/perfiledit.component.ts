@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Perfil } from 'src/app/model/Perfil';
@@ -163,5 +163,13 @@ export class PerfileditComponent implements OnInit {
     } else {
       this.router.navigate(['/components/perfil-overview']);
     }
+  }
+
+  navigateToCreateService() {
+    this.router.navigate(['/components/servicios-overview']);
+  }
+
+  navigateToCreateProveedor() {
+    this.router.navigate(['/components/proveedor']);
   }
 }

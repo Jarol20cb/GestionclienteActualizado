@@ -234,4 +234,17 @@ export class CustomerEditComponent implements OnInit {
       this.router.navigate(['/components/customer-overview']);
     }
   }
+
+  // Métodos para navegar a los componentes de creación
+  navigateToCreateService() {
+    this.router.navigate(['/components/servicios-overview']);
+  }
+
+  navigateToCreateSocio() {
+    this.router.navigate(['/components/socios']);
+  }
+
+  navigateToCreatePerfil() {
+    this.router.navigate(['/components/perfil-overview']);
+  }
 }
