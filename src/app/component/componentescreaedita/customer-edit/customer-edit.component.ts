@@ -24,6 +24,8 @@ export class CustomerEditComponent implements OnInit {
   listsocios: any[] = [];
   listperfil: any[] = [];
   maxFecha: string = new Date().toISOString().split('T')[0];
+  originalServiceId: number | null = null;
+  originalPerfilId: number | null = null;
 
   constructor(
     private cS: CustomerserviceService,
@@ -62,7 +64,12 @@ export class CustomerEditComponent implements OnInit {
     });
 
     this.form.get('services')?.valueChanges.subscribe(serviceId => {
-      this.loadAvailablePerfiles(serviceId);
+      if (this.originalServiceId !== serviceId) {
+        this.form.get('perfil')?.setValue('');
+        this.loadAvailablePerfiles(serviceId);
+      } else {
+        this.form.get('perfil')?.setValue(this.originalPerfilId);
+      }
     });
 
     this.form.get('fechainicio')?.valueChanges.subscribe(value => {
@@ -98,22 +105,20 @@ export class CustomerEditComponent implements OnInit {
 
   loadAvailablePerfiles(serviceId: number) {
     this.perfilService.findAvailableByService(serviceId).subscribe(data => {
-      // Filtrar perfiles que ya no tienen cupo
       this.listperfil = data.filter(perfil => perfil.usuariosActuales < perfil.limiteUsuarios);
 
-      // Si se está editando, incluir el perfil actual del cliente si no está presente
       if (this.edicion) {
         const currentPerfilId = this.form.get('perfil')?.value;
         if (currentPerfilId && !this.listperfil.some(p => p.perfilId === currentPerfilId)) {
           this.perfilService.listId(currentPerfilId).subscribe(currentPerfil => {
             if (currentPerfil) {
               this.listperfil.push(currentPerfil);
-              this.listperfil = [...this.listperfil]; // Forzar la actualización de la lista
-              this.form.get('perfil')?.setValue(currentPerfilId); // Asegurarse de que el perfil esté seleccionado
+              this.listperfil = [...this.listperfil];
+              this.form.get('perfil')?.setValue(currentPerfilId);
             }
           });
         } else {
-          this.form.get('perfil')?.setValue(currentPerfilId); // Asegurarse de que el perfil esté seleccionado
+          this.form.get('perfil')?.setValue(currentPerfilId);
         }
       }
 
@@ -188,6 +193,8 @@ export class CustomerEditComponent implements OnInit {
   init(id: number) {
     this.cS.listId(id).subscribe((data) => {
       this.customerservice = data;
+      this.originalServiceId = data.services.serviceId;
+      this.originalPerfilId = data.perfil.perfilId;
 
       this.form.patchValue({
         idcs: data.idcs,
@@ -202,9 +209,7 @@ export class CustomerEditComponent implements OnInit {
         numerocelular: data.numerocelular
       });
 
-      // Cargar perfiles disponibles para el servicio actual, incluyendo el perfil actual del cliente si está lleno
       this.loadAvailablePerfiles(data.services.serviceId);
-
       this.updateFechafin(this.form.value.fechainicio, this.form.value.paymentPeriod);
       this.updateEstadoAutomatico();
     });
