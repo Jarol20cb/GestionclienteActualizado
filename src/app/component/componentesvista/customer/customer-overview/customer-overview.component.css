@@ -2,8 +2,8 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  color: #2c3e50; /* Gris oscuro para el texto */
-  overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  color: #2c3e50;
+  overflow-x: hidden;
 }
 
 .header {
@@ -29,7 +29,7 @@
   width: 300px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc; /* Gris más claro para el borde */
+  border: 1px solid #ccc;
   font-size: 16px;
 }
 
@@ -40,7 +40,7 @@
 
 .no-data-text {
   font-size: 18px;
-  color: #7f8c8d; /* Gris claro */
+  color: #7f8c8d;
 }
 
 .customer-list {
@@ -53,8 +53,8 @@
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  background-color: #fff; /* Blanco */
-  border: 1px solid #007bff; /* Azul para el borde */
+  background-color: #fff;
+  border: 1px solid #007bff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
@@ -118,7 +118,7 @@
 
 .action-button {
   background-color: transparent;
-  border: 1px solid #2980b9; /* Azul */
+  border: 1px solid #2980b9;
   color: #2980b9;
   padding: 10px 15px;
   text-align: center;
@@ -131,7 +131,7 @@
 }
 
 .action-button:hover {
-  background-color: #2980b9; /* Azul */
+  background-color: #2980b9;
   color: white;
 }
 
@@ -150,7 +150,7 @@
 
 .pagination-controls button {
   background-color: transparent;
-  border: 1px solid #2980b9; /* Azul */
+  border: 1px solid #2980b9;
   color: #2980b9;
   padding: 10px 15px;
   cursor: pointer;
@@ -158,17 +158,61 @@
 }
 
 .pagination-controls button:disabled {
-  background-color: #7f8c8d; /* Fondo claro para botones deshabilitados */
-  color: #ecf0f1; /* Blanco */
+  background-color: #7f8c8d;
+  color: #ecf0f1;
   cursor: not-allowed;
 }
 
 .pagination-controls button:hover:not(:disabled) {
-  background-color: #2980b9; /* Azul */
+  background-color: #2980b9;
   color: white;
 }
 
-/* Responsive Styles */
+.customer-item input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.customer-item input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.select-all-container input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.select-all-container input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.customer-item.selected {
+  background-color: #f0f8ff;
+  border: 1px solid #add8e6;
+}
+
+.select-all-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -187,11 +231,11 @@
 
   .koala-image {
     margin-bottom: 10px;
-    margin-right: 0; /* Quita el margen derecho en modo responsive */
+    margin-right: 0;
   }
 
   .customer-info {
-    text-align: center; /* Centra el texto en modo responsive */
+    text-align: center;
   }
 
   .action-button {

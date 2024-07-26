@@ -12,4 +12,5 @@ export class CustomersServices {
     estado: string = "";
     socio: Socio = new Socio();
     numerocelular?: string;
+    selected?: boolean; // Nueva propiedad
 }
