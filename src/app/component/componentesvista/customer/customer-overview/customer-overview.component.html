@@ -43,7 +43,7 @@
         <p>Estado: <span [style.color]="getEstadoColor(customer)">{{ customer.estado }}</span></p>
       </div>
       <button class="action-button" (click)="viewDetails(customer.idcs)">Ver detalles</button>
-      <button class="action-button" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="cambiarEstado(customer)"><i class="fas fa-sync-alt"></i> Renovar</button>
+      <button class="action-button" style="margin-left: 4px; @media (max-width: 768px) { margin-left: 0 };" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="cambiarEstado(customer)"><i class="fas fa-sync-alt"></i> Renovar</button>
     </div>
   </div>
 </div>
