@@ -20,6 +20,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   showNotification: boolean = false;
   notificationMessage: string = '';
   actionToConfirm: () => void = () => {};
+  charCount: number = 0;
 
   constructor(private administracionService: AdministracionService) {}
 
@@ -160,5 +161,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.administracionService.sendNotificationToAll(message).subscribe(() => {
       console.log('Notificaciones enviadas a todos los usuarios');
     });
+  }
+
+  updateCharacterCount(message: string): void {
+    this.charCount = message.length;
   }
 }

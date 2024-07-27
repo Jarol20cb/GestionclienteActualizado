@@ -1,8 +1,17 @@
 <div class="container">
-  <h2>Enviar Notificación</h2>
-  <div class="notification-controls">
-    <input type="text" #notificationMessageInput placeholder="Mensaje de la notificación" class="input-notification"/>
-    <button (click)="sendNotificationToAll(notificationMessageInput.value)" class="button-primary-small">Enviar a Todos</button>
+  <h2 class="title">Enviar Notificación</h2>
+  <div class="notification-form">
+    <textarea #notificationMessageInput 
+              placeholder="Mensaje de la notificación" 
+              class="textarea-notification" 
+              maxlength="255" 
+              (input)="updateCharacterCount(notificationMessageInput.value)">
+    </textarea>
+    <div class="character-count">{{ charCount }}/255 caracteres</div>
+    <div class="button-group">
+      <button (click)="sendNotificationToAll(notificationMessageInput.value)" class="button-primary">Enviar a Todos</button>
+      <button routerLink="/components/adminnotificactions" class="button-secondary">Administrar Notificaciones</button>
+    </div>
   </div>
   
   <div class="table-controls">
@@ -14,48 +23,50 @@
     </div>
   </div>
   
-  <table class="user-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre de Usuario</th>
-        <th>Nombre</th>
-        <th>Nombre de la Empresa</th>
-        <th>Roles</th>
-        <th>Habilitado</th>
-        <th>Acciones</th>
-        <th>Enviar Notificación</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of paginatedUsers">
-        <td>{{ user.id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.companyName }}</td>
-        <td>{{ getRoles(user) }}</td>
-        <td>
-          <label class="switch">
-            <input type="checkbox" [checked]="user.enabled" (change)="toggleUserStatus(user)">
-            <span class="slider"></span>
-          </label>
-        </td>
-        <td>
-          <div class="buttons">
-            <button (click)="editUser(user)" class="custom-button">
-              <mat-icon>create</mat-icon>
-            </button>
-            <button (click)="deleteUser(user.id)" class="custom-delete-button">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </td>
-        <td>
-          <button (click)="sendNotification(notificationMessageInput.value, [user.id])" class="button-primary">Enviar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>  
+  <div class="user-table-container">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre de Usuario</th>
+          <th>Nombre</th>
+          <th>Nombre de la Empresa</th>
+          <th>Roles</th>
+          <th>Habilitado</th>
+          <th>Acciones</th>
+          <th>Enviar Notificación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.companyName }}</td>
+          <td>{{ getRoles(user) }}</td>
+          <td>
+            <label class="switch">
+              <input type="checkbox" [checked]="user.enabled" (change)="toggleUserStatus(user)">
+              <span class="slider"></span>
+            </label>
+          </td>
+          <td>
+            <div class="buttons">
+              <button (click)="editUser(user)" class="custom-button">
+                <mat-icon>create</mat-icon>
+              </button>
+              <button (click)="deleteUser(user.id)" class="custom-delete-button">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+          <td>
+            <button (click)="sendNotification(notificationMessageInput.value, [user.id])" class="button-primary-small">Enviar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <div class="overlay" *ngIf="showNotification"></div>

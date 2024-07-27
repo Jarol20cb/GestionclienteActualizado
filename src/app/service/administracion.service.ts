@@ -1,9 +1,10 @@
+// administracion.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, timer } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Notification } from 'src/app/model/notification'; // Asegúrate de que la ruta es correcta
 import { User } from '../model/User';
-import { BehaviorSubject, timer } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 const base_url = environment.base;
@@ -94,5 +95,21 @@ export class AdministracionService {
 
   sendNotificationToAll(message: string): Observable<any> {
     return this.http.post(`${this.notificationUrl}/sendToAll`, { message }, this.httpOptions);
+  }
+
+  getAllNotifications(): Observable<Notification[]> {
+    return this.http.get<Notification[]>(this.notificationUrl, this.httpOptions);
+  }
+
+  getNotificationsByUserId(userId: number): Observable<Notification[]> {
+    return this.http.get<Notification[]>(`${this.url}/${userId}/notifications`, this.httpOptions);
+  }
+
+  deleteNotification(notificationId: number): Observable<void> {
+    return this.http.delete<void>(`${this.notificationUrl}/${notificationId}`, this.httpOptions);
+  }
+
+  deleteAllNotifications(): Observable<void> {
+    return this.http.delete<void>(this.notificationUrl, this.httpOptions);
   }
 }

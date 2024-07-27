@@ -36,6 +36,7 @@ import { PerfilesOverviewComponent } from './componentesvista/perfiles/perfiles-
 import { PerfilesDetailComponent } from './componentesvista/perfiles/perfiles-detail/perfiles-detail.component';
 import { ServiciosOverviewComponent } from './componentesvista/servicios/servicios-overview/servicios-overview.component';
 import { PresentationComponent } from './componentesvista/socios-proveedores/presentation/presentation.component';
+import { NotificationAdminComponent } from './administracion/notification-admin/notification-admin.component';
 
 const routes: Routes = [
 
@@ -129,6 +130,8 @@ const routes: Routes = [
       { path: 'guiausuario', component: GuiaUsuarioComponent },
     
       { path: 'wizard', component: RegistroClienteComponent },
+
+      { path: 'adminnotificactions', component: NotificationAdminComponent },
 
 
 

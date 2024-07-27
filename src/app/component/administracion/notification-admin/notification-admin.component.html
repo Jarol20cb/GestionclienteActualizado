@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Administrar Notificaciones</h2>
+
+  <div class="controls">
+    <button (click)="deleteAllNotifications()" class="button-primary">Eliminar Todas las Notificaciones</button>
+    <div>
+      <label for="userId">ID de Usuario:</label>
+      <input type="number" id="userId" [(ngModel)]="selectedUserId" (input)="loadNotificationsByUserId()" />
+    </div>
+    <button (click)="volver()" class="button-secondary">Volver</button>
+  </div>
+
+  <div *ngIf="selectedUserId !== null">
+    <h3>Notificaciones del Usuario {{ selectedUserId }}</h3>
+    <table class="user-notifications">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Mensaje</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let notification of userNotifications">
+          <td>{{ notification.id }}</td>
+          <td>{{ notification.message }}</td>
+          <td>
+            <button (click)="deleteNotification(notification.id)" class="button-primary">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Todas las Notificaciones</h3>
+  <table class="all-notifications">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Mensaje</th>
+        <th>Usuario</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notification of notifications">
+        <td>{{ notification.id }}</td>
+        <td>{{ notification.message }}</td>
+        <td>{{ notification.username }}</td>
+        <td>
+          <button (click)="deleteNotification(notification.id)" class="button-primary">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
