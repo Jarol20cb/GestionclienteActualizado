@@ -10,13 +10,16 @@
         Eliminar Seleccionados
       </button>
       <button class="action-button" (click)="addCustomer()">Añadir</button>
+      <button class="action-button" (click)="exportToExcel()">
+        <i class="fas fa-file-excel"></i> Exportar
+      </button>
     </div>
   </div>
 
   <div *ngIf="totalItems > 0" class="pagination-controls">
     <button class="action-button" (click)="previousPage()" [disabled]="currentPage === 1">&lt;</button>
     <span>Página {{ currentPage }} de {{ totalPages }}</span>
-    <button class="action-button" (click)="nextPage()" [disabled="currentPage * itemsPerPage >= totalItems">&gt;</button>
+    <button class="action-button" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">&gt;</button>
   </div>
 
   <div *ngIf="totalItems === 0" class="no-data-container">
@@ -37,9 +40,10 @@
         <p>Servicio: {{ customer.services.service }}</p>
         <p>Inicio: {{ customer.fechainicio | date : 'dd/MM/yyyy' }}</p>
         <p>Vencimiento: {{ customer.fechafin | date : 'dd/MM/yyyy' }}</p>
-        <p>Estado: {{ customer.estado }}</p>
+        <p>Estado: <span [style.color]="getEstadoColor(customer)">{{ customer.estado }}</span></p>
       </div>
       <button class="action-button" (click)="viewDetails(customer.idcs)">Ver detalles</button>
+      <button class="action-button" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="cambiarEstado(customer)"><i class="fas fa-sync-alt"></i> Renovar</button>
     </div>
   </div>
 </div>
