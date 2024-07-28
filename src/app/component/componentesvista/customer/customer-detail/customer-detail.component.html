@@ -8,9 +8,6 @@
     <div class="header-actions" *ngIf="customer">
       <button class="action-button" (click)="editarClienteServicio(customer.idcs)">Editar</button>
       <button class="action-button" (click)="eliminarCliente(customer.idcs)">Eliminar</button>
-      <a *ngIf="customer.numerocelular" [href]="getWhatsAppUrl(customer.numerocelular)" target="_blank" class="action-button">
-        Enviar WhatsApp
-      </a>
     </div>
   </div>
 
@@ -50,6 +47,24 @@
         <span class="details-label">Número de Celular:</span>
         <span class="details-value">{{ customer.numerocelular }}</span>
       </div>
+    </div>
+
+    <div class="message-selection">
+      <h3>Selecciona un mensaje para enviar</h3>
+      <select (change)="selectMessage($event)">
+        <option *ngFor="let message of availableMessages" [value]="message.id">
+          {{ message.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="message-preview" *ngIf="selectedMessage">
+      <h3>Vista previa del mensaje</h3>
+      <p>{{ selectedMessage }}</p>
+      <a *ngIf="customer.numerocelular" [href]="getWhatsAppUrl(customer.numerocelular)" target="_blank" class="action-button">
+        Enviar WhatsApp
+      </a>
+      <button (click)="cancelMessage()" class="action-button cancel-button">Cancelar</button>
     </div>
   </div>
 
