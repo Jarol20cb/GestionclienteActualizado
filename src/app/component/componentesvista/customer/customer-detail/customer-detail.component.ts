@@ -63,10 +63,10 @@ export class CustomerDetailComponent implements OnInit {
 
   setupAvailableMessages(): void {
     this.availableMessages = [
-      { id: 1, label: 'Mensaje de agradecimiento' },
-      { id: 2, label: 'Mensaje de recordatorio' },
-      { id: 3, label: 'Mensaje de bienvenida' },
-      
+      { id: 1, label: 'Agradecimiento por tu Preferencia' },
+      { id: 2, label: 'Recordatorio de Renovación' },
+      { id: 3, label: '¡Bienvenido a Nuestro Servicio!' },
+      { id: 4, label: 'Aviso Importante: Vencimiento del Servicio' }
     ];
   }
 
@@ -88,16 +88,27 @@ export class CustomerDetailComponent implements OnInit {
     const { correo, contrasena } = this.customer.perfil;
     const fechafin = new Date(this.customer.fechafin).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
     const service = this.customer.services.service;
+    const name = this.customer.name;
 
     switch (messageId) {
       case 1:
-        return `Gracias por confiar en Nosotros.\n\nTu cuenta de ${service} es:\n\n📧 CORREO: ${correo}\n🔒CONTRASEÑA: ${contrasena}\n\n🔜  Fecha de renovación:  ${fechafin}\n\n⚠ Recuerda, no compartir tu cuenta con alguien más. Disfruta de tus series y películas 🍿🎬`;
+        return `Hola ${name},\n\nGracias por confiar en nosotros. Tu cuenta de ${service} está lista:\n\n📧 Correo: ${correo}\n🔒 Contraseña: ${contrasena}\n\n📅 Fecha de renovación: ${fechafin}\n\n¡Disfruta tu servicio!`;
       case 2:
-        return `Hola, este es un recordatorio de tu servicio de ${service}.\n\n📧 CORREO: ${correo}\n🔒CONTRASEÑA: ${contrasena}\n\nFecha de renovación: ${fechafin}\n\n¡Disfruta tu servicio!`;
+        return `Hola ${name},\n\nTe recordamos que tu servicio de ${service} está próximo a renovarse el ${fechafin}. Si tienes alguna pregunta, estamos aquí para ayudarte.\n\n¡Gracias por estar con nosotros!`;
       case 3:
-        return `Bienvenido a ${service}.\n\n📧 CORREO: ${correo}\n🔒CONTRASEÑA: ${contrasena}\n\nFecha de renovación: ${fechafin}\n\nEsperamos que disfrutes tu experiencia con nosotros.`;
+        return `¡Bienvenido/a, ${name}!\n\nTu cuenta de ${service} está lista para usarse. Aquí están tus detalles:\n\n📧 Correo: ${correo}\n🔒 Contraseña: ${contrasena}\n\n📅 Fecha de renovación: ${fechafin}\n\n¡Esperamos que disfrutes de nuestro servicio!`;
+      case 4:
+        return `👋 ¡Hola ${name}!\n\n🔔 Te recordamos que tu servicio de **${service}** vence el **${fechafin}**. Para evitar interrupciones en tu servicio, por favor realiza el pago antes de esa fecha. 🗓️\n\n💳 Si ya has realizado el pago, ¡muchas gracias! 🙏\n\n⚡ ¡No te quedes sin disfrutar de todos nuestros beneficios! 🌟`;
       default:
         return '';
     }
+  }
+
+  copyMessage(): void {
+    navigator.clipboard.writeText(this.selectedMessage).then(() => {
+      alert('Mensaje copiado al portapapeles');
+    }).catch(err => {
+      console.error('Error al copiar el mensaje: ', err);
+    });
   }
 }
