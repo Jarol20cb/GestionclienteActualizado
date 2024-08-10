@@ -82,6 +82,7 @@ import { PerfilesDetailComponent } from './componentesvista/perfiles/perfiles-de
 import { ServiciosOverviewComponent } from './componentesvista/servicios/servicios-overview/servicios-overview.component';
 import { PresentationComponent } from './componentesvista/socios-proveedores/presentation/presentation.component';
 import { NotificationAdminComponent } from './administracion/notification-admin/notification-admin.component';
+import { MensajesPersonalizadosComponent } from './componentesvista/customer/mensajes-personalizados/mensajes-personalizados.component';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { NotificationAdminComponent } from './administracion/notification-admin/
     ServiciosOverviewComponent,
     PresentationComponent,
     NotificationAdminComponent,
+    MensajesPersonalizadosComponent,
 
   ],
   imports: [
