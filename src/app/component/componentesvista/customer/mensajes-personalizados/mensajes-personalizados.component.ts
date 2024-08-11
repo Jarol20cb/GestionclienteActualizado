@@ -122,7 +122,6 @@ export class MensajesPersonalizadosComponent implements OnInit {
     this.actualizarContador();
     this.setActiveTab('formulario');
   }
-  
 
   eliminarMensaje(id: number) {
     this.mensajesService.delete(id).subscribe(
@@ -154,7 +153,11 @@ export class MensajesPersonalizadosComponent implements OnInit {
       } else if (node.nodeType === Node.ELEMENT_NODE) {
         const elementNode = node as HTMLElement;
         if (elementNode.classList.contains('variable-chip')) {
-          text += elementNode.getAttribute('data-variable');
+          const variableKey = elementNode.getAttribute('data-variable');
+          console.log('Variable encontrada:', variableKey); // Log para depuración
+          if (variableKey) {
+            text += variableKey;
+          }
         } else {
           text += this.getTextContent(elementNode);
         }
@@ -172,6 +175,7 @@ export class MensajesPersonalizadosComponent implements OnInit {
             : variablesDisponibles[variable];
 
         let styledVariable = `<span class="variable-chip" 
+                                 data-variable="${variable}"  // Asegúrate de que el data-variable contenga la clave correcta
                                  style="display: inline-flex; align-items: center; background-color: #007bff; color: white; 
                                         padding: 5px 12px; border-radius: 20px; margin-right: 5px; 
                                         font-size: 14px; box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -198,8 +202,7 @@ export class MensajesPersonalizadosComponent implements OnInit {
     });
 
     return message;
-}
-
+  }
 
   agregarVariable(variable: string) {
     const messageContent = document.getElementById('messageContent');
