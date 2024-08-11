@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MensajespersonalizadosService } from 'src/app/service/mensajespersonalizados.service';
 import { MensajesPersonalizados } from 'src/app/model/MensajesPersonalizados';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-mensajes-personalizados',
@@ -14,6 +15,7 @@ export class MensajesPersonalizadosComponent implements OnInit {
   mensajes: MensajesPersonalizados[] = [];
   editMode: boolean = false;
   mensajeEditado: MensajesPersonalizados | null = null;
+  activeTab: string = 'mensajes';
 
   variablesDisponibles: { [key: string]: string } = {
     '{name}': 'Nombre',
@@ -29,7 +31,9 @@ export class MensajesPersonalizadosComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private mensajesService: MensajespersonalizadosService
+    private mensajesService: MensajespersonalizadosService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.mensajeForm = this.fb.group({
       titulo: ['', Validators.required],
@@ -39,6 +43,16 @@ export class MensajesPersonalizadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarMensajes();
+    this.setupInputListener();
+  }
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+  }
+
+  toggleAccordion(index: number) {
+    const accordionItem = document.querySelectorAll('.accordion-item')[index];
+    accordionItem.classList.toggle('open');
   }
 
   listarMensajes() {
@@ -81,6 +95,8 @@ export class MensajesPersonalizadosComponent implements OnInit {
             document.getElementById('messageContent')!.innerHTML = '';
             this.actualizarContador();
             this.listarMensajes();
+            this.showSuccessMessage("Mensaje creado correctamente.");
+            this.setActiveTab('mensajes');
           },
           error => {
             console.error('Error al guardar el mensaje', error);
@@ -97,9 +113,16 @@ export class MensajesPersonalizadosComponent implements OnInit {
       titulo: mensaje.titulo,
       message: mensaje.message
     });
-    document.getElementById('messageContent')!.innerHTML = mensaje.message;
+  
+    const messageContentElement = document.getElementById('messageContent');
+    if (messageContentElement) {
+      messageContentElement.innerHTML = this.formatMessage(mensaje.message);
+    }
+    
     this.actualizarContador();
+    this.setActiveTab('formulario');
   }
+  
 
   eliminarMensaje(id: number) {
     this.mensajesService.delete(id).subscribe(
@@ -119,6 +142,7 @@ export class MensajesPersonalizadosComponent implements OnInit {
     this.mensajeForm.reset();
     document.getElementById('messageContent')!.innerHTML = '';
     this.actualizarContador();
+    this.setActiveTab('mensajes');
   }
 
   getTextContent(element: HTMLElement | null): string {
@@ -138,6 +162,22 @@ export class MensajesPersonalizadosComponent implements OnInit {
     });
     return text;
   }
+
+  formatMessage(message: string): string {
+    const variablesDisponibles = this.variablesDisponibles;
+  
+    // Reemplaza cada variable con su respectivo span estilizado
+    Object.keys(variablesDisponibles).forEach(variable => {
+      const styledVariable = `<span class="variable-chip" 
+                                 style="display: inline-flex; align-items: center; background-color: #007bff; color: white; 
+                                        padding: 5px 12px; border-radius: 20px; margin-right: 5px; margin-bottom: 5px; 
+                                        font-size: 14px;">${variablesDisponibles[variable]}</span>`;
+      message = message.replace(new RegExp(variable, 'g'), styledVariable);
+    });
+  
+    return message;
+  }
+  
 
   agregarVariable(variable: string) {
     const messageContent = document.getElementById('messageContent');
@@ -212,27 +252,30 @@ export class MensajesPersonalizadosComponent implements OnInit {
     const charCountElement = document.getElementById('charCount');
     if (messageContent && charCountElement) {
       let textLength = this.getTextContent(messageContent).length;
-      
-      if (textLength > this.maxCharacters) {
-        const range = window.getSelection()?.getRangeAt(0);
-        const selectionStart = range?.startOffset ?? 0;
-        const text = messageContent.innerText.substring(0, this.maxCharacters);
-        messageContent.innerText = text;
-        textLength = text.length;
-        if (range) {
-          range.setStart(messageContent.childNodes[0], Math.min(selectionStart, text.length));
-          range.setEnd(messageContent.childNodes[0], Math.min(selectionStart, text.length));
-          window.getSelection()?.removeAllRanges();
-          window.getSelection()?.addRange(range);
-        }
+
+      if (textLength >= this.maxCharacters) {
+        const allowedText = this.getTextContent(messageContent).substring(0, this.maxCharacters);
+        messageContent.innerHTML = allowedText;
+        textLength = this.maxCharacters;
+        messageContent.blur(); // Desenfoca el textarea para evitar seguir escribiendo
       }
 
       charCountElement.textContent = `${textLength}/${this.maxCharacters} caracteres`;
+
       if (textLength >= this.maxCharacters) {
         charCountElement.classList.add('exceeded');
       } else {
         charCountElement.classList.remove('exceeded');
       }
+    }
+  }
+
+  setupInputListener() {
+    const messageContent = document.getElementById('messageContent');
+    if (messageContent) {
+      messageContent.addEventListener('input', () => {
+        this.actualizarContador();
+      });
     }
   }
 
@@ -246,5 +289,13 @@ export class MensajesPersonalizadosComponent implements OnInit {
       messageContentElement.innerHTML = '';
       this.actualizarContador();
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/components/customer-overview']);
+  }
+
+  showSuccessMessage(message: string): void {
+    alert(message);
   }
 }

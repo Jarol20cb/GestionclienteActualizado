@@ -1,25 +1,42 @@
+<div class="back-button" (click)="goBack()">
+  <span class="material-icons">arrow_back</span>
+  <span>Volver</span>
+</div>
 <div class="container">
-  <div class="row">
-    <!-- Columna de Mensajes -->
-    <div class="col-md-4">
-      <h3>Mensajes Guardados</h3>
+  <div class="tabs">
+    <div class="tab" [ngClass]="{'active': activeTab === 'mensajes'}" (click)="setActiveTab('mensajes')">
+      Mensajes Guardados
+    </div>
+    <div class="tab" [ngClass]="{'active': activeTab === 'formulario'}" (click)="setActiveTab('formulario')">
+      Formulario
+    </div>
+  </div>
+
+  <div class="tab-content" [ngClass]="{'active': activeTab === 'mensajes'}">
+    <div class="content-wrapper">
       <div class="accordion">
-        <div class="accordion-item" *ngFor="let mensaje of mensajes; let i = index">
-          <input type="checkbox" id="accordion-toggle-{{i}}" class="accordion-toggle">
-          <label for="accordion-toggle-{{i}}" class="accordion-header">
+        <h3>Mensajes Guardados</h3>
+        <div class="accordion-item" *ngFor="let mensaje of mensajes; let i = index" (click)="toggleAccordion(i)">
+          <div class="accordion-header">
             {{ mensaje.titulo }}
-          </label>
-          <div class="accordion-content">
-            <p>{{ mensaje.message }}</p>
-            <button (click)="editarMensaje(mensaje)" class="btn btn-warning btn-sm">Editar</button>
-            <button (click)="eliminarMensaje(mensaje.id)" class="btn btn-danger btn-sm">Eliminar</button>
           </div>
+          <div class="accordion-content">
+            <p [innerHTML]="formatMessage(mensaje.message)"></p>
+            <div class="action-buttons">
+              <button (click)="editarMensaje(mensaje)" class="btn btn-warning btn-sm">Editar</button>
+              <button (click)="eliminarMensaje(mensaje.id)" class="btn btn-danger btn-sm">Eliminar</button>
+            </div>
+          </div>          
         </div>
       </div>
+      <div class="mascot-container">
+        <img src="assets/koala-triste.png" alt="Mascota usando teléfono" class="mascot-img">
+      </div>
     </div>
+  </div>
 
-    <!-- Columna del Formulario -->
-    <div class="col-md-4">
+  <div class="tab-content" [ngClass]="{'active': activeTab === 'formulario'}">
+    <div class="col-md-12">
       <form [formGroup]="mensajeForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="titulo">Título del Mensaje</label>
@@ -65,18 +82,13 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">
-          {{ editMode ? 'Actualizar Estructura' : 'Guardar Estructura' }}
-        </button>
-        <button type="button" *ngIf="editMode" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+        <div class="section-button" style="gap: 15px; display: flex; justify-content: center; padding: 15px;"> 
+          <button type="submit" class="btn btn-primary">
+            {{ editMode ? 'Actualizar Estructura' : 'Guardar Estructura' }}
+          </button>
+          <button type="button" *ngIf="editMode" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+        </div>
       </form>
-    </div>
-
-    <!-- Columna de Imagen -->
-    <div class="col-md-4">
-      <div class="mascot-container">
-        <img src="assets/koala-triste.png" alt="Mascota usando teléfono" class="mascot-img">
-      </div>
     </div>
   </div>
 </div>
