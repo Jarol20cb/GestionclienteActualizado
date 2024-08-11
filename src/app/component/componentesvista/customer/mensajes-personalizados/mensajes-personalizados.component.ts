@@ -74,7 +74,6 @@ export class MensajesPersonalizadosComponent implements OnInit {
       const mensaje = this.mensajeForm.value;
 
       if (this.editMode && this.mensajeEditado) {
-        // Modo edición
         mensaje.id = this.mensajeEditado.id;
         this.mensajesService.update(mensaje).subscribe(
           response => {
@@ -87,7 +86,6 @@ export class MensajesPersonalizadosComponent implements OnInit {
           }
         );
       } else {
-        // Modo creación
         this.mensajesService.insert(mensaje).subscribe(
           response => {
             console.log('Mensaje guardado exitosamente');
@@ -148,61 +146,67 @@ export class MensajesPersonalizadosComponent implements OnInit {
     if (!element) return '';
     let text = '';
     element.childNodes.forEach(node => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        text += node.textContent;
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-        const elementNode = node as HTMLElement;
-        if (elementNode.classList.contains('variable-chip')) {
-          const variableKey = elementNode.getAttribute('data-variable');
-          console.log('Variable encontrada:', variableKey); // Log para depuración
-          if (variableKey) {
-            text += variableKey;
-          }
-        } else {
-          text += this.getTextContent(elementNode);
+        if (node.nodeType === Node.TEXT_NODE) {
+            text += node.textContent;
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const elementNode = node as HTMLElement;
+            if (elementNode.classList.contains('variable-chip')) {
+                const variableKey = elementNode.getAttribute('data-variable');
+                console.log('Variable encontrada:', variableKey); 
+                if (variableKey) {
+                    text += variableKey;
+                }
+            } else if (elementNode.tagName === 'BR') {
+                text += '\n';
+            } else {
+                text += this.getTextContent(elementNode);
+            }
         }
-      }
     });
     return text;
-  }
+}
 
-  formatMessage(message: string, useQuotes: boolean = true, isEditable: boolean = false): string {
-    const variablesDisponibles = this.variablesDisponibles;
 
-    Object.keys(variablesDisponibles).forEach(variable => {
-        const formattedVariable = useQuotes 
-            ? `"${variablesDisponibles[variable]}"`
-            : variablesDisponibles[variable];
+formatMessage(message: string, useQuotes: boolean = true, isEditable: boolean = false): string {
+  const variablesDisponibles = this.variablesDisponibles;
 
-        let styledVariable = `<span class="variable-chip" 
-                                 data-variable="${variable}"  // Asegúrate de que el data-variable contenga la clave correcta
-                                 style="display: inline-flex; align-items: center; background-color: #007bff; color: white; 
-                                        padding: 5px 12px; border-radius: 20px; margin-right: 5px; 
-                                        font-size: 14px; box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-                                        cursor: pointer; white-space: nowrap;"
-                                 contenteditable="false"
-                                 onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 8px rgba(0, 123, 255, 0.4)';"
-                                 onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 6px rgba(0, 123, 255, 0.3)';">
-                                 ${formattedVariable}`;
+  message = message.replace(/\n/g, '<br>'); 
 
-        if (isEditable) {
-            styledVariable += `<button 
-                                    style="background: none; border: none; color: white; font-weight: bold; font-size: 12px; 
-                                           margin-left: 8px; cursor: pointer; padding: 0; display: inline-flex; align-items: center;"
-                                    onmouseover="this.style.color='#ffdddd';"
-                                    onmouseout="this.style.color='white';"
-                                    onclick="this.parentElement.remove();">
-                                    &times;
-                               </button>`;
-        }
+  Object.keys(variablesDisponibles).forEach(variable => {
+      const formattedVariable = useQuotes 
+          ? `"${variablesDisponibles[variable]}"`
+          : variablesDisponibles[variable];
 
-        styledVariable += `</span>`;
-        
-        message = message.replace(new RegExp(variable, 'g'), styledVariable);
-    });
+      let styledVariable = `<span class="variable-chip" 
+                               data-variable="${variable}"  
+                               style="display: inline-flex; align-items: center; background-color: #007bff; color: white; 
+                                      padding: 5px 12px; border-radius: 20px; margin-right: 5px; 
+                                      font-size: 14px; box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+                                      cursor: pointer; white-space: nowrap;"
+                               contenteditable="false"
+                               onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 8px rgba(0, 123, 255, 0.4)';"
+                               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 6px rgba(0, 123, 255, 0.3)';">
+                               ${formattedVariable}`;
 
-    return message;
-  }
+      if (isEditable) {
+          styledVariable += `<button 
+                                  style="background: none; border: none; color: white; font-weight: bold; font-size: 12px; 
+                                         margin-left: 8px; cursor: pointer; padding: 0; display: inline-flex; align-items: center;"
+                                  onmouseover="this.style.color='#ffdddd';"
+                                  onmouseout="this.style.color='white';"
+                                  onclick="this.parentElement.remove();">
+                                  &times;
+                             </button>`;
+      }
+
+      styledVariable += `</span>`;
+      
+      message = message.replace(new RegExp(variable, 'g'), styledVariable);
+  });
+
+  return message;
+}
+
 
   agregarVariable(variable: string) {
     const messageContent = document.getElementById('messageContent');
@@ -282,7 +286,7 @@ export class MensajesPersonalizadosComponent implements OnInit {
         const allowedText = this.getTextContent(messageContent).substring(0, this.maxCharacters);
         messageContent.innerHTML = allowedText;
         textLength = this.maxCharacters;
-        messageContent.blur(); // Desenfoca el textarea para evitar seguir escribiendo
+        messageContent.blur();
       }
 
       charCountElement.textContent = `${textLength}/${this.maxCharacters} caracteres`;
