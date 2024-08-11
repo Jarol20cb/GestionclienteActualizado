@@ -8,12 +8,10 @@ body {
   }
   
   .container {
-    max-width: 900px;
+    max-width: 1500px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
   
   .tabs {
@@ -58,7 +56,6 @@ body {
     to { opacity: 1; }
   }
   
-  /* Contenido alineado */
   .content-wrapper {
     display: flex;
     justify-content: space-between;
@@ -77,8 +74,6 @@ body {
   .mascot-img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   /* Acordeón */
