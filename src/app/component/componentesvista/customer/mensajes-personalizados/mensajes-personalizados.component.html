@@ -1,49 +1,82 @@
 <div class="container">
-  <form [formGroup]="mensajeForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="titulo">Título del Mensaje</label>
-      <input 
-        id="titulo" 
-        formControlName="titulo" 
-        class="form-control" 
-        placeholder="Escribe el título del mensaje..." 
-        required />
-      <div *ngIf="mensajeForm.get('titulo')?.invalid && mensajeForm.get('titulo')?.touched" class="text-danger">
-        El título es requerido.
+  <div class="row">
+    <!-- Columna de Mensajes -->
+    <div class="col-md-4">
+      <h3>Mensajes Guardados</h3>
+      <div class="accordion">
+        <div class="accordion-item" *ngFor="let mensaje of mensajes; let i = index">
+          <input type="checkbox" id="accordion-toggle-{{i}}" class="accordion-toggle">
+          <label for="accordion-toggle-{{i}}" class="accordion-header">
+            {{ mensaje.titulo }}
+          </label>
+          <div class="accordion-content">
+            <p>{{ mensaje.message }}</p>
+            <button (click)="editarMensaje(mensaje)" class="btn btn-warning btn-sm">Editar</button>
+            <button (click)="eliminarMensaje(mensaje.id)" class="btn btn-danger btn-sm">Eliminar</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="messageContent">Estructura del Mensaje</label>
-      <div 
-        id="messageContent" 
-        contenteditable="true" 
-        class="form-control message-content"
-        placeholder="Escribe aquí tu mensaje..." 
-        (input)="actualizarContador()">
-      </div>
-      <div class="action-buttons">
-        <button type="button" class="btn btn-link" (click)="limpiarMensaje()">Limpiar Mensaje</button>
-        <span id="charCount" class="char-count">0/250 caracteres</span>
-      </div>
-      <div *ngIf="mensajeForm.get('message')?.invalid && mensajeForm.get('message')?.touched" class="text-danger">
-        El mensaje es requerido.
-      </div>
-    </div>
+    <!-- Columna del Formulario -->
+    <div class="col-md-4">
+      <form [formGroup]="mensajeForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="titulo">Título del Mensaje</label>
+          <input 
+            id="titulo" 
+            formControlName="titulo" 
+            class="form-control" 
+            placeholder="Escribe el título del mensaje..." 
+            required />
+          <div *ngIf="mensajeForm.get('titulo')?.invalid && mensajeForm.get('titulo')?.touched" class="text-danger">
+            El título es requerido.
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label for="variables">Agregar Variables</label>
-      <div class="variable-buttons">
-        <button 
-          type="button" 
-          *ngFor="let variable of getVariablesDisponibles()" 
-          (click)="agregarVariable(variable.key)" 
-          class="btn btn-secondary">
-          {{ variable.value }}
+        <div class="form-group">
+          <label for="messageContent">Estructura del Mensaje</label>
+          <div 
+            id="messageContent" 
+            contenteditable="true" 
+            class="form-control message-content"
+            placeholder="Escribe aquí tu mensaje..." 
+            (input)="actualizarContador()">
+          </div>
+          <div class="action-buttons">
+            <button type="button" class="btn btn-link" (click)="limpiarMensaje()">Limpiar Mensaje</button>
+            <span id="charCount" class="char-count">0/250 caracteres</span>
+          </div>
+          <div *ngIf="mensajeForm.get('message')?.invalid && mensajeForm.get('message')?.touched" class="text-danger">
+            El mensaje es requerido.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="variables">Agregar Variables</label>
+          <div class="variable-buttons">
+            <button 
+              type="button" 
+              *ngFor="let variable of getVariablesDisponibles()" 
+              (click)="agregarVariable(variable.key)" 
+              class="btn btn-secondary">
+              {{ variable.value }}
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          {{ editMode ? 'Actualizar Estructura' : 'Guardar Estructura' }}
         </button>
-      </div>
+        <button type="button" *ngIf="editMode" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+      </form>
     </div>
 
-    <button type="submit" class="btn btn-primary">Guardar Estructura</button>
-  </form>
+    <!-- Columna de Imagen -->
+    <div class="col-md-4">
+      <div class="mascot-container">
+        <img src="assets/koala-triste.png" alt="Mascota usando teléfono" class="mascot-img">
+      </div>
+    </div>
+  </div>
 </div>

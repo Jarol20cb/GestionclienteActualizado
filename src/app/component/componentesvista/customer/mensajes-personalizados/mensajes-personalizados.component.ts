@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MensajespersonalizadosService } from 'src/app/service/mensajespersonalizados.service';
+import { MensajesPersonalizados } from 'src/app/model/MensajesPersonalizados';
 
 @Component({
   selector: 'app-mensajes-personalizados',
@@ -10,6 +11,9 @@ import { MensajespersonalizadosService } from 'src/app/service/mensajespersonali
 export class MensajesPersonalizadosComponent implements OnInit {
   mensajeForm: FormGroup;
   maxCharacters = 250;
+  mensajes: MensajesPersonalizados[] = [];
+  editMode: boolean = false;
+  mensajeEditado: MensajesPersonalizados | null = null;
 
   variablesDisponibles: { [key: string]: string } = {
     '{name}': 'Nombre',
@@ -33,7 +37,20 @@ export class MensajesPersonalizadosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listarMensajes();
+  }
+
+  listarMensajes() {
+    this.mensajesService.list().subscribe(
+      data => {
+        this.mensajes = data;
+      },
+      error => {
+        console.error('Error al listar los mensajes', error);
+      }
+    );
+  }
 
   onSubmit() {
     const messageContent = this.getTextContent(document.getElementById('messageContent'));
@@ -41,18 +58,67 @@ export class MensajesPersonalizadosComponent implements OnInit {
 
     if (this.mensajeForm.valid) {
       const mensaje = this.mensajeForm.value;
-      this.mensajesService.insert(mensaje).subscribe(
-        response => {
-          console.log('Mensaje guardado exitosamente');
-          this.mensajeForm.reset();
-          document.getElementById('messageContent')!.innerHTML = '';
-          this.actualizarContador();
-        },
-        error => {
-          console.error('Error al guardar el mensaje', error);
-        }
-      );
+
+      if (this.editMode && this.mensajeEditado) {
+        // Modo edición
+        mensaje.id = this.mensajeEditado.id;
+        this.mensajesService.update(mensaje).subscribe(
+          response => {
+            console.log('Mensaje actualizado exitosamente');
+            this.cancelEdit();
+            this.listarMensajes();
+          },
+          error => {
+            console.error('Error al actualizar el mensaje', error);
+          }
+        );
+      } else {
+        // Modo creación
+        this.mensajesService.insert(mensaje).subscribe(
+          response => {
+            console.log('Mensaje guardado exitosamente');
+            this.mensajeForm.reset();
+            document.getElementById('messageContent')!.innerHTML = '';
+            this.actualizarContador();
+            this.listarMensajes();
+          },
+          error => {
+            console.error('Error al guardar el mensaje', error);
+          }
+        );
+      }
     }
+  }
+
+  editarMensaje(mensaje: MensajesPersonalizados) {
+    this.editMode = true;
+    this.mensajeEditado = mensaje;
+    this.mensajeForm.patchValue({
+      titulo: mensaje.titulo,
+      message: mensaje.message
+    });
+    document.getElementById('messageContent')!.innerHTML = mensaje.message;
+    this.actualizarContador();
+  }
+
+  eliminarMensaje(id: number) {
+    this.mensajesService.delete(id).subscribe(
+      response => {
+        console.log('Mensaje eliminado exitosamente');
+        this.listarMensajes();
+      },
+      error => {
+        console.error('Error al eliminar el mensaje', error);
+      }
+    );
+  }
+
+  cancelEdit() {
+    this.editMode = false;
+    this.mensajeEditado = null;
+    this.mensajeForm.reset();
+    document.getElementById('messageContent')!.innerHTML = '';
+    this.actualizarContador();
   }
 
   getTextContent(element: HTMLElement | null): string {
@@ -146,16 +212,13 @@ export class MensajesPersonalizadosComponent implements OnInit {
     const charCountElement = document.getElementById('charCount');
     if (messageContent && charCountElement) {
       let textLength = this.getTextContent(messageContent).length;
-
-      // Si el texto es mayor al límite, evitar la entrada de más caracteres.
+      
       if (textLength > this.maxCharacters) {
         const range = window.getSelection()?.getRangeAt(0);
         const selectionStart = range?.startOffset ?? 0;
         const text = messageContent.innerText.substring(0, this.maxCharacters);
         messageContent.innerText = text;
         textLength = text.length;
-
-        // Restaurar la posición del cursor
         if (range) {
           range.setStart(messageContent.childNodes[0], Math.min(selectionStart, text.length));
           range.setEnd(messageContent.childNodes[0], Math.min(selectionStart, text.length));
@@ -165,8 +228,6 @@ export class MensajesPersonalizadosComponent implements OnInit {
       }
 
       charCountElement.textContent = `${textLength}/${this.maxCharacters} caracteres`;
-
-      // Cambiar el color del contador si se ha excedido el límite
       if (textLength >= this.maxCharacters) {
         charCountElement.classList.add('exceeded');
       } else {
