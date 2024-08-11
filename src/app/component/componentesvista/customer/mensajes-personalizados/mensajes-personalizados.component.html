@@ -21,7 +21,7 @@
             {{ mensaje.titulo }}
           </div>
           <div class="accordion-content">
-            <p [innerHTML]="formatMessage(mensaje.message)"></p>
+            <p [innerHTML]="formatMessage(mensaje.message, true)"></p>
             <div class="action-buttons">
               <button (click)="editarMensaje(mensaje)" class="btn btn-warning btn-sm">Editar</button>
               <button (click)="eliminarMensaje(mensaje.id)" class="btn btn-danger btn-sm">Eliminar</button>

@@ -19,13 +19,13 @@ export class MensajesPersonalizadosComponent implements OnInit {
 
   variablesDisponibles: { [key: string]: string } = {
     '{name}': 'Nombre',
-    '{services}': 'Servicios',
-    '{perfil}': 'Perfil',
+    '{services}': 'Servicio',
+    '{perfil}': 'Correo del perfil',
     '{contrasena}': 'contaseña',
     '{fechainicio}': 'Fecha de Inicio',
-    '{fechafin}': 'Fecha de Fin',
-    '{estado}': 'Estado',
-    '{socio}': 'Socio',
+    '{fechafin}': 'Fecha proxima de facturacion',
+    '{estado}': 'Estado del cliente',
+    '{socio}': 'Socio que lo capto',
     '{numerocelular}': 'Número de Celular'
   };
 
@@ -116,7 +116,7 @@ export class MensajesPersonalizadosComponent implements OnInit {
   
     const messageContentElement = document.getElementById('messageContent');
     if (messageContentElement) {
-      messageContentElement.innerHTML = this.formatMessage(mensaje.message);
+      messageContentElement.innerHTML = this.formatMessage(mensaje.message, false, true);
     }
     
     this.actualizarContador();
@@ -163,21 +163,43 @@ export class MensajesPersonalizadosComponent implements OnInit {
     return text;
   }
 
-  formatMessage(message: string): string {
+  formatMessage(message: string, useQuotes: boolean = true, isEditable: boolean = false): string {
     const variablesDisponibles = this.variablesDisponibles;
-  
-    // Reemplaza cada variable con su respectivo span estilizado
+
     Object.keys(variablesDisponibles).forEach(variable => {
-      const styledVariable = `<span class="variable-chip" 
+        const formattedVariable = useQuotes 
+            ? `"${variablesDisponibles[variable]}"`
+            : variablesDisponibles[variable];
+
+        let styledVariable = `<span class="variable-chip" 
                                  style="display: inline-flex; align-items: center; background-color: #007bff; color: white; 
-                                        padding: 5px 12px; border-radius: 20px; margin-right: 5px; margin-bottom: 5px; 
-                                        font-size: 14px;">${variablesDisponibles[variable]}</span>`;
-      message = message.replace(new RegExp(variable, 'g'), styledVariable);
+                                        padding: 5px 12px; border-radius: 20px; margin-right: 5px; 
+                                        font-size: 14px; box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+                                        cursor: pointer; white-space: nowrap;"
+                                 contenteditable="false"
+                                 onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 8px rgba(0, 123, 255, 0.4)';"
+                                 onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 6px rgba(0, 123, 255, 0.3)';">
+                                 ${formattedVariable}`;
+
+        if (isEditable) {
+            styledVariable += `<button 
+                                    style="background: none; border: none; color: white; font-weight: bold; font-size: 12px; 
+                                           margin-left: 8px; cursor: pointer; padding: 0; display: inline-flex; align-items: center;"
+                                    onmouseover="this.style.color='#ffdddd';"
+                                    onmouseout="this.style.color='white';"
+                                    onclick="this.parentElement.remove();">
+                                    &times;
+                               </button>`;
+        }
+
+        styledVariable += `</span>`;
+        
+        message = message.replace(new RegExp(variable, 'g'), styledVariable);
     });
-  
+
     return message;
-  }
-  
+}
+
 
   agregarVariable(variable: string) {
     const messageContent = document.getElementById('messageContent');
