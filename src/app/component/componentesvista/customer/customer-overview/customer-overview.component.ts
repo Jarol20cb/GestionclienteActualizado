@@ -93,6 +93,10 @@ export class CustomerOverviewComponent implements OnInit {
     console.log('Añadir cliente');
   }
 
+  vermensajes(): void {
+    this.router.navigate(['/components/mensajes']);
+  }
+
   cambiarEstado(element: CustomersServices) {
     const dialogRef = this.dialog.open(ConfirmarRenovacionDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
