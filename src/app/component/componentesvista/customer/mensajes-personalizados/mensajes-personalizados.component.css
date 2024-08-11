@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #ecf0f1;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+input, .message-content {
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #7f8c8d;
+    font-size: 16px;
+    background-color: #ffffff;
+    transition: border-color 0.3s, background-color 0.3s;
+    color: #2c3e50;
+}
+
+input:focus, .message-content:focus {
+    outline: none;
+    border-color: #2980b9;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(41, 128, 185, 0.3);
+}
+
+.message-content {
+    min-height: 150px;
+    overflow-y: auto;
+    resize: none;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #7f8c8d;
+    font-size: 16px;
+    background-color: #ffffff;
+    transition: border-color 0.3s, background-color 0.3s;
+    color: #2c3e50;
+}
+
+
+.variable-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.variable-buttons button {
+    background-color: #2980b9;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.variable-buttons button:hover {
+    background-color: #1d6fa5;
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: #e74c3c;
+    color: #ffffff;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #c0392b;
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+}
+
+.text-danger {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+}
+
+.action-buttons {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.btn-link {
+    background-color: #455577;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-link:hover {
+    background-color: #455577c9;
+    transform: scale(1.05);
+}
+
+
+.char-count {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.char-count.exceeded {
+    color: #e74c3c;
+}
+
+

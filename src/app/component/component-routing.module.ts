@@ -134,7 +134,7 @@ const routes: Routes = [
 
       { path: 'adminnotificactions', component: NotificationAdminComponent },
 
-      { path: 'gaa', component: MensajesPersonalizadosComponent },
+      { path: 'mensajes', component: MensajesPersonalizadosComponent },
 
 
       //********************componentes de vista********************//

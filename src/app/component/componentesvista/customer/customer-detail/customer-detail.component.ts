@@ -101,6 +101,7 @@ export class CustomerDetailComponent implements OnInit {
       .replace(/{name}/g, this.customer.name)
       .replace(/{services}/g, this.customer.services.service)
       .replace(/{perfil}/g, this.customer.perfil.correo)
+      .replace(/{contrasena}/g, this.customer.perfil.contrasena)
       .replace(/{fechainicio}/g, new Date(this.customer.fechainicio).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' }))
       .replace(/{fechafin}/g, new Date(this.customer.fechafin).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' }))
       .replace(/{estado}/g, this.customer.estado)

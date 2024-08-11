@@ -9,16 +9,19 @@ import { MensajespersonalizadosService } from 'src/app/service/mensajespersonali
 })
 export class MensajesPersonalizadosComponent implements OnInit {
   mensajeForm: FormGroup;
-  variablesDisponibles: string[] = [
-    '{name}', 
-    '{services}', 
-    '{perfil}', 
-    '{fechainicio}', 
-    '{fechafin}', 
-    '{estado}', 
-    '{socio}', 
-    '{numerocelular}'
-  ];
+  maxCharacters = 250;
+
+  variablesDisponibles: { [key: string]: string } = {
+    '{name}': 'Nombre',
+    '{services}': 'Servicios',
+    '{perfil}': 'Perfil',
+    '{contrasena}': 'contaseña',
+    '{fechainicio}': 'Fecha de Inicio',
+    '{fechafin}': 'Fecha de Fin',
+    '{estado}': 'Estado',
+    '{socio}': 'Socio',
+    '{numerocelular}': 'Número de Celular'
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -33,12 +36,17 @@ export class MensajesPersonalizadosComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    const messageContent = this.getTextContent(document.getElementById('messageContent'));
+    this.mensajeForm.patchValue({ message: messageContent });
+
     if (this.mensajeForm.valid) {
       const mensaje = this.mensajeForm.value;
       this.mensajesService.insert(mensaje).subscribe(
         response => {
           console.log('Mensaje guardado exitosamente');
           this.mensajeForm.reset();
+          document.getElementById('messageContent')!.innerHTML = '';
+          this.actualizarContador();
         },
         error => {
           console.error('Error al guardar el mensaje', error);
@@ -47,11 +55,135 @@ export class MensajesPersonalizadosComponent implements OnInit {
     }
   }
 
+  getTextContent(element: HTMLElement | null): string {
+    if (!element) return '';
+    let text = '';
+    element.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        text += node.textContent;
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const elementNode = node as HTMLElement;
+        if (elementNode.classList.contains('variable-chip')) {
+          text += elementNode.getAttribute('data-variable');
+        } else {
+          text += this.getTextContent(elementNode);
+        }
+      }
+    });
+    return text;
+  }
+
   agregarVariable(variable: string) {
-    const messageControl = this.mensajeForm.get('message');
-    if (messageControl) {
-      const actualMessage = messageControl.value || '';
-      messageControl.setValue(actualMessage + ' ' + variable);
+    const messageContent = document.getElementById('messageContent');
+    if (messageContent) {
+      const currentText = this.getTextContent(messageContent);
+      if (currentText.length + variable.length <= this.maxCharacters) {
+        const span = document.createElement('span');
+        span.className = 'variable-chip';
+        span.setAttribute('data-variable', variable);
+        span.style.display = 'inline-flex';
+        span.style.alignItems = 'center';
+        span.style.backgroundColor = '#007bff';
+        span.style.color = 'white';
+        span.style.padding = '5px 12px';
+        span.style.borderRadius = '20px';
+        span.style.marginRight = '5px';
+        span.style.marginBottom = '5px';
+        span.style.fontSize = '14px';
+        span.style.position = 'relative';
+        span.style.cursor = 'pointer';
+        span.style.boxShadow = '0 4px 6px rgba(0, 123, 255, 0.3)';
+        span.style.transition = 'transform 0.2s, box-shadow 0.2s';
+
+        const textNode = document.createTextNode(this.variablesDisponibles[variable]);
+        span.appendChild(textNode);
+
+        const closeButton = document.createElement('button');
+        closeButton.innerHTML = '&times;';
+        closeButton.style.background = 'none';
+        closeButton.style.border = 'none';
+        closeButton.style.color = 'white';
+        closeButton.style.fontWeight = 'bold';
+        closeButton.style.fontSize = '12px';
+        closeButton.style.lineHeight = '1';
+        closeButton.style.marginLeft = '8px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.padding = '0';
+
+        closeButton.onmouseover = () => {
+          closeButton.style.color = '#ffdddd';
+        };
+        closeButton.onmouseout = () => {
+          closeButton.style.color = 'white';
+        };
+
+        closeButton.onclick = () => {
+          span.remove();
+          this.actualizarContador();
+        };
+        span.appendChild(closeButton);
+
+        span.onmouseover = () => {
+          span.style.transform = 'scale(1.05)';
+          span.style.boxShadow = '0 6px 8px rgba(0, 123, 255, 0.4)';
+        };
+        span.onmouseout = () => {
+          span.style.transform = 'scale(1)';
+          span.style.boxShadow = '0 4px 6px rgba(0, 123, 255, 0.3)';
+        };
+
+        span.contentEditable = 'false';
+        messageContent.appendChild(span);
+        messageContent.appendChild(document.createTextNode(' '));
+
+        this.actualizarContador();
+      }
+    }
+  }
+
+  actualizarContador(): void {
+    const messageContent = document.getElementById('messageContent');
+    const charCountElement = document.getElementById('charCount');
+    if (messageContent && charCountElement) {
+      let textLength = this.getTextContent(messageContent).length;
+
+      // Si el texto es mayor al límite, evitar la entrada de más caracteres.
+      if (textLength > this.maxCharacters) {
+        const range = window.getSelection()?.getRangeAt(0);
+        const selectionStart = range?.startOffset ?? 0;
+        const text = messageContent.innerText.substring(0, this.maxCharacters);
+        messageContent.innerText = text;
+        textLength = text.length;
+
+        // Restaurar la posición del cursor
+        if (range) {
+          range.setStart(messageContent.childNodes[0], Math.min(selectionStart, text.length));
+          range.setEnd(messageContent.childNodes[0], Math.min(selectionStart, text.length));
+          window.getSelection()?.removeAllRanges();
+          window.getSelection()?.addRange(range);
+        }
+      }
+
+      charCountElement.textContent = `${textLength}/${this.maxCharacters} caracteres`;
+
+      // Cambiar el color del contador si se ha excedido el límite
+      if (textLength >= this.maxCharacters) {
+        charCountElement.classList.add('exceeded');
+      } else {
+        charCountElement.classList.remove('exceeded');
+      }
+    }
+  }
+
+  getVariablesDisponibles(): { key: string, value: string }[] {
+    return Object.entries(this.variablesDisponibles).map(([key, value]) => ({ key, value }));
+  }
+
+  limpiarMensaje(): void {
+    const messageContentElement = document.getElementById('messageContent');
+    if (messageContentElement) {
+      messageContentElement.innerHTML = '';
+      this.actualizarContador();
     }
   }
 }
