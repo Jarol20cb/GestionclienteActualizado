@@ -46,10 +46,11 @@
             class="form-control" 
             placeholder="Escribe el título del mensaje..." 
             required />
-          <div *ngIf="mensajeForm.get('titulo')?.invalid && mensajeForm.get('titulo')?.touched" class="text-danger">
+          <div *ngIf="mensajeForm.get('titulo')?.invalid && (mensajeForm.get('titulo')?.touched || mensajeForm.get('titulo')?.dirty)" class="text-danger">
             El título es requerido.
           </div>
         </div>
+        
 
         <div class="form-group">
           <label for="messageContent">Estructura del Mensaje</label>
@@ -64,10 +65,11 @@
             <button type="button" class="btn btn-link" (click)="limpiarMensaje()">Limpiar Mensaje</button>
             <span id="charCount" class="char-count">0/250 caracteres</span>
           </div>
-          <div *ngIf="mensajeForm.get('message')?.invalid && mensajeForm.get('message')?.touched" class="text-danger">
+          <div *ngIf="mensajeForm.get('message')?.invalid && (mensajeForm.get('message')?.touched || mensajeForm.get('message')?.dirty)" class="text-danger">
             El mensaje es requerido.
           </div>
         </div>
+        
 
         <div class="form-group">
           <label for="variables">Agregar Variables</label>

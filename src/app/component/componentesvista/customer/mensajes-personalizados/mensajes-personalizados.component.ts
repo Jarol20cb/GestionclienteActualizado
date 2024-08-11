@@ -69,40 +69,44 @@ export class MensajesPersonalizadosComponent implements OnInit {
   onSubmit() {
     const messageContent = this.getTextContent(document.getElementById('messageContent'));
     this.mensajeForm.patchValue({ message: messageContent });
-
-    if (this.mensajeForm.valid) {
-      const mensaje = this.mensajeForm.value;
-
-      if (this.editMode && this.mensajeEditado) {
-        mensaje.id = this.mensajeEditado.id;
-        this.mensajesService.update(mensaje).subscribe(
-          response => {
-            console.log('Mensaje actualizado exitosamente');
-            this.cancelEdit();
-            this.listarMensajes();
-          },
-          error => {
-            console.error('Error al actualizar el mensaje', error);
-          }
-        );
-      } else {
-        this.mensajesService.insert(mensaje).subscribe(
-          response => {
-            console.log('Mensaje guardado exitosamente');
-            this.mensajeForm.reset();
-            document.getElementById('messageContent')!.innerHTML = '';
-            this.actualizarContador();
-            this.listarMensajes();
-            this.showSuccessMessage("Mensaje creado correctamente.");
-            this.setActiveTab('mensajes');
-          },
-          error => {
-            console.error('Error al guardar el mensaje', error);
-          }
-        );
-      }
+  
+    if (this.mensajeForm.invalid) {
+      this.mensajeForm.markAllAsTouched();
+      return;
+    }
+  
+    const mensaje = this.mensajeForm.value;
+  
+    if (this.editMode && this.mensajeEditado) {
+      mensaje.id = this.mensajeEditado.id;
+      this.mensajesService.update(mensaje).subscribe(
+        response => {
+          console.log('Mensaje actualizado exitosamente');
+          this.cancelEdit();
+          this.listarMensajes();
+        },
+        error => {
+          console.error('Error al actualizar el mensaje', error);
+        }
+      );
+    } else {
+      this.mensajesService.insert(mensaje).subscribe(
+        response => {
+          console.log('Mensaje guardado exitosamente');
+          this.mensajeForm.reset();
+          document.getElementById('messageContent')!.innerHTML = '';
+          this.actualizarContador();
+          this.listarMensajes();
+          this.showSuccessMessage("Mensaje creado correctamente.");
+          this.setActiveTab('mensajes');
+        },
+        error => {
+          console.error('Error al guardar el mensaje', error);
+        }
+      );
     }
   }
+  
 
   editarMensaje(mensaje: MensajesPersonalizados) {
     this.editMode = true;

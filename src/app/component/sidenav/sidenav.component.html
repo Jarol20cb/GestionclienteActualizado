@@ -55,6 +55,29 @@
             <span class="text">Notificaciones</span>
         </a>
 
+        <!-- Herramientas -->
+
+        <div class="menu-item" (click)="setActive('herramientas')" (click)="toggleSubmenu('herramientas')" [class.active]="active === 'herramientas'">
+            <a>
+                <span class="material-icons icon">build</span>
+                <span class="text">Herramientas</span>
+            </a>
+            <ul *ngIf="submenuActive === 'herramientas'">
+                <li>
+                    <a (click)="setActive('exportar')" routerLink="/components/exportar" [class.active]="active === 'exportar'">
+                        <span class="material-icons icon">unarchive</span>
+                        <span class="text">Exportar registros</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="setActive('mensajes')" routerLink="/components/mensajes" [class.active]="active === 'mensajes'">
+                        <span class="material-icons icon">forum</span>
+                        <span class="text">Crear mensajes personalizados</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
         <!-- Configuracion -->
         <div class="menu-item" (click)="setActive('configuracion')" (click)="toggleSubmenu('configuracion')" [class.active]="active === 'configuracion'">
             <a>

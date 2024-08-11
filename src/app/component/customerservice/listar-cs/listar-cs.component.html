@@ -22,7 +22,7 @@
           </select>
         </div>
         <div class="button-actions">
-          <button *ngIf="role=='ADMIN' || role=='USER'" class="mi-boton" (click)="mostrarFormulario()">
+          <button *ngIf="role=='ADMIN'" class="mi-boton" (click)="mostrarFormulario()">
             <mat-icon>add</mat-icon> Añadir
           </button>
           <button (click)="exportToExcel()" class="mi-boton">
@@ -42,8 +42,8 @@
             <th>Estado</th>
             <th>Socio</th>
             <th>Número de Celular</th> <!-- Nueva columna -->
-            <th>Renovar</th>
-            <th *ngIf="role=='ADMIN' || role=='USER'">Editar</th>
+            <th *ngIf="role=='ADMIN'">Renovar</th>
+            <th *ngIf="role=='ADMIN'">Editar</th>
             <th *ngIf="role=='ADMIN' || role=='USER'">Eliminar</th>
           </tr>
         </thead>
@@ -57,12 +57,12 @@
             <td [style.color]="getEstadoColor(element)">{{ element.estado }}</td>
             <td>{{ element.socio.name }}</td>
             <td>{{ element.numerocelular }}</td> <!-- Mostrar número de celular -->
-            <td *ngIf="role === 'ADMIN' || role === 'USER'">
+            <td *ngIf="role === 'ADMIN'">
               <button (click)="cambiarEstado(element)" class="custom-button rounded-button renew-button">
                 <mat-icon>update</mat-icon>
               </button>
             </td>
-            <td *ngIf="role === 'ADMIN' || role === 'USER'">
+            <td *ngIf="role === 'ADMIN'">
               <button (click)="editarClienteServicio(element.idcs)" class="custom-button rounded-button">
                 <mat-icon class="custom-icon">create</mat-icon>
               </button>
