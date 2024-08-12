@@ -1,14 +1,15 @@
-<div class="back-button" (click)="goBack()">
+<div class="back-button" (click)="goBack()" style="margin: 15px;">
   <span class="material-icons">arrow_back</span>
   <span>Volver</span>
 </div>
+
 <div class="container">
   <div class="tabs">
     <div class="tab" [ngClass]="{'active': activeTab === 'mensajes'}" (click)="setActiveTab('mensajes')">
-      Mensajes Guardados
+      Mensajes
     </div>
     <div class="tab" [ngClass]="{'active': activeTab === 'formulario'}" (click)="setActiveTab('formulario')">
-      Formulario
+      Crear nuevo
     </div>
   </div>
 
@@ -26,7 +27,7 @@
               <button (click)="editarMensaje(mensaje)" class="btn btn-warning btn-sm">Editar</button>
               <button (click)="eliminarMensaje(mensaje.id)" class="btn btn-danger btn-sm">Eliminar</button>
             </div>
-          </div>          
+          </div>
         </div>
       </div>
       <div class="mascot-container">
@@ -45,12 +46,14 @@
             formControlName="titulo" 
             class="form-control" 
             placeholder="Escribe el título del mensaje..." 
-            required />
-          <div *ngIf="mensajeForm.get('titulo')?.invalid && (mensajeForm.get('titulo')?.touched || mensajeForm.get('titulo')?.dirty)" class="text-danger">
+            required 
+          />
+          <div 
+            *ngIf="mensajeForm.get('titulo')?.invalid && (mensajeForm.get('titulo')?.touched || mensajeForm.get('titulo')?.dirty)" 
+            class="text-danger">
             El título es requerido.
           </div>
         </div>
-        
 
         <div class="form-group">
           <label for="messageContent">Estructura del Mensaje</label>
@@ -65,30 +68,36 @@
             <button type="button" class="btn btn-link" (click)="limpiarMensaje()">Limpiar Mensaje</button>
             <span id="charCount" class="char-count">0/250 caracteres</span>
           </div>
-          <div *ngIf="mensajeForm.get('message')?.invalid && (mensajeForm.get('message')?.touched || mensajeForm.get('message')?.dirty)" class="text-danger">
+          <div 
+            *ngIf="mensajeForm.get('message')?.invalid && (mensajeForm.get('message')?.touched || mensajeForm.get('message')?.dirty)" 
+            class="text-danger">
             El mensaje es requerido.
           </div>
         </div>
-        
 
-        <div class="form-group">
-          <label for="variables">Agregar Variables</label>
-          <div class="variable-buttons">
-            <button 
-              type="button" 
+        <div class="form-group chip-group-wrapper">
+          <label style="padding: 10px;" for="variables">Agregar Variables</label>
+          <div class="chip-group">
+            <span 
               *ngFor="let variable of getVariablesDisponibles()" 
-              (click)="agregarVariable(variable.key)" 
-              class="btn btn-secondary">
+              class="chip" 
+              (click)="agregarVariable(variable.key)">
               {{ variable.value }}
-            </button>
+            </span>
           </div>
         </div>
 
-        <div class="section-button" style="gap: 15px; display: flex; justify-content: center; padding: 15px;"> 
+        <div class="section-button" style="gap: 15px; display: flex; justify-content: center; padding: 15px;">
           <button type="submit" class="btn btn-primary">
-            {{ editMode ? 'Actualizar Estructura' : 'Guardar Estructura' }}
+            {{ editMode ? 'Actualizar' : 'Guardar' }}
           </button>
-          <button type="button" *ngIf="editMode" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+          <button 
+            type="button" 
+            *ngIf="editMode" 
+            class="btn btn-secondary" 
+            (click)="cancelEdit()">
+            Cancelar
+          </button>
         </div>
       </form>
     </div>
