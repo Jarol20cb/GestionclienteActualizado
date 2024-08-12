@@ -1,9 +1,9 @@
 // administracion.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject, timer } from 'rxjs';
+import { Observable, BehaviorSubject, timer, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Notification } from 'src/app/model/notification'; // Asegúrate de que la ruta es correcta
+import { Notification } from 'src/app/model/notification';
 import { User } from '../model/User';
 import { switchMap, tap } from 'rxjs/operators';
 
@@ -16,6 +16,7 @@ export class AdministracionService {
   private url = `${base_url}/admin/users`;
   private notificationUrl = `${base_url}/admin/notifications`;
   private listaCambio = new BehaviorSubject<User[]>([]);
+  private listaCambioNotificacion = new Subject<Notification[]>();
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -111,5 +112,13 @@ export class AdministracionService {
 
   deleteAllNotifications(): Observable<void> {
     return this.http.delete<void>(this.notificationUrl, this.httpOptions);
+  }
+
+  setListNotificacion(listaNueva: Notification[]) {
+    this.listaCambioNotificacion.next(listaNueva);
+  }
+
+  getListNotificacion() {
+    return this.listaCambioNotificacion.asObservable();
   }
 }

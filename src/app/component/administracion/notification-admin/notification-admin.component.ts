@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Notification } from 'src/app/model/notification';
 import { AdministracionService } from 'src/app/service/administracion.service';
+import { NotificacionService } from 'src/app/service/notificacion.service';
 
 @Component({
   selector: 'app-notification-admin',
@@ -17,6 +18,9 @@ export class NotificationAdminComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadAllNotifications();
+    this.administracionService.getAllNotifications().subscribe(data => {
+      this.notifications = data;
+    });
   }
 
   loadAllNotifications(): void {
@@ -37,15 +41,21 @@ export class NotificationAdminComponent implements OnInit{
     this.administracionService.deleteNotification(id).subscribe(() => {
       this.loadAllNotifications();
       this.loadNotificationsByUserId();
+      this.administracionService.getAllNotifications().subscribe(data => {
+        this.administracionService.setListNotificacion(data);
+      });
     });
   }
 
   deleteAllNotifications(): void {
     this.administracionService.deleteAllNotifications().subscribe(() => {
-      this.loadAllNotifications();
       this.userNotifications = [];
+      this.administracionService.getAllNotifications().subscribe(data => {
+        this.administracionService.setListNotificacion(data);
+      });
     });
   }
+  
   volver(): void {
     this.router.navigate(['/components/users']);
   }
