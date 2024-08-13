@@ -31,6 +31,11 @@
           <th>Nombre de Usuario</th>
           <th>Nombre</th>
           <th>Nombre de la Empresa</th>
+          <th>Tipo de Cuenta</th>
+          <th>Estado de la Cuenta</th>
+          <th>Fecha de Inicio Premium</th>
+          <th>Último Pago</th>
+          <th>Tiempo hasta el Próximo Pago</th>
           <th>Roles</th>
           <th>Habilitado</th>
           <th>Acciones</th>
@@ -43,6 +48,11 @@
           <td>{{ user.username }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.companyName }}</td>
+          <td>{{ user.accountType }}</td>
+          <td>{{ user.accountStatus }}</td>
+          <td>{{ user.premiumStartDate | date:'short' }}</td>
+          <td>{{ user.lastPaymentDate | date:'short' }}</td>
+          <td>{{ user.timeUntilNextPayment ?? 0 | duration }}</td>
           <td>{{ getRoles(user) }}</td>
           <td>
             <label class="switch">
