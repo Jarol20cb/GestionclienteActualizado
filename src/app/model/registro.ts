@@ -3,6 +3,8 @@ export class Registro {
   username: string = "";
   password: string = "";
   roles: string[] = [];
-  name: string = ""; // Nuevo campo
-  companyName: string = ""; // Nuevo campo
+  name: string = ""; 
+  companyName: string = ""; 
+  accountType: 'FREE' | 'PREMIUM' = 'FREE';
 }
+

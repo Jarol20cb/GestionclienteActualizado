@@ -1,8 +1,11 @@
+<div class="container" style="border-radius: 15px;">
+  <mat-dialog-content class="custom-dialog custom-dialog-title">{{ data.title }}</mat-dialog-content>
+  <mat-dialog-content class="custom-dialog custom-dialog-content">
+    <img *ngIf="data.imageUrl" [src]="data.imageUrl" alt="Imagen del mensaje" class="dialog-image">
+    <p>{{ data.message }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions class="custom-dialog">
+    <button mat-button class="custom-dialog-button" [mat-dialog-close]="'OK'">OK</button>
+  </mat-dialog-actions>
+</div>
 
-<mat-dialog-content class="custom-dialog custom-dialog-title">{{ data.title }}</mat-dialog-content>
-<mat-dialog-content class="custom-dialog custom-dialog-content">
-  <p>{{ data.message }}</p>
-</mat-dialog-content>
-<mat-dialog-actions class="custom-dialog">
-  <button mat-button class="custom-dialog-button" [mat-dialog-close]="'OK'">OK</button>
-</mat-dialog-actions>

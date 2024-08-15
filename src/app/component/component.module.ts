@@ -84,6 +84,8 @@ import { PresentationComponent } from './componentesvista/socios-proveedores/pre
 import { NotificationAdminComponent } from './administracion/notification-admin/notification-admin.component';
 import { MensajesPersonalizadosComponent } from './componentesvista/customer/mensajes-personalizados/mensajes-personalizados.component';
 import { DurationPipe } from './administracion/user-list/duration.pipe';
+import { RegistrationStep1Component } from './registro/registration-step1/registration-step1.component';
+import { RegistrationStep2Component } from './registro/registration-step2/registration-step2.component';
 
 @NgModule({
   declarations: [
@@ -148,7 +150,9 @@ import { DurationPipe } from './administracion/user-list/duration.pipe';
     PresentationComponent,
     NotificationAdminComponent,
     MensajesPersonalizadosComponent,
-    DurationPipe
+    DurationPipe,
+    RegistrationStep1Component,
+    RegistrationStep2Component
 
   ],
   imports: [

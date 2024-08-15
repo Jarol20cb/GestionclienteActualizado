@@ -11,11 +11,11 @@ export interface User {
   enabled: boolean;
   name: string;
   companyName: string;
-  accountType: string; // Tipo de cuenta: "free" o "premium"
-  createdAt: string; // Fecha de creación
-  premiumStartDate?: string; // Fecha de inicio del plan premium
-  lastPaymentDate?: string; // Fecha del último pago
-  timeUntilNextPayment?: number; // Tiempo restante hasta el próximo pago
-  accountStatus: string; // Nuevo campo para el estado de la cuenta: "activo", "pendiente", "vencido"
-  roles: Role[];
+  accountType: 'FREE' | 'PREMIUM'; // Tipo de cuenta: "FREE" o "PREMIUM"
+  createdAt: string; // Fecha de creación de la cuenta
+  subscriptionStartDate: string; // Fecha de inicio de la suscripción (free o premium)
+  subscriptionEndDate: string; // Fecha de finalización de la suscripción
+  lastPaymentDate?: string; // Fecha del último pago (solo para usuarios premium)
+  isPremium: boolean; // Indica si la cuenta es premium (true/false)
+  roles: Role[]; // Roles asociados al usuario
 }

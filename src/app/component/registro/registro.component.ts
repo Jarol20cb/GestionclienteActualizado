@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Registro } from 'src/app/model/registro';
+import { Router } from '@angular/router';
 import { RegistroService } from 'src/app/service/registro.service';
 import { DialogComponent } from '../dialogo/dialog/dialog.component';
 
@@ -13,43 +12,62 @@ import { DialogComponent } from '../dialogo/dialog/dialog.component';
 })
 export class RegistroComponent implements OnInit {
   form: FormGroup = new FormGroup({});
-  registro: Registro = new Registro();
-  id: number = 0;
-  passwordVisible: boolean = false;
+  currentStep: number = 1;
 
   constructor(
+    private formBuilder: FormBuilder,
     private cS: RegistroService,
     private router: Router,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((data: Params) => {
-      this.id = data['id'];
-    });
-
     this.form = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.email]], // Validación de correo electrónico
+      username: ['', [Validators.required, Validators.email]], 
       password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', Validators.required],
       name: ['', Validators.required],
       companyName: ['', Validators.required],
+      accountType: ['']  // Este campo es opcional hasta el segundo paso
     });
+  }
+
+  goToStep2() {
+    // Trigger validation on all controls in the form group for the first step
+    this.form.get('username')?.markAsTouched();
+    this.form.get('password')?.markAsTouched();
+    this.form.get('confirmPassword')?.markAsTouched();
+    this.form.get('name')?.markAsTouched();
+    this.form.get('companyName')?.markAsTouched();
+
+    // Check if the first step is valid
+    if (this.form.get('username')?.valid &&
+        this.form.get('password')?.valid &&
+        this.form.get('confirmPassword')?.valid &&
+        this.form.get('name')?.valid &&
+        this.form.get('companyName')?.valid) {
+      this.currentStep = 2;
+    } else {
+      this.openDialog('Formulario no válido', 'Por favor, completa todos los campos del primer paso.');
+    }
+  }
+
+  goToStep1() {
+    this.currentStep = 1;
   }
 
   registrar() {
     if (this.form.valid) {
-      const registro: Registro = {
-        id: this.form.value.id,
+      const registro = {
+        id: 0,
         username: this.form.value.username,
         password: this.form.value.password,
-        roles: ['USER'], // Asignar el rol USER por defecto
+        roles: ['USER'],
         name: this.form.value.name,
         companyName: this.form.value.companyName,
+        accountType: this.form.value.accountType
       };
-  
+
       this.cS.insert(registro).subscribe(
         (data) => {
           console.log('Registro exitoso:', data.message);
@@ -67,34 +85,24 @@ export class RegistroComponent implements OnInit {
   }
 
   openDialog(title: string, message: string): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: { title, message },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('El cuadro de diálogo se cerró');
-    });
-  }
-
-  togglePasswordVisibility(event: Event) {
-    event.preventDefault(); // Evitar que el formulario se envíe al hacer clic en el botón
-    this.passwordVisible = !this.passwordVisible;
-    const passwordInput = this.form.get('password');
-    if (passwordInput) {
-      passwordInput.setValidators(this.passwordVisible ? null : [Validators.minLength(5)]);
-      passwordInput.updateValueAndValidity();
-    }
-  }
-
-  validatePasswordConfirmation() {
-    const password = this.form.get('password')?.value;
-    const confirmPassword = this.form.get('confirmPassword')?.value;
-
-    if (password === confirmPassword) {
-      this.form.get('confirmPassword')?.setErrors(null);
+    let imageUrl: string;
+  
+    if (title === 'Registro Exitoso') {
+      imageUrl = 'assets/exito.png';
+    } else if (title === 'Error') {
+      imageUrl = 'assets/koala-mareado.png';
     } else {
-      this.form.get('confirmPassword')?.setErrors({ passwordMismatch: true });
+      imageUrl = 'assets/error.png';
     }
+  
+    this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: { title, message, imageUrl },
+    });
+  }
+  
+
+  cancel() {
+    this.router.navigate(['/login']);
   }
 }

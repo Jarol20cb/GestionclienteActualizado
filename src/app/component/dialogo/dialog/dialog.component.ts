@@ -9,6 +9,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class DialogComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { title: string; message: string }
+    @Inject(MAT_DIALOG_DATA) public data: { title: string; message: string; imageUrl: string }
   ) {}
 }
