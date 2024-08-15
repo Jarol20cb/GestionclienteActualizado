@@ -1,0 +1,18 @@
+<div class="banner-overlay">
+  <div class="banner-content">
+    <div *ngIf="data.allowClose" class="close-icon" (click)="onClose()">&times;</div>
+    <img 
+  [src]="data.image" 
+  alt="Banner Image" 
+  [style.width]="data.imageSize?.width" 
+  [style.height]="data.imageSize?.height" 
+  class="banner-image">
+    <h1>{{ data.title }}</h1>
+    <p *ngFor="let line of data.message">{{ line }}</p>
+    <div class="button-group">
+      <button *ngFor="let button of data.buttons" class="{{ button.class }}" (click)="onAction(button.action)">
+        {{ button.text }}
+      </button>
+    </div>
+  </div>
+</div>

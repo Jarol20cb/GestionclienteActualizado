@@ -9,4 +9,6 @@ export class UserData {
     isPremium: boolean = false;
     lastPaymentDate: Date = new Date();
     createdAt: Date = new Date();
+    subscriptionStartDate: Date = new Date();
+    subscriptionEndDate: Date = new Date();
   }

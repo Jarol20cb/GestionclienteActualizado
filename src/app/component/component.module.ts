@@ -86,6 +86,8 @@ import { MensajesPersonalizadosComponent } from './componentesvista/customer/men
 import { DurationPipe } from './administracion/user-list/duration.pipe';
 import { RegistrationStep1Component } from './registro/registration-step1/registration-step1.component';
 import { RegistrationStep2Component } from './registro/registration-step2/registration-step2.component';
+import { BannerComponent } from './vistas/banner/banner.component';
+import { BannerManagerComponent } from './vistas/banner-manager/banner-manager.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +154,9 @@ import { RegistrationStep2Component } from './registro/registration-step2/regist
     MensajesPersonalizadosComponent,
     DurationPipe,
     RegistrationStep1Component,
-    RegistrationStep2Component
+    RegistrationStep2Component,
+    BannerComponent,
+    BannerManagerComponent,
 
   ],
   imports: [
