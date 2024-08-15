@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject, tap, from } from 'rxjs';
 import { Registro } from '../model/registro';
 import { Notification } from '../model/notification'; // Importa tu modelo de Notification
+import { UserData } from '../model/userdata';
 
 @Injectable({
   providedIn: 'root'
@@ -56,10 +57,10 @@ export class LoginService {
     return decodedToken?.name;
   }
 
-  getUserDetails(): Observable<Registro> {
+  getUserDetails(): Observable<UserData> {
     let token = sessionStorage.getItem("token");
     if (token) {
-      return this.http.get<Registro>(`${this.baseUrl}/users/details`, {
+      return this.http.get<UserData>(`${this.baseUrl}/users/details`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

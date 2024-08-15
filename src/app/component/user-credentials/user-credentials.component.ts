@@ -4,6 +4,7 @@ import { Router } from '@angular/router'; // Importa Router desde @angular/route
 import { LoginService } from 'src/app/service/login.service';
 import { CerrarSesionComponent } from '../dialogo/cerrar-sesion/cerrar-sesion.component';
 import { Registro } from 'src/app/model/registro';
+import { UserData } from 'src/app/model/userdata';
 
 @Component({
   selector: 'app-user-credentials',
@@ -11,7 +12,7 @@ import { Registro } from 'src/app/model/registro';
   styleUrls: ['./user-credentials.component.css']
 })
 export class UserCredentialsComponent implements OnInit {
-  user: Registro = new Registro();
+  user: UserData = new UserData();
   error: string;
 
   constructor(private loginService: LoginService, private dialog: MatDialog, private router: Router) {
