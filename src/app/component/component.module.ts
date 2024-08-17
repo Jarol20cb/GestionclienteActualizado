@@ -88,6 +88,8 @@ import { RegistrationStep1Component } from './registro/registration-step1/regist
 import { RegistrationStep2Component } from './registro/registration-step2/registration-step2.component';
 import { BannerComponent } from './vistas/banner/banner.component';
 import { BannerManagerComponent } from './vistas/banner-manager/banner-manager.component';
+import { RealizarPagoComponent } from './vistas/realizarpago/realizarpago.component';
+import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarcomprobantes.component';
 
 @NgModule({
   declarations: [
@@ -157,6 +159,8 @@ import { BannerManagerComponent } from './vistas/banner-manager/banner-manager.c
     RegistrationStep2Component,
     BannerComponent,
     BannerManagerComponent,
+    RealizarPagoComponent,
+    ListarcomprobantesComponent,
 
   ],
   imports: [
@@ -182,7 +186,7 @@ import { BannerManagerComponent } from './vistas/banner-manager/banner-manager.c
     MatDialogModule,
     RouterModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
 
   ]
 })

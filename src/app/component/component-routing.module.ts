@@ -38,6 +38,8 @@ import { ServiciosOverviewComponent } from './componentesvista/servicios/servici
 import { PresentationComponent } from './componentesvista/socios-proveedores/presentation/presentation.component';
 import { NotificationAdminComponent } from './administracion/notification-admin/notification-admin.component';
 import { MensajesPersonalizadosComponent } from './componentesvista/customer/mensajes-personalizados/mensajes-personalizados.component';
+import { RealizarPagoComponent } from './vistas/realizarpago/realizarpago.component';
+import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarcomprobantes.component';
 
 const routes: Routes = [
 
@@ -49,6 +51,16 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+        canActivate: [GuardService]
+      },
+      {
+        path: 'pago',
+        component: RealizarPagoComponent,
+        canActivate: [GuardService]
+      },
+      {
+        path: 'listar-pago',
+        component: ListarcomprobantesComponent,
         canActivate: [GuardService]
       },
       {

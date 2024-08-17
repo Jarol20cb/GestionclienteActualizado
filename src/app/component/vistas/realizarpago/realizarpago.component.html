@@ -1,0 +1,14 @@
+<div class="payment-container">
+  <h2>Subir Comprobante de Pago</h2>
+  <form (submit)="submitPayment()">
+    <div>
+      <label for="title">Título:</label>
+      <input type="text" id="title" [(ngModel)]="title" name="title" />
+    </div>
+    <div>
+      <label for="file">Seleccionar archivo:</label>
+      <input type="file" id="file" (change)="handleFileInput($event)" />
+    </div>
+    <button type="submit">Enviar</button>
+  </form>
+</div>
