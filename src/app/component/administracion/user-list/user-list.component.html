@@ -1,19 +1,33 @@
 <div class="container">
-  <h2 class="title">Enviar Notificación</h2>
-  <div class="notification-form">
-    <textarea #notificationMessageInput 
-              placeholder="Mensaje de la notificación" 
-              class="textarea-notification" 
-              maxlength="255" 
-              (input)="updateCharacterCount(notificationMessageInput.value)">
-    </textarea>
-    <div class="character-count">{{ charCount }}/255 caracteres</div>
+  <h2 class="title">Administración de usuarios</h2>
+
+  <!-- Botón para mostrar/ocultar la sección de notificaciones -->
+  <div class="button-group-top">
+    <button class="toggle-button" (click)="toggleNotificationSection()">
+      {{ showNotificationSection ? 'Cerrar Notificaciones' : 'Enviar Notificación' }}
+    </button>
+    <button routerLink="/components/verificar-pagos" class="button-primary">
+      Ver Comprobantes de Pago
+    </button>
+  </div>
+
+  <!-- Sección de notificaciones, inicialmente oculta -->
+  <div *ngIf="showNotificationSection" class="notification-wrapper">
+    <div class="notification-form">
+      <textarea [(ngModel)]="notificationMessage"
+                placeholder="Mensaje de la notificación" 
+                class="textarea-notification" 
+                maxlength="255" 
+                (input)="updateCharacterCount(notificationMessage)">
+      </textarea>
+      <div class="character-count">{{ charCount }}/255 caracteres</div>
+    </div>
     <div class="button-group">
-      <button (click)="sendNotificationToAll(notificationMessageInput.value)" class="button-primary">Enviar a Todos</button>
+      <button (click)="sendNotificationToAll(notificationMessage)" class="button-primary">Enviar a Todos</button>
       <button routerLink="/components/adminnotificactions" class="button-secondary">Administrar Notificaciones</button>
     </div>
   </div>
-  
+
   <div class="table-controls">
     <input type="text" placeholder="Buscar..." (input)="filterUsers($event)" class="input-busqueda"/>
     <div class="pagination-controls">
@@ -22,7 +36,7 @@
       <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
     </div>
   </div>
-  
+
   <div class="user-table-container">
     <table class="user-table">
       <thead>
@@ -31,7 +45,6 @@
           <th>Nombre de Usuario</th>
           <th>Nombre</th>
           <th>Nombre de la Empresa</th>
-          <th>Tipo de Cuenta</th>
           <th>Tipo de Cuenta</th>
           <th>Fecha de Inicio Suscripción</th>
           <th>Fecha de Fin Suscripción</th>
@@ -49,7 +62,6 @@
           <td>{{ user.name }}</td>
           <td>{{ user.companyName }}</td>
           <td>{{ user.accountType }}</td>
-          <td>{{ user.isPremium }}</td>
           <td>{{ user.subscriptionStartDate | date:'short' }}</td>
           <td>{{ user.subscriptionEndDate | date:'short' }}</td>
           <td>{{ user.lastPaymentDate | date:'short' }}</td>
@@ -71,15 +83,13 @@
             </div>
           </td>
           <td>
-            <button (click)="sendNotification(notificationMessageInput.value, [user.id])" class="button-primary-small">Enviar</button>
+            <button (click)="sendNotification(notificationMessage, [user.id])" class="button-primary-small">Enviar</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-
-
 <div class="overlay" *ngIf="showNotification"></div>
 
 <app-creayeditaadministracion

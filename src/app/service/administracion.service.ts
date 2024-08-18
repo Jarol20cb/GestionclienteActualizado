@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Notification } from 'src/app/model/notification';
 import { User } from '../model/User';
 import { switchMap, tap } from 'rxjs/operators';
+import { Message } from '../model/Message';
 
 const base_url = environment.base;
 
@@ -121,4 +122,37 @@ export class AdministracionService {
   getListNotificacion() {
     return this.listaCambioNotificacion.asObservable();
   }
+
+   // Método para listar todos los pagos pendientes
+   listarPagosPendientes(): Observable<Message[]> {
+    let token = sessionStorage.getItem('token');
+    return this.http.get<Message[]>(`${base_url}/admin/pagos-pendientes`, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-Type', 'application/json')
+    });
+  }
+
+  // Método para aceptar un pago
+aceptarPago(id: number): Observable<string> {
+  let token = sessionStorage.getItem('token');
+  return this.http.put(`${base_url}/admin/pagos/${id}/aceptar`, null, {
+    headers: new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json'),
+    responseType: 'text'  // Aquí especificas que la respuesta es de tipo texto
+  });
+}
+
+// Método para rechazar un pago
+rechazarPago(id: number): Observable<string> {
+  let token = sessionStorage.getItem('token');
+  return this.http.put(`${base_url}/admin/pagos/${id}/rechazar`, null, {
+    headers: new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json'),
+    responseType: 'text'  // Aquí también especificas que la respuesta es de tipo texto
+  });
+}
+
 }

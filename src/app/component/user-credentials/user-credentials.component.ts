@@ -129,4 +129,9 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  irAPagar() {
+    this.router.navigate(['/components/pago']);
+  }
+  
 }

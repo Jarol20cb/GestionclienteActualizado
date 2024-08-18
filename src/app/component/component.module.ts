@@ -90,6 +90,7 @@ import { BannerComponent } from './vistas/banner/banner.component';
 import { BannerManagerComponent } from './vistas/banner-manager/banner-manager.component';
 import { RealizarPagoComponent } from './vistas/realizarpago/realizarpago.component';
 import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarcomprobantes.component';
+import { MensajeComprobantesPagoComponent } from './administracion/mensaje-comprobantes-pago/mensaje-comprobantes-pago.component';
 
 @NgModule({
   declarations: [
@@ -161,6 +162,7 @@ import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarc
     BannerManagerComponent,
     RealizarPagoComponent,
     ListarcomprobantesComponent,
+    MensajeComprobantesPagoComponent,
 
   ],
   imports: [

@@ -1,0 +1,49 @@
+<div class="container">
+  <!-- Botón para volver atrás -->
+  <button class="back-button" (click)="goBack()">
+    ← Volver Atrás
+  </button>
+
+  <h2>Comprobantes de Pago Pendientes</h2>
+
+  <div *ngIf="mensajes.length > 0; else noData">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Título</th>
+          <th>Fecha de Creación</th>
+          <th>Imagen</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mensaje of mensajes">
+          <td>{{ mensaje.id }}</td>
+          <td>{{ mensaje.username }}</td>
+          <td>{{ mensaje.title }}</td>
+          <td>{{ mensaje.createdAt | date:'short' }}</td>
+          <td>
+            <img [src]="getBase64Image(mensaje.fileData)" alt="Comprobante" class="comprobante-img" (click)="openModal(getBase64Image(mensaje.fileData))">
+          </td>
+          <td>
+            <div class="acciones" style="display: flex; gap: 10px;">
+              <button (click)="aceptarPago(mensaje.id)" class="btn btn-success">Aceptar</button>
+              <button (click)="rechazarPago(mensaje.id)" class="btn btn-danger">Rechazar</button>
+            </div>            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noData>
+    <p>No hay comprobantes de pago pendientes.</p>
+  </ng-template>
+
+  <div class="modal" *ngIf="isModalOpen" (click)="closeModal()">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <img class="modal-content" [src]="modalImageSrc">
+  </div>
+</div>

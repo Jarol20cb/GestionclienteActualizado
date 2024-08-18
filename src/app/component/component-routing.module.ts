@@ -40,6 +40,7 @@ import { NotificationAdminComponent } from './administracion/notification-admin/
 import { MensajesPersonalizadosComponent } from './componentesvista/customer/mensajes-personalizados/mensajes-personalizados.component';
 import { RealizarPagoComponent } from './vistas/realizarpago/realizarpago.component';
 import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarcomprobantes.component';
+import { MensajeComprobantesPagoComponent } from './administracion/mensaje-comprobantes-pago/mensaje-comprobantes-pago.component';
 
 const routes: Routes = [
 
@@ -56,6 +57,12 @@ const routes: Routes = [
       {
         path: 'pago',
         component: RealizarPagoComponent,
+        canActivate: [GuardService]
+      },
+
+      {
+        path: 'verificar-pagos',
+        component: MensajeComprobantesPagoComponent,
         canActivate: [GuardService]
       },
       {

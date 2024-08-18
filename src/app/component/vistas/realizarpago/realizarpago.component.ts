@@ -6,6 +6,7 @@ import { UserData } from 'src/app/model/userdata';
 import { LoginService } from 'src/app/service/login.service';
 import { MessageService } from 'src/app/service/message-service.service';
 import { BannerComponent } from '../banner/banner.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-realizarpago',
@@ -18,11 +19,15 @@ export class RealizarPagoComponent {
   title: string = '';
   imageUrl: string | ArrayBuffer | null = null;
 
+  selectedPaymentMethod: string = '';
+  paymentImage: string = '';
+
   constructor(
     private messageService: MessageService,
     private loginService: LoginService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location: Location
   ) {
     this.loginService.getUserDetails().subscribe(user => {
       this.user = user;
@@ -155,5 +160,18 @@ export class RealizarPagoComponent {
       document.body.removeChild(redirectElement);
       document.head.removeChild(style);  // Remover el estilo después de la redirección
     }, 3000); // Espera 3 segundos antes de redirigir
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  selectPaymentMethod(method: string) {
+    this.selectedPaymentMethod = method;
+    if (method === 'yape') {
+      this.paymentImage = 'assets/qr/yape.jpg';
+    } else if (method === 'plin') {
+      this.paymentImage = 'assets/qr/izipay.png';
+    }
   }
 }

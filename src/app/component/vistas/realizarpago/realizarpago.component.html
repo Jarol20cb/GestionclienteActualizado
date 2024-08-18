@@ -1,24 +1,44 @@
-<div class="payment-container">
-  <h2>Subir Comprobante de Pago</h2>
-  <form (submit)="submitPayment()">
-    <div class="form-group">
-      <label for="title">Título:</label>
-      <input type="text" id="title" [(ngModel)]="title" name="title" />
+<div class="wrapper">
+  <div class="top-left">
+    <button class="back-button" (click)="goBack()">
+      &larr; Volver
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="payment-options">
+      <h2>Elige tu método de pago</h2>
+      <div class="payment-methods">
+        <img src="assets/logos-pagos/yape.png" alt="Yape" class="payment-icon" (click)="selectPaymentMethod('yape')" [class.selected]="selectedPaymentMethod === 'yape'">
+        <img src="assets/logos-pagos/izipay.png" alt="Plin" class="payment-icon" (click)="selectPaymentMethod('plin')" [class.selected]="selectedPaymentMethod === 'plin'">
+      </div>
+
+      <div class="payment-image" *ngIf="selectedPaymentMethod">
+        <img [src]="paymentImage" alt="Método de pago seleccionado" />
+      </div>
     </div>
-    <div class="form-group">
-      <label for="file" class="custom-file-upload">
-        <i class="fa fa-cloud-upload"></i> Seleccionar archivo
-      </label>
-      <input type="file" id="file" (change)="handleFileInput($event)" />
+
+    <div class="upload-form">
+      <h2>Subir Comprobante de Pago</h2>
+      <form (submit)="submitPayment()">
+        <div class="form-group">
+          <label for="title">Título:</label>
+          <input type="text" id="title" [(ngModel)]="title" name="title" />
+        </div>
+        <div class="form-group">
+          <label for="file" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i> Seleccionar archivo
+          </label>
+          <input type="file" id="file" (change)="handleFileInput($event)" />
+        </div>
+        <div *ngIf="fileToUpload" class="preview-container">
+          <h3>Vista previa:</h3>
+          <img [src]="imageUrl" alt="Vista previa de la imagen" />
+          <p>{{ fileToUpload.name }}</p>
+        </div>
+        
+        <button type="submit">Enviar</button>
+      </form>
     </div>
-    
-    <!-- Vista previa de la imagen seleccionada -->
-    <div *ngIf="fileToUpload" class="preview-container">
-      <h3>Vista previa:</h3>
-      <img [src]="imageUrl" alt="Vista previa de la imagen" />
-      <p>{{ fileToUpload.name }}</p>
-    </div>
-    
-    <button type="submit">Enviar</button>
-  </form>
+  </div>
 </div>

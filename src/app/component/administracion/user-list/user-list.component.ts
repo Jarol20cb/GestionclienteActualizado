@@ -166,4 +166,17 @@ export class UserListComponent implements OnInit, OnDestroy {
   updateCharacterCount(message: string): void {
     this.charCount = message.length;
   }
+
+  showNotificationForm: boolean = false;
+
+  toggleNotification() {
+    this.showNotificationForm = !this.showNotificationForm;
+  }
+
+
+  showNotificationSection = false;
+
+  toggleNotificationSection() {
+    this.showNotificationSection = !this.showNotificationSection;
+  }
 }

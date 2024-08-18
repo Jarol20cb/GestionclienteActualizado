@@ -24,28 +24,13 @@ export class MessageService {
     });
   }
 
-  getAllMessages() {
+  getUserMessages() {
     let token = sessionStorage.getItem('token');
     return this.http.get<Message[]>(this.url, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${token}`)
         .set('Content-Type', 'application/json'),
     });
-  }
-  
-  
-  // // Obtener todos los mensajes
-  // getAllMessages(): Observable<Message[]> {
-  //   let token = sessionStorage.getItem('token');
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  //   return this.http.get<Message[]>(`${this.url}/all`, { headers });
-  // }
-
-  // Obtener mensajes del usuario autenticado
-  getUserMessages(): Observable<Message[]> {
-    let token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Message[]>(this.url, { headers });
   }
 
   // Eliminar un mensaje (solo para administradores)
