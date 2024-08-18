@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { CustomerserviceService } from 'src/app/service/customerservice.service';
@@ -36,6 +37,7 @@ export class CustomerEditComponent implements OnInit {
     private socioService: SocioService,
     private perfilService: PerfilService,
     private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -249,12 +251,8 @@ export class CustomerEditComponent implements OnInit {
     return control;
   }
 
-  cancelar(): void {
-    if (this.id !== null) {
-      this.router.navigate(['/components/customer-detail', this.id]);
-    } else {
-      this.router.navigate(['/components/customer-overview']);
-    }
+  goBack(): void {
+    this.location.back();
   }
 
   navigateToCreateService() {

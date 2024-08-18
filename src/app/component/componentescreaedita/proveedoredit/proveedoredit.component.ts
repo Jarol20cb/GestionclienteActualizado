@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Proveedor } from 'src/app/model/Proveedor';
 import { ProveedorService } from 'src/app/service/proveedor-service.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-proveedoredit',
@@ -22,7 +23,8 @@ export class ProveedoreditComponent implements OnInit{
     private router: Router,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -90,5 +92,9 @@ export class ProveedoreditComponent implements OnInit{
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

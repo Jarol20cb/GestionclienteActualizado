@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Socio } from 'src/app/model/socio';
 import { SocioService } from 'src/app/service/socio.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-socioedit',
@@ -22,7 +23,8 @@ export class SocioeditComponent implements OnInit{
     private router: Router,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -92,4 +94,7 @@ export class SocioeditComponent implements OnInit{
     });
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 }

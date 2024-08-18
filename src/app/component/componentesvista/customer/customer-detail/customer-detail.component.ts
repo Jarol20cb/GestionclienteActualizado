@@ -5,6 +5,7 @@ import { CustomerserviceService } from 'src/app/service/customerservice.service'
 import { CustomersServices } from 'src/app/model/CustomerService';
 import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { MensajespersonalizadosService } from 'src/app/service/mensajespersonalizados.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-customer-detail',
@@ -22,7 +23,8 @@ export class CustomerDetailComponent implements OnInit {
     private router: Router,
     private cS: CustomerserviceService,
     private mensajesService: MensajespersonalizadosService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/components/customer-overview']);
+    this.location.back();
   }
 
   editarClienteServicio(id: number) {

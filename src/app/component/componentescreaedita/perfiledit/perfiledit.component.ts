@@ -8,6 +8,7 @@ import { Services } from 'src/app/model/Services';
 import { PerfilService } from 'src/app/service/perfil-service.service';
 import { ProveedorService } from 'src/app/service/proveedor-service.service';
 import { ServicesService } from 'src/app/service/services.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-perfiledit',
@@ -31,7 +32,8 @@ export class PerfileditComponent implements OnInit {
     private route: ActivatedRoute,
     private servicesService: ServicesService,
     private proveedorService: ProveedorService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -158,11 +160,7 @@ export class PerfileditComponent implements OnInit {
   }
 
   cancelar(): void {
-    if (this.id !== null) {
-      this.router.navigate(['/components/perfil-detail', this.id]);
-    } else {
-      this.router.navigate(['/components/perfil-overview']);
-    }
+    this.location.back();
   }
 
   navigateToCreateService() {

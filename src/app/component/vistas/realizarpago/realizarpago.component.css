@@ -1,64 +1,97 @@
 .payment-container {
-  background-color: #f9f9f9; /* Fondo suave */
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  margin: 0 auto; /* Centrar el contenedor */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  font-family: 'Arial', sans-serif;
+  background-color: #ecf0f1; /* Blanco casi blanco */
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
 }
 
-.payment-container h2 {
+h2 {
   text-align: center;
-  color: #333; /* Color de texto oscuro */
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  color: #2c3e50; /* Azul marino oscuro */
   font-size: 24px;
+  font-weight: 600;
 }
 
-.payment-container form div {
-  margin-bottom: 15px;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.payment-container label {
+label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: bold;
-  color: #555; /* Color de texto */
-}
-
-.payment-container input[type="text"],
-.payment-container input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  color: #2c3e50; /* Azul marino oscuro */
   font-size: 16px;
-  color: #333;
 }
 
-.payment-container input[type="text"]:focus,
-.payment-container input[type="file"]:focus {
-  border-color: #66afe9; /* Color de borde al enfocar */
-  outline: none;
-  box-shadow: 0px 0px 8px rgba(102, 175, 233, 0.6); /* Sombra al enfocar */
-}
-
-.payment-container button {
+input[type="text"] {
   width: 100%;
-  padding: 10px 15px;
-  background-color: #28a745; /* Color de fondo del botón */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 18px;
+  padding: 12px;
+  border: 1px solid #1f2e3d; /* Azul oscuro */
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f4f4f4; /* Gris claro */
+  color: #2c3e50; /* Azul marino oscuro */
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #34495e; /* Azul marino claro */
+  outline: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px;
   cursor: pointer;
+  background-color: #2c3e50; /* Azul marino oscuro */
+  color: #ecf0f1; /* Blanco casi blanco */
+  border-radius: 8px;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
-.payment-container button:hover {
-  background-color: #218838; /* Color al pasar el cursor */
+.custom-file-upload:hover {
+  background-color: #1f2e3d; /* Azul oscuro */
 }
 
-.payment-container button:active {
-  background-color: #1e7e34; /* Color al hacer clic */
+input[type="file"] {
+  display: none;
 }
+
+.preview-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.preview-container img {
+  max-width: 50%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  background-color: #2c3e50; /* Azul marino oscuro */
+  color: #ecf0f1; /* Blanco casi blanco */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #1f2e3d; /* Azul oscuro */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+

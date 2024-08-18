@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MensajespersonalizadosService } from 'src/app/service/mensajespersonalizados.service';
 import { MensajesPersonalizados } from 'src/app/model/MensajesPersonalizados';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-mensajes-personalizados',
   templateUrl: './mensajes-personalizados.component.html',
@@ -34,6 +34,7 @@ export class MensajesPersonalizadosComponent implements OnInit {
     private mensajesService: MensajespersonalizadosService,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location
   ) {
     this.mensajeForm = this.fb.group({
       titulo: ['', Validators.required],
@@ -325,7 +326,7 @@ formatMessage(message: string, useQuotes: boolean = true, isEditable: boolean = 
   }
 
   goBack(): void {
-    this.router.navigate(['/components/customer-overview']);
+    this.location.back();
   }
 
   showSuccessMessage(message: string): void {

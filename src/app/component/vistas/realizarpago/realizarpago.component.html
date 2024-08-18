@@ -1,14 +1,24 @@
 <div class="payment-container">
   <h2>Subir Comprobante de Pago</h2>
   <form (submit)="submitPayment()">
-    <div>
+    <div class="form-group">
       <label for="title">Título:</label>
       <input type="text" id="title" [(ngModel)]="title" name="title" />
     </div>
-    <div>
-      <label for="file">Seleccionar archivo:</label>
+    <div class="form-group">
+      <label for="file" class="custom-file-upload">
+        <i class="fa fa-cloud-upload"></i> Seleccionar archivo
+      </label>
       <input type="file" id="file" (change)="handleFileInput($event)" />
     </div>
+    
+    <!-- Vista previa de la imagen seleccionada -->
+    <div *ngIf="fileToUpload" class="preview-container">
+      <h3>Vista previa:</h3>
+      <img [src]="imageUrl" alt="Vista previa de la imagen" />
+      <p>{{ fileToUpload.name }}</p>
+    </div>
+    
     <button type="submit">Enviar</button>
   </form>
 </div>

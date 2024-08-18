@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Services } from 'src/app/model/Services';
 import { ServicesService } from 'src/app/service/services.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-servicioedit',
@@ -23,7 +24,8 @@ export class ServicioeditComponent implements OnInit{
     private router: Router,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +99,7 @@ export class ServicioeditComponent implements OnInit{
   }
 
   cancelar(): void {
-      this.router.navigate(['/components/servicios-overview']);
+    this.location.back();
   }
 
 }

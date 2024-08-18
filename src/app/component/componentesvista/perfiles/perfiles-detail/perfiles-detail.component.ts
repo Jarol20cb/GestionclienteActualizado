@@ -5,7 +5,7 @@ import { PerfilService } from 'src/app/service/perfil-service.service';
 import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { Perfil } from 'src/app/model/Perfil';
 import { WarningDialogComponent } from 'src/app/component/dialogo/warning-dialog/warning-dialog.component';
-
+import { Location } from '@angular/common';
 interface PerfilExtendido extends Perfil {
   showPassword?: boolean;
 }
@@ -23,7 +23,8 @@ export class PerfilesDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private perfilService: PerfilService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +69,7 @@ export class PerfilesDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/components/perfil-overview']);
+    this.location.back();
   }
 
   editProfile(id: number): void {
