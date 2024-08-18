@@ -82,13 +82,13 @@
         <div class="menu-item" (click)="setActive('configuracion')" (click)="toggleSubmenu('configuracion')" [class.active]="active === 'configuracion'">
             <a>
                 <span class="material-icons icon">settings</span>
-                <span class="text">Gestión</span>
+                <span class="text">Configuración General</span>
             </a>
             <ul *ngIf="submenuActive === 'configuracion'">
                 <li>
                     <a (click)="setActive('credenciales')" routerLink="/components/credentials" [class.active]="active === 'credenciales'">
                         <span class="material-icons icon">account_circle</span>
-                        <span class="text">Ver Perfil</span>
+                        <span class="text">Mi Cuenta</span>
                     </a>
                 </li>
                 <li>
