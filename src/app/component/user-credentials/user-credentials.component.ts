@@ -17,7 +17,7 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
   subscriptionDuration: string = '';
   subscriptionClass: string = '';
   intervalId: any;
-  bannerShown: boolean = false;  // Añadir un indicador para saber si el banner ya fue mostrado
+  bannerShown: boolean = false;
 
   constructor(private loginService: LoginService, private dialog: MatDialog, private router: Router) {
     this.error = ''; 
@@ -27,12 +27,12 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
     this.getUserDetails();
     this.intervalId = setInterval(() => {
       this.calculateSubscriptionDuration();
-    }, 1000); // Actualiza cada segundo
+    }, 1000);
   }
 
   ngOnDestroy(): void {
     if (this.intervalId) {
-      clearInterval(this.intervalId); // Limpia el intervalo cuando el componente se destruye
+      clearInterval(this.intervalId);
     }
   }
 
@@ -40,7 +40,7 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
     this.loginService.getUserDetails().subscribe(
       data => {
         this.user = data;
-        this.calculateSubscriptionDuration(); // Llama a la función al cargar los datos
+        this.calculateSubscriptionDuration();
       },
       error => {
         this.error = error;
@@ -57,13 +57,8 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
 
         if (currentTime >= endDate.getTime()) {
             this.subscriptionDuration = 'La suscripción ha expirado';
-            this.subscriptionClass = 'rojo'; // Aplicar clase roja para suscripción expirada
+            this.subscriptionClass = 'rojo';
 
-            // Mostrar banner una sola vez
-            if (!this.bannerShown) {
-                this.mostrarBanner();
-                this.bannerShown = true;  // Marcar que el banner ya ha sido mostrado
-            }
             return;
         }
 
@@ -80,7 +75,6 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
 
         this.subscriptionDuration = `${diffInDays} días, ${remainingHours} horas, ${remainingMinutes} minutos y ${remainingSeconds} segundos`;
 
-        // Aplicar la clase CSS según el rango de días
         if (diffInDays <= 3) {
             this.subscriptionClass = 'rojo';
         } else if (diffInDays > 3 && diffInDays <= 7) {
@@ -93,28 +87,6 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
         this.subscriptionClass = '';
     }
   }
-
-  mostrarBanner() {
-    this.dialog.open(BannerComponent, {
-      width: 'auto',
-      height: 'auto',
-      disableClose: true,
-      panelClass: 'custom-dialog-container',
-      data: {
-        user: this.user,
-        subscriptionDuration: this.subscriptionDuration
-      }
-    });
-  }
-  
-
-  // Método comentado para cerrar sesión, en caso de que lo necesites en el futuro
-  /*
-  cerrarSesionAutomatica() {
-    sessionStorage.clear();
-    this.router.navigate(['/login']);
-  }
-  */
 
   cerrar() {
     const dialogRef = this.dialog.open(CerrarSesionComponent, {
