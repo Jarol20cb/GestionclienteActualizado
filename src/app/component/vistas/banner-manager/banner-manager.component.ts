@@ -64,18 +64,6 @@ export class BannerManagerComponent implements OnInit {
     const endDate = new Date(this.user.subscriptionEndDate).getTime();
     const daysLeft = Math.floor((endDate - currentTime) / (1000 * 60 * 60 * 24));
 
-    // Banner de bienvenida para nuevos usuarios
-    if (this.isNewUser() && !localStorage.getItem('welcomeBannerShown')) {
-      this.bannerQueue.push({
-        title: '¡Bienvenido!',
-        image: 'assets/banners/welcome.png',
-        message: [`Hola, ${this.user.name}. ¡Gracias por unirte a nosotros!`],
-        buttons: [{ text: 'Comenzar', class: 'start-button', action: () => this.onStart() }],
-        allowClose: true
-      });
-      localStorage.setItem('welcomeBannerShown', 'true');
-    }
-
     // Banner de suscripción expirada
     if (currentTime >= endDate) {
       this.bannerQueue.push({

@@ -1,43 +1,20 @@
-<div class="sidenav" id="sidenav">
-  <div class="logo">A</div>
-  <div class="sidenav-container">
-    <a (click)="setActive('dashboard')" [class.active]="active === 'dashboard'">
-      <span class="material-icons icon">home</span>
-      <span class="text">Dashboard</span>
-  </a>
-  <a (click)="setActive('products')" [class.active]="active === 'products'">
-      <span class="material-icons icon">inventory_2</span>
-      <span class="text">Products</span>
-  </a>
-  <a (click)="setActive('statistics')" [class.active]="active === 'statistics'">
-      <span class="material-icons icon">bar_chart</span>
-      <span class="text">Statistics</span>
-  </a>
-  <a (click)="setActive('coupons')" [class.active]="active === 'coupons'">
-      <span class="material-icons icon">local_offer</span>
-      <span class="text">Coupons</span>
-  </a>
-  <a (click)="setActive('pages')" [class.active]="active === 'pages'">
-      <span class="material-icons icon">insert_drive_file</span>
-      <span class="text">Pages</span>
-  </a>
-  <a (click)="setActive('media')" [class.active]="active === 'media'">
-      <span class="material-icons icon">photo_camera</span>
-      <span class="text">Media</span>
-  </a>
-  <a (click)="setActive('settings')" [class.active]="active === 'settings'">
-      <span class="material-icons icon">settings</span>
-      <span class="text">Settings</span>
-  </a>
-  <div class="profile">
-      <img src="https://via.placeholder.com/50" alt="Profile Picture">
-      <div class="name">Evano</div>
-      <div class="role">Project Manager</div>
+<div class="card-container">
+    <div class="card">
+      <div class="skip-intro">
+        <a (click)="skipToEnd()">Omitir</a>
+      </div>
+      <div class="card-img-container">
+        <img [src]="steps[currentStep].image" class="card-img-top" alt="{{ steps[currentStep].title }}">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ steps[currentStep].title }}</h5>
+        <p class="card-text">{{ steps[currentStep].content }}</p>
+        <div class="navigation-buttons">
+          <button class="btn btn-secondary" (click)="prevStep()" [disabled]="currentStep === 0">Volver</button>
+          <button class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < steps.length - 1">Siguiente</button>
+          <button class="btn btn-success" (click)="acceptAndFinish()" *ngIf="currentStep === steps.length - 1">Aceptar</button>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-</div>
-
-<div class="main-content" id="main-content" (click)="handleClickOutside($event)">
-  <h2>Componentes</h2>
-  <p>Aquí puedes colocar el contenido principal de la página.</p>
-</div>
+  

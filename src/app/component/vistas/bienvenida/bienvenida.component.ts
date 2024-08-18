@@ -1,76 +1,62 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bienvenida',
   templateUrl: './bienvenida.component.html',
   styleUrls: ['./bienvenida.component.css']
 })
-export class BienvenidaComponent implements OnInit {
-
-  active: string = 'dashboard';
-
-  @HostListener('document:click', ['$event'])
-  handleClickOutside(event: MouseEvent) {
-    const sidenav = document.getElementById("sidenav");
-    if (sidenav && !sidenav.contains(event.target as Node) && sidenav.classList.contains('open')) {
-      this.closeNav();
+export class BienvenidaComponent {
+  currentStep = 0;
+  steps = [
+    {
+      title: 'Bienvenido',
+      content: 'Bienvenido a Rentala, la herramienta que te ayudara a tener un mejor control de tus clientes de streaming',
+      image: 'assets/bienvenida/saludo.gif'
+    },
+    {
+      title: 'Gestión a tus socios y proveedores',
+      content: 'Administra tus proveedores y socios desde un único lugar. Añade nuevos proveedores y socios fácilmente para mantener tu red actualizada.',
+      image: 'assets/bienvenida/personas-usuarios.png'
+    },
+    {
+      title: 'Servicios y Perfiles',
+      content: 'Registra y gestiona los servicios que ofreces, así como los perfiles obtenidos de diferentes proveedores.',
+      image: 'assets/bienvenida/servicios.gif'
+    },
+    {
+      title: 'Clientes',
+      content: 'Registra a tus clientes, asigna perfiles y servicios, y gestiona la relación con ellos de manera centralizada.',
+      image: 'assets/bienvenida/cliente.gif'
+    },
+    {
+      title: 'Recomendaciones',
+      content: 'Para un uso óptimo, sigue el flujo recomendado: gestiona primero los proveedores y socios, luego los servicios, perfiles y finalmente los clientes.',
+      image: 'assets/bienvenida/koala.png'
     }
-  }
+  ];
 
-  ngOnInit() {
-    this.checkWindowSize();
-  }
+  constructor(private router: Router) {}
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.checkWindowSize();
-  }
-
-  checkWindowSize() {
-    const sidenav = document.getElementById("sidenav");
-    const mainContent = document.getElementById("main-content");
-    if (window.innerWidth <= 768) {
-      sidenav?.classList.add("responsive");
-      mainContent?.classList.add("responsive");
-      this.closeNav();
+  nextStep() {
+    if (this.currentStep < this.steps.length - 1) {
+      this.currentStep++;
     } else {
-      sidenav?.classList.remove("responsive");
-      mainContent?.classList.remove("responsive");
-      this.openNav();
+      this.router.navigate(['/components/home']);
     }
   }
 
-  toggleNav() {
-    const sidenav = document.getElementById("sidenav");
-    const mainContent = document.getElementById("main-content");
-    sidenav?.classList.toggle("open");
-    if (sidenav?.classList.contains('open')) {
-      sidenav?.classList.remove("closed");
-      mainContent?.classList.add("responsive");
-    } else {
-      sidenav?.classList.add("closed");
-      mainContent?.classList.remove("responsive");
+  prevStep() {
+    if (this.currentStep > 0) {
+      this.currentStep--;
     }
   }
 
-  openNav() {
-    const sidenav = document.getElementById("sidenav");
-    const mainContent = document.getElementById("main-content");
-    sidenav?.classList.remove("closed");
-    sidenav?.classList.add("open");
-    mainContent?.classList.remove("closed");
+  acceptAndFinish() {
+    this.router.navigate(['/ruta_final']); // Redirige a la página deseada al finalizar
   }
 
-  closeNav() {
-    const sidenav = document.getElementById("sidenav");
-    const mainContent = document.getElementById("main-content");
-    sidenav?.classList.add("closed");
-    sidenav?.classList.remove("open");
-    mainContent?.classList.add("closed");
-  }
-
-  setActive(tab: string) {
-    this.active = tab;
-    this.openNav(); // Asegúrate de que la barra lateral se abra cuando se seleccione un tab
+  skipToEnd() {
+    this.currentStep = this.steps.length - 1;
   }
 }
