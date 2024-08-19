@@ -1,8 +1,9 @@
-export interface Notification {
-  id: number;
-  message: string;
-  read: boolean;
-  timestamp: Date;
-  userId: number;
-  username: string;
+export class Notification {
+  id: number = 0;
+  message: string = '';
+  read: boolean = false;
+  timestamp: Date = new Date();
+  userId: number = 0;
+  username: string = '';
 }
+
