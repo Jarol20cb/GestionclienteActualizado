@@ -105,5 +105,9 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
   irAPagar() {
     this.router.navigate(['/components/pago']);
   }
+
+  VerPagos() {
+    this.router.navigate(['/components/listar-pago']);
+  }
   
 }
