@@ -84,7 +84,8 @@ export class RealizarPagoComponent {
         title: '¡Pago Realizado Exitosamente!',
         message: [
           'Gracias por realizar su pago. Su cuenta se activará temporalmente mientras validamos su transacción.',
-          'Agradecemos su confianza y esperamos que disfrute de todos los beneficios que hemos preparado para usted.'
+          'Agradecemos su confianza y esperamos que disfrute de todos los beneficios que hemos preparado para usted.',
+          '¡NO OLVIDES VER TUS NOTIFICACIONES PARA REVISAR EL ESTADO DE TU PAGO!'
         ],
         buttons: [
           { text: 'Aceptar', class: 'realizar-pago', action: this.redirectWithAnimation.bind(this) }

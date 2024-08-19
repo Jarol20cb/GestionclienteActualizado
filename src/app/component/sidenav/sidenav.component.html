@@ -1,3 +1,4 @@
+<app-toolbar></app-toolbar>
 <div class="sidenav" id="sidenav" *ngIf="verificar()">
     <div class="logo">Gestioname</div>
     <div class="user-info">
@@ -50,10 +51,10 @@
             </ul>
         </div>
         
-        <a (click)="setActive('notificaciones')" routerLink="/components/notifications" [class.active]="active === 'notificaciones'">
+        <!-- <a (click)="setActive('notificaciones')" routerLink="/components/notifications" [class.active]="active === 'notificaciones'">
             <span class="material-icons icon">notifications</span>
             <span class="text">Notificaciones</span>
-        </a>
+        </a> -->
 
         <!-- Herramientas -->
 

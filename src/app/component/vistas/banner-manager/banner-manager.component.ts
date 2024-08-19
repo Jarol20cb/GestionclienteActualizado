@@ -1,11 +1,13 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserData } from 'src/app/model/userdata';
 import { LoginService } from 'src/app/service/login.service';
 import { BannerComponent } from '../banner/banner.component';
 import { Router } from '@angular/router';
 import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
 import { UserWithDates } from 'src/app/model/user/UserWithDates';
+import { Message } from 'src/app/model/Message';
+import { MessageService } from 'src/app/service/message-service.service';
+import { AdministracionService } from 'src/app/service/administracion.service';
 
 @Component({
   selector: 'app-banner-manager',
@@ -29,6 +31,8 @@ export class BannerManagerComponent implements OnInit {
     private dialog: MatDialog, 
     private router: Router,
     private renderer: Renderer2,
+    private messageService: MessageService, 
+    private mensajesadministrados: AdministracionService
   ) {}
 
   ngOnInit(): void {
@@ -248,6 +252,41 @@ export class BannerManagerComponent implements OnInit {
       });
       this.markBannerAsShown('maintenanceBannerShown');
     }
+
+    if (this.user.roles.includes('ADMIN')) {
+      this.mensajesadministrados.listarPagosPendientes().subscribe(
+        (messages: Message[]) => {
+          console.log(messages);  // Verifica que los mensajes estén llegando
+          const pendingMessages = messages.filter(message => message.status === 'PENDING');
+          if (pendingMessages.length > 0) {
+            console.log('Se encontraron mensajes pendientes para revisión');
+            this.bannerQueue.push({
+              title: 'Mensajes Pendientes de Revisión',
+              image: 'assets/banners/lisa-feliz.gif',
+              message: [
+                `Hola, ${this.user.name}.`,
+                'Tienes pagos pendientes para revisión.'
+              ],
+              buttons: [
+                { text: 'Revisar Mensajes', class: 'review-button', action: () => this.router.navigate(['/components/verificar-pagos']) }
+              ],
+              allowClose: true
+            });
+            this.markBannerAsShown('pendientes');
+    
+            // Intentamos mostrar el banner de inmediato
+            this.showNextBanner();
+          } else {
+            console.log('No se encontraron mensajes pendientes para revisión');
+          }
+        },
+        error => {
+          console.error('Error al listar los mensajes pendientes', error);
+        }
+      );
+    }
+    
+
   }
 
   onRenew() {

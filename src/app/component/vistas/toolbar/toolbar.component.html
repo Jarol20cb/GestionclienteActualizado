@@ -6,69 +6,12 @@
   <title>Iniciar Sesión</title>
 </head>
 <body>
-  <div class="toolbar" *ngIf="verificar()">
+  <div class="toolbar">
     <div class="toolbar-title"><p>{{ user.companyName }}</p></div>
-    <div class="toolbar-buttons">
-      <button class="toolbar-button" routerLink="/components/home">
-        <mat-icon class="toolbar-icon">home</mat-icon>
-      </button>
-
-      <button *ngIf="role === 'ADMIN'" class="toolbar-button"  routerLink="/components/users">
-        <mat-icon class="toolbar-icon">verified_user</mat-icon>
-      </button>
-      <div class="dropdown" *ngIf="role === 'ADMIN' || role === 'USER'">
-        <button class="toolbar-button" (click)="toggleDropdown($event)">
-          <mat-icon class="toolbar-icon">menu</mat-icon>
-        </button>
-        <div class="dropdown-content" (click)="preventClose($event)">
-          <div class="submenu">
-            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">group</mat-icon> Clientes</a>
-            <div class="submenu-content">
-              <a routerLink="/components/custser" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/custser/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
-            </div>
-          </div>
-          
-          <div class="submenu">
-            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">people_outline</mat-icon> Socios</a>
-            <div class="submenu-content">
-              <a routerLink="/components/socios" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/socios/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
-            </div>
-          </div>
-
-          <div class="submenu">
-            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">subscriptions</mat-icon> Plataformas</a>
-            <div class="submenu-content">
-              <a routerLink="/components/servicios" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/servicios/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
-            </div>
-          </div>
-          <div class="submenu">
-            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">business</mat-icon> Proveedores</a>
-            <div class="submenu-content">
-              <a routerLink="/components/proveedor" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/proveedor/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
-            </div>
-          </div>
-          <div class="submenu">
-            <a (click)="preventClose($event)"><mat-icon class="dropdown-icon">person</mat-icon> Perfiles</a>
-            <div class="submenu-content">
-              <a routerLink="/components/perfil" (click)="closeDropdown()">Ver</a>
-              <a routerLink="/components/perfil/nuevo" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="closeDropdown()">Registrar</a>
-            </div>
-          </div>
-          <a routerLink="/components/credentials" (click)="closeDropdown()"><mat-icon class="dropdown-icon">account_circle</mat-icon> Ver cuenta</a>
-          <a (click)="cerrar(); closeDropdown()"><mat-icon class="dropdown-icon">logout</mat-icon> Cerrar sesión</a>
-        </div>
-      </div>
-
-      <!-- Botón para ir al componente de notificaciones -->
-      <button class="toolbar-button" routerLink="/components/notifications">
-        <mat-icon class="toolbar-icon">notifications</mat-icon>
-      </button>
-      
-    </div>
-  </div><br><br>
+    <div class="toolbar-spacer"></div>
+    <button class="toolbar-button toolbar-notification-button" routerLink="/components/notifications">
+      <mat-icon class="toolbar-icon">notifications</mat-icon>
+    </button>
+  </div>
 </body>
 </html>

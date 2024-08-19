@@ -53,7 +53,8 @@
 .ok-button, 
 .update-payment-button, 
 .info-button, 
-.realizar-pago {
+.realizar-pago,
+.review-button {
   flex: 1;
   padding: 10px 15px;
   border: none;
@@ -71,7 +72,8 @@
 .ok-button:hover, 
 .update-payment-button:hover, 
 .info-button:hover, 
-.realizar-pago:hover {
+.realizar-pago:hover,
+.review-button:hover {
   background-color: #1f2e3d; /* Azul oscuro */
 }
 
@@ -138,7 +140,8 @@
   .start-button, 
   .update-payment-button, 
   .info-button, 
-  .realizar-pago {
+  .realizar-pago,
+  .review-button {
     padding: 8px;
     font-size: 12px;
     margin-bottom: 10px;
