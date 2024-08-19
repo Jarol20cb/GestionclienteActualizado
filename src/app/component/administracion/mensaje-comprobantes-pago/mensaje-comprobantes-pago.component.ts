@@ -21,7 +21,7 @@ export class MensajeComprobantesPagoComponent implements OnInit {
 
   listarPagosPendientes(): void {
     this.administracionService.listarPagosPendientes().subscribe((data: Message[]) => {
-      this.mensajes = data.sort((a, b) => b.id - a.id); // Ordenar los mensajes por ID
+      this.mensajes = data.filter(m => m.status === 'PENDING').sort((a, b) => b.id - a.id); // Filtrar solo los pendientes
     });
   }
 
@@ -61,5 +61,31 @@ export class MensajeComprobantesPagoComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  getStatusLabel(status: string): string {
+    switch (status) {
+      case 'ACCEPTED':
+        return 'Aceptado';
+      case 'REJECTED':
+        return 'Rechazado';
+      case 'PENDING':
+        return 'Pendiente';
+      default:
+        return status;
+    }
+  }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'ACCEPTED':
+        return 'green';
+      case 'REJECTED':
+        return 'red';
+      case 'PENDING':
+        return 'orange';
+      default:
+        return 'black';
+    }
   }
 }

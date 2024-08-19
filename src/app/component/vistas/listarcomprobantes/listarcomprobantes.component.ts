@@ -80,4 +80,30 @@ export class ListarcomprobantesComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  getStatusLabel(status: string): string {
+    switch (status) {
+      case 'ACCEPTED':
+        return 'Aceptado';
+      case 'REJECTED':
+        return 'Rechazado';
+      case 'PENDING':
+        return 'Pendiente';
+      default:
+        return status;
+    }
+  }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'ACCEPTED':
+        return 'green';
+      case 'REJECTED':
+        return 'red';
+      case 'PENDING':
+        return 'orange';
+      default:
+        return 'black';
+    }
+  }
 }

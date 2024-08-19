@@ -28,7 +28,10 @@
         <div class="comprobante-details">
           <h3>{{ message.title }}</h3>
           <p>Subido el: {{ message.createdAt | date:'medium' }}</p>
-          <p> {{ message.username }}</p>
+          <p>
+            Estado: 
+            <span [style.color]="getStatusColor(message.status)">{{ getStatusLabel(message.status) }}</span>
+          </p> 
         </div>
         <div class="comprobante-img-container">
           <div class="img-overlay">
@@ -44,6 +47,7 @@
       </div>
     </ng-template>
   </div>
+  
 
   <div class="modal" *ngIf="isModalOpen" (click)="closeModal()">
     <span class="close" (click)="closeModal()">&times;</span>
