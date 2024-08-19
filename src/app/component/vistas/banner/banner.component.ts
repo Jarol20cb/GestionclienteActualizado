@@ -16,14 +16,14 @@ export class BannerComponent {
 
   onAction(action: Function) {
     if (action) {
-      action(); // Ejecuta la acción específica del banner
+      action();
     }
-    this.dialogRef.close(); // Cierra el banner después de la acción
+    this.dialogRef.close();
   }
 
   onClose() {
     if (this.data.allowClose) {
-      this.dialogRef.close(); // Cierra el banner si se permite cerrarlo
+      this.dialogRef.close();
     }
   }
 

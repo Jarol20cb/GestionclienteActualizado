@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,7 +37,15 @@ export class BienvenidaComponent {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, @Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<BienvenidaComponent>) {}
+
+  onClose() {
+    const canClose = this.data?.allowClose ?? true; // Si `allowClose` es undefined, se usa `true` como valor por defecto
+    if (canClose) {
+      this.dialogRef.close(); // Cierra el banner si se permite cerrarlo
+    }
+  }
+  
 
   nextStep() {
     if (this.currentStep < this.steps.length - 1) {

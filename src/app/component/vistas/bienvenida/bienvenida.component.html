@@ -1,4 +1,3 @@
-<div class="card-container">
     <div class="card">
       <div class="skip-intro">
         <a (click)="skipToEnd()">Omitir</a>
@@ -12,9 +11,9 @@
         <div class="navigation-buttons">
           <button class="btn btn-secondary" (click)="prevStep()" [disabled]="currentStep === 0">Volver</button>
           <button class="btn btn-primary" (click)="nextStep()" *ngIf="currentStep < steps.length - 1">Siguiente</button>
-          <button class="btn btn-success" (click)="acceptAndFinish()" *ngIf="currentStep === steps.length - 1">Aceptar</button>
+          <button class="btn btn-success" (click)="onClose()" *ngIf="currentStep === steps.length - 1">Aceptar</button>
         </div>
       </div>
     </div>
-  </div>
+
   

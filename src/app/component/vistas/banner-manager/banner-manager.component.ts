@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserData } from 'src/app/model/userdata';
 import { LoginService } from 'src/app/service/login.service';
 import { BannerComponent } from '../banner/banner.component';
 import { Router } from '@angular/router';
+import { BienvenidaComponent } from '../bienvenida/bienvenida.component';
+import { UserWithDates } from 'src/app/model/user/UserWithDates';
 
 @Component({
   selector: 'app-banner-manager',
@@ -11,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./banner-manager.component.css']
 })
 export class BannerManagerComponent implements OnInit {
-  user: UserData = new UserData();
+  user: UserWithDates = new UserWithDates({});
   bannerQueue: any[] = [];
   isBannerActive: boolean = false;
   specialPromotionActive: boolean = false;
@@ -22,17 +24,20 @@ export class BannerManagerComponent implements OnInit {
   constructor(
     private loginService: LoginService, 
     private dialog: MatDialog, 
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2,
   ) {}
 
   ngOnInit(): void {
     this.checkAccountStatus();
   }
 
+  
+
   checkAccountStatus() {
     this.loginService.getUserDetails().subscribe(
       data => {
-        this.user = data;
+        this.user = new UserWithDates(data);
         this.queueBanners();
         this.showNextBanner();
       },
@@ -46,7 +51,7 @@ export class BannerManagerComponent implements OnInit {
     const accountCreationTime = new Date(this.user.createdAt).getTime();
     const currentTime = new Date().getTime();
     const timeDifference = currentTime - accountCreationTime;
-    const minutesSinceCreation = timeDifference / (1000 * 60); // Convertir a minutos
+    const minutesSinceCreation = timeDifference / (1000 * 60);
 
     return minutesSinceCreation <= 5;
   }
@@ -64,6 +69,37 @@ export class BannerManagerComponent implements OnInit {
     const currentTime = new Date().getTime();
     const endDate = new Date(this.user.subscriptionEndDate).getTime();
     const daysLeft = Math.floor((endDate - currentTime) / (1000 * 60 * 60 * 24));
+
+    // Banner de bienvenida para nuevos usuarios
+    if (this.isNewUser() && !this.hasBannerBeenShown('welcomeBannerShown')) {
+      this.bannerQueue.push({
+        component: 'BienvenidaComponent',
+        action: () => {
+          const dialogRef = this.dialog.open(BienvenidaComponent, {
+            width: 'auto',
+            height: 'auto',
+            disableClose: false,
+            panelClass: 'custom-dialog-backdrop',
+            data: { allowClose: true }
+          });
+
+          // Aplicar el estilo de desenfoque después de que el diálogo se haya abierto
+          dialogRef.afterOpened().subscribe(() => {
+            const overlayPane = document.querySelector('.cdk-overlay-backdrop');
+            if (overlayPane) {
+              this.renderer.setStyle(overlayPane, 'backdrop-filter', 'blur(10px)');
+            }
+          });
+
+          dialogRef.afterClosed().subscribe(() => {
+            this.isBannerActive = false;
+            this.showNextBanner();
+          });
+
+          this.markBannerAsShown('welcomeBannerShown');
+        }
+      });
+    }
 
     // Banner de suscripción expirada
     if (currentTime >= endDate) {
@@ -160,7 +196,7 @@ export class BannerManagerComponent implements OnInit {
   }
 
   onRenew() {
-    alert('Redirigiendo a la página de renovación...');
+    this.router.navigate(['/components/pago']);
     this.showNextBanner();
   }
 
@@ -176,7 +212,7 @@ export class BannerManagerComponent implements OnInit {
   }
 
   onUpdatePayment() {
-    alert('Redirigiendo a la página de actualización de pago...');
+    this.router.navigate(['/components/pago']);
     this.showNextBanner();
   }
 
@@ -198,20 +234,24 @@ export class BannerManagerComponent implements OnInit {
 
   showNextBanner() {
     if (this.isBannerActive || this.bannerQueue.length === 0) return;
-
+  
     this.isBannerActive = true;
     const nextBanner = this.bannerQueue.shift();
-
-    const dialogRef = this.dialog.open(BannerComponent, {
-      width: 'auto',
-      height: 'auto',
-      disableClose: !nextBanner.allowClose,
-      data: nextBanner
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.isBannerActive = false;
-      this.showNextBanner();
-    });
+  
+    if (nextBanner.component === 'BienvenidaComponent') {
+      nextBanner.action();
+    } else {
+      const dialogRef = this.dialog.open(BannerComponent, {
+        width: 'auto',
+        height: 'auto',
+        disableClose: !nextBanner.allowClose,
+        data: nextBanner
+      });
+  
+      dialogRef.afterClosed().subscribe(() => {
+        this.isBannerActive = false;
+        this.showNextBanner();
+      });
+    }
   }
 }
