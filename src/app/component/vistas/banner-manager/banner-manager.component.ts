@@ -20,6 +20,9 @@ export class BannerManagerComponent implements OnInit {
   maintenanceActive: boolean = false; 
   maintenanceStartDate: Date = new Date();
   maintenanceEndDate: Date = new Date();
+  subscriptionDuration: string = '';
+  error: string = '';
+  subscriptionClass: string = '';
 
   constructor(
     private loginService: LoginService, 
@@ -30,9 +33,29 @@ export class BannerManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkAccountStatus();
+    this.getUserDetails();
   }
 
-  
+  calculateSubscriptionDuration() {
+    if (this.user.subscriptionStartDate && this.user.subscriptionEndDate) {
+        const startDate = new Date(this.user.subscriptionStartDate);
+        const endDate = new Date(this.user.subscriptionEndDate);
+        const currentTime = new Date().getTime();
+
+        const diffInMilliseconds = endDate.getTime() - currentTime;
+
+        const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+        const diffInMinutes = Math.floor(diffInSeconds / 60);
+        const diffInHours = Math.floor(diffInMinutes / 60);
+        const diffInDays = Math.floor(diffInHours / 24);
+
+        const remainingHours = diffInHours % 24;
+        const remainingMinutes = diffInMinutes % 60;
+        const remainingSeconds = diffInSeconds % 60;
+
+        this.subscriptionDuration = `${remainingHours} horas, ${remainingMinutes} minutos`;
+    }
+}  
 
   checkAccountStatus() {
     this.loginService.getUserDetails().subscribe(
@@ -63,12 +86,44 @@ export class BannerManagerComponent implements OnInit {
   markBannerAsShown(bannerKey: string): void {
     sessionStorage.setItem(bannerKey, 'true');
   }
+
+  getUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+        this.calculateSubscriptionDuration();
+      },
+      error => {
+        this.error = error;
+        console.error('Error al obtener los detalles del usuario', error);
+      }
+    );
+  }
   
 
   queueBanners() {
+    this.calculateSubscriptionDuration();
     const currentTime = new Date().getTime();
     const endDate = new Date(this.user.subscriptionEndDate).getTime();
     const daysLeft = Math.floor((endDate - currentTime) / (1000 * 60 * 60 * 24));
+    const timeLeft = endDate - currentTime;
+
+    // Banner para renovación de suscripción si quedan 24 horas o menos
+    if (timeLeft <= 24 * 60 * 60 * 1000) {
+      this.bannerQueue.push({
+        title: 'Paga tu suscripción',
+        image: 'assets/bienvenida/dinero-animado.gif',
+        message: [
+          `Hola, ${this.user.name}.`,
+          `Tu suscripción al plan ${this.user.accountType} terminará en ${this.subscriptionDuration}.`,
+          'Para disfrutar de los beneficios de tu cuenta Premium.'
+      ],
+        buttons: [
+          { text: 'Pagar Suscripción', class: 'renew-button', action: () => this.onRenew() }
+        ],
+        allowClose: false
+      });
+    }
 
     // Banner de bienvenida para nuevos usuarios
     if (this.isNewUser() && !this.hasBannerBeenShown('welcomeBannerShown')) {
@@ -228,7 +283,6 @@ export class BannerManagerComponent implements OnInit {
 
   onMoreInfo() {
     alert('Redirigiendo a la página con más información sobre la renovación...');
-    // Aquí puedes redirigir al usuario a una página de información, o mostrar más detalles en un modal, etc.
     this.showNextBanner();
   }
 
