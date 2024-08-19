@@ -57,7 +57,7 @@
 
         <!-- Herramientas -->
 
-        <div class="menu-item" (click)="setActive('herramientas')" (click)="toggleSubmenu('herramientas')" [class.active]="active === 'herramientas'">
+        <div *ngIf="user.accountType === 'PREMIUM'" class="menu-item" (click)="setActive('herramientas')" (click)="toggleSubmenu('herramientas')" [class.active]="active === 'herramientas'">
             <a>
                 <span class="material-icons icon">build</span>
                 <span class="text">Herramientas</span>

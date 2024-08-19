@@ -58,6 +58,7 @@ export class BannerManagerComponent implements OnInit {
   markBannerAsShown(bannerKey: string): void {
     sessionStorage.setItem(bannerKey, 'true');
   }
+  
 
   queueBanners() {
     const currentTime = new Date().getTime();
@@ -170,7 +171,7 @@ export class BannerManagerComponent implements OnInit {
   }
 
   onUpgrade() {
-    alert('Redirigiendo a la página de mejora a Premium...');
+    this.router.navigate(['/components/pago']);
     this.showNextBanner();
   }
 
