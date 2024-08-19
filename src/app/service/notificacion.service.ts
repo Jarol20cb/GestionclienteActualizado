@@ -24,6 +24,26 @@ export class NotificacionService {
     });
   }
 
+  //verifica la cantidad de notificaciones
+  getUnreadCount(): Observable<number> {
+    let token = sessionStorage.getItem('token');
+    return this.http.get<number>(`${this.url}/user/current/unread-count`, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-Type', 'application/json'),
+    });
+  }
+
+  //marca las notificaciones a leidas
+  markAllAsRead(): Observable<void> {
+    let token = sessionStorage.getItem('token');
+    return this.http.post<void>(`${this.url}/user/current/mark-all-read`, {}, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-Type', 'application/json'),
+    });
+  }
+
   setList(listaNueva: Notification[]) {
     this.listaCambio.next(listaNueva);
   }
