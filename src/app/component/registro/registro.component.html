@@ -1,6 +1,10 @@
 <div class="wrapper">
-  <div class="form-container">
-    <div class="close-button" (click)="cancel()">×</div> <!-- Botón de cerrar -->
+  <div *ngIf="loading" class="loading-spinner">
+    <img src="assets/carga/carga.gif" alt="Cargando..." />
+  </div>
+  <div *ngIf="!loading" class="form-container">
+    <div class="close-button" (click)="cancel()">×</div>
+
     <div class="tag1" *ngIf="currentStep === 1">
       <app-registration-step1 [form]="form" (next)="goToStep2()"></app-registration-step1>
     </div>

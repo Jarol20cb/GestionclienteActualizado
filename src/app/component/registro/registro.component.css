@@ -94,6 +94,20 @@ body {
   border-radius: 15px;
 }
 
+/* .loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+} */
+
+.loading-spinner img{
+  width: 15%;
+  height: auto;
+}
+
+
 @media (max-width: 600px) {
   .form-container {
     padding: 20px;

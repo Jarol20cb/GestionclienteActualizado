@@ -13,6 +13,7 @@ import { DialogComponent } from '../dialogo/dialog/dialog.component';
 export class RegistroComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   currentStep: number = 1;
+  loading: boolean = false; // Variable para manejar el estado de carga
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,6 +59,8 @@ export class RegistroComponent implements OnInit {
 
   registrar() {
     if (this.form.valid) {
+      this.loading = true; // Mostrar spinner de carga
+
       const registro = {
         id: 0,
         username: this.form.value.username,
@@ -70,11 +73,13 @@ export class RegistroComponent implements OnInit {
 
       this.cS.insert(registro).subscribe(
         (data) => {
+          this.loading = false; // Ocultar spinner de carga
           console.log('Registro exitoso:', data.message);
           this.router.navigate(['login']);
           this.openDialog('Registro Exitoso', data.message);
         },
         (error) => {
+          this.loading = false; // Ocultar spinner de carga incluso en caso de error
           console.error('Error en el registro:', error);
           this.openDialog('Error', 'Error en el registro: ' + (error.error.message || error.message || 'Error desconocido.'));
         }
@@ -86,7 +91,7 @@ export class RegistroComponent implements OnInit {
 
   openDialog(title: string, message: string): void {
     let imageUrl: string;
-  
+
     if (title === 'Registro Exitoso') {
       imageUrl = 'assets/exito.png';
     } else if (title === 'Error') {
@@ -94,13 +99,12 @@ export class RegistroComponent implements OnInit {
     } else {
       imageUrl = 'assets/error.png';
     }
-  
+
     this.dialog.open(DialogComponent, {
       width: '250px',
       data: { title, message, imageUrl },
     });
   }
-  
 
   cancel() {
     this.router.navigate(['/login']);
