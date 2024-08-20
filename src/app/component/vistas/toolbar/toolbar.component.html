@@ -6,7 +6,7 @@
       [ngClass]="{'swing': unreadCount > 0}"
       (click)="markAllNotificationsAsRead()" 
       routerLink="/components/notifications">
-      <mat-icon class="toolbar-icon">notifications</mat-icon>
+      <img style="width: 50%; height: auto;" src="assets/campana.png" alt="">
       <span *ngIf="unreadCount > 0" class="notification-count">{{ unreadCount }}</span>
     </button>
   </div><br><br>

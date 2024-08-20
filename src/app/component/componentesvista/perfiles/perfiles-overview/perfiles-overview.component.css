@@ -177,4 +177,8 @@
   .koala-image {
     display: none;
   }
+
+  .no-data-container img{
+    width: 80%;
+  }
 }

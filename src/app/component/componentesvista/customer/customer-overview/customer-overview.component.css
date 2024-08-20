@@ -248,4 +248,8 @@
     width: 100%;
     margin-top: 20px;
   }
+
+  .no-data-container img{
+    width: 81%;
+  }
 }

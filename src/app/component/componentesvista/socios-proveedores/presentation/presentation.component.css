@@ -78,7 +78,20 @@
   
   @media (max-width: 600px) {
     .card {
-      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card img{
+      width: 50%;
+      height: auto;
+      margin-bottom: 0px;
+    }
+
+    .card {
+      width: 80%;
     }
   
     .cards-container {
@@ -86,3 +99,23 @@
     }
   }
   
+  @media (max-width: 480px) {
+    .presentation-container{
+      margin-top: -60px;
+    }
+
+    h1{
+      font-size: 25px;
+    }
+    
+    .card h2{
+      font-size: 15px;
+      margin-bottom: 0px;
+    }
+
+    .card img{
+      width: 50%;
+      height: auto;
+      margin-bottom: 0px;
+    }
+  }
