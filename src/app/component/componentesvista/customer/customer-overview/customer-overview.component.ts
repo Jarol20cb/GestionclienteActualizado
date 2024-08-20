@@ -37,6 +37,7 @@ export class CustomerOverviewComponent implements OnInit {
   totalPages: number = 0;
   selectionMode: boolean = false;
   role: string = '';
+  fabMenuVisible: boolean = false;
 
   constructor(private router: Router, private cS: CustomerserviceService, public dialog: MatDialog, private loginService: LoginService) {}
 
@@ -50,6 +51,10 @@ export class CustomerOverviewComponent implements OnInit {
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
       this.paginateData();
     });
+  }
+  
+  toggleFabMenu() {
+    this.fabMenuVisible = !this.fabMenuVisible;
   }
 
   viewDetails(customerId: number): void {

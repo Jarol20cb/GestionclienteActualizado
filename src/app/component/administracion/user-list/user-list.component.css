@@ -1,3 +1,4 @@
+/* Estilos generales */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -314,6 +315,7 @@ input:checked + .slider:before {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Media Queries combinadas */
 @media (max-width: 768px) {
   .title {
     font-size: 22px;
@@ -353,6 +355,22 @@ input:checked + .slider:before {
 
   .buttons {
     justify-content: space-around;
+  }
+
+  .pagination-controls {
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .pagination-controls button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .pagination-controls span {
+    font-size: 14px;
   }
 }
 
@@ -408,6 +426,26 @@ input:checked + .slider:before {
     padding: 6px 15px;
     font-size: 12px;
   }
+
+  .pagination-controls {
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .pagination-controls button {
+    padding: 6px 10px;
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+  }
+
+  .pagination-controls span {
+    font-size: 12px;
+    text-align: center;
+    flex: 1;
+  }
 }
 
 @media (max-width: 360px) {
@@ -439,54 +477,8 @@ input:checked + .slider:before {
     padding: 4px 10px;
     font-size: 10px;
   }
-}
 
-
-@media (max-width: 768px) {
   .pagination-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-  }
-
-  .pagination-controls button {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  .pagination-controls span {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-    width: 100%;
-  }
-
-  .pagination-controls button {
-    padding: 6px 10px;
-    font-size: 12px;
-    flex: 1;
-    text-align: center;
-  }
-
-  .pagination-controls span {
-    font-size: 12px;
-    text-align: center;
-    flex: 1;
-  }
-}
-
-@media (max-width: 360px) {
-  .pagination-controls {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 5px;

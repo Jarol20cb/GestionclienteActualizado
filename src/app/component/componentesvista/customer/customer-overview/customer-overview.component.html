@@ -2,20 +2,19 @@
   <div class="header">
     <h2>Clientes</h2>
     <div class="header-actions">
-      <input type="text" placeholder="Buscar..." (input)="filter($event)">
-      <button class="action-button" (click)="toggleSelectionMode()">
-        {{ selectionMode ? 'Cancelar Selección' : 'Seleccionar' }}
-      </button>
-      <button *ngIf="selectedCustomers.length > 0" class="action-button" (click)="eliminarSeleccionados()">
-        Eliminar Seleccionados
-      </button>
       <button class="action-button" (click)="addCustomer()">Añadir</button>
-      <button class="action-button" (click)="exportToExcel()">
-        <i class="fas fa-file-excel"></i> Exportar
+      <button class="fab" (click)="toggleFabMenu()">
+        <i class="fas fa-plus"></i>
       </button>
-      <button class="action-button" (click)="vermensajes()">
-        <i class="fab fa-whatsapp"></i> Crear mensajes
-      </button>
+      <input type="text" placeholder="Buscar..." (input)="filter($event)">
+      <div *ngIf="fabMenuVisible" class="fab-menu">
+        <button  class="fab-item" (click)="toggleSelectionMode()">
+          {{ selectionMode ? 'Cancelar Selección' : 'Seleccionar' }}
+        </button>
+        <button class="fab-item" (click)="vermensajes()">Crear mensajes</button>
+        <button class="fab-item" (click)="exportToExcel()"><i class="fas fa-file-excel"></i> Exportar</button>
+        <button *ngIf="selectedCustomers.length > 0" class="fab-item" (click)="eliminarSeleccionados()">Eliminar Seleccionados</button>
+      </div>
     </div>
   </div>
 
@@ -49,4 +48,5 @@
       <button class="action-button" style="margin-left: 4px; @media (max-width: 768px) { margin-left: 0 };" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="cambiarEstado(customer)"><i class="fas fa-sync-alt"></i> Renovar</button>
     </div>
   </div>
+ 
 </div>

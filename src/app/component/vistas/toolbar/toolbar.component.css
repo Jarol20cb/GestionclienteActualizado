@@ -1,28 +1,13 @@
-.toolbar {
-  background: transparent;
-  color: #ecf0f1;
+.notification-button-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 10px 20px;
-  width: 100%;
-  z-index: 999;
-}
-
-.toolbar-title {
-  margin-right: auto;
-  font-size: 1.5em;
-  font-weight: bold;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
 }
 
 .toolbar-button {
   background-color: #2c3e50;
   border: none;
-  margin: 0 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -39,16 +24,6 @@
   transform: scale(1.1);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   background-color: #2c3e50;
-}
-
-.toolbar-icon {
-  font-size: 24px;
-  color: #ecf0f1;
-  transition: color 0.3s;
-}
-
-.toolbar-button:hover .toolbar-icon {
-  color: #ffffff;
 }
 
 .notification-count {
@@ -81,21 +56,7 @@
   animation: swing 1s ease-in-out infinite;
 }
 
-
 @media (max-width: 600px) {
-  .toolbar-title {
-    font-size: 1.2em;
-  }
-  
-  .toolbar-button {
-    margin: 0 5px;
-    width: 40px;
-    height: 40px;
-  }
-  
-  .toolbar-icon {
-    font-size: 20px;
-  }
 
   .notification-count {
     font-size: 10px;

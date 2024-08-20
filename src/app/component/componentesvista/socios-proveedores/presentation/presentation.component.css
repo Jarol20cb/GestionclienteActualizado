@@ -1,4 +1,11 @@
-.presentation-container {
+ html, body {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+ }
+
+ .presentation-container {
     text-align: center;
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -15,7 +22,7 @@
   
   .card {
     background-color: #fff;
-    border: 1px solid #007BFF; /* Color de borde azul similar al botón */
+    border: 1px solid #007BFF;
     border-radius: 12px;
     padding: 15px;
     text-align: center;
@@ -63,10 +70,9 @@
   }
   
   h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    color: #333;
-    position: relative;
+    margin: 0;
+  color: #34495e;
+  font-weight: 700;
   }
   
   .divider {
@@ -100,9 +106,6 @@
   }
   
   @media (max-width: 480px) {
-    .presentation-container{
-      margin-top: -60px;
-    }
 
     h1{
       font-size: 25px;

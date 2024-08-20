@@ -17,6 +17,7 @@ export class SidenavComponent implements OnInit {
   user: Registro = new Registro();
   error: string = "";
   submenuActive: string = '';
+  isResponsive: boolean = false;
 
   constructor(private loginService: LoginService, private dialog: MatDialog, private router: Router) {}
 
@@ -42,6 +43,8 @@ export class SidenavComponent implements OnInit {
     this.loginService.getUserDetails().subscribe(
       data => {
         this.user = data;
+        this.role = this.loginService.showRole();
+        this.username = this.loginService.showUser();
       },
       error => {
         this.error = error;
@@ -51,9 +54,10 @@ export class SidenavComponent implements OnInit {
   }
 
   checkWindowSize() {
+    this.isResponsive = window.innerWidth <= 768;
     const sidenav = document.getElementById("sidenav");
     const mainContent = document.getElementById("main-content");
-    if (window.innerWidth <= 768) {
+    if (this.isResponsive) {
       sidenav?.classList.add("responsive");
       mainContent?.classList.add("responsive");
       this.closeNav();
@@ -105,8 +109,6 @@ export class SidenavComponent implements OnInit {
   }
 
   verificar() {
-    this.role = this.loginService.showRole();
-    this.username = this.loginService.showUser();
     return this.loginService.verificar();
   }
 

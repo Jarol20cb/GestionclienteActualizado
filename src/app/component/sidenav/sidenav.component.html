@@ -51,11 +51,6 @@
             </ul>
         </div>
         
-        <!-- <a (click)="setActive('notificaciones')" routerLink="/components/notifications" [class.active]="active === 'notificaciones'">
-            <span class="material-icons icon">notifications</span>
-            <span class="text">Notificaciones</span>
-        </a> -->
-
         <!-- Herramientas -->
 
         <div *ngIf="user.accountType === 'PREMIUM'" class="menu-item" (click)="setActive('herramientas')" (click)="toggleSubmenu('herramientas')" [class.active]="active === 'herramientas'">
@@ -114,3 +109,5 @@
 <div class="main-content" id="main-content" (click)="handleClickOutside($event)">
     <router-outlet></router-outlet>
 </div>
+
+<app-responsive-menu *ngIf="isResponsive" [role]="role"></app-responsive-menu>

@@ -1,4 +1,5 @@
 <app-banner-manager></app-banner-manager>
+
 <div class="main-container">
   <div class="content">
     <div class="header" style="display: flex;">
@@ -10,13 +11,18 @@
     <div class="dashboard">
       <div class="top-section">
         <div class="widgets-section">
-          <h2>Plataformas con mas perfiles</h2>
-          <canvas id="popularPlatformsChart" width="430" height="250"></canvas>
+          <h1 style="font-weight: 700; color: #34495e; text-align: center;">Plataformas con más perfiles</h1>
+          <canvas *ngIf="popularPlatforms.length > 0" id="popularPlatformsChart" width="430" height="250"></canvas>
+          <div *ngIf="popularPlatforms.length === 0">
+            <img src="assets/koala-durmiendo.png" alt="No hay clientes con estado pendiente" style="max-width: 40%; height: auto; display: block; margin: 0 auto;">
+            <p>Aún no hay datos para mostrar.</p>
+          </div>
         </div>
+        
         <div class="clients-section">
-          <div class="report-card accordion-card">
-            <strong><h1>Clientes con Estado Pendiente</h1></strong><br>
-            <mat-accordion *ngIf="paginatedClientes.length > 0">
+          <h1 style="font-weight: 700;">Clientes con Estado Pendiente</h1><br>
+          <div class="report-card accordion-card" *ngIf="paginatedClientes.length > 0">
+            <mat-accordion >
               <mat-expansion-panel *ngFor="let cliente of paginatedClientes">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -39,10 +45,11 @@
                 <span class="material-icons">chevron_right</span>
               </button>
             </div>
-            <div *ngIf="clientesPendientes.length === 0" class="no-clientes">
-              <img src="assets/koala-durmiendo.png" alt="No hay clientes con estado pendiente" style="max-width: 40%; height: auto; display: block; margin: 0 auto;">
-              <p>Tus clientes estan al día.</p>
-            </div>
+            
+          </div>
+          <div *ngIf="clientesPendientes.length === 0" class="no-clientes">
+            <img src="assets/koala-durmiendo.png" alt="No hay clientes con estado pendiente" style="max-width: 40%; height: auto; display: block; margin: 0 auto;">
+            <p>Tus clientes estan al día.</p>
           </div>
           
         </div> 

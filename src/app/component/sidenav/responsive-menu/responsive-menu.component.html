@@ -1,0 +1,94 @@
+<div class="hamburger-menu" (click)="toggleMenu()">
+    <span class="material-icons">{{ menuOpen ? 'close' : 'menu' }}</span>
+</div>
+
+<div class="menu-content" [ngClass]="{'open': menuOpen, 'closed': !menuOpen}">
+    <a (click)="navigate('home')">
+        <span class="material-icons icon">home</span>
+        <span class="text">Inicio</span>
+    </a>
+
+    <!-- Gestion de Perfiles (Solo ADMIN) -->
+    <a *ngIf="role === 'ADMIN'" (click)="navigate('users')">
+        <span class="material-icons icon">verified_user</span>
+        <span class="text">Gestión de Perfiles</span>
+    </a>
+
+    <!-- Submenú de Gestión -->
+    <a (click)="toggleSubmenu('gestion')">
+        <span class="material-icons icon">manage_accounts</span>
+        <span class="text">Gestión</span>
+    </a>
+    <ul *ngIf="submenuActive === 'gestion'">
+        <li>
+            <a (click)="navigate('customer-overview')">
+                <span class="material-icons icon">people</span>
+                <span class="text">Clientes</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="navigate('socioproveedor-overview')">
+                <span class="material-icons icon">handshake</span>
+                <span class="text">Socios y Proveedores</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="navigate('servicios-overview')" >
+                <span class="material-icons icon">subscriptions</span>
+                <span class="text">Servicios</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="navigate('perfil-overview')">
+                <span class="material-icons icon">email</span>
+                <span class="text">Perfiles</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Submenú de Herramientas (Solo PREMIUM) -->
+    <a *ngIf="user.accountType === 'PREMIUM'" (click)="toggleSubmenu('herramientas')">
+        <span class="material-icons icon">build</span>
+        <span class="text">Herramientas</span>
+    </a>
+    <ul *ngIf="submenuActive === 'herramientas'">
+        <li>
+            <a (click)="navigate('exportar')">
+                <span class="material-icons icon">unarchive</span>
+                <span class="text">Exportar Registros</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="navigate('mensajes')">
+                <span class="material-icons icon">forum</span>
+                <span class="text">Crear Mensajes Personalizados</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Submenú de Configuración General -->
+    <a (click)="toggleSubmenu('configuracion')">
+        <span class="material-icons icon">settings</span>
+        <span class="text">Configuración General</span>
+    </a>
+    <ul *ngIf="submenuActive === 'configuracion'">
+        <li>
+            <a (click)="navigate('credentials')">
+                <span class="material-icons icon">account_circle</span>
+                <span class="text">Mi Cuenta</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="navigate('guiausuario')">
+                <span class="material-icons icon">help_outline</span>
+                <span class="text">Guía de Usuario</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Cerrar Sesión -->
+    <a (click)="cerrar()">
+        <span class="material-icons icon">logout</span>
+        <span class="text">Cerrar Sesión</span>
+    </a>
+</div>
