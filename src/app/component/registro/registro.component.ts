@@ -65,7 +65,7 @@ export class RegistroComponent implements OnInit {
         id: 0,
         username: this.form.value.username,
         password: this.form.value.password,
-        roles: ['USER'],
+        roles: ['ADMIN'],
         name: this.form.value.name,
         companyName: this.form.value.companyName,
         accountType: this.form.value.accountType

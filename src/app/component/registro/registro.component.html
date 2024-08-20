@@ -1,7 +1,7 @@
+<div *ngIf="loading" class="loading-spinner">
+  <img src="assets/carga/carga.gif" alt="Cargando..." />
+</div>
 <div class="wrapper">
-  <div *ngIf="loading" class="loading-spinner">
-    <img src="assets/carga/carga.gif" alt="Cargando..." />
-  </div>
   <div *ngIf="!loading" class="form-container">
     <div class="close-button" (click)="cancel()">×</div>
 
