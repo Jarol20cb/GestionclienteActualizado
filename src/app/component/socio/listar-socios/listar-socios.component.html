@@ -4,9 +4,6 @@
       <button class="button-link" (click)="goBack()">
         ← Volver
       </button>
-      <div class="search-container">
-        <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="input-busqueda">
-      </div>
       <div class="button-actions">
         <button class="button-outline" (click)="addSocio()">
           + Añadir
@@ -14,17 +11,24 @@
       </div>
     </div>
     <div class="pagination-controls-top">
-      <div class="paginator-actions">
+      <div *ngIf="totalPages > 1" class="paginator-actions">
         <span class="items-per-page">Mostrar páginas:</span>
         <select (change)="changePageSize($event)" class="custom-select">
           <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
         </select>
-      </div>
+      </div>      
       <div class="pagination-buttons">
-        <button (click)="previousPage()" [disabled]="currentPage === 1" class="button-outline"> <mat-icon>navigate_before</mat-icon> </button>
-        <span>Página {{ currentPage }} de {{ totalPages }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems" class="button-outline"> <mat-icon>navigate_next</mat-icon> </button>
-      </div>
+        <button *ngIf="currentPage > 1" (click)="previousPage()" class="button-outline">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <span  *ngIf="currentPage > 1">Página {{ currentPage }} de {{ totalPages }}</span>     
+        <button *ngIf="currentPage * itemsPerPage < totalItems" (click)="nextPage()" class="button-outline">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>      
+    </div>
+    <div class="search-container">
+      <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="input-busqueda">
     </div>
     <br>
     <h2 style="text-align: center;">Lista de Socios</h2>

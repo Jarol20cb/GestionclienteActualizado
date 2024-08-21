@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Registro } from 'src/app/model/registro';
 import { LoginService } from 'src/app/service/login.service';
+import { CerrarSesionComponent } from '../../dialogo/cerrar-sesion/cerrar-sesion.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-responsive-menu',
@@ -16,7 +18,7 @@ export class ResponsiveMenuComponent implements OnInit{
   username: string = "";
   error: string = "";
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(private router: Router,private dialog: MatDialog, private loginService: LoginService) {}
 
   ngOnInit() {
     this.loadUserDetails();
@@ -51,9 +53,16 @@ export class ResponsiveMenuComponent implements OnInit{
   }
 
   cerrar() {
-    // Aquí puedes implementar la lógica para cerrar sesión.
-    this.menuOpen = false;
-    this.submenuActive = null;
-    this.router.navigate(['/login']);
+    const dialogRef = this.dialog.open(CerrarSesionComponent, {
+      width: '300px',
+      data: { mensaje: '¿Estás seguro de cerrar la sesión?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        sessionStorage.clear();
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

@@ -7,40 +7,42 @@
   <h2>Comprobantes de Pago Pendientes</h2>
 
   <div *ngIf="mensajes.length > 0; else noData">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Usuario</th>
-          <th>Título</th>
-          <th>Fecha de Creación</th>
-          <th>Estado</th> 
-          <th>Imagen</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let mensaje of mensajes">
-          <td>{{ mensaje.id }}</td>
-          <td>{{ mensaje.username }}</td>
-          <td>{{ mensaje.title }}</td>
-          <td>{{ mensaje.createdAt | date:'short' }}</td>
-          <td>
-            Estado: 
-            <span [style.color]="getStatusColor(mensaje.status)">{{ getStatusLabel(mensaje.status) }}</span>
-          </td>
-          <td>
-            <img [src]="getBase64Image(mensaje.fileData)" alt="Comprobante" class="comprobante-img" (click)="openModal(getBase64Image(mensaje.fileData))">
-          </td>
-          <td>
-            <div class="acciones" style="display: flex; gap: 10px;">
-              <button (click)="aceptarPago(mensaje.id)" class="btn btn-success">Aceptar</button>
-              <button (click)="rechazarPago(mensaje.id)" class="btn btn-danger">Rechazar</button>
-            </div>            
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Título</th>
+            <th>Fecha de Creación</th>
+            <th>Estado</th> 
+            <th>Imagen</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mensaje of mensajes">
+            <td>{{ mensaje.id }}</td>
+            <td>{{ mensaje.username }}</td>
+            <td>{{ mensaje.title }}</td>
+            <td>{{ mensaje.createdAt | date:'short' }}</td>
+            <td>
+              Estado: 
+              <span [style.color]="getStatusColor(mensaje.status)">{{ getStatusLabel(mensaje.status) }}</span>
+            </td>
+            <td>
+              <img [src]="getBase64Image(mensaje.fileData)" alt="Comprobante" class="comprobante-img" (click)="openModal(getBase64Image(mensaje.fileData))">
+            </td>
+            <td>
+              <div class="acciones" style="display: flex; gap: 10px;">
+                <button (click)="aceptarPago(mensaje.id)" class="btn btn-success">Aceptar</button>
+                <button (click)="rechazarPago(mensaje.id)" class="btn btn-danger">Rechazar</button>
+              </div>            
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <ng-template #noData>

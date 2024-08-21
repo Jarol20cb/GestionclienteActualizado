@@ -14,14 +14,15 @@
   padding: 2em;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  width: 300px; /* Tamaño fijo para tarjetas no seleccionadas */
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, width 0.3s ease-in-out;
+  overflow: hidden;
 }
 
 .plan-card .close-btn {
@@ -37,7 +38,6 @@
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  display: flex;
   justify-content: center;
   align-items: center;
   transition: background 0.3s ease, color 0.3s ease;
@@ -47,24 +47,11 @@
   display: flex;
 }
 
-.plan-card .close-btn:hover {
-  background: #1d5981;
-  color: white;
-}
-
-
 .plan-card.selected {
   transform: scale(1.05);
   z-index: 10;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 100%;
-  height: 480px;
+  width: 400px; /* Expande la tarjeta seleccionada */
 }
 
 .plan-card img {
@@ -89,6 +76,13 @@
   margin-bottom: 1em;
   text-align: left;
   width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.plan-card.selected ul {
+  max-height: 500px; /* Ajusta el tamaño máximo según el contenido */
 }
 
 .plan-card ul li {
@@ -132,11 +126,6 @@
   color: white;
 }
 
-.plan-card.highlight .cta {
-  background: white;
-  color: #3498db;
-}
-
 .plan-card.highlight ul li i {
   color: white;
 }
@@ -147,82 +136,42 @@
 
 @media (max-width: 768px) {
   .plan-selection-container {
-      flex-direction: row;
-      justify-content: center;
-      align-items: stretch;
+      flex-direction: column;
+      align-items: center;
   }
 
   .plan-card {
-      max-width: 180px;
-      min-height: 320px;
-      padding: 1em;
-      margin: 0.5em;
-      flex: 1;
+      max-width: 100%;
+      margin: 1em 0;
+      width: 90%; /* Ajuste responsivo */
   }
 
   .plan-card img {
-      max-width: 40px;
+      max-width: 60px;
   }
 
-  .plan-card h4 {
-      font-size: 1.1em;
-  }
-
-  .plan-card .price {
-      font-size: 1.2em;
-  }
-
-  .plan-card ul li {
-      font-size: 0.9em;
-  }
-
-  .plan-card ul li i {
-      font-size: 1em;
-  }
-
-  .plan-card .cta {
-      font-size: 0.9em;
-      padding: 0.3em 0.7em;
+  .plan-card.selected {
+      width: 95%; /* Expande la tarjeta seleccionada en dispositivos pequeños */
   }
 }
 
 @media (max-width: 480px) {
   .plan-selection-container {
-      flex-direction: row;
-      justify-content: center;
-      align-items: stretch;
+      flex-direction: column;
+      align-items: center;
   }
 
   .plan-card {
-      max-width: 150px;
-      min-height: 280px;
-      padding: 0.8em;
-      margin: 0.3em;
-      flex: 1;
+      max-width: 100%;
+      margin: 0.5em 0;
+      width: 90%; /* Ajuste responsivo */
   }
 
   .plan-card img {
-      max-width: 30px;
+      max-width: 50px;
   }
 
-  .plan-card h4 {
-      font-size: 1em;
-  }
-
-  .plan-card .price {
-      font-size: 1em;
-  }
-
-  .plan-card ul li {
-      font-size: 0.8em;
-  }
-
-  .plan-card ul li i {
-      font-size: 0.8em;
-  }
-
-  .plan-card .cta {
-      font-size: 0.8em;
-      padding: 0.2em 0.6em;
+  .plan-card.selected {
+      width: 95%; 
   }
 }

@@ -74,8 +74,15 @@
 
 .buttoncontainer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin-top: 10px;
+}
+
+.buttoncontainer .action-button {
+  flex: 1 1 auto;
+  margin: 5px;
+  max-width: 100px; /* Limita el ancho máximo de los botones */
 }
 
 .delete-button {
@@ -102,6 +109,7 @@
 
   .input-busqueda {
     width: 100%;
+    margin-bottom: 10px;
   }
 
   .cards-container {
@@ -119,5 +127,9 @@
   .action-button {
     width: 100%;
     margin-top: 10px;
+  }
+
+  .buttoncontainer .action-button {
+    max-width: none;
   }
 }
