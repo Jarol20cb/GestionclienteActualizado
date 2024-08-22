@@ -92,6 +92,7 @@ import { RealizarPagoComponent } from './vistas/realizarpago/realizarpago.compon
 import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarcomprobantes.component';
 import { MensajeComprobantesPagoComponent } from './administracion/mensaje-comprobantes-pago/mensaje-comprobantes-pago.component';
 import { ResponsiveMenuComponent } from './sidenav/responsive-menu/responsive-menu.component';
+import { VistaGestionComponent } from './vistas/vista-gestion/vista-gestion.component';
 
 @NgModule({
   declarations: [
@@ -165,6 +166,7 @@ import { ResponsiveMenuComponent } from './sidenav/responsive-menu/responsive-me
     ListarcomprobantesComponent,
     MensajeComprobantesPagoComponent,
     ResponsiveMenuComponent,
+    VistaGestionComponent,
 
   ],
   imports: [

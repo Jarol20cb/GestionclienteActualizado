@@ -41,6 +41,7 @@ import { MensajesPersonalizadosComponent } from './componentesvista/customer/men
 import { RealizarPagoComponent } from './vistas/realizarpago/realizarpago.component';
 import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarcomprobantes.component';
 import { MensajeComprobantesPagoComponent } from './administracion/mensaje-comprobantes-pago/mensaje-comprobantes-pago.component';
+import { VistaGestionComponent } from './vistas/vista-gestion/vista-gestion.component';
 
 const routes: Routes = [
 
@@ -189,6 +190,8 @@ const routes: Routes = [
       { path: 'perfiledit/nuevo', component: PerfileditComponent },
       
 
+      ///********************Vista general********************//
+      { path: 'General', component: VistaGestionComponent },
 
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Ruta por defecto
       { path: '**', redirectTo: 'home' } 

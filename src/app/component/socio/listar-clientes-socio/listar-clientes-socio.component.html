@@ -1,74 +1,41 @@
-<div *ngIf="socioCustomerService" class="container">
-  <h2 class="header">Clientes del socio: {{ socioCustomerService.name }}</h2>
-  <div class="header-actions">
-    <button class="button-link" (click)="goBack()">← Volver a Socios</button>
-    <div class="search-container">
-      <input type="text" placeholder="Buscar..." class="input-busqueda" [(ngModel)]="filters.name" (input)="applyFilters()">
+<div *ngIf="socioCustomerService" class="listar-container-overlay">
+  <div class="listar-container customer-overview-container">
+    <div class="header">
+      <button class="action-button back-button" (click)="goBack()">← Volver</button>
+      <h2>Clientes del socio: {{ socioCustomerService.name }}</h2>
+      <div class="header-actions">
+        <input type="text" placeholder="Buscar..." class="input-busqueda" [(ngModel)]="filters.name" (input)="applyFilters()">
+      </div>
     </div>
-  </div>
-  <div class="pagination-controls-top">
-    <div class="paginator-actions">
-      <span class="items-per-page">Mostrar páginas:</span>
-      <select class="custom-select" [(ngModel)]="itemsPerPage" (change)="changePageSize($event)">
-        <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
-      </select>
-    </div>
-    <div class="pagination-buttons">
-      <button (click)="previousPage()" [disabled]="currentPage === 1" class="button-outline"> <mat-icon>navigate_before</mat-icon> </button>
+
+    <div *ngIf="totalPages > 1" class="pagination-controls">
+      <button class="action-button" (click)="previousPage()" [disabled]="currentPage === 1">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
       <span>Página {{ currentPage }} de {{ totalPages }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems" class="button-outline"> <mat-icon>navigate_next</mat-icon> </button>
+      <button class="action-button" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
     </div>
+
+    <div *ngIf="socioCustomerService.customerServices.length > 0; else noRecords" class="customer-list table-container">
+      <div class="customer-item" *ngFor="let customerService of paginatedCustomerServices">
+        <div class="customer-info">
+          <h3>{{ customerService.name }}</h3>
+          <p>Servicio: {{ customerService.services.service }}</p>
+          <p>Descripción: {{ customerService.services.description }}</p>
+          <p>Fecha Inicio: {{ customerService.fechainicio | date: 'MMM d, y' }}</p>
+          <p>Fecha Fin: {{ customerService.fechafin | date: 'MMM d, y' }}</p>
+          <p>Estado: {{ customerService.estado }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #noRecords>
+      <div class="no-data-container">
+        <img src="assets/koala-triste.png" alt="No Data" class="no-data-image">
+        <p class="no-data-text">Aún no hay registros</p>
+      </div>
+    </ng-template>
   </div>
-  <div class="filter-container">
-    <select class="custom-select" [(ngModel)]="selectedFilterType" (change)="updateFilter()">
-      <option value="">Buscar</option>
-      <option value="name">Nombre</option>
-      <option value="service">Servicio</option>
-      <option value="fechainicio">Fecha Inicio</option>
-      <option value="fechafin">Fecha Fin</option>
-      <option value="estado">Estado</option>
-    </select>
-    <div *ngIf="selectedFilterType === 'name'">
-      <input type="text" placeholder="Buscar por Nombre" class="input-busqueda" [(ngModel)]="filters.name" (input)="applyFilters()">
-    </div>
-    <div *ngIf="selectedFilterType === 'service'">
-      <input type="text" placeholder="Buscar por Servicio" class="input-busqueda" [(ngModel)]="filters.service" (input)="applyFilters()">
-    </div>
-    <div *ngIf="selectedFilterType === 'fechainicio'">
-      <input type="date" placeholder="Fecha Inicio" class="input-busqueda" [(ngModel)]="filters.fechainicio" (input)="applyFilters()">
-    </div>
-    <div *ngIf="selectedFilterType === 'fechafin'">
-      <input type="date" placeholder="Fecha Fin" class="input-busqueda" [(ngModel)]="filters.fechafin" (input)="applyFilters()">
-    </div>
-    <div *ngIf="selectedFilterType === 'estado'">
-      <input type="text" placeholder="Buscar por Estado" class="input-busqueda" [(ngModel)]="filters.estado" (input)="applyFilters()">
-    </div>
-  </div>
-  <div *ngIf="socioCustomerService.customerServices.length > 0; else noRecords" class="table-container">
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Servicio</th>
-          <th>Descripción</th>
-          <th>Fecha Inicio</th>
-          <th>Fecha Fin</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let customerService of paginatedCustomerServices">
-          <td>{{ customerService.name }}</td>
-          <td>{{ customerService.services.service }}</td>
-          <td>{{ customerService.services.description }}</td>
-          <td>{{ customerService.fechainicio | date: 'MMM d, y' }}</td>
-          <td>{{ customerService.fechafin | date: 'MMM d, y' }}</td>
-          <td>{{ customerService.estado }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <ng-template #noRecords>
-    <p class="no-records">Aún no hay registros</p>
-  </ng-template>
 </div>

@@ -17,8 +17,12 @@
             <span class="text">Inicio</span>
         </a>
 
+        <a (click)="setActive('gestion')" routerLink="/components/General" [class.active]="active === 'gestion'">
+            <span class="material-icons icon">manage_accounts</span>
+            <span class="text">Gestión</span>
+        </a>
         <!-- gestion -->
-        <div class="menu-item" (click)="setActive('gestion')" (click)="toggleSubmenu('gestion')" [class.active]="active === 'gestion'">
+        <!-- <div class="menu-item" (click)="setActive('gestion')" (click)="toggleSubmenu('gestion')" [class.active]="active === 'gestion'">
             <a>
                 <span class="material-icons icon">manage_accounts</span>
                 <span class="text">Gestión</span>
@@ -49,7 +53,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div> -->
         
         <!-- Herramientas -->
 

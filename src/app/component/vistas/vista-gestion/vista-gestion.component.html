@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+    <div class="general-container">
+        <div class="sub-container">
+          <div class="cards" routerLink="/components/customer-overview">
+            <span class="question-icon" tabindex="0" (click)="$event.stopPropagation()">!</span>
+            <div class="tooltip">Esta sección te permite gestionar a tus clientes, asignándoles servicios, perfiles y socios.</div>
+            <img src="assets/iconos/cliente.png" alt="Clientes">
+            <p class="p-general">Clientes</p>
+          </div>
+          <div class="cards" routerLink="/components/socioproveedor-overview">
+            <span class="question-icon" tabindex="0" (click)="$event.stopPropagation()">!</span>
+            <div class="tooltip">Aquí gestionas a los socios que contactan a los clientes y los proveedores que suministran los perfiles.</div>
+            <img src="assets/iconos/trabajando.png" alt="Socios y Proveedores">
+            <p class="p-general">Socios y Proveedores</p>
+          </div>
+          <div class="cards" routerLink="/components/servicios-overview">
+            <span class="question-icon" tabindex="0" (click)="$event.stopPropagation()">!</span>
+            <div class="tooltip">Esta sección es para gestionar los productos o servicios que tu empresa ofrece.</div>
+            <img src="assets/iconos/netflix.png" alt="Servicios">
+            <p class="p-general">Servicios</p>
+          </div>
+          <div class="cards" routerLink="/components/perfil-overview">
+            <span class="question-icon" tabindex="0" (click)="$event.stopPropagation()">!</span>
+            <div class="tooltip">Aquí registras y gestionas los perfiles que los proveedores suministran.</div>
+            <img src="assets/iconos/perfiles.png" alt="Perfiles">
+            <p class="p-general">Perfiles</p>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

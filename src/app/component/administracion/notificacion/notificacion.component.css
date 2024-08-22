@@ -5,7 +5,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 850px;
   max-height: 700px;
-  overflow-y: auto;
+  overflow-y: auto; /* Permitir solo el scroll vertical */
+  overflow-x: hidden; /* Bloquear el scroll horizontal */
   padding: 0;
   margin: 30px auto;
 }
@@ -61,6 +62,8 @@
   .notification-container {
     width: 90%;
     max-height: 500px;
+    overflow-y: auto; /* Permitir solo el scroll vertical */
+    overflow-x: hidden; /* Bloquear el scroll horizontal */
   }
 
   .notification-container h2 {
@@ -88,6 +91,8 @@
   .notification-container {
     width: 100%;
     max-height: 400px;
+    overflow-y: auto; /* Permitir solo el scroll vertical */
+    overflow-x: hidden; /* Bloquear el scroll horizontal */
   }
 
   .notification-container h2 {

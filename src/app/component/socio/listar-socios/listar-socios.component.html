@@ -1,70 +1,40 @@
 <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
-  <div class="listar-container">
-    <div class="header-actions">
-      <button class="button-link" (click)="goBack()">
-        ← Volver
-      </button>
-      <div class="button-actions">
-        <button class="button-outline" (click)="addSocio()">
-          + Añadir
-        </button>
+  <div class="listar-container customer-overview-container">
+    <div class="header">
+      <button class="action-button back-button" (click)="goBack()">← Volver</button>
+      <h2>Socios</h2>
+      <div class="header-actions">
+        <button class="action-button" (click)="addSocio()">Añadir</button>
+        <input type="text" placeholder="Buscar..." (input)="filter($event)" class="input-busqueda">
       </div>
     </div>
-    <div class="pagination-controls-top">
-      <div *ngIf="totalPages > 1" class="paginator-actions">
-        <span class="items-per-page">Mostrar páginas:</span>
-        <select (change)="changePageSize($event)" class="custom-select">
-          <option *ngFor="let size of [5, 10, 25, 100]" [value]="size">{{ size }}</option>
-        </select>
-      </div>      
-      <div class="pagination-buttons">
-        <button *ngIf="currentPage > 1" (click)="previousPage()" class="button-outline">
-          <mat-icon>navigate_before</mat-icon>
-        </button>
-        <span  *ngIf="currentPage > 1">Página {{ currentPage }} de {{ totalPages }}</span>     
-        <button *ngIf="currentPage * itemsPerPage < totalItems" (click)="nextPage()" class="button-outline">
-          <mat-icon>navigate_next</mat-icon>
-        </button>
-      </div>      
+
+    <div *ngIf="totalPages > 1" class="pagination-controls">
+      <button class="action-button" (click)="previousPage()" [disabled]="currentPage === 1">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button class="action-button" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalItems">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
     </div>
-    <div class="search-container">
-      <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="input-busqueda">
+
+    <div *ngIf="totalItems === 0" class="no-data-container">
+      <img src="assets/koala-triste.png" alt="No Data" class="no-data-image">
+      <p class="no-data-text">No hay nada registrado</p>
     </div>
-    <br>
-    <h2 style="text-align: center;">Lista de Socios</h2>
-    <div class="table-container">
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Cantidad de Clientes</th>
-            <th>Ver Clientes</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let element of paginatedData">
-            <td>{{ element.name }}</td>
-            <td>{{ element.clienteCount }}</td>
-            <td>
-              <button (click)="verClientes(element.socioId)" class="button-outline">
-                Ver
-              </button>
-            </td>
-            <td>
-              <button (click)="editarSocio(element.socioId)" class="button-outline">
-                Editar
-              </button>
-            </td>
-            <td>
-              <button (click)="eliminar(element.socioId)" class="button-outline button-outline-danger">
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+    <div *ngIf="totalItems > 0" class="customer-list table-container">
+      <div class="customer-item" *ngFor="let element of paginatedData">
+        <img src="assets/usuariocliente.png" alt="Socio" class="koala-image">
+        <div class="customer-info">
+          <h3>{{ element.name }}</h3>
+          <p>Cantidad de Clientes: {{ element.clienteCount }}</p>
+        </div>
+        <button class="action-button" (click)="verClientes(element.socioId)">Ver Clientes</button>
+        <button class="action-button" (click)="editarSocio(element.socioId)">Editar</button>
+        <button class="action-button button-outline-danger" (click)="eliminar(element.socioId)">Eliminar</button>
+      </div>
     </div>
   </div>
 </div>
