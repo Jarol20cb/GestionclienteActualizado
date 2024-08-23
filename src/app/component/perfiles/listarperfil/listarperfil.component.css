@@ -10,7 +10,7 @@ body {
 }
 
 h2 {
-  color: #2c3e50;
+  color: var(--text-color);
   font-size: 30px;
   font-weight: bold;
   margin-top: 20px;
@@ -34,14 +34,14 @@ h2 {
   top: 50%;
   left: 15px;
   transform: translateY(-50%);
-  color: #ccc;
+  color: var(--border-color);
 }
 
 .input-busqueda {
   width: 100%;
   padding: 12px 20px 12px 40px;
   border-radius: 25px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   background-color: rgba(236, 240, 241, 0.5);
   font-size: 16px;
 }
@@ -53,8 +53,8 @@ h2 {
 }
 
 .mi-boton {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   padding: 10px 15px;
   border-radius: 25px;
@@ -68,7 +68,7 @@ h2 {
 }
 
 .mi-boton:hover {
-  background-color: #1f2e3d;
+  background-color: var(--secondary-color);
   transform: scale(1.05);
 }
 
@@ -81,7 +81,7 @@ h2 {
 .custom-select {
   padding: 10px 15px;
   border-radius: 25px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   background-color: rgba(236, 240, 241, 0.5);
   font-size: 16px;
 }
@@ -99,23 +99,23 @@ h2 {
 .custom-table th, .custom-table td {
   padding: 10px;
   text-align: center;
-  border: 1px solid #ddd;
-  color: #34495e;
+  border: 1px solid var(--border-color);
+  color: var(--secondary-color);
   vertical-align: middle;
 }
 
 .custom-table th {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
 .custom-table tr:hover {
-  background-color: #ddd;
+  background-color: var(--neutral-color);
 }
 
 .custom-button, .custom-delete-button {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   padding: 8px;
   border-radius: 50%;
@@ -131,21 +131,21 @@ h2 {
 }
 
 .custom-delete-button {
-  background-color: #e74c3c;
+  background-color: var(--warning-color);
 }
 
 .custom-button:hover, .custom-delete-button:hover {
-  background-color: #1f2e3d;
+  background-color: var(--secondary-color);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .custom-delete-button:hover {
-  background-color: #c0392b;
+  background-color: var(--warning-color);
 }
 
 .custom-button mat-icon, .custom-delete-button mat-icon {
   font-size: 20px;
-  color: white;
+  color: var(--background-color);
 }
 
 .pagination-controls {
@@ -157,8 +157,8 @@ h2 {
 }
 
 .pagination-controls button {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
@@ -167,12 +167,12 @@ h2 {
 }
 
 .pagination-controls button:disabled {
-  background-color: #7f8c8d;
+  background-color: var(--tertiary-color);
   cursor: not-allowed;
 }
 
 .pagination-controls button:hover:not(:disabled) {
-  background-color: #1f2e3d;
+  background-color: var(--secondary-color);
 }
 
 .pagination-controls span {
@@ -187,7 +187,7 @@ h2 {
 
 .password-field {
   border: none;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid var(--border-color);
   border-radius: 5px;
   padding: 5px;
   width: 100px;
@@ -204,7 +204,7 @@ h2 {
 }
 
 .eye-button mat-icon {
-  color: #2980b9;
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
@@ -269,7 +269,7 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  background: white;
+  background: var(--background-color);
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;

@@ -119,12 +119,12 @@
 }
 
 .button-outline-danger {
-  border-color: var(--danger-color);
-  color: var(--danger-color);
+  border-color: var(--warning-color);
+  color: var(--warning-color);
 }
 
 .button-outline-danger:hover {
-  background-color: var(--danger-color);
+  background-color: var(--warning-color);
   color: var(--background-color);
 }
 

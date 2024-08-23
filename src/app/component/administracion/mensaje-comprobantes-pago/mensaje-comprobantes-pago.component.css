@@ -1,36 +1,14 @@
 .container {
   margin: 20px auto;
   max-width: 80%;
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
   font-family: 'Arial', sans-serif;
-  color: #343a40;
-}
-
-.back-button {
-  background-color: #343a40;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-bottom: 20px;
-  display: block;
-  width: 100%;
-  text-align: center;
-}
-
-.back-button:hover {
-  background-color: #23272b;
+  color: var(--secondary-color);
 }
 
 .table-responsive {
@@ -47,18 +25,18 @@ h2 {
 .table th, .table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--border-color);
   white-space: nowrap;
 }
 
 .table th {
-  background-color: #343a40;
-  color: #fff;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
 }
 
 .table td {
-  background-color: #fff;
-  color: #343a40;
+  background-color: var(--background-color);
+  color: var(--secondary-color);
 }
 
 .comprobante-img {
@@ -81,21 +59,21 @@ h2 {
 }
 
 .btn-success {
-  background-color: #28a745;
-  color: white;
+  background-color: var(--accent-color);
+  color: var(--background-color);
 }
 
 .btn-success:hover {
-  background-color: #218838;
+  background-color: var(--accent-color);
 }
 
 .btn-danger {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--warning-color);
+  color: var(--background-color);
 }
 
 .btn-danger:hover {
-  background-color: #c82333;
+  background-color: var(--warning-color);
 }
 
 .modal {
@@ -115,14 +93,14 @@ h2 {
   max-width: 90%;
   max-height: 90%;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(44, 62, 80, 0.1);
 }
 
 .close {
   position: absolute;
   top: 20px;
   right: 20px;
-  color: hsl(0, 100%, 51%);
+  color: var(--warning-color);
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
@@ -131,70 +109,61 @@ h2 {
 
 .close:hover,
 .close:focus {
-  color: #FF6F61;
+  color: var(--accent-color);
   text-decoration: none;
   cursor: pointer;
 }
 
 @media (max-width: 768px) {
   .container {
-      padding: 15px;
-      max-width: 95%;
-  }
-
-  .back-button {
-      font-size: 16px;
-      margin-bottom: 15px;
+    padding: 15px;
+    max-width: 95%;
   }
 
   .table th, .table td {
-      padding: 10px;
-      font-size: 14px;
+    padding: 10px;
+    font-size: 14px;
   }
 
   .comprobante-img {
-      max-width: 60px;
+    max-width: 60px;
   }
 
   .btn {
-      font-size: 12px;
-      padding: 6px 12px;
+    font-size: 12px;
+    padding: 6px 12px;
   }
 
   .modal-content {
-      max-width: 80%;
-      max-height: 80%;
+    max-width: 80%;
+    max-height: 80%;
   }
 }
 
 @media (max-width: 480px) {
-  .back-button {
-      font-size: 14px;
-      padding: 10px;
-  }
 
   .table th, .table td {
-      padding: 8px;
-      font-size: 12px;
+    padding: 8px;
+    font-size: 12px;
   }
 
   .comprobante-img {
-      max-width: 50px;
+    max-width: 50px;
   }
 
   .btn {
-      font-size: 10px;
-      padding: 5px 10px;
+    font-size: 10px;
+    padding: 5px 10px;
   }
 
   .modal-content {
-      max-width: 70%;
-      max-height: 70%;
+    max-width: 70%;
+    max-height: 70%;
   }
 
   .table th, .table td {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

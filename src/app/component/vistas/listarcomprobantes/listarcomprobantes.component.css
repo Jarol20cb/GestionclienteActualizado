@@ -1,5 +1,5 @@
 .comprobantes-container {
-  background-color: #FFFFFF;
+  background-color: var(--background-color);
   padding: 20px;
   border-radius: 12px;
   max-width: 1000px;
@@ -12,14 +12,14 @@
 .fixed-title {
   position: sticky;
   top: 0;
-  background-color: #FFFFFF;
+  background-color: var(--background-color);
   padding: 10px 20px;
   margin: 0 -20px 20px -20px;
   z-index: 10;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 24px;
   font-weight: 600;
-  color: #333333;
+  color: var(--text-color);
   text-align: center;
 }
 
@@ -31,7 +31,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #F7F9FC;
+  background-color: var(--neutral-color);
   border-radius: 10px;
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -50,13 +50,13 @@
 }
 
 .comprobante-details h3 {
-  color: #333333;
+  color: var(--text-color);
   font-size: 16px;
   margin-bottom: 5px;
 }
 
 .comprobante-details p {
-  color: #666666;
+  color: var(--secondary-color);
   font-size: 14px;
   margin-bottom: 0;
 }
@@ -93,7 +93,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #FFFFFF;
+  color: var(--background-color);
   font-size: 14px;
   font-weight: bold;
   text-align: center;
@@ -107,7 +107,7 @@
 
 .no-data {
   text-align: center;
-  color: #666666;
+  color: var(--secondary-color);
   font-size: 16px;
 }
 
@@ -131,15 +131,15 @@
   border-radius: 12px;
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.5);
   object-fit: contain;
-  border: 5px solid #fff;
-  background-color: #ffffff;
+  border: 5px solid var(--background-color);
+  background-color: var(--background-color);
 }
 
 .close {
   position: absolute;
   top: 20px;
   right: 20px;
-  color: #FFFFFF;
+  color: var(--background-color);
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
@@ -148,7 +148,7 @@
 
 .close:hover,
 .close:focus {
-  color: #FF6F61;
+  color: var(--warning-color);
   text-decoration: none;
   cursor: pointer;
 }
@@ -161,7 +161,7 @@
 
 .filter-input {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
   width: calc(50% - 10px);
@@ -171,8 +171,8 @@
 .clear-filters-button {
   padding: 8px 16px;
   font-size: 14px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  background-color: var(--secondary-color);
+  color: var(--neutral-color);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -181,7 +181,7 @@
 }
 
 .clear-filters-button:hover {
-  background-color: #1f2e3d;
+  background-color: var(--highlight-color);
 }
 
 .back-button-container {
@@ -191,8 +191,8 @@
 .back-button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  background-color: var(--secondary-color);
+  color: var(--neutral-color);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -201,5 +201,5 @@
 }
 
 .back-button:hover {
-  background-color: #1f2e3d;
+  background-color: var(--highlight-color);
 }

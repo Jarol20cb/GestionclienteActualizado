@@ -2,7 +2,7 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  color: #2c3e50;
+  color: var(--text-color);
   overflow-x: hidden;
 }
 
@@ -18,14 +18,14 @@
   width: 300px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   font-size: 16px;
 }
 
 .action-button {
   background-color: transparent;
-  border: 1px solid #2980b9;
-  color: #2980b9;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 10px 15px;
   text-align: center;
   text-decoration: none;
@@ -37,8 +37,8 @@
 }
 
 .action-button:hover {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
 .cards-container {
@@ -48,8 +48,8 @@
 }
 
 .card {
-  background-color: #fff;
-  border: 1px solid #007bff;
+  background-color: var(--background-color);
+  border: 1px solid var(--highlight-color);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -82,12 +82,12 @@
 .buttoncontainer .action-button {
   flex: 1 1 auto;
   margin: 5px;
-  max-width: 100px; /* Limita el ancho máximo de los botones */
+  max-width: 100px;
 }
 
 .delete-button {
-  border-color: red;
-  color: red;
+  border-color: var(--warning-color);
+  color: var(--warning-color);
 }
 
 .no-data-container {

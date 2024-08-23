@@ -11,17 +11,17 @@ html, body {
 }
 
 .container {
-  max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+  max-width: 800px;
   margin: auto;
   padding: 20px;
   border-radius: 15px;
-  background-color: #ffffff;
-  overflow-y: auto; /* Asegura el desplazamiento vertical */
-  max-height: 100vh; /* Limita la altura máxima para el desplazamiento */
+  background-color: var(--background-color);
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 .form-title {
-  color: #2980B9;
+  color: var(--primary-color);
   text-align: center;
   margin-bottom: 20px;
 }
@@ -30,7 +30,7 @@ html, body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
-  flex-wrap: wrap; /* Asegura que los elementos se envuelvan en pantallas pequeñas */
+  flex-wrap: wrap;
 }
 
 .form-group {
@@ -52,7 +52,7 @@ html, body {
 .form-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   box-sizing: border-box;
 }
@@ -78,39 +78,39 @@ html, body {
 .custom-select option {
   padding: 10px 20px;
   font-size: 14px;
-  color: #333;
+  color: var(--text-color);
 }
 
 .custom-select option span {
   display: block;
   font-size: 12px;
-  color: #666;
+  color: var(--tertiary-color);
   margin-top: 5px;
 }
 
 .custom-select option::after {
   content: '';
   display: block;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--border-color);
   margin-top: 10px;
 }
 
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #2980B9;
+  border-color: var(--primary-color);
 }
 
 .error {
-  color: red;
+  color: var(--warning-color);
   font-size: 0.875em;
   margin-top: 5px;
 }
 
 .custom-button,
 .custom-button-cancel {
-  background-color: #2980B9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   padding: 10px 20px;
   margin: 10px;
@@ -120,18 +120,18 @@ html, body {
 }
 
 .custom-button-cancel {
-  background-color: #1A5276;
+  background-color: var(--secondary-color);
 }
 
 .custom-button:hover,
 .custom-button-cancel:hover {
-  background-color: #145A86;
+  background-color: var(--tertiary-color);
   transform: translateY(-2px);
 }
 
 .custom-button:active,
 .custom-button-cancel:active {
-  background-color: #0E3C5F;
+  background-color: var(--secondary-color);
   transform: translateY(0);
 }
 
@@ -146,8 +146,8 @@ html, body {
   width: 30px;
   height: 30px;
   border: none;
-  background-color: #2980B9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -156,7 +156,7 @@ html, body {
 }
 
 .increment-buttons button:hover {
-  background-color: #145A86;
+  background-color: var(--tertiary-color);
 }
 
 .increment-buttons span {
@@ -173,7 +173,7 @@ html, body {
   .container {
     max-height: 80vh;
   }
-  
+
   .form-row {
     flex-direction: column;
   }

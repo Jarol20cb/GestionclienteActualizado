@@ -21,40 +21,7 @@
             <span class="material-icons icon">manage_accounts</span>
             <span class="text">Gestión</span>
         </a>
-        <!-- gestion -->
-        <!-- <div class="menu-item" (click)="setActive('gestion')" (click)="toggleSubmenu('gestion')" [class.active]="active === 'gestion'">
-            <a>
-                <span class="material-icons icon">manage_accounts</span>
-                <span class="text">Gestión</span>
-            </a>
-            <ul *ngIf="submenuActive === 'gestion'">
-                <li>
-                    <a (click)="setActive('clientes')" routerLink="/components/customer-overview" [class.active]="active === 'clientes'">
-                        <span class="material-icons icon">people</span>
-                        <span class="text">Clientes</span>
-                    </a>
-                </li>
-                <li>
-                    <a (click)="setActive('socios')" routerLink="/components/socioproveedor-overview" [class.active]="active === 'socios'">
-                        <span class="material-icons icon">handshake</span>
-                        <span class="text">Socios y proveedores</span>
-                    </a>
-                </li>
-                <li>
-                    <a (click)="setActive('servicios')" routerLink="/components/servicios-overview" [class.active]="active === 'servicios'">
-                        <span class="material-icons icon">subscriptions</span>
-                        <span class="text">Servicios</span>
-                    </a>
-                </li>
-                <li>
-                    <a (click)="setActive('perfiles')" routerLink="/components/perfil-overview" [class.active]="active === 'perfiles'">
-                        <span class="material-icons icon">email</span>
-                        <span class="text">Perfiles</span>
-                    </a>
-                </li>
-            </ul>
-        </div> -->
-        
+                
         <!-- Herramientas -->
 
         <div *ngIf="user.accountType === 'PREMIUM'" class="menu-item" (click)="setActive('herramientas')" (click)="toggleSubmenu('herramientas')" [class.active]="active === 'herramientas'">

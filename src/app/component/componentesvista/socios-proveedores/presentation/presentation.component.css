@@ -9,7 +9,7 @@
 
 .presentation-container h1 {
   font-size: 2em;
-  color: #333;
+  color: var(--secondary-color);
   margin-bottom: 20px;
   font-weight: normal;
 }
@@ -17,7 +17,7 @@
 .divider {
   border: none;
   height: 1px;
-  background-color: #ddd;
+  background-color: var(--neutral-color);
   margin: 20px 0;
 }
 
@@ -52,7 +52,7 @@
 .card h2 {
   font-size: 1.5em;
   margin-bottom: 15px;
-  color: #333;
+  color: var(--secondary-color);
 }
 
 .details-button {

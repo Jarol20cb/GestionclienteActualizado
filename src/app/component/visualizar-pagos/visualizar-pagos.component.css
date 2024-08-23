@@ -8,11 +8,11 @@
   justify-content: center;
   align-items: flex-end;
   margin: 20px 0;
-  height: 300px; /* Ajusta según tu necesidad */
-  background-color: #f4f4f4;
+  height: 300px;
+  background-color: var(--neutral-color);
   border-radius: 8px;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
 }
 
 .bar-container {
@@ -22,7 +22,7 @@
 }
 
 .bar {
-  color: white;
+  color: var(--neutral-color);
   text-align: center;
   display: flex;
   align-items: flex-end;
@@ -30,15 +30,15 @@
   transition: height 0.3s ease;
   position: relative;
   border-radius: 5px;
-  border: 2px solid #ccc;
+  border: 2px solid var(--border-color);
 }
 
 .bar.deudores {
-  background-color: #B22222; /* Dark Red */
+  background-color: var(--warning-color);
 }
 
 .bar.aldia {
-  background-color: #1E90FF; /* Dodger Blue */
+  background-color: var(--highlight-color);
 }
 
 .bar .label {
@@ -63,7 +63,7 @@
 }
 
 .payment-table th {
-  background-color: #f4f4f4;
+  background-color: var(--neutral-color);
 }
 
 .payment-table tr:nth-child(even) {

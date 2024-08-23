@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(44, 62, 80, 0.5);
   z-index: 999;
 }
 
@@ -13,15 +13,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: var(--background-color);
   padding: 40px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 16px rgba(44, 62, 80, 0.3);
   border-radius: 10px;
   z-index: 1000;
   width: 90%;
   max-width: 600px;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
 }
 
 .modal-content {
@@ -31,7 +31,7 @@
 }
 
 .modal-content h2 {
-  color: #2980b9; /* Azul */
+  color: var(--primary-color);
   text-align: center;
   margin-bottom: 20px;
   font-size: 24px;
@@ -45,21 +45,21 @@
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #34495e; /* Gris oscuro */
+  color: var(--secondary-color);
 }
 
 .input-text {
   width: 100%;
   padding: 12px;
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
   outline: none;
 }
 
 .input-text:focus {
-  border-color: #2980b9; /* Azul */
+  border-color: var(--primary-color);
   box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
 }
 
@@ -72,7 +72,7 @@
   margin-left: -30px;
   cursor: pointer;
   font-size: 18px;
-  color: #7f8c8d; /* Gris */
+  color: var(--tertiary-color);
 }
 
 .role-radios {
@@ -102,21 +102,21 @@
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  background-color: #2980b9; /* Azul */
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   transition: background-color 0.3s ease;
 }
 
 .form-buttons button.cancel-btn {
-  background-color: #e74c3c; /* Rojo */
+  background-color: var(--warning-color);
 }
 
 .form-buttons button:hover {
-  background-color: #1f2e3d; /* Azul oscuro */
+  background-color: var(--secondary-color);
 }
 
 .form-buttons button.cancel-btn:hover {
-  background-color: #c0392b; /* Rojo oscuro */
+  background-color: var(--warning-color);
 }
 
 .switch {
@@ -140,7 +140,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--border-color);
   transition: 0.4s;
   border-radius: 34px;
 }
@@ -152,13 +152,13 @@
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: var(--background-color);
   transition: 0.4s;
   border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: #2980b9; /* Azul */
+  background-color: var(--primary-color);
 }
 
 input:checked + .slider:before {

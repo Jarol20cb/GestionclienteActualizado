@@ -1,41 +1,41 @@
-/* dialog-styles.css */
 .custom-dialog {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border-radius: 15px;
-  }
-  
-  .custom-dialog-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 8px 0;
-  }
-  
-  .custom-dialog-content {
-    font-size: 16px;
-    border-radius: 15px;
-    margin: 8px 0;
-  }
-  
-  .custom-dialog-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 15px;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .custom-dialog-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .dialog-image {
-    max-width: 50%;
-    height: auto;
-    margin-bottom: 16px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.custom-dialog-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0;
+  color: var(--text-color);
+}
+
+.custom-dialog-content {
+  font-size: 16px;
+  border-radius: 15px;
+  margin: 8px 0;
+  color: var(--tertiary-color);
+}
+
+.custom-dialog-button {
+  background-color: var(--highlight-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 15px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-dialog-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.dialog-image {
+  max-width: 50%;
+  height: auto;
+  margin-bottom: 16px;
+}

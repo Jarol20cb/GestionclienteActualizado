@@ -1,6 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f7f9fc;
+  background-color: var(--neutral-color);
   margin: 0;
   padding: 0;
 }
@@ -17,8 +17,8 @@ body {
 }
 
 .back-button {
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  background-color: var(--secondary-color);
+  color: var(--neutral-color);
   border: none;
   font-size: 16px;
   cursor: pointer;
@@ -28,7 +28,7 @@ body {
 }
 
 .back-button:hover {
-  background-color: #1f2e3d;
+  background-color: var(--highlight-color);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -44,7 +44,7 @@ body {
 .payment-options,
 .upload-form {
   width: 45%;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
@@ -53,7 +53,7 @@ body {
 
 h2 {
   margin-bottom: 20px;
-  color: #2c3e50;
+  color: var(--text-color);
   font-size: 28px;
   font-weight: 600;
 }
@@ -78,7 +78,7 @@ h2 {
 }
 
 .payment-icon.selected {
-  border: 3px solid #2c3e50;
+  border: 3px solid var(--secondary-color);
   transform: scale(1.1);
 }
 
@@ -101,23 +101,23 @@ label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--text-color);
   font-size: 16px;
 }
 
 input[type="text"] {
   width: 100%;
   padding: 12px;
-  border: 1px solid #1f2e3d;
+  border: 1px solid var(--secondary-color);
   border-radius: 8px;
   font-size: 16px;
   background-color: #f4f4f4;
-  color: #2c3e50;
+  color: var(--text-color);
   transition: border-color 0.3s ease;
 }
 
 input[type="text"]:focus {
-  border-color: #34495e;
+  border-color: var(--secondary-color);
   outline: none;
 }
 
@@ -125,15 +125,15 @@ input[type="text"]:focus {
   display: inline-block;
   padding: 10px;
   cursor: pointer;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  background-color: var(--secondary-color);
+  color: var(--neutral-color);
   border-radius: 8px;
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
 .custom-file-upload:hover {
-  background-color: #1f2e3d;
+  background-color: var(--highlight-color);
 }
 
 input[type="file"] {
@@ -156,8 +156,8 @@ input[type="file"] {
 button {
   width: 100%;
   padding: 20px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  background-color: var(--secondary-color);
+  color: var(--neutral-color);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -167,12 +167,9 @@ button {
 }
 
 button:hover {
-  background-color: #1f2e3d;
+  background-color: var(--highlight-color);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
-
-
-/* Para tablets (pantallas entre 768px y 1024px) */
 @media (max-width: 1024px) {
   .content {
     flex-direction: column;
@@ -203,7 +200,6 @@ button:hover {
   }
 }
 
-/* Para celulares (pantallas de hasta 767px) */
 @media (max-width: 767px) {
   .wrapper {
     padding: 10px;
@@ -256,7 +252,6 @@ button:hover {
   }
 }
 
-/* Para pantallas muy pequeñas (hasta 480px) */
 @media (max-width: 480px) {
   .wrapper {
     padding: 5px;

@@ -1,11 +1,9 @@
-
-  
 .card {
     width: 100%;
     max-width: 500px;
     display: flex;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: var(--background-color);
     border-radius: 20px;
     backdrop-filter: blur(10px);
     overflow: hidden;
@@ -15,7 +13,7 @@
 }
   
 .card-img-container {
-    background-color: #f0f4f8;
+    background-color: var(--neutral-color);
     padding: 30px;
     display: flex;
     justify-content: center;
@@ -36,14 +34,14 @@
   
 .card-title {
     font-size: 26px;
-    color: #333333;
+    color: var(--text-color);
     margin-bottom: 20px;
     font-weight: bold;
 }
   
 .card-text {
     font-size: 18px;
-    color: #555555;
+    color: var(--secondary-color);
     margin-bottom: 30px;
 }
   
@@ -65,34 +63,34 @@ button {
   
 button:disabled {
     cursor: not-allowed;
-    background-color: #cccccc;
+    background-color: var(--tertiary-color);
 }
   
 .btn-primary {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--background-color);
 }
   
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: var(--highlight-color);
 }
   
 .btn-secondary {
-    background-color: #6c757d;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--background-color);
 }
   
 .btn-secondary:hover {
-    background-color: #5a6268;
+    background-color: var(--secondary-hover-color);
 }
   
 .btn-success {
-    background-color: #28a745;
-    color: white;
+    background-color: var(--success-color);
+    color: var(--background-color);
 }
   
 .btn-success:hover {
-    background-color: #218838;
+    background-color: var(--success-hover-color);
 }
   
 .skip-intro {
@@ -107,14 +105,14 @@ button:disabled {
 
 .skip-intro a {
     font-size: 14px;
-    color: #007bff;
+    color: var(--primary-color);
     text-decoration: none;
     transition: color 0.3s ease, box-shadow 0.3s ease;
     font-weight: bold;
 }
 
 .skip-intro a:hover {
-    color: #0056b3;
+    color: var(--highlight-color);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }

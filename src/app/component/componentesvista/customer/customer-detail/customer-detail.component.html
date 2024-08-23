@@ -1,9 +1,5 @@
 <div class="customer-detail-container">
   <div class="header">
-    <div class="back-button" (click)="goBack()">
-      <span class="material-icons">arrow_back</span>
-      <span>Volver</span>
-    </div>
     <h2>Detalles del Cliente</h2>
     <div class="header-actions" *ngIf="customer">
       <button class="action-button" (click)="editarClienteServicio(customer.idcs)">Editar</button>

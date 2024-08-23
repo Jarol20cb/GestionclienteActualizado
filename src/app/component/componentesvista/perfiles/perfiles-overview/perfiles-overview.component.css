@@ -2,7 +2,7 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  color: #2c3e50; /* Gris oscuro para el texto */
+  color: var(--text-color);
 }
 
 .header {
@@ -28,7 +28,7 @@
   width: 300px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc; /* Gris más claro para el borde */
+  border: 1px solid var(--border-color);
   font-size: 16px;
 }
 
@@ -39,7 +39,7 @@
 
 .no-data-text {
   font-size: 18px;
-  color: #7f8c8d; /* Gris claro */
+  color: var(--tertiary-color);
 }
 
 .content {
@@ -67,8 +67,8 @@
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  background-color: #fff; /* Blanco */
-  border: 1px solid #007bff; /* Azul para el borde */
+  background-color: var(--background-color);
+  border: 1px solid var(--highlight-color);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
@@ -92,8 +92,8 @@
 
 .action-button {
   background-color: transparent;
-  border: 1px solid #2980b9; /* Azul */
-  color: #2980b9;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 10px 15px;
   text-align: center;
   text-decoration: none;
@@ -105,8 +105,8 @@
 }
 
 .action-button:hover {
-  background-color: #2980b9; /* Azul */
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
 .pagination-controls {
@@ -124,22 +124,22 @@
 
 .pagination-controls button {
   background-color: transparent;
-  border: 1px solid #2980b9; /* Azul */
-  color: #2980b9;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 10px 15px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination-controls button:disabled {
-  background-color: #7f8c8d; /* Fondo claro para botones deshabilitados */
-  color: #ecf0f1; /* Blanco */
+  background-color: var(--tertiary-color);
+  color: var(--neutral-color);
   cursor: not-allowed;
 }
 
 .pagination-controls button:hover:not(:disabled) {
-  background-color: #2980b9; /* Azul */
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
 @media (max-width: 768px) {
@@ -178,7 +178,7 @@
     display: none;
   }
 
-  .no-data-container img{
+  .no-data-container img {
     width: 80%;
   }
 }

@@ -1,10 +1,9 @@
-/* General Styles */
 .perfiles-overview-container {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  color: #2c3e50;
-  overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  color: var(--text-color);
+  overflow-x: hidden;
 }
 
 .header {
@@ -30,14 +29,14 @@
   width: 300px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   font-size: 16px;
 }
 
 .volver-boton {
   background-color: transparent;
   border: none;
-  color: #007bff;
+  color: var(--highlight-color);
   font-size: 16px;
   cursor: pointer;
   display: flex;
@@ -51,8 +50,8 @@
 
 .añadir-boton {
   background-color: transparent;
-  border: 1px solid #007bff;
-  color: #007bff;
+  border: 1px solid var(--highlight-color);
+  color: var(--highlight-color);
   padding: 10px 15px;
   font-size: 16px;
   border-radius: 4px;
@@ -99,8 +98,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background-color: #fff;
-  border: 1px solid #007bff;
+  background-color: var(--background-color);
+  border: 1px solid var(--highlight-color);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
@@ -129,8 +128,8 @@
 
 .action-button {
   background-color: transparent;
-  border: 1px solid #2980b9;
-  color: #2980b9;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 10px 15px;
   text-align: center;
   text-decoration: none;
@@ -142,8 +141,8 @@
 }
 
 .action-button:hover {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
 .pagination-controls {
@@ -161,25 +160,24 @@
 
 .pagination-controls button {
   background-color: transparent;
-  border: 1px solid #2980b9;
-  color: #2980b9;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 10px 15px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination-controls button:disabled {
-  background-color: #7f8c8d;
-  color: #ecf0f1;
+  background-color: var(--tertiary-color);
+  color: var(--neutral-color);
   cursor: not-allowed;
 }
 
 .pagination-controls button:hover:not(:disabled) {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -206,20 +204,20 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    padding: 10px; /* Reduce padding */
+    padding: 10px;
   }
 
   .profile-info h3,
   .profile-info p {
     margin: 0;
-    font-size: 14px; /* Reduce font size */
+    font-size: 14px;
   }
 
   .action-button {
     width: 100%;
     margin-top: 10px;
-    padding: 8px 10px; /* Reduce padding */
-    font-size: 14px; /* Reduce font size */
+    padding: 8px 10px;
+    font-size: 14px;
   }
 
   .header-actions {

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NotificacionService } from 'src/app/service/notificacion.service';
 import { Registro } from 'src/app/model/registro';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, Event } from '@angular/router';
 import { LoginService } from 'src/app/service/login.service';
+import { Location } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,19 +19,28 @@ export class ToolbarComponent implements OnInit {
   error: string = "";
   role: string = "";
   username: string = "";
+  showBackButton: boolean = false;
 
   constructor(
     private loginService: LoginService, 
     private dialog: MatDialog, 
     private router: Router, 
-    private notificationService: NotificacionService // Inyección del servicio de notificaciones
+    private notificationService: NotificacionService,
+    private location: Location
   ) { }
 
   ngOnInit() {
     this.verificar();
     this.loginService.user$.subscribe(user => this.user = user);
     this.getUserDetails();
-    this.getUnreadCount(); // Obtener el conteo de notificaciones no leídas al inicializar
+    this.getUnreadCount();
+    this.checkBackButtonVisibility(this.router.url);
+
+    this.router.events.pipe(
+      filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.checkBackButtonVisibility(event.urlAfterRedirects);
+    });
   }
 
   verificar() {
@@ -57,14 +68,21 @@ export class ToolbarComponent implements OnInit {
     );
   }
 
-  // Método para marcar todas las notificaciones como leídas
   markAllNotificationsAsRead() {
     this.notificationService.markAllAsRead().subscribe(() => {
-      this.unreadCount = 0; // Actualiza el contador en la UI a 0
+      this.unreadCount = 0;
     });
   }
 
   preventClose(event: MouseEvent) {
     event.stopPropagation();
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  checkBackButtonVisibility(url: string): void {
+    this.showBackButton = url !== '/components/home';
   }
 }

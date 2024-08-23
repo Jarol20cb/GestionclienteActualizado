@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(var(--background-color), 0.95);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   max-width: 400px; 
@@ -27,7 +27,7 @@ h2 {
   font-size: 1.8em;
   margin-bottom: 15px;
   font-weight: 700;
-  color: #2c3e50;
+  color: var(--text-color);
   text-align: center;
 }
 
@@ -48,7 +48,7 @@ h2 {
 .form-field label {
   display: block;
   font-weight: bold;
-  color: #34495e;
+  color: var(--secondary-color);
   margin-bottom: 5px;
   text-align: center;
 }
@@ -57,10 +57,10 @@ h2 {
 .form-field select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   margin-top: 5px;
-  background: #ffffff;
+  background: var(--background-color);
   font-size: 1em;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s;
@@ -68,13 +68,13 @@ h2 {
 
 .form-field input:focus,
 .form-field select:focus {
-  border-color: #2980b9;
+  border-color: var(--primary-color);
   outline: none;
 }
 
 .custom-button {
-  background-color: #2980b9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   padding: 10px 20px;
   border: none;
   cursor: pointer;
@@ -86,20 +86,20 @@ h2 {
 }
 
 .custom-button.secondary {
-  background-color: #1f2e3d;
+  background-color: var(--text-color);
 }
 
 .custom-button:hover {
-  background-color: #1f2e3d;
+  background-color: var(--text-color);
   transform: scale(1.05);
 }
 
 .custom-button.secondary:hover {
-  background-color: #34495e;
+  background-color: var(--secondary-color);
 }
 
 .error-message {
-  color: #ff3333;
+  color: var(--warning-color);
   font-size: 14px;
   margin-top: 5px;
 }
@@ -116,7 +116,7 @@ h2 {
   cursor: pointer;
   font-weight: bold;
   font-size: 0.9em;
-  color: #2980b9;
+  color: var(--primary-color);
   margin-top: 5px;
   display: block;
   text-align: right;
@@ -125,16 +125,16 @@ h2 {
 /* Responsive design */
 @media (max-width: 768px) {
   .form-grid {
-    grid-template-columns: 1fr; /* Cambia a una sola columna */
+    grid-template-columns: 1fr;
     gap: 15px;
   }
 
   .form-field.full-width {
-    grid-column: span 1; /* Se asegura de que los campos ocupen toda la fila */
+    grid-column: span 1;
   }
 
   .form-field.half-width {
-    grid-column: span 1; /* Se asegura de que los campos ocupen toda la fila */
+    grid-column: span 1;
   }
 }
 

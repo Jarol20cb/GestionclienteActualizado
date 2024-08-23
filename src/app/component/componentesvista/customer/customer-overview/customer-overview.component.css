@@ -206,8 +206,8 @@ border-color: var(--highlight-color);
 }
 
 .customer-item.selected {
-background-color: #f0f8ff;
-border: 1px solid #add8e6;
+background-color: var(--background-color);
+border: 1px solid var(--neutral-color);
 }
 
 .select-all-container {
@@ -218,7 +218,7 @@ margin-bottom: 10px;
 
 .fab {
 background-color: var(--primary-color);
-color: white;
+color: var(--background-color);
 border-radius: 50%;
 width: 40px;
 height: 40px;
@@ -254,7 +254,7 @@ width: auto;
 
 .fab-item {
 background-color: var(--primary-color);
-color: white;
+color: var(--background-color);
 border: none;
 padding: 8px 12px;
 border-radius: 4px;
@@ -264,7 +264,7 @@ text-align: left;
 }
 
 .fab-item:hover {
-background-color: #1b4f72;
+background-color: var(--secondary-color);
 }
 
 .fab-item i {

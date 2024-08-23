@@ -4,11 +4,11 @@
   margin: auto;
   padding: 20px;
   border-radius: 15px;
-  background-color: #ffffff;
+  background-color: var(--background-color);
 }
 
 h2 {
-  color: #2980B9;
+  color: var(--primary-color);
   margin-bottom: 20px;
 }
 
@@ -26,25 +26,25 @@ h2 {
 .form-group input, .form-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   box-sizing: border-box;
 }
 
 .form-group input:focus, .form-group select:focus {
   outline: none;
-  border-color: #2980B9;
+  border-color: var(--primary-color);
 }
 
 .error {
-  color: red;
+  color: var(--warning-color);
   font-size: 0.875em;
   margin-top: 5px;
 }
 
 .custom-button, .custom-button-cancel {
-  background-color: #2980B9;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   padding: 10px 20px;
   margin: 10px;
@@ -54,15 +54,15 @@ h2 {
 }
 
 .custom-button-cancel {
-  background-color: #1A5276;
+  background-color: var(--secondary-color);
 }
 
 .custom-button:hover, .custom-button-cancel:hover {
-  background-color: #145A86;
+  background-color: var(--text-color);
   transform: translateY(-2px);
 }
 
 .custom-button:active, .custom-button-cancel:active {
-  background-color: #0E3C5F;
+  background-color: var(--tertiary-color);
   transform: translateY(0);
 }
