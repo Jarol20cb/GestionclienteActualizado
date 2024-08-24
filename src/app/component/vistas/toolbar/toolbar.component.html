@@ -9,10 +9,8 @@
   </button>
 </div>
 
-<div class="back-button-container" *ngIf="showBackButton">
-  <button 
-    class="toolbar-button toolbar-back-button" 
-    (click)="goBack()">
+<div class="back-button-container" *ngIf="showBackButton" [ngClass]="{'sidenav-open': isSidenavOpen, 'sidenav-closed': !isSidenavOpen}">
+  <button class="toolbar-back toolbar-back-button" (click)="goBack()">
     <img style="width: 70%; height: auto;" src="assets/volver.png" alt="">
   </button>
 </div>

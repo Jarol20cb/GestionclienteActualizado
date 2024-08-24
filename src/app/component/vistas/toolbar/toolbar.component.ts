@@ -20,6 +20,7 @@ export class ToolbarComponent implements OnInit {
   role: string = "";
   username: string = "";
   showBackButton: boolean = false;
+  isSidenavOpen: boolean = true;
 
   constructor(
     private loginService: LoginService, 
@@ -41,6 +42,12 @@ export class ToolbarComponent implements OnInit {
     ).subscribe((event: NavigationEnd) => {
       this.checkBackButtonVisibility(event.urlAfterRedirects);
     });
+
+    this.isSidenavOpen = !document.getElementById("sidenav")?.classList.contains("closed");
+  }
+
+  toggleSidenavState(isOpen: boolean) {
+    this.isSidenavOpen = isOpen;
   }
 
   verificar() {
