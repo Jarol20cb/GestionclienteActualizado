@@ -3,11 +3,15 @@
     --secondary-color: #34495e;
     --tertiary-color: #7f8c8d;
     --highlight-color: #007bff;
+    --highlight-color-hover: #13406f;
     --warning-color: #ff0000;
+    --warning-color-hover: #d84343;
     --accent-color: #ff9f00;
     --neutral-color: #ecf0f1;
     --background-color: #ffffff;
     --text-color: #2c3e50;
     --border-color: #ccc;
+    --warning-color-rgb: 255, 0, 0;
+    --accent-color-rgb: 255, 159, 0;
 }
 

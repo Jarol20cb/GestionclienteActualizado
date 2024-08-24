@@ -3,6 +3,7 @@
     <h2>Detalles del Cliente</h2>
     <div class="header-actions" *ngIf="customer">
       <button class="action-button" (click)="editarClienteServicio(customer.idcs)">Editar</button>
+      <button class="action-button" (click)="cambiarEstado(customer)"><i class="fas fa-sync-alt"></i> Renovar</button>
       <button class="action-button" (click)="eliminarCliente(customer.idcs)">Eliminar</button>
     </div>
   </div>

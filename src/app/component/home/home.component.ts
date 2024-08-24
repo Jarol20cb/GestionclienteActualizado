@@ -225,4 +225,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
       };
     }
   }
+
+  verCliente(customerId: number) {
+    this.router.navigate(['/components/customer-detail', customerId]);
+}
 }

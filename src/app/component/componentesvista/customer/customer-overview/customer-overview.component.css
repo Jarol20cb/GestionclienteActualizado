@@ -74,28 +74,29 @@ box-shadow: 0 0 10px rgba(var(--accent-color), 0.6);
 }
 
 @keyframes pending-glow {
-0% {
-  box-shadow: 0 0 10px rgba(var(--warning-color), 0.6);
-}
-50% {
-  box-shadow: 0 0 20px rgba(var(--warning-color), 0.8);
-}
-100% {
-  box-shadow: 0 0 10px rgba(var(--warning-color), 0.6);
-}
+  0% {
+      box-shadow: 0 0 10px rgba(var(--warning-color-rgb), 0.6);
+  }
+  50% {
+      box-shadow: 0 0 20px rgba(var(--warning-color-rgb), 0.8);
+  }
+  100% {
+      box-shadow: 0 0 10px rgba(var(--warning-color-rgb), 0.6);
+  }
 }
 
 @keyframes fiado-glow {
-0% {
-  box-shadow: 0 0 10px rgba(var(--accent-color), 0.6);
+  0% {
+      box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.6);
+  }
+  50% {
+      box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.8);
+  }
+  100% {
+      box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.6);
+  }
 }
-50% {
-  box-shadow: 0 0 20px rgba(var(--accent-color), 0.8);
-}
-100% {
-  box-shadow: 0 0 10px rgba(var(--accent-color), 0.6);
-}
-}
+
 
 .customer-item:hover {
 transform: scale(1.02);

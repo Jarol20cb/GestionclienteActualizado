@@ -6,6 +6,7 @@ import { CustomersServices } from 'src/app/model/CustomerService';
 import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog-component/confirm-dialog-component.component';
 import { MensajespersonalizadosService } from 'src/app/service/mensajespersonalizados.service';
 import { Location } from '@angular/common';
+import { ConfirmarRenovacionDialogComponent } from 'src/app/component/confirmar-renovacion-dialog/confirmar-renovacion-dialog.component';
 
 @Component({
   selector: 'app-customer-detail',
@@ -17,6 +18,7 @@ export class CustomerDetailComponent implements OnInit {
   selectedMessageId: number = 0;
   selectedMessage: string = '';
   availableMessages: { id: number, label: string, type: 'predetermined' | 'custom' }[] = [];
+  customers: CustomersServices[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -144,5 +146,31 @@ export class CustomerDetailComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  cambiarEstado(element: CustomersServices) {
+    const dialogRef = this.dialog.open(ConfirmarRenovacionDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        if (element.estado === 'pendiente') {
+          element.estado = 'cancelado';
+          const startDate = new Date(element.fechafin);
+          const endDate = new Date(startDate);
+          startDate.setMonth(startDate.getMonth());
+          endDate.setMonth(startDate.getMonth() + 1);
+
+          element.fechainicio = startDate;
+          element.fechafin = endDate;
+
+          this.cS.update(element).subscribe(() => {
+            this.cS.list().subscribe((data) => {
+              this.customers = data;
+            });
+          });
+        } else {
+          alert('El estado no se puede cambiar porque ya está actualizado.');
+        }
+      }
+    });
   }
 }
