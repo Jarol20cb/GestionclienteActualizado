@@ -8,10 +8,6 @@
 <body>
   <div class="profile-detail-container">
     <div class="header">
-      <div class="back-button" (click)="goBack()">
-        <span class="material-icons">arrow_back</span>
-        <span>Volver</span>
-      </div>
       <h2>Detalles del Perfil</h2>
       <div class="header-actions" *ngIf="profile">
         <button class="action-button" (click)="editProfile(profile.perfilId)">Editar</button>

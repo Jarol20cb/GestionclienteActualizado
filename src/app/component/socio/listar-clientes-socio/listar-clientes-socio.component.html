@@ -1,7 +1,6 @@
 <div *ngIf="socioCustomerService" class="listar-container-overlay">
   <div class="listar-container customer-overview-container">
     <div class="header">
-      <button class="action-button back-button" (click)="goBack()">← Volver</button>
       <h2>Clientes del socio: {{ socioCustomerService.name }}</h2>
       <div class="header-actions">
         <input type="text" placeholder="Buscar..." class="input-busqueda" [(ngModel)]="filters.name" (input)="applyFilters()">

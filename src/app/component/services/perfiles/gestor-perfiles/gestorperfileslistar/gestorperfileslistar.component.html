@@ -6,9 +6,6 @@
     <div class="header">
       <h2>Perfiles del Servicio {{ serviceId }}</h2>
       <div class="header-actions">
-        <button (click)="navigateToServicio()" class="volver-boton">
-          <span class="volver-icon">&#x2190;</span> Volver
-        </button>
         <input matInput (keyup)="filter($event)" placeholder="Buscar..." class="search-input">
         <button (click)="agregarPerfil()" class="añadir-boton">
           <span class="añadir-icon">+</span> Añadir
