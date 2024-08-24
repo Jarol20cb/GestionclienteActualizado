@@ -52,6 +52,14 @@ export class CustomerOverviewComponent implements OnInit {
       this.paginateData();
     });
   }
+
+  getRemainingDays(fechafin: Date): number {
+    const today = moment().startOf('day'); // Truncar la hora para usar solo la fecha
+    const endDate = moment(fechafin).startOf('day'); // Truncar la hora para usar solo la fecha
+    const diff = endDate.diff(today, 'days');
+    return diff > 0 ? diff : 0; // Retorna 0 si la fecha de fin ya pasó o es hoy.
+  }
+  
   
   toggleFabMenu() {
     this.fabMenuVisible = !this.fabMenuVisible;
