@@ -8,6 +8,41 @@
         <img style="width: 50px; height: 50px;" *ngIf="user.accountType === 'FREE'" src="assets/free.png" alt="Free" class="small-image">
       </h1>     
     </div>
+
+    <div class="bottom-section">
+      <div class="dashboard-grid">
+    
+        <div class="report-card" routerLink="/components/customer-overview">
+          <div class="report-header" style="display: block; cursor: pointer;">
+            <img src="assets/iconos/cliente.png" alt="Clientes" class="report-image">
+            <h3>Clientes</h3>
+          </div>
+        </div>
+    
+        <div class="report-card" routerLink="/components/servicios-overview">
+          <div class="report-header" style="display: block; cursor: pointer;">
+            <img src="assets/iconos/netflix.png" alt="Servicios" class="report-image">
+            <h3>Servicios</h3>
+          </div>
+        </div>
+    
+        <div class="report-card" routerLink="/components/perfil-overview">
+          <div class="report-header" style="display: block; cursor: pointer;">
+            <img src="assets/iconos/perfiles.png" alt="Perfiles" class="report-image">
+            <h3>Perfiles</h3>
+          </div>
+        </div>
+    
+        <div class="report-card" routerLink="/components/socioproveedor-overview">
+          <div class="report-header" style="display: block; cursor: pointer;">
+            <img src="assets/iconos/trabajando.png" alt="Socios y Proveedores" class="report-image">
+            <h3>Socios y Proveedores</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
     <div class="dashboard">
       <div class="top-section">
         <div class="widgets-section">

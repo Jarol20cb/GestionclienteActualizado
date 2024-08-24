@@ -112,6 +112,20 @@ body {
   text-align: center;
 }
 
+.report-card h3 {
+  font-size: 15px;
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.report-image {
+  max-width: 40px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
 .widgets-section, .no-clientes p {
   margin: 10px 0 0;
   font-size: 18px;
