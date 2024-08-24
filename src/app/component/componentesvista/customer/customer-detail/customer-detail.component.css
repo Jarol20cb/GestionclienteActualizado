@@ -187,26 +187,6 @@
   background-color: var(--neutral-color);
 }
 
-.action-button {
-  background-color: transparent;
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  margin-top: 10px;
-}
-
-.action-button:hover {
-  background-color: var(--primary-color);
-  color: white;
-}
-
 .cancel-button {
   border-color: var(--warning-color);
   color: var(--warning-color);
@@ -223,10 +203,24 @@
   }
 
   .header-actions {
-    flex-direction: column;
-    gap: 5px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones bajen a la siguiente línea si no caben */
+    justify-content: space-between; /* Espaciado entre los botones */
+    padding: 5px;
     width: 100%;
-  }
+}
+
+.header-actions .action-button {
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 4px;
+    flex: 1; /* Permite que los botones ocupen el mismo espacio */
+    margin: 5px; /* Espacio entre botones */
+    min-width: 150px; /* Tamaño mínimo de los botones antes de que se apilen */
+}
+
 
   .customer-overview {
     flex-direction: column;

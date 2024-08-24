@@ -45,9 +45,11 @@
         <p>Estado: <span [style.color]="getEstadoColor(customer)">{{ customer.estado }}</span></p>
       </div>
       <div class="days-remaining">
-        <span class="days-number">{{ getRemainingDays(customer.fechafin) }}</span>
+        <span class="days-number" [style.color]="getRemainingDaysColor(getRemainingDays(customer.fechafin))">
+          {{ getRemainingDays(customer.fechafin) }}
+        </span>
         <p>Días restantes:</p>
-      </div>
+      </div>     
       <button class="action-button" (click)="viewDetails(customer.idcs)">Ver detalles</button>
       <button class="action-button" style="margin-left: 4px; @media (max-width: 768px) { margin-left: 0 };" *ngIf="role === 'ADMIN' || role === 'USER'" (click)="cambiarEstado(customer)"><i class="fas fa-sync-alt"></i> Renovar</button>
     </div>

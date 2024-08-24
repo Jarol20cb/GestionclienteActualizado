@@ -54,12 +54,21 @@ export class CustomerOverviewComponent implements OnInit {
   }
 
   getRemainingDays(fechafin: Date): number {
-    const today = moment().startOf('day'); // Truncar la hora para usar solo la fecha
-    const endDate = moment(fechafin).startOf('day'); // Truncar la hora para usar solo la fecha
+    const today = moment().startOf('day');
+    const endDate = moment(fechafin).startOf('day');
     const diff = endDate.diff(today, 'days');
-    return diff > 0 ? diff : 0; // Retorna 0 si la fecha de fin ya pasó o es hoy.
+    return diff > 0 ? diff : 0;
   }
-  
+
+  getRemainingDaysColor(remainingDays: number): string {
+    if (remainingDays > 7) {
+      return 'rgba(var(--success-color-rgb), 1)';
+    } else if (remainingDays > 3 && remainingDays <= 7) {
+      return 'rgba(var(--accent-color-rgb), 1)';
+    } else {
+      return 'rgba(var(--warning-color-rgb), 1)';
+    }
+  }  
   
   toggleFabMenu() {
     this.fabMenuVisible = !this.fabMenuVisible;
@@ -169,9 +178,12 @@ export class CustomerOverviewComponent implements OnInit {
     } else if (a.estado !== 'fiado' && b.estado === 'fiado') {
       return 1;
     } else {
-      return 0;
+      const daysA = this.getRemainingDays(a.fechafin);
+      const daysB = this.getRemainingDays(b.fechafin);
+      return daysA - daysB;
     }
   }
+  
 
   getEstadoColor(element: CustomersServices): string {
     if (element.estado === 'pendiente') {

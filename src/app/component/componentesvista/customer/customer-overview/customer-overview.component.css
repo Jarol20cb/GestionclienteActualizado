@@ -154,28 +154,28 @@
   color: var(--background-color);
 }
 
-.pagination-controls span {
-  line-height: 1.5; /* Ajusta el valor para centrar verticalmente */
-  margin-top: 0; /* Asegúrate de que no haya margen superior que desplace el texto */
-  display: flex;
-  align-items: center; /* Centra el texto verticalmente */
-}
-
-
 .pagination-controls {
   display: flex;
-  justify-content: flex-end; /* Alinea a la derecha */
+  justify-content: flex-end;
   margin-bottom: 20px;
   gap: 5px;
 }
 
+.pagination-controls span {
+  line-height: 1.5;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+}
+
 .pagination-controls button {
   padding: 8px 12px;
-  min-width: 40px; /* Define un ancho mínimo para los botones */
-  max-width: 80px; /* Define un ancho máximo para los botones */
-  width: auto; /* Permite que el ancho se ajuste al contenido */
-  flex: none; /* Evita que los botones se expandan para llenar el espacio */
+  min-width: 40px;
+  max-width: 80px;
+  width: auto;
+  flex: none;
 }
+
 .pagination-controls button:disabled {
   background-color: var(--tertiary-color);
   color: var(--neutral-color);
@@ -287,7 +287,6 @@
   margin-right: 8px;
 }
 
-/* Responsive ajustado */
 @media (max-width: 812px) {
   .header {
     flex-direction: column;
@@ -308,7 +307,7 @@
   }
 
   .header-actions input {
-    width: calc(100% - 60px); /* Ajusta el ancho para dejar espacio a los botones */
+    width: calc(100% - 60px);
     margin-right: 10px;
   }
 
@@ -319,7 +318,7 @@
   }
 
   .pagination-controls {
-    justify-content: center; /* Centra en pantallas pequeñas */
+    justify-content: center;
   }
 
   .pagination-controls button {
@@ -346,7 +345,7 @@
   .customer-info {
     width: 100%;
     margin-bottom: 15px;
-    text-align: left;
+    text-align: center;
   }
 
   .days-remaining {
@@ -361,4 +360,3 @@
     text-align: center;
   }
 }
-
