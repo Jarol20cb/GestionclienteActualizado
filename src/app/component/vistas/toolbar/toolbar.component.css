@@ -8,16 +8,8 @@
 .back-button-container {
   position: fixed;
   top: 10px;
-  left: 100px; /* Posición por defecto */
+  left: 100px;
   z-index: 1000;
-}
-
-.back-button-container.sidenav-open {
-  left: 250px; /* Posición cuando el sidenav está abierto */
-}
-
-.back-button-container.sidenav-closed {
-  left: 85px; /* Posición cuando el sidenav está cerrado */
 }
 
 .toolbar-back {
