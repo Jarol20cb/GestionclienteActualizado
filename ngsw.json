@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1724533778538,
+  "timestamp": 1724615061960,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,13 @@
         "ignoreVary": true
       },
       "urls": [
-        "/822.13bffbb56abff520.js",
+        "/822.0cd75f9a6cbf32b1.js",
         "/favicon.ico",
         "/index.html",
-        "/main.b38d8f66e8fd48bf.js",
+        "/main.0755631ad30bb532.js",
         "/manifest.webmanifest",
         "/polyfills.e51b4f5267e3100a.js",
-        "/runtime.8210cedb53b64cf1.js",
+        "/runtime.1c2a924727096c48.js",
         "/styles.392b83aabf48cd52.css"
       ],
       "patterns": []
@@ -32,6 +32,7 @@
       "urls": [
         "/assets/NCXD.ico",
         "/assets/NCXD.png",
+        "/assets/ayuda.png",
         "/assets/banners/lisa-feliz.gif",
         "/assets/banners/mantenimiento.png",
         "/assets/banners/promo.png",
@@ -100,9 +101,10 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/822.13bffbb56abff520.js": "24da8eaec72b6d422747bc0d4fa8a06e4e08f190",
+    "/822.0cd75f9a6cbf32b1.js": "61ae42727d27fe002e8a946d165f5dcf7645e83f",
     "/assets/NCXD.ico": "75803664e067faca4aea71fd6ae9f9368228dc7a",
     "/assets/NCXD.png": "07080494310f45e2cac7d174ae86dddd9fa337d2",
+    "/assets/ayuda.png": "33a1dc1e0841689142158475f9ac611b9be73086",
     "/assets/banners/lisa-feliz.gif": "7824e1caac4ddfc6ed77533c364f9c5c783a7059",
     "/assets/banners/mantenimiento.png": "764a08e8a331e203993a8359631fb6689ec70c98",
     "/assets/banners/promo.png": "663a579879d0b6300efb704cfaf5b5c6c658860d",
@@ -166,11 +168,11 @@
     "/fa-v4compatibility.0e21f5b1dff572c4.woff2": "827835b9a92ff50acba8ef5f700d5d33933de7ac",
     "/fa-v4compatibility.2c070fd29a39f685.ttf": "27a74685ce8ff178a2199f1dea5671516e7f67ff",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/index.html": "ba7df0da2d707a6806b9e5ba34f0ef26efde346a",
-    "/main.b38d8f66e8fd48bf.js": "6a13ceeff62b676b1a293fb2b437c3404e4ef560",
+    "/index.html": "0c782ac0b98b380cf78b48595b9c52ca56064f70",
+    "/main.0755631ad30bb532.js": "2f66ff11be5764d827f0c7e8687abaed4e83467d",
     "/manifest.webmanifest": "67af5a9f4634ab9a0468f44df65f23bde6090f1d",
     "/polyfills.e51b4f5267e3100a.js": "b79825cbabc9af1737fa1346b220c631020afe05",
-    "/runtime.8210cedb53b64cf1.js": "ea301513a4066c16054e811e1d8a00fb312d0f81",
+    "/runtime.1c2a924727096c48.js": "5c2a5cc2fdc03499623b5239275fccdfc3e69887",
     "/styles.392b83aabf48cd52.css": "cef672d869ea77fd9ad370f75ca08c131411eafd"
   },
   "navigationUrls": [
