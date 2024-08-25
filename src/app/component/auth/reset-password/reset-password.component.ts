@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
-import { DialogComponent } from '../../dialogo/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../dialogo/dialog/dialog.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,7 +14,10 @@ export class ResetPasswordComponent implements OnInit {
   resetForm: FormGroup;
   message: string | null = null;
   errorMessage: string | null = null;
-  token: string | null = null;
+  email: string | null = null;
+  code: string | null = null;
+  hidePassword = true;
+  passwordMismatch = false;
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +27,9 @@ export class ResetPasswordComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.resetForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(6)]]
+      code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -34,35 +39,57 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.token = params['token'];
-      if (!this.token) {
-        this.errorMessage = 'Token inválido o faltante.';
-      } else {
-        console.log('Token capturado:', this.token); // Verifica que el token se capture correctamente
+      this.email = params['email'];
+      if (!this.email) {
+        this.errorMessage = 'Correo electrónico inválido o faltante.';
       }
+    });
+
+    this.resetForm.valueChanges.subscribe(() => {
+      this.passwordMismatch = this.resetForm.get('newPassword')?.value !== this.resetForm.get('confirmPassword')?.value;
     });
   }
 
-  onSubmit(): void {
-    if (this.resetForm.valid && this.token) {
-      this.authService.resetPassword(this.token, this.resetForm.value.newPassword)
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  verifyCode(): void {
+    if (this.email && this.resetForm.get('code')?.valid) {
+      this.authService.verifyResetCode(this.email, this.resetForm.value.code)
         .subscribe({
           next: response => {
-            console.log('Respuesta del backend:', response);
-            this.message = 'Contraseña restablecida exitosamente.';
+            this.message = 'Código verificado correctamente. Ahora puedes restablecer tu contraseña.';
             this.errorMessage = null;
-            this.openDialog('Restablecimiento exitoso', this.message); // Ajusta el título
-            this.router.navigate(['/login']);
           },
           error: error => {
-            console.error('Error en el restablecimiento:', error);
-            this.errorMessage = 'Hubo un error al restablecer la contraseña. Intenta nuevamente.';
-            this.openDialog('Error', 'Error en el registro: ' + (error.error.message || error.message || 'Error desconocido.'));
+            this.errorMessage = 'Código inválido o expirado.';
             this.message = null;
           }
         });
     } else {
-      this.errorMessage = 'Formulario inválido o faltante token.';
+      this.errorMessage = 'Formulario inválido o faltante correo.';
+    }
+  }
+
+  onSubmit(): void {
+    if (this.resetForm.valid && this.email && !this.passwordMismatch) {
+      this.authService.resetPassword(this.email, this.resetForm.value.code, this.resetForm.value.newPassword)
+        .subscribe({
+          next: response => {
+            this.message = 'Contraseña restablecida exitosamente.';
+            this.errorMessage = null;
+            this.openDialog('Restablecimiento exitoso', this.message);
+            this.router.navigate(['/login']);
+          },
+          error: error => {
+            this.errorMessage = 'Hubo un error al restablecer la contraseña. Intenta nuevamente.';
+            this.openDialog('Error', 'Error en el restablecimiento: ' + (error.error.message || error.message || 'Error desconocido.'));
+            this.message = null;
+          }
+        });
+    } else {
+      this.errorMessage = 'Formulario inválido o faltante correo.';
     }
   }
 

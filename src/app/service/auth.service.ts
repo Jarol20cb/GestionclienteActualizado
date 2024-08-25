@@ -22,13 +22,23 @@ export class AuthService {
     );
   }
 
-  resetPassword(token: string, newPassword: string): Observable<any> {
-    console.log('Enviando solicitud al backend con token y nueva contraseña:', token, newPassword);
-    return this.http.post(`${this.baseUrl}/reset-password?token=${token}`, { newPassword }, { responseType: 'text' }).pipe(
+  // Método para verificar el código de restablecimiento
+  verifyResetCode(email: string, code: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/verify-reset-code`, { email, code }, { responseType: 'text' }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error en verifyResetCode:', error);
+        return throwError(() => new Error('Error al verificar el código de restablecimiento.'));
+      })
+    );
+  }
+
+  // Método para restablecer la contraseña usando el código en lugar del token
+  resetPassword(email: string, code: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-password`, { email, code, newPassword }, { responseType: 'text' }).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error('Error en resetPassword:', error);
         return throwError(() => new Error('Error al restablecer la contraseña.'));
       })
     );
-  }  
+  }
 }
