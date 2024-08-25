@@ -1,4 +1,4 @@
-<div class="banner-overlay">
+<div class="banner-overlay" *ngIf="showBackButton">
   <div class="banner-content">
     <div *ngIf="data.allowClose" class="close-icon" (click)="onClose()">&times;</div>
     <img 

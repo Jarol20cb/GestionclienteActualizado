@@ -55,6 +55,7 @@ const routes: Routes = [
         component: HomeComponent,
         canActivate: [GuardService]
       },
+      
       {
         path: 'pago',
         component: RealizarPagoComponent,

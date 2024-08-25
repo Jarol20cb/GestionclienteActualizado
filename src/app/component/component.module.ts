@@ -93,6 +93,8 @@ import { ListarcomprobantesComponent } from './vistas/listarcomprobantes/listarc
 import { MensajeComprobantesPagoComponent } from './administracion/mensaje-comprobantes-pago/mensaje-comprobantes-pago.component';
 import { ResponsiveMenuComponent } from './sidenav/responsive-menu/responsive-menu.component';
 import { VistaGestionComponent } from './vistas/vista-gestion/vista-gestion.component';
+import { RequestPasswordResetComponent } from './auth/request-password-reset/request-password-reset.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +169,8 @@ import { VistaGestionComponent } from './vistas/vista-gestion/vista-gestion.comp
     MensajeComprobantesPagoComponent,
     ResponsiveMenuComponent,
     VistaGestionComponent,
+    RequestPasswordResetComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [

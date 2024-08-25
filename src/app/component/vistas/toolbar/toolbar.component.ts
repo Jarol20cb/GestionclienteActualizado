@@ -54,10 +54,6 @@ export class ToolbarComponent implements OnInit {
       data => {
         this.user = data;
       },
-      error => {
-        this.error = error;
-        console.error('Error al obtener los detalles del usuario', error);
-      }
     );
   }
 
