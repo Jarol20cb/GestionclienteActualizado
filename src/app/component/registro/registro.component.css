@@ -24,9 +24,9 @@ body {
   width: 100%;
   max-width: 800px;
   position: relative;
-  max-height: 80vh;
+  max-height: 90vh;
   box-sizing: border-box;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Añadido un ligero sombreado */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .tag2 {
@@ -115,7 +115,7 @@ body {
   .form-container {
     padding: 20px;
     max-width: 100%;
-    max-height: 700px;
+    max-height: 90vh;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   }
 

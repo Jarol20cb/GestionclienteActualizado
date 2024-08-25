@@ -6,5 +6,6 @@ export class Registro {
   name: string = ""; 
   companyName: string = ""; 
   accountType: 'FREE' | 'PREMIUM' = 'FREE';
+  number: string = "";
 }
 

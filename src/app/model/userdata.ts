@@ -11,4 +11,5 @@ export class UserData {
     createdAt: Date = new Date();
     subscriptionStartDate: Date = new Date();
     subscriptionEndDate: Date = new Date();
+    number: string = "";
   }

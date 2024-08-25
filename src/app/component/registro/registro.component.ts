@@ -29,6 +29,7 @@ export class RegistroComponent implements OnInit {
       confirmPassword: ['', Validators.required],
       name: ['', Validators.required],
       companyName: ['', Validators.required],
+      number: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       accountType: ['']  // Este campo es opcional hasta el segundo paso
     });
   }
@@ -40,12 +41,14 @@ export class RegistroComponent implements OnInit {
     this.form.get('confirmPassword')?.markAsTouched();
     this.form.get('name')?.markAsTouched();
     this.form.get('companyName')?.markAsTouched();
+    this.form.get('number')?.markAsTouched();
 
     // Check if the first step is valid
     if (this.form.get('username')?.valid &&
         this.form.get('password')?.valid &&
         this.form.get('confirmPassword')?.valid &&
         this.form.get('name')?.valid &&
+        this.form.get('number')?.valid &&
         this.form.get('companyName')?.valid) {
       this.currentStep = 2;
     } else {
@@ -68,7 +71,8 @@ export class RegistroComponent implements OnInit {
         roles: ['USER'],
         name: this.form.value.name,
         companyName: this.form.value.companyName,
-        accountType: this.form.value.accountType
+        accountType: this.form.value.accountType,
+        number: this.form.value.number
       };
 
       this.cS.insert(registro).subscribe(

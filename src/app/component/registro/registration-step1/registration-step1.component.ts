@@ -19,6 +19,7 @@ export class RegistrationStep1Component {
       confirmPassword: ['', Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
       companyName: ['', Validators.required],
+      number: ['', Validators.required, Validators.minLength(9), Validators.maxLength(9)],
     });
   }
 

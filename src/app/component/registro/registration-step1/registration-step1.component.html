@@ -11,6 +11,15 @@
         </div>
       </div>
 
+      <div class="form-field full-width">
+        <label for="number">Número Telefónico</label>
+        <input type="text" id="number" name="number" formControlName="number" placeholder="Ingresa tu número" />
+        <div *ngIf="form.get('number')?.invalid && (form.get('number')?.dirty || form.get('number')?.touched)" class="error-message">
+          <div *ngIf="form.get('number')?.hasError('required')">El número de contacto es obligatorio.</div>
+          <div *ngIf="form.get('number')?.hasError('minlength')">Por favor, introduce un número de contacto válido.</div>
+        </div>
+      </div>
+
       <div class="form-field half-width">
         <label for="name">Nombre</label>
         <input type="text" id="name" name="name" formControlName="name" placeholder="Ingresa tu nombre" />
