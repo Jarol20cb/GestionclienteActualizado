@@ -8,6 +8,7 @@ import { CustomerserviceService } from 'src/app/service/customerservice.service'
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { CustomersServices } from 'src/app/model/CustomerService';
+import { Registro } from 'src/app/model/registro';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
@@ -30,12 +31,13 @@ const centeredStyle = {
 export class ListarCsComponent implements OnInit {
   dataSource: CustomersServices[] = [];
   originalDataSource: CustomersServices[] = [];
-  displayedColumns: string[] = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];
-  role: string = '';
-  currentPage: number = 1;
+  displayedColumns: string[] = ['clientes', 'servicio', 'perfil', 'fechainicio', 'fechafin', 'estado', 'socio', 'cambiarEstado', 'editar', 'eliminar'];  currentPage: number = 1;
   itemsPerPage: number = 5;
   totalItems: number = 0;
   paginatedData: CustomersServices[] = [];
+  username: string = "";
+  role: string = '';
+  user: Registro = new Registro();
 
   mostrarFormularioRegistro: boolean = false;
   idEdicion: number | null = null;
@@ -61,6 +63,18 @@ export class ListarCsComponent implements OnInit {
       this.totalItems = data.length;
       this.paginarDatos();
     });
+
+    this.loadUserDetails();
+  }
+
+  loadUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+        this.role = this.loginService.showRole();
+        this.username = this.loginService.showUser();
+      },
+    );
   }
 
   mostrarFormulario() {

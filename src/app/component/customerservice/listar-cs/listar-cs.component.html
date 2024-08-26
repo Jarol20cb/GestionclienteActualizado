@@ -6,7 +6,7 @@
   <title>Lista de registros</title>
 </head>
 <body>
-  <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
+  <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro" *ngIf="user.accountType === 'PREMIUM'">
     <div class="container" *ngIf="verificar()">
       <br>
       <h2 style="text-align: center;">Lista de registros</h2>

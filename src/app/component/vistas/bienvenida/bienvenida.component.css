@@ -81,7 +81,7 @@ button:disabled {
 }
   
 .btn-secondary:hover {
-    background-color: var(--secondary-hover-color);
+    background-color: var(--highlight-color);
 }
   
 .btn-success {

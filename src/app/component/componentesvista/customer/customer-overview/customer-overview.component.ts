@@ -9,6 +9,7 @@ import { ConfirmDialogComponent } from 'src/app/component/dialogo/confirm-dialog
 import { ConfirmarRenovacionDialogComponent } from 'src/app/component/confirmar-renovacion-dialog/confirmar-renovacion-dialog.component';
 import * as moment from 'moment';
 import { CustomersServices } from 'src/app/model/CustomerService';
+import { Registro } from 'src/app/model/registro';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
@@ -36,8 +37,11 @@ export class CustomerOverviewComponent implements OnInit {
   totalItems: number = 0;
   totalPages: number = 0;
   selectionMode: boolean = false;
-  role: string = '';
   fabMenuVisible: boolean = false;
+  user: Registro = new Registro();
+  username: string = "";
+  role: string = '';
+  
 
   constructor(private router: Router, private cS: CustomerserviceService, public dialog: MatDialog, private loginService: LoginService) {}
 
@@ -51,6 +55,7 @@ export class CustomerOverviewComponent implements OnInit {
       this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
       this.paginateData();
     });
+    this.loadUserDetails();
   }
 
   getRemainingDays(fechafin: Date): number {
@@ -272,4 +277,15 @@ export class CustomerOverviewComponent implements OnInit {
       }
     });
   }
+
+  loadUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+        this.role = this.loginService.showRole();
+        this.username = this.loginService.showUser();
+      },
+    );
+  }
+
 }

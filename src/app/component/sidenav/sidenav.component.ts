@@ -46,10 +46,6 @@ export class SidenavComponent implements OnInit {
         this.role = this.loginService.showRole();
         this.username = this.loginService.showUser();
       },
-      error => {
-        this.error = error;
-        console.error('Error al obtener los detalles del usuario', error);
-      }
     );
   }
 

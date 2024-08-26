@@ -169,6 +169,13 @@ input[type="text"]::placeholder, input[type="password"]::placeholder {
 }
 
 @media (max-width: 480px) {
+
+
+  .input-container mat-icon {
+    width:10px;
+  }
+
+  
   .login-container {
     padding: 10px;
   }

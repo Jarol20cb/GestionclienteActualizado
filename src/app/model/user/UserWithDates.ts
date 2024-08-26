@@ -11,6 +11,7 @@ export class UserWithDates {
     createdAt: Date;
     subscriptionStartDate: Date;
     subscriptionEndDate: Date;
+    number: string = ""; 
 
     constructor(data: any) {
         this.id = data.id;
@@ -21,6 +22,7 @@ export class UserWithDates {
         this.companyName = data.companyName;
         this.accountType = data.accountType;
         this.isPremium = data.isPremium;
+        this.number = data.number;
 
         // Convertir las cadenas de fecha a objetos Date
         this.lastPaymentDate = new Date(data.lastPaymentDate);

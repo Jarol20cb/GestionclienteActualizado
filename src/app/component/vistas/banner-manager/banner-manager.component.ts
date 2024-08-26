@@ -65,23 +65,32 @@ export class BannerManagerComponent implements OnInit {
     this.loginService.getUserDetails().subscribe(
       data => {
         this.user = new UserWithDates(data);
-        this.queueBanners();
+
+        // Evitar agregar el banner si no es un usuario nuevo
+        if (this.isNewUser()) {
+          console.log('Usuario nuevo, mostrando banner de bienvenida.');
+          this.queueBanners();
+        }
         this.showNextBanner();
       },
-      error => {
-        console.error('Error al obtener los detalles del usuario', error);
-      }
     );
   }
 
   isNewUser(): boolean {
     const accountCreationTime = new Date(this.user.createdAt).getTime();
     const currentTime = new Date().getTime();
-    const timeDifference = currentTime - accountCreationTime;
+
+    // Ajuste temporal para corregir el desajuste de tiempo
+    const timeDifference = Math.abs(currentTime - accountCreationTime);
     const minutesSinceCreation = timeDifference / (1000 * 60);
 
+    // console.log(`Tiempo de creación de la cuenta: ${new Date(this.user.createdAt)}`);
+    // console.log(`Tiempo actual: ${new Date(currentTime)}`);
+    // console.log(`Minutos desde la creación: ${minutesSinceCreation}`);
+
     return minutesSinceCreation <= 5;
-  }
+}
+
 
   hasBannerBeenShown(bannerKey: string): boolean {
     return !!sessionStorage.getItem(bannerKey);
@@ -97,10 +106,6 @@ export class BannerManagerComponent implements OnInit {
         this.user = data;
         this.calculateSubscriptionDuration();
       },
-      error => {
-        this.error = error;
-        console.error('Error al obtener los detalles del usuario', error);
-      }
     );
   }
   
@@ -131,6 +136,7 @@ export class BannerManagerComponent implements OnInit {
 
     // Banner de bienvenida para nuevos usuarios
     if (this.isNewUser() && !this.hasBannerBeenShown('welcomeBannerShown')) {
+      console.log('Agregando banner de bienvenida a la cola.');
       this.bannerQueue.push({
         component: 'BienvenidaComponent',
         action: () => {
@@ -226,7 +232,7 @@ export class BannerManagerComponent implements OnInit {
         ],
         buttons: [
           { text: 'Actualizar Pago', class: 'update-payment-button', action: () => this.onUpdatePayment() },
-          { text: 'Más Información', class: 'info-button', action: () => this.onMoreInfo() }
+          // { text: 'Más Información', class: 'info-button', action: () => this.onMoreInfo() }
         ],
         allowClose: true
       });
@@ -285,8 +291,6 @@ export class BannerManagerComponent implements OnInit {
         }
       );
     }
-    
-
   }
 
   onRenew() {

@@ -40,9 +40,9 @@ export class BienvenidaComponent {
   constructor(private router: Router, @Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<BienvenidaComponent>) {}
 
   onClose() {
-    const canClose = this.data?.allowClose ?? true; // Si `allowClose` es undefined, se usa `true` como valor por defecto
+    const canClose = this.data?.allowClose ?? true;
     if (canClose) {
-      this.dialogRef.close(); // Cierra el banner si se permite cerrarlo
+      this.dialogRef.close();
     }
   }
   
@@ -62,7 +62,7 @@ export class BienvenidaComponent {
   }
 
   acceptAndFinish() {
-    this.router.navigate(['/ruta_final']); // Redirige a la página deseada al finalizar
+    this.router.navigate(['/components/home']);
   }
 
   skipToEnd() {

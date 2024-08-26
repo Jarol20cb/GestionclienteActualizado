@@ -44,7 +44,7 @@ export class UserCredentialsComponent implements OnInit, OnDestroy {
       },
       error => {
         this.error = error;
-        console.error('Error al obtener los detalles del usuario', error);
+        console.error('Ocurrio un error en el lado del servidor', error);
       }
     );
   }
