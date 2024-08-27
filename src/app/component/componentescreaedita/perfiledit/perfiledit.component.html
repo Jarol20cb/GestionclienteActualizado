@@ -60,7 +60,7 @@
       </div>
       <div class="column-wrapper">
         <div class="form-group column">
-          <label for="limiteUsuarios">Límite de Usuarios</label>
+          <label for="limiteUsuarios">Numeros de usuarios que pueden usarlo</label>
           <input id="limiteUsuarios" type="number" formControlName="limiteUsuarios" />
           <div *ngIf="obtenerControlCampo('limiteUsuarios')?.touched && obtenerControlCampo('limiteUsuarios')?.errors?.['required']" class="error">
             El límite de usuarios es obligatorio.

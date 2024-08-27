@@ -48,11 +48,18 @@ body {
   font-size: 16px;
   display: block;
   transition: opacity 0.3s;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .sidenav.closed .usermane-info {
   opacity: 0;
   margin-bottom: 0;
+}
+
+.usermane-info {
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .sidenav.closed .user-image {
