@@ -126,11 +126,11 @@
       </div>
       <div class="form-row">
         <div class="form-group buttons-container">
-          <button type="submit" class="custom-button" [disabled]="form.invalid">Aceptar</button>
+          <button type="submit" class="custom-button" [disabled]="isFormInvalid()">Aceptar</button>
           <button type="button" class="custom-button-cancel" (click)="goBack()">Cancelar</button>
           <p>{{ mensaje }}</p>
         </div>
-      </div>
+      </div>      
     </form>
   </div>
 </body>

@@ -99,11 +99,12 @@ export class CustomerEditComponent implements OnInit {
         this.form.get('socio')?.setValue('');
       }
     });
-
-    if (this.edicion) {
-      this.init(this.id!);
-    }
   }
+
+  isFormInvalid(): boolean {
+    return this.form.invalid || !this.form.dirty;
+  }
+  
 
   loadAvailablePerfiles(serviceId: number) {
     this.perfilService.findAvailableByService(serviceId).subscribe(data => {
