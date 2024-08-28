@@ -6,6 +6,7 @@ import { CustomersServices } from 'src/app/model/CustomerService';
 import { Registro } from 'src/app/model/registro';
 import { Router } from '@angular/router';
 import { PerfilService } from 'src/app/service/perfil-service.service';
+import { BannerPremiumComponent } from '../vistas/banner-premium/banner-premium.component';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +31,13 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     private dialog: MatDialog, 
     private cS: CustomerserviceService, 
     private router: Router,
-    private perfilService: PerfilService
+    private perfilService: PerfilService,
   ) {}
+
+  //llamar a premium
+  onButtonClick() {
+    const dialogRef = this.dialog.open(BannerPremiumComponent);
+  }
 
   ngOnInit(): void {
     this.loadUserDetails();

@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { CustomersServices } from 'src/app/model/CustomerService';
 import { Registro } from 'src/app/model/registro';
+import { BannerPremiumComponent } from '../../vistas/banner-premium/banner-premium.component';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
@@ -100,7 +101,8 @@ export class ListarCsComponent implements OnInit {
   }
 
   eliminar(id: number) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    if (this.user.accountType === 'PREMIUM') {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.cS.delete(id).subscribe(() => {
@@ -113,7 +115,11 @@ export class ListarCsComponent implements OnInit {
           });
         });
       }
-    });
+    });  
+    }else {
+      this.dialog.open(BannerPremiumComponent);
+    }
+    
   }
 
   cambiarEstado(element: CustomersServices) {
@@ -261,37 +267,42 @@ export class ListarCsComponent implements OnInit {
   }
 
   exportToExcel() {
-    const flattenedData = this.dataSource.map(item => ({
-      'Cliente': item.name,
-      'Tipo de servicio': item.services?.service,
-      'Perfil': item.perfil?.correo,
-      'Socio': item.socio?.name,
-      'Fecha de Inicio': moment(item.fechainicio).format('DD/MM/YYYY'),
-      'Fecha de pagos': moment(item.fechafin).format('DD/MM/YYYY'),
-      'Estado de la cuenta': item.estado
-    }));
-  
-    // Crear el libro de trabajo y la hoja de trabajo
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(flattenedData);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-  
-    // Aplicar estilos de centrado y bordes de forma asincrónica
-    setTimeout(() => {
-      const range = XLSX.utils.decode_range(worksheet['!ref']!);
-      for (let R = range.s.r; R <= range.e.r; ++R) {
-        for (let C = range.s.c; C <= range.e.c; ++C) {
-          const cell_address = { c: C, r: R };
-          const cell_ref = XLSX.utils.encode_cell(cell_address);
-          if (!worksheet[cell_ref]) continue;
-          if (!worksheet[cell_ref].s) worksheet[cell_ref].s = {};
-          worksheet[cell_ref].s = centeredStyle;
+    if (this.user.accountType === 'PREMIUM') {
+      const flattenedData = this.dataSource.map(item => ({
+        'Cliente': item.name,
+        'Tipo de servicio': item.services?.service,
+        'Perfil': item.perfil?.correo,
+        'Socio': item.socio?.name,
+        'Fecha de Inicio': moment(item.fechainicio).format('DD/MM/YYYY'),
+        'Fecha de pagos': moment(item.fechafin).format('DD/MM/YYYY'),
+        'Estado de la cuenta': item.estado
+      }));
+    
+      // Crear el libro de trabajo y la hoja de trabajo
+      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(flattenedData);
+      const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    
+      // Aplicar estilos de centrado y bordes de forma asincrónica
+      setTimeout(() => {
+        const range = XLSX.utils.decode_range(worksheet['!ref']!);
+        for (let R = range.s.r; R <= range.e.r; ++R) {
+          for (let C = range.s.c; C <= range.e.c; ++C) {
+            const cell_address = { c: C, r: R };
+            const cell_ref = XLSX.utils.encode_cell(cell_address);
+            if (!worksheet[cell_ref]) continue;
+            if (!worksheet[cell_ref].s) worksheet[cell_ref].s = {};
+            worksheet[cell_ref].s = centeredStyle;
+          }
         }
-      }
-  
-      // Convertir el libro de trabajo a un buffer
-      const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, 'CustomerServices');
-    }, 0);
+    
+        // Convertir el libro de trabajo a un buffer
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, 'CustomerServices');
+      }, 0);
+    }else{
+      this.dialog.open(BannerPremiumComponent);
+    }
+
   }
   
   saveAsExcelFile(buffer: any, fileName: string): void {

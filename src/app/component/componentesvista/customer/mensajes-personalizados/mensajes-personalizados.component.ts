@@ -4,6 +4,10 @@ import { MensajespersonalizadosService } from 'src/app/service/mensajespersonali
 import { MensajesPersonalizados } from 'src/app/model/MensajesPersonalizados';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Registro } from 'src/app/model/registro';
+import { BannerPremiumComponent } from 'src/app/component/vistas/banner-premium/banner-premium.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from 'src/app/service/login.service';
 @Component({
   selector: 'app-mensajes-personalizados',
   templateUrl: './mensajes-personalizados.component.html',
@@ -16,6 +20,9 @@ export class MensajesPersonalizadosComponent implements OnInit {
   editMode: boolean = false;
   mensajeEditado: MensajesPersonalizados | null = null;
   activeTab: string = 'mensajes';
+  user: Registro = new Registro();
+  username: string = "";
+  role: string = '';
 
   variablesDisponibles: { [key: string]: string } = {
     '{name}': 'Nombre',
@@ -34,7 +41,9 @@ export class MensajesPersonalizadosComponent implements OnInit {
     private mensajesService: MensajespersonalizadosService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    public dialog: MatDialog,
+    private loginService: LoginService
   ) {
     this.mensajeForm = this.fb.group({
       titulo: ['', Validators.required],
@@ -45,6 +54,17 @@ export class MensajesPersonalizadosComponent implements OnInit {
   ngOnInit(): void {
     this.listarMensajes();
     this.setupInputListener();
+    this.loadUserDetails();
+  }
+
+  loadUserDetails() {
+    this.loginService.getUserDetails().subscribe(
+      data => {
+        this.user = data;
+        this.role = this.loginService.showRole();
+        this.username = this.loginService.showUser();
+      },
+    );
   }
 
   setActiveTab(tab: string) {
@@ -68,7 +88,8 @@ export class MensajesPersonalizadosComponent implements OnInit {
   }
 
   onSubmit() {
-    const messageContent = this.getTextContent(document.getElementById('messageContent'));
+    if (this.user.accountType === 'PREMIUM') {
+      const messageContent = this.getTextContent(document.getElementById('messageContent'));
     this.mensajeForm.patchValue({ message: messageContent });
   
     if (this.mensajeForm.invalid) {
@@ -105,6 +126,9 @@ export class MensajesPersonalizadosComponent implements OnInit {
           console.error('Error al guardar el mensaje', error);
         }
       );
+    }
+    }else{
+      this.dialog.open(BannerPremiumComponent);
     }
   }
   

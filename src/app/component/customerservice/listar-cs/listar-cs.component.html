@@ -6,7 +6,7 @@
   <title>Lista de registros</title>
 </head>
 <body>
-  <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro" *ngIf="user.accountType === 'PREMIUM'">
+  <div class="listar-container-overlay" [class.sombreado]="mostrarFormularioRegistro">
     <div class="container" *ngIf="verificar()">
       <br>
       <h2 style="text-align: center;">Lista de registros</h2>
@@ -44,7 +44,7 @@
             <th>Número de Celular</th> <!-- Nueva columna -->
             <th *ngIf="role=='ADMIN'">Renovar</th>
             <th *ngIf="role=='ADMIN'">Editar</th>
-            <th *ngIf="role=='ADMIN' || role=='USER'">Eliminar</th>
+            <th *ngIf="role=='ADMIN'">Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +67,7 @@
                 <mat-icon class="custom-icon">create</mat-icon>
               </button>
             </td>
-            <td *ngIf="role === 'ADMIN' || role === 'USER'">
+            <td *ngIf="role === 'ADMIN'">
               <button (click)="eliminar(element.idcs)" class="custom-delete-button">
                 <mat-icon>delete</mat-icon>
               </button>

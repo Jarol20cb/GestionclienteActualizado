@@ -30,6 +30,13 @@
             <h3>Perfiles</h3>
           </div>
         </div>
+
+        <!-- <div class="report-card" (click)="onButtonClick()">
+          <div class="report-header" style="display: block; cursor: pointer;">
+            <img src="assets/iconos/perfiles.png" alt="Perfiles" class="report-image">
+            <h3>ACCION</h3>
+          </div>
+        </div> -->
     
         <div class="report-card" routerLink="/components/socioproveedor-overview">
           <div class="report-header" style="display: block; cursor: pointer;">
@@ -91,7 +98,7 @@
        
       </div>
 
-      <div class="bottom-section" *ngIf="user.accountType === 'PREMIUM'">
+      <div class="bottom-section" >
         <div class="dashboard-grid">
           <div class="report-card">
             <div class="report-header">

@@ -47,7 +47,7 @@ const routes: Routes = [
 
   {
     path: '',
-    component: SidenavComponent, // Usa LayoutComponent como contenedor
+    component: SidenavComponent,
     canActivate: [GuardService],
     children: [
       {

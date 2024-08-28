@@ -95,6 +95,7 @@ import { ResponsiveMenuComponent } from './sidenav/responsive-menu/responsive-me
 import { VistaGestionComponent } from './vistas/vista-gestion/vista-gestion.component';
 import { RequestPasswordResetComponent } from './auth/request-password-reset/request-password-reset.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { BannerPremiumComponent } from './vistas/banner-premium/banner-premium.component';
 
 @NgModule({
   declarations: [
@@ -171,6 +172,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     VistaGestionComponent,
     RequestPasswordResetComponent,
     ResetPasswordComponent,
+    BannerPremiumComponent,
 
   ],
   imports: [

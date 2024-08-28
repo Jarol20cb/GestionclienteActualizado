@@ -11,8 +11,8 @@
         <button  class="fab-item" (click)="toggleSelectionMode()">
           {{ selectionMode ? 'Cancelar Selección' : 'Seleccionar' }}
         </button>
-        <button class="fab-item" *ngIf="user.accountType === 'PREMIUM'" (click)="vermensajes()">Crear mensajes</button>
-        <button class="fab-item" *ngIf="user.accountType === 'PREMIUM'" (click)="exportToExcel()"><i class="fas fa-file-excel"></i> Exportar</button>
+        <button class="fab-item" (click)="vermensajes()">Crear mensajes</button>
+        <button class="fab-item" (click)="exportToExcel()"><i class="fas fa-file-excel"></i> Exportar</button>
         <button *ngIf="selectedCustomers.length > 0" class="fab-item" (click)="eliminarSeleccionados()">Eliminar Seleccionados</button>
       </div>
     </div>
