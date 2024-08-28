@@ -257,6 +257,13 @@ body {
   color: var(--warning-color) !important;
 }
 
+.premium-image {
+  width: 18px;
+  height: auto;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
 @media (max-width: 768px) {
   .content-wrapper {
     flex-direction: column;

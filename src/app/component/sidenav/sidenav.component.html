@@ -35,12 +35,14 @@
                     <a (click)="setActive('exportar')" routerLink="/components/exportar" [class.active]="active === 'exportar'">
                         <span class="material-icons icon">unarchive</span>
                         <span class="text">Exportar registros</span>
+                        <img *ngIf="user.accountType !== 'PREMIUM'" src="assets/iconos/corona.png" alt="Premium" class="premium-image">
                     </a>
                 </li>
                 <li>
                     <a (click)="setActive('mensajes')" routerLink="/components/mensajes" [class.active]="active === 'mensajes'">
                         <span class="material-icons icon">forum</span>
                         <span class="text">Crear mensajes personalizados</span>
+                        <img *ngIf="user.accountType !== 'PREMIUM'" src="assets/iconos/corona.png" alt="Premium" class="premium-image">
                     </a>
                 </li>
             </ul>

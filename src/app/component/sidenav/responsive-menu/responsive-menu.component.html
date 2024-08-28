@@ -20,39 +20,8 @@
         <span class="material-icons icon">manage_accounts</span>
         <span class="text">Gestión</span>
     </a>
-    <!-- <a (click)="toggleSubmenu('gestion')">
-        <span class="material-icons icon">manage_accounts</span>
-        <span class="text">Gestión</span>
-    </a>
-    <ul *ngIf="submenuActive === 'gestion'">
-        <li>
-            <a (click)="navigate('customer-overview')">
-                <span class="material-icons icon">people</span>
-                <span class="text">Clientes</span>
-            </a>
-        </li>
-        <li>
-            <a (click)="navigate('socioproveedor-overview')">
-                <span class="material-icons icon">handshake</span>
-                <span class="text">Socios y Proveedores</span>
-            </a>
-        </li>
-        <li>
-            <a (click)="navigate('servicios-overview')" >
-                <span class="material-icons icon">subscriptions</span>
-                <span class="text">Servicios</span>
-            </a>
-        </li>
-        <li>
-            <a (click)="navigate('perfil-overview')">
-                <span class="material-icons icon">email</span>
-                <span class="text">Perfiles</span>
-            </a>
-        </li>
-    </ul> -->
-
-    <!-- Submenú de Herramientas (Solo PREMIUM) -->
-    <a *ngIf="user.accountType === 'PREMIUM'" (click)="toggleSubmenu('herramientas')">
+    
+    <a (click)="toggleSubmenu('herramientas')">
         <span class="material-icons icon">build</span>
         <span class="text">Herramientas</span>
     </a>
@@ -61,12 +30,14 @@
             <a (click)="navigate('exportar')">
                 <span class="material-icons icon">unarchive</span>
                 <span class="text">Exportar Registros</span>
+                <img *ngIf="user.accountType !== 'PREMIUM'" src="assets/iconos/corona.png" alt="Premium" class="premium-image">
             </a>
         </li>
         <li>
             <a (click)="navigate('mensajes')">
                 <span class="material-icons icon">forum</span>
                 <span class="text">Crear Mensajes Personalizados</span>
+                <img *ngIf="user.accountType !== 'PREMIUM'" src="assets/iconos/corona.png" alt="Premium" class="premium-image">
             </a>
         </li>
     </ul>

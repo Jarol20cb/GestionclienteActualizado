@@ -97,3 +97,10 @@
 .menu-content ul li a .text {
   font-size: 14px;
 }
+
+.premium-image {
+  width: 18px;
+  height: auto;
+  margin-left: 5px;
+  vertical-align: middle;
+}

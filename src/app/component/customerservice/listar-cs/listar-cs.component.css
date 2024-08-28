@@ -191,6 +191,14 @@ h2 {
   background-color: rgba(0, 128, 0, 0.1);
 }
 
+.premium-image {
+  width: 18px;
+  height: auto;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+
 @media (max-width: 768px) {
   .container {
       width: 100%;

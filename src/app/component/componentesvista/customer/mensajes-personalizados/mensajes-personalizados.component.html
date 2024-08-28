@@ -92,6 +92,7 @@
         <div class="section-button" style="gap: 15px; display: flex; justify-content: center; padding: 15px;">
           <button type="submit" class="btn btn-primary">
             {{ editMode ? 'Actualizar' : 'Guardar' }}
+            <img *ngIf="user.accountType !== 'PREMIUM'" src="assets/iconos/corona.png" alt="Premium" class="premium-image">
           </button>
           <button 
             type="button" 

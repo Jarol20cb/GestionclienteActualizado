@@ -25,9 +25,12 @@
           <button *ngIf="role=='ADMIN'" class="mi-boton" (click)="mostrarFormulario()">
             <mat-icon>add</mat-icon> Añadir
           </button>
-          <button (click)="exportToExcel()" class="mi-boton">
-            <mat-icon>file_download</mat-icon> Exportar
-          </button>
+          <div class="button-actions">
+            <button (click)="exportToExcel()" class="mi-boton">
+              <mat-icon>file_download</mat-icon> Exportar
+              <img *ngIf="user.accountType !== 'PREMIUM'" src="assets/iconos/corona.png" alt="Premium" class="premium-image">
+            </button>
+          </div>          
         </div>
       </div>
       <br>

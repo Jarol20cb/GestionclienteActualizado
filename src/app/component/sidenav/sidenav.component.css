@@ -235,6 +235,13 @@ body {
   display: none;
 }
 
+.premium-image {
+  width: 18px;
+  height: auto;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
 @media screen and (max-width: 768px) {
   .sidenav {
     left: -250px;
