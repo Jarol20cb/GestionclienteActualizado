@@ -78,6 +78,10 @@ export class ListarCsComponent implements OnInit {
     );
   }
 
+  onButtonClick() {
+    const dialogRef = this.dialog.open(BannerPremiumComponent);
+  }
+
   mostrarFormulario() {
     this.mostrarFormularioRegistro = true;
     this.idEdicion = null;

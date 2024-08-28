@@ -30,13 +30,6 @@
             <h3>Perfiles</h3>
           </div>
         </div>
-
-        <!-- <div class="report-card" (click)="onButtonClick()">
-          <div class="report-header" style="display: block; cursor: pointer;">
-            <img src="assets/iconos/perfiles.png" alt="Perfiles" class="report-image">
-            <h3>ACCION</h3>
-          </div>
-        </div> -->
     
         <div class="report-card" routerLink="/components/socioproveedor-overview">
           <div class="report-header" style="display: block; cursor: pointer;">
@@ -50,14 +43,25 @@
 
     <div class="dashboard">
       <div class="top-section">
-        <div class="widgets-section" *ngIf="user.accountType === 'PREMIUM'">
+    
+        <div class="widgets-section">
           <h1 style="font-weight: 700; color: #34495e; text-align: center;">Plataformas con más perfiles</h1>
-          <canvas *ngIf="popularPlatforms.length > 0" id="popularPlatformsChart" width="430" height="250"></canvas>
-          <div *ngIf="popularPlatforms.length === 0">
-            <img src="assets/koala-durmiendo.png" alt="No hay clientes con estado pendiente" style="max-width: 40%; height: auto; display: block; margin: 0 auto;">
-            <p>Aún no hay datos para mostrar.</p>
+          
+          <!-- Contenido que se cubrirá si no es PREMIUM -->
+          <div class="content-to-cover">
+            <canvas *ngIf="popularPlatforms.length > 0" id="popularPlatformsChart" width="430" height="250"></canvas>
+            <div *ngIf="popularPlatforms.length === 0">
+              <img src="assets/koala-durmiendo.png" alt="No hay clientes con estado pendiente" style="max-width: 40%; height: auto; display: block; margin: 0 auto;">
+              <p>Aún no hay datos para mostrar.</p>
+            </div>
+        
+            <!-- Imagen que cubre todo si el usuario no es PREMIUM -->
+            <div *ngIf="user.accountType !== 'PREMIUM'" class="overlay" (click)="onButtonClick()" style="cursor: pointer;">
+              <img src="assets/premium.png" alt="Contenido exclusivo para usuarios Premium" class="overlay-image">
+            </div>
           </div>
         </div>
+        
         
         <div class="clients-section">
           <h1 style="font-weight: 700;">Clientes con Estado Pendiente</h1><br>
@@ -98,7 +102,7 @@
        
       </div>
 
-      <div class="bottom-section" >
+      <div class="bottom-section">
         <div class="dashboard-grid">
           <div class="report-card">
             <div class="report-header">
@@ -106,21 +110,39 @@
               <h2>{{ totalUsuarios }}</h2>
             </div>
             <p>Total de usuarios</p>
+      
+            <!-- Overlay para cuentas no Premium -->
+            <div *ngIf="user.accountType !== 'PREMIUM'" class="overlay" (click)="onButtonClick()" style="cursor: pointer;">
+              <img src="assets/premium.png" alt="Contenido exclusivo para usuarios Premium" class="overlay-image">
+            </div>
           </div>
+      
           <div class="report-card">
             <div class="report-header">
               <span class="material-icons report-icon">account_balance_wallet</span>
               <h2>{{ usuariosDeudores }}</h2>
             </div>
             <p>Usuarios deudores</p>
+      
+            <!-- Overlay para cuentas no Premium -->
+            <div *ngIf="user.accountType !== 'PREMIUM'" class="overlay" (click)="onButtonClick()" style="cursor: pointer;">
+              <img src="assets/premium.png" alt="Contenido exclusivo para usuarios Premium" class="overlay-image">
+            </div>
           </div>
+      
           <div class="report-card">
             <div class="report-header">
               <span class="material-icons report-icon">badge</span>
               <h2>{{ usuariosDisponiblesPerfiles }}</h2>
             </div>
             <p>Total de Perfiles Disponibles</p>
+      
+            <!-- Overlay para cuentas no Premium -->
+            <div *ngIf="user.accountType !== 'PREMIUM'" class="overlay" (click)="onButtonClick()" style="cursor: pointer;">
+              <img src="assets/premium.png" alt="Contenido exclusivo para usuarios Premium" class="overlay-image">
+            </div>
           </div>
+      
           <div class="report-card">
             <div class="report-header">
               <span class="material-icons report-icon">account_balance_wallet</span>
@@ -132,9 +154,15 @@
                 <div class="progress" [style.width.%]="(usuariosDeudores / totalUsuarios) * 100"></div>
               </div>
             </div>
+      
+            <!-- Overlay para cuentas no Premium -->
+            <div *ngIf="user.accountType !== 'PREMIUM'" class="overlay" (click)="onButtonClick()" style="cursor: pointer;">
+              <img src="assets/premium.png" alt="Contenido exclusivo para usuarios Premium" class="overlay-image">
+            </div>
           </div>
         </div>
       </div>
+      
     </div>       
   </div>
 </div>

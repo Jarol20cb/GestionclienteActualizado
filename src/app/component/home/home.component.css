@@ -66,6 +66,7 @@ body {
 }
 
 .report-card {
+  position: relative;
   background-color: var(--background-color);
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -247,8 +248,12 @@ body {
   color: var(--background-color);
 }
 
-
 @media screen and (max-width: 1251px) {
+
+  .report-card .overlay .overlay-image{
+    width: 20%;
+  }
+
   .dashboard {
     flex-direction: column;
   }
@@ -263,7 +268,7 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  
+
   .sidebar {
     position: fixed;
   }
@@ -306,7 +311,6 @@ body {
 }
 
 @media screen and (max-width: 559px) {
-  
   .header h1 {
     font-size: 1.5em;
     white-space: nowrap;
@@ -388,4 +392,46 @@ canvas {
 
 canvas:hover {
   cursor: pointer;
+}
+
+.widgets-section {
+  position: relative;
+  background-color: var(--background-color);
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.widgets-section h1 {
+  font-weight: 700;
+  color: #34495e;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.content-to-cover {
+  position: relative;
+  margin-top: 20px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  border-radius: 15px;
+}
+
+.overlay-image {
+  max-width: 50%;
+  height: auto;
+  z-index: 3;
 }
