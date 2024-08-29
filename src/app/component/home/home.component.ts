@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   error: string = "";
   popularPlatforms: any[] = [];
   isChartRendered: boolean = false;
+  isLoading = true;
 
   constructor(
     private loginService: LoginService, 
@@ -39,6 +40,12 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     const dialogRef = this.dialog.open(BannerPremiumComponent);
   }
 
+  loadData(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
+
   ngOnInit(): void {
     this.loadUserDetails();
     this.cargarClientesPendientes();
@@ -49,6 +56,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
         return total + perfil.usuariosDisponibles;
       }, 0);
     });
+    this.loadData();
   }
 
   ngAfterViewChecked() {

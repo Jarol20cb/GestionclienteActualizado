@@ -1,20 +1,18 @@
-<div class="banner-premium-overlay">
-    <div class="banner-premium-content animated-entry">
-      <img src="assets/iconos/corona.png" alt="Corona" class="crown-icon">
-      <div class="close-icon" (click)="onClose()">&times;</div>
-      <img src="assets/premium.png" alt="Premium Banner Image" class="premium-banner-image">
-      <h1>¡Aprovecha al máximo con la suscripción Premium!</h1>
-      <p>Por una suscripción de <span class="highlight-price">10 soles al mes</span>, disfruta de estas ventajas:</p>
-      <div class="benefits-list">
-          <div class="benefit-item">✉ Creador de mensajes personalizados</div>
-          <div class="benefit-item">📊 Informes visuales</div>
-          <div class="benefit-item">📥 Exporta datos en Excel</div>
-          <div class="benefit-item">⚡ Soporte prioritario</div>
-          <div class="benefit-item">🚀 Nuevas funciones en camino</div>
-      </div>
-      <p><strong>¡No pierdas esta oportunidad!</strong> Únete a Premium y potencia tu negocio.</p>
-      <div class="button-group">
-        <button class="upgrade-button" (click)="onUpgrade()">Actualizar a Premium</button>
-      </div>
+<div class="banner-overlay">
+  <div class="banner-content">
+    <div class="close-icon" (click)="onClose()">&times;</div>
+    <img src="assets/premium.png" alt="Premium Banner Image" class="banner-image">
+    <h1>¡Aprovecha al máximo con la suscripción Premium!</h1>
+    <p>Por una suscripción de <span class="highlight-price">10 soles al mes</span>, disfruta de estas ventajas:</p>
+    <ul class="benefits-list">
+      <li>✉ Creador de mensajes personalizados</li>
+      <li>📊 Informes visuales</li>
+      <li>📥 Exporta datos en Excel</li>
+      <li>⚡ Soporte prioritario</li>
+      <li>🚀 Nuevas funciones en camino</li>
+    </ul>
+    <div class="button-group">
+      <button class="upgrade-button" (click)="onUpgrade()">Actualizar a Premium</button>
     </div>
+  </div>
 </div>

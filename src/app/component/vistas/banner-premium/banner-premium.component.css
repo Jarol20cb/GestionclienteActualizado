@@ -1,4 +1,4 @@
-.banner-premium-overlay {
+.banner-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,126 +9,78 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    overflow: hidden;
-}
-
-.animated-entry {
-    animation: slideInUp 0.5s ease-out;
-}
-
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.banner-premium-content {
-    background-color: var(--background-color);
+  }
+  
+  .banner-content {
+    background-color: rgba(255, 255, 255, 0.9); 
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 12px;
     text-align: center;
     max-width: 450px;
     width: 90%;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(236, 240, 241, 0.3);
     position: relative;
-    overflow: visible;
-}
-
-.crown-icon {
-    position: absolute;
-    top: -25px;
-    left: -25px;
-    width: 50px;
-    z-index: 10;
-    transform: rotate(-45deg);
-}
-
-.premium-banner-image {
-    max-width: 100px;
-    margin-bottom: 20px;
-}
-
-.banner-premium-content h1 {
+  }
+  
+  .banner-image {
+    max-width: 80px;
     margin-bottom: 15px;
-    font-size: 28px;
-    color: var(--highlight-color);
+  }
+  
+  .banner-content h1 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: var(--text-color);
     font-weight: bold;
-}
-
-.banner-premium-content p {
-    font-size: 18px;
+  }
+  
+  .banner-content p {
+    font-size: 16px;
     color: var(--secondary-color);
     margin-bottom: 20px;
-}
-
-.highlight-price {
-    color: var(--accent-color);
-    font-size: 22px;
-    font-weight: bold;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.benefits-list {
+  }
+  
+  .benefits-list {
+    list-style: none;
+    padding: 0;
     margin-bottom: 20px;
-}
-
-.benefit-item {
-    font-size: 16px;
-    color: var(--text-color);
+  }
+  
+  .benefits-list li {
     margin-bottom: 10px;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.benefit-item:hover {
-    transform: scale(1.1);
-    color: var(--highlight-color);
-}
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.upgrade-button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
     font-size: 16px;
-    background-color: var(--highlight-color);
-    color: var(--neutral-color);
+    color: var(--secondary-color);
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .upgrade-button {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
     transition: background-color 0.3s ease;
-    font-weight: bold;
-}
-
-.upgrade-button:hover {
-    background-color: var(--highlight-color-hover);
-}
-
-.close-icon {
+    background-color: var(--secondary-color);
+    color: var(--neutral-color);
+  }
+  
+  .upgrade-button:hover {
+    background-color: var(--highlight-color);
+  }
+  
+  .close-icon {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: var(--warning-color);
-    color: var(--neutral-color);
+    background-color: var(--warning-color); 
+    color: var(--background-color);
     border: none;
     border-radius: 50%;
     width: 30px;
@@ -140,80 +92,45 @@
     justify-content: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
-}
-
-.close-icon:hover {
+    z-index: 1;
+  }
+  
+  .close-icon:hover {
     background-color: var(--warning-color-hover);
-}
-
-/* Responsive Design */
-
-@media (max-width: 600px) {
-    .banner-premium-content {
-        padding: 20px;
-        width: 95%;
-        border-radius: 12px;
+  }
+  
+  @media (max-width: 600px) {
+    .banner-content {
+      padding: 20px;
+      max-width: 95%;
     }
-
-    .premium-banner-image {
-        max-width: 80px;
+  
+    .banner-image {
+      max-width: 60px;
     }
-
-    .banner-premium-content h1 {
-        font-size: 22px;
+  
+    .banner-content h1 {
+      font-size: 20px;
     }
-
-    .banner-premium-content p {
-        font-size: 16px;
+  
+    .banner-content p {
+      font-size: 14px;
     }
-
-    .benefit-item {
-        font-size: 14px;
+  
+    .button-group {
+      flex-direction: column;
     }
-
+  
     .upgrade-button {
-        padding: 10px 15px;
-        font-size: 14px;
+      padding: 8px;
+      font-size: 12px;
+      margin-bottom: 10px;
     }
-
-    .crown-icon {
-        top: -19px;
-        left: -19px;
-        width: 40px;
+  
+    .close-icon {
+      width: 25px;
+      height: 25px;
+      font-size: 14px;
     }
-}
-
-@media (max-width: 360px) {
-    .banner-premium-content {
-        padding: 15px;
-        width: 90%;
-        border-radius: 10px;
-    }
-
-    .premium-banner-image {
-        max-width: 70px;
-    }
-
-    .banner-premium-content h1 {
-        font-size: 20px;
-    }
-
-    .banner-premium-content p {
-        font-size: 14px;
-    }
-
-    .benefit-item {
-        font-size: 12px;
-    }
-
-    .upgrade-button {
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-
-    .crown-icon {
-        top: -15px;
-        left: -15px;
-        width: 35px;
-    }
-}
+  }
+  
