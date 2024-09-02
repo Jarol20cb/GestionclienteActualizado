@@ -36,8 +36,31 @@ export class BannerManagerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkAccountStatus();
-    this.getUserDetails();
+    this.initializeBannerManager();
+  }
+
+  initializeBannerManager() {
+    this.getUserDetails().then(() => {
+      this.checkAccountStatus();
+      this.queueBanners();
+      this.showNextBanner();
+    });
+  }
+
+  getUserDetails(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.loginService.getUserDetails().subscribe(
+        data => {
+          this.user = new UserWithDates(data);
+          this.calculateSubscriptionDuration();
+          resolve();
+        },
+        error => {
+          console.error('Error al obtener detalles del usuario:', error);
+          reject(error);
+        }
+      );
+    });
   }
 
   calculateSubscriptionDuration() {
@@ -47,33 +70,18 @@ export class BannerManagerComponent implements OnInit {
         const currentTime = new Date().getTime();
 
         const diffInMilliseconds = endDate.getTime() - currentTime;
+        const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+        const remainingMinutes = Math.floor((diffInMilliseconds / (1000 * 60)) % 60);
 
-        const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
-        const diffInMinutes = Math.floor(diffInSeconds / 60);
-        const diffInHours = Math.floor(diffInMinutes / 60);
-        const diffInDays = Math.floor(diffInHours / 24);
-
-        const remainingHours = diffInHours % 24;
-        const remainingMinutes = diffInMinutes % 60;
-        const remainingSeconds = diffInSeconds % 60;
-
-        this.subscriptionDuration = `${remainingHours} horas, ${remainingMinutes} minutos`;
+        this.subscriptionDuration = `${diffInHours} horas, ${remainingMinutes} minutos`;
     }
-}  
+  }  
 
   checkAccountStatus() {
-    this.loginService.getUserDetails().subscribe(
-      data => {
-        this.user = new UserWithDates(data);
-
-        // Evitar agregar el banner si no es un usuario nuevo
-        if (this.isNewUser()) {
-          console.log('Usuario nuevo, mostrando banner de bienvenida.');
-          this.queueBanners();
-        }
-        this.showNextBanner();
-      },
-    );
+    // Evitar agregar el banner si no es un usuario nuevo
+    if (this.isNewUser()) {
+      console.log('Usuario nuevo, mostrando banner de bienvenida.');
+    }
   }
 
   isNewUser(): boolean {
@@ -84,13 +92,12 @@ export class BannerManagerComponent implements OnInit {
     const timeDifference = Math.abs(currentTime - accountCreationTime);
     const minutesSinceCreation = timeDifference / (1000 * 60);
 
-    // console.log(`Tiempo de creación de la cuenta: ${new Date(this.user.createdAt)}`);
-    // console.log(`Tiempo actual: ${new Date(currentTime)}`);
-    // console.log(`Minutos desde la creación: ${minutesSinceCreation}`);
+    console.log(`Tiempo de creación de la cuenta: ${new Date(this.user.createdAt)}`);
+    console.log(`Tiempo actual: ${new Date(currentTime)}`);
+    console.log(`Minutos desde la creación: ${minutesSinceCreation}`);
 
     return minutesSinceCreation <= 5;
-}
-
+  }
 
   hasBannerBeenShown(bannerKey: string): boolean {
     return !!sessionStorage.getItem(bannerKey);
@@ -99,16 +106,6 @@ export class BannerManagerComponent implements OnInit {
   markBannerAsShown(bannerKey: string): void {
     sessionStorage.setItem(bannerKey, 'true');
   }
-
-  getUserDetails() {
-    this.loginService.getUserDetails().subscribe(
-      data => {
-        this.user = data;
-        this.calculateSubscriptionDuration();
-      },
-    );
-  }
-  
 
   queueBanners() {
     this.calculateSubscriptionDuration();
@@ -126,7 +123,7 @@ export class BannerManagerComponent implements OnInit {
           `Hola, ${this.user.name}.`,
           `Tu suscripción al plan ${this.user.accountType} terminará en ${this.subscriptionDuration}.`,
           'Para disfrutar de los beneficios de tu cuenta Premium.'
-      ],
+        ],
         buttons: [
           { text: 'Pagar Suscripción', class: 'renew-button', action: () => this.onRenew() }
         ],
@@ -231,8 +228,7 @@ export class BannerManagerComponent implements OnInit {
           '¡No te pierdas los beneficios exclusivos que solo ofrece nuestro plan PREMIUM!'
         ],
         buttons: [
-          { text: 'Actualizar Pago', class: 'update-payment-button', action: () => this.onUpdatePayment() },
-          // { text: 'Más Información', class: 'info-button', action: () => this.onMoreInfo() }
+          { text: 'Actualizar Pago', class: 'update-payment-button', action: () => this.onUpdatePayment() }
         ],
         allowClose: true
       });
@@ -279,7 +275,7 @@ export class BannerManagerComponent implements OnInit {
               allowClose: true
             });
             this.markBannerAsShown('pendientes');
-    
+
             // Intentamos mostrar el banner de inmediato
             this.showNextBanner();
           } else {
@@ -331,10 +327,10 @@ export class BannerManagerComponent implements OnInit {
 
   showNextBanner() {
     if (this.isBannerActive || this.bannerQueue.length === 0) return;
-  
+
     this.isBannerActive = true;
     const nextBanner = this.bannerQueue.shift();
-  
+
     if (nextBanner.component === 'BienvenidaComponent') {
       nextBanner.action();
     } else {
@@ -344,7 +340,7 @@ export class BannerManagerComponent implements OnInit {
         disableClose: !nextBanner.allowClose,
         data: nextBanner
       });
-  
+
       dialogRef.afterClosed().subscribe(() => {
         this.isBannerActive = false;
         this.showNextBanner();
